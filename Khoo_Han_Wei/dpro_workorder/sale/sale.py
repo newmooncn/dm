@@ -36,6 +36,7 @@ DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 
 class work_order(osv.Model):
     _inherit = 'sale.order'
+    _order = 'date_in desc, id desc'
 
     def _task_work_ids(self, cr, uid, ids, name, arg, context=None):
         res = {}

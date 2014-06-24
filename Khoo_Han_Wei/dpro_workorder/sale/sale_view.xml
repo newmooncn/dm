@@ -186,16 +186,16 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sale.order</field>
             <field name="view_type">form</field>
-            <field name="view_mode">kanban,tree,form,calendar,graph</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
             <field name="search_view_id" ref="sale.view_sales_order_filter"/>
             <field name="domain">[('state','in',['draft'])]</field>
         </record>
-        <record id="action_work_orders_draft_view1" model="ir.actions.act_window.view">
+<!--         <record id="action_work_orders_draft_view1" model="ir.actions.act_window.view">
             <field eval="0" name="sequence"/>
             <field name="view_mode">kanban</field>
             <field name="view_id" ref="view_order_kanban"/>
             <field name="act_window_id" ref="action_work_orders_draft"/>
-        </record>
+        </record> -->
         <record id="action_work_orders_draft_view2" model="ir.actions.act_window.view">
             <field eval="1" name="sequence"/>
             <field name="view_mode">tree</field>
@@ -229,16 +229,16 @@
             <field name="type">ir.actions.act_window</field>
             <field name="res_model">sale.order</field>
             <field name="view_type">form</field>
-            <field name="view_mode">kanban,tree,form,calendar,graph</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
             <field name="search_view_id" ref="sale.view_sales_order_filter"/>
             <field name="domain">[('state','not in',['draft'])]</field>
         </record>
-        <record id="action_work_orders_view1" model="ir.actions.act_window.view">
+<!--         <record id="action_work_orders_view1" model="ir.actions.act_window.view">
             <field eval="0" name="sequence"/>
             <field name="view_mode">kanban</field>
             <field name="view_id" ref="view_order_kanban"/>
             <field name="act_window_id" ref="action_work_orders"/>
-        </record>
+        </record> -->
         <record id="action_work_orders_view2" model="ir.actions.act_window.view">
             <field eval="1" name="sequence"/>
             <field name="view_mode">tree</field>
