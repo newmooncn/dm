@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="project.view_task_calendar" model="ir.ui.view">
+            <field name="name">acespritech.project.task.calendar</field>
+            <field name="model">project.task</field>
+            <field eval="2" name="priority"/>
+            <field name="arch" type="xml">
+                <calendar color="user_id" date_start="date_start" date_stop="date_end" string="Tasks">
+                    <field name="name"/>
+                    <field name="project_id"/>
+                </calendar>
+            </field>
+        </record>
+
+        <record id="dpro_view_task_form2" model="ir.ui.view">
+            <field name="name">acespritech.project.task.form</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+                <field name="partner_id" position="after">
+                    <button name="open_map" string="Google Map" type="object" icon="gtk-zoom-in"/>
+                </field>
+            </field>
+        </record>
+
+        <record id="action_dpro_task" model="ir.actions.act_window">
+            <field name="name">Tasks</field>
+            <field name="res_model">project.task</field>
+            <field name="view_mode">kanban,tree,form,calendar,gantt,graph</field>
+            <field name="search_view_id" ref="project.view_task_search_form"/>
+        </record>
+        <record id="dpro_task_view1" model="ir.actions.act_window.view">
+            <field name="sequence" eval="0"/>
+            <field name="view_mode">kanban</field>
+            <field name="act_window_id" ref="action_dpro_task"/>
+        </record>
+        <record id="dpro_task_view2" model="ir.actions.act_window.view">
+            <field name="sequence" eval="1"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="action_dpro_task"/>
+        </record>
+
+        <menuitem id="menu_dpro_task" action="action_dpro_task" sequence="20" parent="menu_child_service"/>
+
+    </data>
+</openerp>

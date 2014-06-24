@@ -1,0 +1,16 @@
+@charset "utf-8";
+
+.openerp .oe_footer {
+  position: fixed;
+  bottom: 0;
+  padding: 4px 0;
+  background: #f0eeee;
+  width: 200px;
+  text-align: center;
+  margin-left: 8px;
+}
+.openerp .oe_footer a span {
+  color: #2e2d2d;
+  font-family: "宋体" !important;
+  font-size: 16px;
+}
