@@ -267,6 +267,7 @@ class dpro_work_type(osv.osv):
     _name = "dpro.work.type"
     _description = "Work Type"
     _columns = {
-        'name': fields.char('Name', size=32),
+        'name': fields.char('Name', size=128),
+        'code': fields.char('Code', size=128),
     }
 

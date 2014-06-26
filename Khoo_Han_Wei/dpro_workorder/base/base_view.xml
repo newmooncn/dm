@@ -344,6 +344,41 @@
                 </form>
             </field>
         </record>
+        <!-- Work Type -->
 
+        <record id="view_dpro_work_type_tree" model="ir.ui.view">
+            <field name="name">dpro.work.type.tree</field>
+            <field name="model">dpro.work.type</field>
+            <field name="arch" type="xml">
+                <tree string="Work Type">
+                    <field name="code"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_dpro_work_type_form" model="ir.ui.view">
+            <field name="name">dpro.work.type.form</field>
+            <field name="model">dpro.work.type</field>
+            <field name="arch" type="xml">
+                <form string="Work Type">
+                    <group>
+                        <field name="code"/>
+                        <field name="name"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_dpro_work_type" model="ir.actions.act_window">
+            <field name="name">Work Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">dpro.work.type</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem action="action_dpro_work_type" id="menu_dpro_work_type" sequence="7"
+                 parent="menu_dpro_config"/>
     </data>
 </openerp>

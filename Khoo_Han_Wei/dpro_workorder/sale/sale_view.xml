@@ -75,7 +75,7 @@
                 <xpath expr="//page[@string='Other Information']" position="before">
                     <page string="Work Description" attrs="{'invisible': [('status_id','in',['Pending','Confirmed'])]}">
                         <group col="4" colspan="4">
-                            <field name="action_code_id"/>
+                            <field name="action_code_id" colspan="4"/>
                             <field name="maintain_reason" colspan="4"/>
                             <field name="action_taken" colspan="4"/>
                             <field name="comment" colspan="4"/>
