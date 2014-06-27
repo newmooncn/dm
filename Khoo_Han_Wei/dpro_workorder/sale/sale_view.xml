@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
         <record model="ir.ui.view" id="dpro_sale_view_inherit123">
             <field name="name">acespritech.sale.order.inherit</field>
             <field name="model">sale.order</field>
@@ -12,7 +11,7 @@
                     <field name="work_type"/>
                     <field name="acc_distance"/>
                     <field name="acc_time"/>
-                    <field name="relevancy"/>
+                    <field name="relevancy"/>      
                 </field>
             </field>
         </record>
@@ -70,6 +69,10 @@
                         <group col="4" colspan="4">
                             <field name="work_requested" colspan="4"/>
                         </group>
+                        <group col="4" colspan="4">
+                            <field name="mod_test_id"/>
+                            <field name="rev_test"/>
+                        </group>
                     </page>
                 </xpath>
                 <xpath expr="//page[@string='Other Information']" position="before">
@@ -80,14 +83,6 @@
                             <field name="action_taken" colspan="4"/>
                             <field name="comment" colspan="4"/>
                             <field name="defect" colspan="4"/>
-                        </group>
-                        <group>
-                        	<group>
-                            	<field name="mod_test_id"/>
-                            </group>
-                        	<group>
-                            	<field name="rev_test"/>
-                            </group>
                         </group>
                     </page>
                     <page string="Part Replaced" attrs="{'invisible': [('status_id','in',['Pending','Confirmed'])]}">
@@ -181,6 +176,17 @@
             </field>
         </record>
 
+        <record model="ir.ui.view" id="dpro_view_sales_order_filter">
+            <field name="name">dpro_view_sales_order_filter</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_sales_order_filter"/>
+            <field name="arch" type="xml">
+            	<xpath expr="//filter[@string='Salesperson']" position='attributes'>
+            		<attribute name="string">Announcer</attribute>
+            	</xpath>
+            </field>
+        </record>
+        
         <record id="action_work_orders_draft" model="ir.actions.act_window">
             <field name="name">Work Orders</field>
             <field name="type">ir.actions.act_window</field>

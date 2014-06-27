@@ -21,7 +21,6 @@
 import base
 import product
 import partner
-import crm
 import project
 import project_mrp
 import sale
