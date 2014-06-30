@@ -71,14 +71,14 @@ class work_order(osv.Model):
         'date_in': fields.datetime('Date In'),
         'date_due': fields.datetime('Date Due'),
         'date_closed': fields.datetime('Date Closed'),
-        'mode_test_result_id': fields.char('Mode Test Result ID', size=256),
+        'mode_test_result_id': fields.char('MOD/Result ID', size=256),
         'work_requested': fields.text('Work Requested'),
         'm_work_requested': fields.text('Maintenance Work Requested'),
         'comment': fields.text('Comments'),
         'action_taken': fields.text('Action Taken'),
         'defect': fields.text('Defect/Cause'),
         'm_defect': fields.text('Defect/Cause'),
-        'rev_test_result': fields.char('Rev Test Result', size=256),
+        'rev_test_result': fields.char('Rev. Results', size=256),
         'relevancy': fields.selection([('true','True'),('false','False')],'Relevancy'),
         'acc_distance': fields.integer('Acc Distance'),
         'acc_time': fields.integer('Acc Time'),
@@ -118,9 +118,9 @@ class work_order(osv.Model):
         'user_id': fields.many2one('res.users', 'Announcer',
                                    states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}, select=True, track_visibility='onchange'),
         #Mod/Test ID (single line input), ), half width of content   
-        'mod_test_id': fields.char('MOD/Result ID', size=64),
+        'mod_test_id': fields.char('MOD/Test ID', size=64),
         #Rev. Test (single line input), same line as mod result id, half width of content 
-        'rev_test': fields.char('Rev. Result', size=64),
+        'rev_test': fields.char('Rev. Test', size=64),
         #- Maintenance Reason (multiline input)          
         'maintain_reason': fields.text('Maintenance Reason'),    
     }

@@ -18,11 +18,4 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-import base
-import product
-import partner
-import project
-import project_mrp
-import sale
-import stock
-import report
+import dpro_report

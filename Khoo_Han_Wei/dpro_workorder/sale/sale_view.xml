@@ -84,6 +84,10 @@
                             <field name="comment" colspan="4"/>
                             <field name="defect" colspan="4"/>
                         </group>
+                        <group col="4" colspan="4">
+                            <field name="mode_test_result_id"/>
+                            <field name="rev_test_result"/>
+                        </group>
                     </page>
                     <page string="Part Replaced" attrs="{'invisible': [('status_id','in',['Pending','Confirmed'])]}">
                         <field name="part_replace_ids" nolabel="1" colspan="4">

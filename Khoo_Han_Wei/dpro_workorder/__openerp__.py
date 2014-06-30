@@ -41,6 +41,7 @@
         'sale/sale_report.xml',
         'stock/stock_view.xml',
         'project/project_view.xml',
+        'report/dpro_report_view.xml',
     ],
     'demo': [],
     'installable': True,
