@@ -37,7 +37,6 @@ DATETIME_FORMAT = "%Y-%m-%d %H:%M:%S"
 class work_order(osv.Model):
     _inherit = 'sale.order'
     _order = 'date_in desc, id desc'
-
     def _task_work_ids(self, cr, uid, ids, name, arg, context=None):
         res = {}
         task_obj = self.pool.get('project.task')
@@ -126,7 +125,7 @@ class work_order(osv.Model):
     }
     _defaults = {
         'color': 0,
-        'status_id': 'pending',
+        'status_id': 'Pending',
     }
 
     def create(self, cr, uid, vals, context=None):

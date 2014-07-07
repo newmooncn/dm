@@ -85,9 +85,9 @@
                 <field name="pr_bom_id" invisible="1"/>
                 <field name="pr_bom_complete_name"/>
                 <field name="pr_name"/>
-                <field name="pr_bt_part_no"/>
                 <field name="pr_sup_supplier"/>
                 <field name="pr_sup_product_code"/>
+                <field name="pr_bt_part_no"/>
                 <field name="pr_default_code"/>
                 <field name="pr_serial_id"/>
                 <field name="pr_serial_rev"/>
@@ -127,7 +127,10 @@
         <field name="model">dpro.report</field>
 	    <field name="arch" type="xml">
 	        <search string="Search Work Order">
-	            <field name="name" string="Sales Order" filter_domain="['|',('name','ilike',self),('client_order_ref','ilike',self)]"/>
+	            <field name="name" string="Sales Order"/>
+	            <field name="proj_name"/>
+	            <field name="train_name"/>
+	            <field name="prod_name"/>
 	            <filter icon="terp-mail-message-new" string="Unread Messages" name="message_unread" domain="[('message_unread','=',True)]"/>
 	            <separator/>
 	            <filter icon="terp-document-new" string="Quotations" name="draft" domain="[('state','in',('draft','sent'))]" help="Sales Order that haven't yet been confirmed"/>

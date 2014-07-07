@@ -8,3 +8,4 @@ access_base_inspection_type,access.base.inspection.type,model_base_inspection_ty
 access_workorder_quality_control,access.workorder.quality.control,model_workorder_quality_control,group_dpro,1,1,1,1
 access_prod_lot_modification,access.prod.lot.modification,model_prod_lot_modification,group_dpro,1,1,1,1
 access_base_warranty,access.base.warranty,model_base_warranty,group_dpro,1,1,1,1
+access_dpro_work_type,access.dpro.work.type,model_dpro_work_type,group_dpro,1,1,1,1

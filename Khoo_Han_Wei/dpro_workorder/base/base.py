@@ -122,7 +122,7 @@ class workorder_part_replace(osv.Model):
         if not product_id:
             return {'value': {'product_uom': None,}}
         product_obj = self.pool.get('product.product').browse(cr, uid, product_id, context=context)
-        return {'value': {'product_uom': product_obj.uom_id.id,}}
+        return {'value': {'product_uom': product_obj.uom_id.id,'name':product_obj.name}}
     
 workorder_part_replace()
 

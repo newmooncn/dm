@@ -27,7 +27,7 @@
     'website': 'http://www.forwen.com',
     'depends': ['base', 'crm', 'account', 'sale', 'project',
                 'hr_timesheet_sheet', 'project_timesheet', 'project_mrp',
-                'sale_crm', 'sale_margin', 'sale_stock'],
+                'sale_crm', 'sale_margin', 'sale_stock','mrp'],
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',
@@ -44,6 +44,7 @@
         'report/dpro_report_view.xml',
     ],
     'demo': [],
+    'css': ['static/src/css/dpro.css',],
     'installable': True,
     'auto_install': False,
 }

@@ -26,8 +26,7 @@ import openerp.addons.decimal_precision as dp
 class dpro_report(osv.osv):
     _name = "dpro.report"
     _description = "Work Orders Statistics"
-    _auto = False
-    
+    _auto = False       
     def _get_info(self, cr, uid, ids, field_name, arg, context=None):
         res = {}
         for order in self.browse(cr, uid, ids, context=context):
@@ -36,7 +35,8 @@ class dpro_report(osv.osv):
                 'train_name': '-',
                 'prod_name': '-',
                 'pr_bom_complete_name': None,
-                'oline_loc': None
+                'oline_loc': None,
+                'pr_categ_name': None
             }
             #update the project info
             if order.project_id:
@@ -54,9 +54,38 @@ class dpro_report(osv.osv):
                 oline_loc = '%s - %s - %s'%(order.oline_prod_id.loc_rack or '',  order.oline_prod_id.loc_row or '', order.oline_prod_id.loc_case or '')
                 res_row.update({'oline_loc':oline_loc})
                 
+            if order.pr_prod_id and order.pr_prod_id.categ_id :
+                categ_name = order.pr_prod_id.categ_id.name
+                if order.pr_prod_id.categ_id.parent_id:
+                    categ_name = None
+                    categ_names = order.pr_prod_id.categ_id.complete_name.split('/')
+                    c_idx = 0 
+                    for c_name in categ_names:
+                        if c_idx > 0:
+                            categ_name = categ_name and ('%s / %s'%(categ_name, c_name)) or c_name
+                        c_idx = c_idx + 1
+                res_row.update({'pr_categ_name':categ_name})
+                
             res[order.id] = res_row
         return res
-
+    def _proj_search(self, cr, uid, obj, name, args, context=None):
+        if context is None:
+            context = {}
+        if not args:
+            return []
+        proj_filter = args[0][2]        
+        proj_obj = self.pool.get('account.analytic.account')
+        proj_all_ids = proj_obj.search(cr, uid, [], context=context)
+        proj_ids = []
+        proj_fld_idx = {'proj_name':0,'train_name':1,'prod_name':2}.get(name)
+        for proj in proj_obj.browse(cr, uid, proj_all_ids, context=context):
+            proj_names = proj.complete_name.split('/')
+            if len(proj_names) < proj_fld_idx+1:
+                continue
+            proj_name = proj_names[proj_fld_idx]
+            if proj_name and proj_filter in proj_name:
+                proj_ids.append(proj.id)
+        return [('project_id', 'in', proj_ids)]
     def _get_bom_one_full_name(self, bom, level=10):
         if level<=0:
             return '...'
@@ -69,17 +98,18 @@ class dpro_report(osv.osv):
         'id': fields.integer('Work Order ID'),
         'name': fields.char('Work Order No', size=64, ),
         'project_id': fields.many2one('account.analytic.account','Project'),
-        'proj_name': fields.function(_get_info, type='char', string='Proj ID', multi='_get_info', ),
-        'train_name': fields.function(_get_info, type='char', string='Train ID', multi='_get_info', ),
-        'prod_name': fields.function(_get_info, type='char', string='Prod ID', multi='_get_info', ),
+        'proj_name': fields.function(_get_info, fnct_search=_proj_search, type='char', string='Proj ID', multi='_get_info', ),
+        'train_name': fields.function(_get_info, fnct_search=_proj_search, type='char', string='Train ID', multi='_get_info', ),
+        'prod_name': fields.function(_get_info, fnct_search=_proj_search, type='char', string='Prod ID', multi='_get_info', ),
         'status_id': fields.selection([('Pending', 'Pending Confirmation'), ('Confirmed', 'Confirmed'),
                                        ('In Progress', 'In Progress'), ('Completed', 'Completed'), ('QA', 'Quality Assurance'),
                                        ('Closed', 'Closed')], 'WO Status'),
-        'work_type': fields.many2one('dpro.work.type', 'WO Type'),
-        'date_in': fields.datetime('Issue Date', ),
+        'work_type': fields.char('WO Type', size=64),
+        'date_in': fields.date('Issue Date', ),
         
         'pr_prod_id': fields.many2one('product.product','Part Replaced'),
-        'pr_categ_name':fields.related('pr_prod_id','categ_id',type='many2one',relation='product.category',string='Sub.Group'),
+#        'pr_categ_name':fields.related('pr_prod_id','categ_id',type='many2one',relation='product.category',string='Sub.Group'),
+        'pr_categ_name': fields.function(_get_info, type='char', string='Sub.Group', multi='_get_info', ),
         'partner_shipping_id': fields.many2one('res.partner', 'Work Loc. Code', ),
         'user_id': fields.many2one('res.users', 'Announcer', ),
         'pr_bom_id': fields.many2one('mrp.bom', 'Part Relaced BOM'),
@@ -93,11 +123,11 @@ class dpro_report(osv.osv):
         'pr_serial_rev': fields.char('Part Revision', size=128),
         
         'work_requested': fields.text('Work Requested'),
-        'wr_code_id': fields.many2one('work.request.code', 'WR Code'),
+        'wr_code_id': fields.char('WR Code', size=64),
         'mod_test_id': fields.char('MOD/Test ID', size=64),
         'rev_test': fields.char('Rev. Test', size=64),
         'maintain_reason': fields.text('Maintenance Reason'), 
-        'problem_code_id': fields.many2one('base.problem.code', 'Problem Code'),  
+        'problem_code_id': fields.char('Problem Code', size=64),  
         'defect': fields.text('Defect/Cause'),
         'action_taken': fields.text('Action Taken'),
         'mode_test_result_id': fields.char('MOD/Result ID', size=256),
@@ -105,7 +135,7 @@ class dpro_report(osv.osv):
         'comment': fields.text('Comments'),
         
         'oline_prod_id': fields.many2one('product.product','Part Replaced'),
-        'oline_warranty_id': fields.related('oline_serial_id', 'warranty_id', type='many2one', relation='base.warranty', string='Material warranty'),
+        'oline_warranty_id': fields.char('Material warranty', size=128), 
         'oline_name': fields.text('Part Description(Material)', ),
         'oline_loc': fields.function(_get_info, type='char', multi='_get_info', string='Location(Material)', ),
         'oline_bt_part_no': fields.related('oline_prod_id','bt_part_number',type='char',string='BT Part No'),
@@ -131,7 +161,7 @@ wo.id
 ,wo.name --1
 ,wo.project_id --2,3,4
 ,wo.status_id --5
-,wo.work_type --6
+,dwt.code work_type --6
 ,wo.date_in --7
 ,pr.product_id pr_prod_id --8
 ,wo.partner_shipping_id --9
@@ -142,13 +172,13 @@ wo.id
 ,pr_sup.name pr_sup_supplier --14
 ,pr_sup.product_code pr_sup_product_code --15
 ,pr.serial_id pr_serial_id --17,30
-,pr_ser_rev.name pr_serial_rev --18
+,pr_ser_rev.indice pr_serial_rev --18
 ,wo.work_requested --19
-,wo.wr_code_id --20
+,wrc.code wr_code_id --20
 ,wo.mod_test_id --21
 ,wo.rev_test --22
 ,wo.maintain_reason --23
-,wo.problem_code_id --24
+,bpc.code problem_code_id --24
 ,wo.defect --25
 ,wo.action_taken --26
 ,wo.mode_test_result_id --27
@@ -160,8 +190,13 @@ wo.id
 ,oline_sup.name oline_sup_supplier --36
 ,pr.serial_id pr_serial_id2 --37
 ,oline.prodlot_id oline_serial_id --38
-,pr_ser_rev.name pr_serial_rev2 --39
-,oline_ser_rev.name oline_serial_rev --40
+,case 
+    when current_date < bw.warranty_start + bw.warranty_period * '1 MONTH'::INTERVAL then 'true' 
+    else 'false' 
+end 
+as oline_warranty_id
+,pr_ser_rev.indice pr_serial_rev2 --39
+,oline_ser_rev.indice oline_serial_rev --40
 ,oline.product_uom_qty oline_qty --41
 ,oline.product_uom oline_uom --42
 ,wo.relevancy --43
@@ -226,8 +261,12 @@ left join (select a.*
         group by lot_id
         ) b
     on a.id = b.id) oline_ser_rev on oline.prodlot_id = oline_ser_rev.lot_id    
+left join base_problem_code bpc on wo.problem_code_id = bpc.id
+left join work_request_code wrc  on wo.wr_code_id = wrc.id
+left join dpro_work_type dwt on wo.work_type = dwt.id
+left join stock_production_lot oline_ser on oline.prodlot_id = oline_ser.id
+left join base_warranty bw on oline_ser.warranty_id = bw.id
             )
-        """)
+        """)       
 dpro_report()
-
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
