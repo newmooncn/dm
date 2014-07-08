@@ -26,7 +26,8 @@ import openerp.addons.decimal_precision as dp
 class dpro_report(osv.osv):
     _name = "dpro.report"
     _description = "Work Orders Statistics"
-    _auto = False       
+    _auto = False      
+     
     def _get_info(self, cr, uid, ids, field_name, arg, context=None):
         res = {}
         for order in self.browse(cr, uid, ids, context=context):
@@ -86,6 +87,21 @@ class dpro_report(osv.osv):
             if proj_name and proj_filter in proj_name:
                 proj_ids.append(proj.id)
         return [('project_id', 'in', proj_ids)]
+    def _bom_search(self, cr, uid, obj, name, args, context=None):
+        if context is None:
+            context = {}
+        if not args:
+            return []
+        bom_filter = args[0][2]
+        bom_obj = self.pool.get('mrp.bom')
+        bom_all_ids = bom_obj.search(cr, uid, [], context=context)        
+        bom_ids = []
+        for bom in bom_obj.browse(cr, uid, bom_all_ids, context=context):
+            bom_full_name = self._get_bom_one_full_name(bom)
+            if bom_filter in bom_full_name:
+                bom_ids.append(bom.id)
+        return [('pr_bom_id', 'in', bom_ids)]    
+    
     def _get_bom_one_full_name(self, bom, level=10):
         if level<=0:
             return '...'
@@ -96,6 +112,7 @@ class dpro_report(osv.osv):
         return parent_path + bom.name    
     _columns = {
         'id': fields.integer('Work Order ID'),
+        'workorder_id': fields.many2one('sale.order','Work Order No'),
         'name': fields.char('Work Order No', size=64, ),
         'project_id': fields.many2one('account.analytic.account','Project'),
         'proj_name': fields.function(_get_info, fnct_search=_proj_search, type='char', string='Proj ID', multi='_get_info', ),
@@ -113,7 +130,7 @@ class dpro_report(osv.osv):
         'partner_shipping_id': fields.many2one('res.partner', 'Work Loc. Code', ),
         'user_id': fields.many2one('res.users', 'Announcer', ),
         'pr_bom_id': fields.many2one('mrp.bom', 'Part Relaced BOM'),
-        'pr_bom_complete_name': fields.function(_get_info, type='char', multi='_get_info', string='Asset ID'),
+        'pr_bom_complete_name': fields.function(_get_info, fnct_search=_bom_search, type='char', multi='_get_info', string='Asset ID'),
         'pr_name': fields.char('Part Description', size=128),
         'pr_sup_supplier' : fields.many2one('res.partner', 'Supplier'),
         'pr_sup_product_code': fields.char('Supp Part No', size=64),
@@ -158,6 +175,7 @@ class dpro_report(osv.osv):
             create or replace view dpro_report as (
 select 
 wo.id
+,wo.id as workorder_id --1
 ,wo.name --1
 ,wo.project_id --2,3,4
 ,wo.status_id --5
