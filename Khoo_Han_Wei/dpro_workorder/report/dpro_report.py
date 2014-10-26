@@ -137,7 +137,7 @@ class dpro_report(osv.osv):
         'pr_bt_part_no': fields.related('pr_prod_id','bt_part_number',type='char',string='BT Part No'),
         'pr_default_code': fields.related('pr_prod_id','default_code',type='char',string='Cust Part No'),
         'pr_serial_id': fields.many2one('stock.production.lot', 'Serial No'),
-        'pr_serial_rev': fields.char('Part Revision', size=128),
+        'pr_serial_rev_name': fields.char('Part Revision', size=128),
         
         'work_requested': fields.text('Work Requested'),
         'wr_code_id': fields.char('WR Code', size=64),
@@ -161,7 +161,7 @@ class dpro_report(osv.osv):
         'oline_sup_supplier' : fields.many2one('res.partner', 'Vendor'),
         'pr_serial_id2': fields.many2one('stock.production.lot', 'S/N out'),
         'oline_serial_id': fields.many2one('stock.production.lot', 'S/N In'),
-        'pr_serial_rev2': fields.char('Rev Out', size=128),
+        'pr_serial_rev_no': fields.char('Rev Out', size=128),
         'oline_serial_rev': fields.char('Rev In', size=128),
         'oline_qty': fields.float('Quantity', digits_compute= dp.get_precision('Qty'), ),
         'oline_uom': fields.many2one('product.uom', 'Unit', ),
@@ -190,7 +190,7 @@ wo.id
 ,pr_sup.name pr_sup_supplier --14
 ,pr_sup.product_code pr_sup_product_code --15
 ,pr.serial_id pr_serial_id --17,30
-,pr_ser_rev.indice pr_serial_rev --18
+,pr_ser_rev.name pr_serial_rev_name --18
 ,wo.work_requested --19
 ,wrc.code wr_code_id --20
 ,wo.mod_test_id --21
@@ -213,7 +213,7 @@ wo.id
     else 'false' 
 end 
 as oline_warranty_id
-,pr_ser_rev.indice pr_serial_rev2 --39
+,pr_ser_rev.indice pr_serial_rev_no --39
 ,oline_ser_rev.indice oline_serial_rev --40
 ,oline.product_uom_qty oline_qty --41
 ,oline.product_uom oline_uom --42
