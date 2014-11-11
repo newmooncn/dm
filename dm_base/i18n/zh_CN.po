@@ -1,0 +1,35 @@
+#. module: dm_common
+#: field:option.list,option_name:0
+msgid "Option Name"
+msgstr "选项类别标识"
+
+#. module: dm_common
+#: field:option.list,key:0
+msgid "Key"
+msgstr "编号"
+
+#. module: dm_common
+#: field:option.list,seq:0
+msgid "Sequence"
+msgstr "序号"
+
+#. module: dm_common
+#: field:option.list,name:0
+msgid "Name"
+msgstr "选项值"
+
+#. module: dm_common
+#: field:option.list,memo:0
+msgid "Description"
+msgstr "描述"
+
+#. module: dm_common
+#: model:ir.ui.menu,name:dm_common.menu_option_list
+#: model:ir.actions.act_window,name:dm_common.action_option_list
+msgid "Option List"
+msgstr "选项列表"
+
+#. module: dm_common
+#: model:ir.ui.menu,name:dm_common.menu_set_others
+msgid "Others"
+msgstr "其他"

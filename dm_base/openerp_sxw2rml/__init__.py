@@ -1,9 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
-#    Copyright (c) 2010-2014 Elico Corp. All Rights Reserved.
-#    Augustin Cisterne-Kaas <augustin.cisterne-kaas@elico-corp.com>
+#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -16,6 +15,10 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
+
+from openerp_sxw2rml import sxw2rml
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+

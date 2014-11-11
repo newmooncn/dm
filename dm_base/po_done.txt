@@ -1,0 +1,23 @@
+po的workflow也有问题，router出来到invoice_end和invoice应该是条件应该是invoice_method=='picking'和invoice_method<>'picking'，这样我那天提的问题就解决了，po的state到最后就会是done
+
+update wkf_transition set condition = 'invoice_method<>''picking''' where id = 70
+update wkf_transition set condition = 'invoice_method==''picking''' where id = 71
+
+---------------------purchase.order------------------
+select 
+--a.name,a.osv,a.on_create,
+d.id,d.condition,d.group_id,d.signal,
+b.id as from_act_id,b.name as from_action,b.split_mode,b.join_mode,b.kind,b.action,
+c.id as to_act_id,c.name as to_action,c.split_mode,c.join_mode,c.kind,c.action
+from wkf a
+join wkf_activity b on a.id = b.wkf_id
+join wkf_activity c on a.id = c.wkf_id
+join wkf_transition d on b.id = d.act_from and c.id = d.act_to
+where a.osv = 'purchase.order'
+--and b.name in('sent' ,'router', 'wait_invoice','wait_ship','ship')
+--order by b.name,c.name
+order by b.id
+
+
+70;"invoice_method=='order'";;"";43;"router";"OR";"AND";"function";"wkf_approve_order()";44;"invoice";"XOR";"XOR";"subflow";"action_invoice_create()"
+71;"invoice_method<>'order' and invoiced";;"";43;"router";"OR";"AND";"function";"wkf_approve_order()";46;"invoice_end";"XOR";"XOR";"dummy";""

@@ -2,8 +2,7 @@
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
-#    Copyright (c) 2010-2014 Elico Corp. All Rights Reserved.
-#    Augustin Cisterne-Kaas <augustin.cisterne-kaas@elico-corp.com>
+#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,19 +18,28 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+
 {
-    'name': 'DMEMS OpenERP Patch',
-    'version': '0.1',
-    'category': 'Web',
-    'depends': ['mail'],
-    'author': 'DMEMS',
-    'license': 'AGPL-3',
-    'website': 'https://www.dmems.com',
+    'name': 'DMEMS CNZZ',
+    'version': '1.0',
+    'category': 'Customization',
+    'sequence': 1000,
+    'summary': 'DMEMS CNZZ Connector',
     'description': """
-        1.Remove “Your OpenERP is not supported” on screen top: announcement.js
+CNZZ Connector
+==================================
     """,
+    'author': 'DMEMS',
+    'website': 'http://www.dmems.com',
     'images': [],
-    'js': ['static/src/js/announcement.js'],
+    'depends': ['base'],
+    'demo': [],
+    'test': [],
+    
+    'js' : [
+        "static/src/js/cnzz.js",  
+    ], 
     'installable': True,
-    'application': False,
+    'auto_install': False,
+    'application': True,
 }
