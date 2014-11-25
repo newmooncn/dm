@@ -19,6 +19,7 @@ Accounting
 
     'depends': ['dmp_base','account','purchase','account_voucher','account_analytic_plans',"account_prepayment", "sale_quick_payment", "sale_exceptions"],
     'data':[
+            'security/ir.model.access.csv',
             'account_account_view.xml',
             'account_move_view.xml',
             'wizard/account_move_batch.xml',

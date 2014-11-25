@@ -9,6 +9,9 @@
             	<field name="balance" position="after">
             		<field name="bal_direct"/>
             	</field>
+                <field name="user_type" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </field>
             </field>
         </record>
         <record model="ir.ui.view" id="view_account_list_ext">
