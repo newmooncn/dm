@@ -13,6 +13,7 @@
         </field>
     </record>
 <!-- Replace 'Analytic Account' with 'Analytic Distribution' on customer invoice line tree -->  
+<!--
     <record id="invoice_form_extend" model="ir.ui.view">
        <field name="name">invoice_form_extend</field>
        <field name="model">account.invoice</field>
@@ -23,6 +24,7 @@
            </xpath>
        </field>
     </record>
+-->
 <!-- restore the analytic_account_id on account move form screen, since use an analytic account is useful under some cases-->
     <record model="ir.ui.view" id="view_move_form_extend">
         <field name="name">view_move_form_extend</field>
