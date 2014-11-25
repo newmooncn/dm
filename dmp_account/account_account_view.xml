@@ -9,9 +9,6 @@
             	<field name="balance" position="after">
             		<field name="bal_direct"/>
             	</field>
-                <field name="user_type" position="attributes">
-                    <attribute name="invisible">0</attribute>
-                </field>
             </field>
         </record>
         <record model="ir.ui.view" id="view_account_list_ext">
@@ -22,6 +19,9 @@
             	<field name="balance" position="after">
             		<field name="bal_direct"/>
             	</field>
+                <field name="user_type" position="attributes">
+                    <attribute name="invisible">0</attribute>
+                </field>
             	<xpath expr="//tree" position="attributes">
             		<!-- Add the 'liquidity' to the 'black' list -->
             		<attribute name="colors">blue:type == 'view';black:type in ('other','receivable','payable','consolidation', 'liquidity');gray:type == 'closed'</attribute>
