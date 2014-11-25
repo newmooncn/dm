@@ -1,4 +1,10 @@
-
+# -*- encoding: utf-8 -*-
+##############################################################################
+#
+#    DMEMS Base Module
+#    Copyright (C) 2014 DMEMS (<http://www.dmems.com>).
+#
+##############################################################################
 {
     'name': 'DM Base',
     'version': '1.0',
@@ -9,7 +15,7 @@
 DM Base
 ==================================
 1.Remove “Your OpenERP is not supported” on screen top
-2.add the option package
+2.add the common option list feature
 ------------------------------------------------------
     """,
     'author': 'DMEMS',
@@ -17,8 +23,8 @@ DM Base
     'images': [],
     'depends': ['base','product','sale','purchase','account'],
     'data': [
-        'security/ir.model.access.csv',
-        'option_view.xml',
+        'option_list/ir.model.access.csv',
+        'option_list/option_view.xml',
         ],
     'demo': [],
     'test': [],

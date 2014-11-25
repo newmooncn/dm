@@ -19,27 +19,6 @@
 #
 ##############################################################################
 
-{
-    'name': 'DM CNZZ',
-    'version': '1.0',
-    'category': 'Customization',
-    'sequence': 1000,
-    'summary': 'DMEMS CNZZ Connector',
-    'description': """
-CNZZ Connector
-==================================
-    """,
-    'author': 'DMEMS',
-    'website': 'http://www.dmems.com',
-    'images': [],
-    'depends': ['base'],
-    'demo': [],
-    'test': [],
-    
-    'js' : [
-        "static/src/js/cnzz.js",  
-    ], 
-    'installable': True,
-    'auto_install': False,
-    'application': True,
-}
+
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+

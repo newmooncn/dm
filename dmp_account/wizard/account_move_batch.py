@@ -19,27 +19,22 @@
 #
 ##############################################################################
 
-{
-    'name': 'DM CNZZ',
-    'version': '1.0',
-    'category': 'Customization',
-    'sequence': 1000,
-    'summary': 'DMEMS CNZZ Connector',
-    'description': """
-CNZZ Connector
-==================================
-    """,
-    'author': 'DMEMS',
-    'website': 'http://www.dmems.com',
-    'images': [],
-    'depends': ['base'],
-    'demo': [],
-    'test': [],
+from openerp.osv import osv
+
+class account_move_batch(osv.osv_memory):
+    _name = "account.move.batch"
+    _description = "Batch action on the account move"
     
-    'js' : [
-        "static/src/js/cnzz.js",  
-    ], 
-    'installable': True,
-    'auto_install': False,
-    'application': True,
-}
+    def validate_account_move(self, cr, uid, ids, context=None):
+        active_ids = context and context.get('active_ids', [])
+        active_model = context and context.get('active_model', [])
+        self.pool.get(active_model).button_validate(cr, uid, active_ids, context=context)
+        return {'type': 'ir.actions.act_window_close'}    
+    
+    def cancel_account_move(self, cr, uid, ids, context=None):
+        active_ids = context and context.get('active_ids', [])
+        active_model = context and context.get('active_model', [])
+        self.pool.get(active_model).button_cancel(cr, uid, active_ids, context=context)
+        return {'type': 'ir.actions.act_window_close'}    
+account_move_batch()
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

@@ -3,4 +3,4 @@
 # Init DMEMS
 #----------------------------------------------------------
 
-import option_list
+import option

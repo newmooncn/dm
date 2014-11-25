@@ -6,18 +6,20 @@
 #
 ##############################################################################
 {
-    'name': 'DM Process Base',
+    'name': 'DM Process CRM',
     'version': '1.0',
     'category': 'Customization',
     'author': 'DMEMS',
     'website': 'www.dmems.com',
     'description': """
-Process Base
+CRM
 =====================
+    * 1.Lead/Opporunity: add the data visibility by sales team, team manager only can see its own team's members
     """,
 
-    'depends': ['base','dm_base'],
-    'data':['rpt_base_view.xml',
+    'depends': ['dmp_base','crm'],
+    'data':[
+     'security/crm_security.xml'
     ],
     'auto_install': False,
     'installable': True

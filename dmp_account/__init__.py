@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#
+#    
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
+#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -15,31 +15,20 @@
 #    GNU Affero General Public License for more details.
 #
 #    You should have received a copy of the GNU Affero General Public License
-#    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-
-{
-    'name': 'DM CNZZ',
-    'version': '1.0',
-    'category': 'Customization',
-    'sequence': 1000,
-    'summary': 'DMEMS CNZZ Connector',
-    'description': """
-CNZZ Connector
-==================================
-    """,
-    'author': 'DMEMS',
-    'website': 'http://www.dmems.com',
-    'images': [],
-    'depends': ['base'],
-    'demo': [],
-    'test': [],
-    
-    'js' : [
-        "static/src/js/cnzz.js",  
-    ], 
-    'installable': True,
-    'auto_install': False,
-    'application': True,
-}
+import account_account
+import account_move
+import account_analytic
+import account_financial_report
+import account_invoice
+import account_voucher
+import cash_bank_trans
+import emp_borrow
+import emp_reimburse
+import stock
+import res_partner
+import wizard
+import report
+import payment
