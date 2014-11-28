@@ -28,7 +28,9 @@ DM Base
         ],
     'demo': [],
     'test': [],
+    #web
     'js': ['static/src/js/announcement.js'],
+    'css' : ['static/src/css/dm.css',],    
     'installable': True,
     'auto_install': False,
     'application': True,
