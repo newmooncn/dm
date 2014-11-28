@@ -25,6 +25,8 @@ DM Base
     'data': [
         'option_list/ir.model.access.csv',
         'option_list/option_view.xml',
+        "wizard/confirm_message_view.xml",       
+        'wizard/file_down_view.xml',
         ],
     'demo': [],
     'test': [],
