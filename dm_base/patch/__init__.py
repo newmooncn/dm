@@ -3,6 +3,4 @@
 # Init DMEMS
 #----------------------------------------------------------
 
-import option_list
-import wizard
-import patch
+import ir_mail_server
