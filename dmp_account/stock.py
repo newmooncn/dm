@@ -107,6 +107,8 @@ class stock_picking(osv.osv):
                 #get the move lines
                 
             for move_line in move.line_id:
+                if move_line.quantity == 0.0:
+                    continue
                 if move_line.account_id.id == accounts['property_stock_valuation_account_id']:
                     '''
                     #merge the stock valuation values to one line
