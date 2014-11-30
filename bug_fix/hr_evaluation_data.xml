@@ -1180,13 +1180,14 @@ Once the form had been filled, the employee send it to his supervisor.
             <field eval="0" name="wait"/>
         </record>
     </data>
-
+<!-- comment to fix the "hr.employee creating issue using XML" issue, johnw -->    
+<!-- 
     <data noupdate="1">
         <record id="hr.employee" model="hr.employee">
             <field name="evaluation_plan_id" ref="hr_evaluation_plan_managersevaluationplan0"/>
         </record>
     </data>
-
+ -->
     <data>
         <record forcecreate="True" id="ir_cron_scheduler_evaluation" model="ir.cron">
            <field name="name">Run Employee Appraisal</field>

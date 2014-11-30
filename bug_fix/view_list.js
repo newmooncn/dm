@@ -976,6 +976,9 @@ instance.web.ListView.List = instance.web.Class.extend( /** @lends instance.web.
             .delegate('td.oe_list_record_delete button', 'click', function (e) {
                 e.stopPropagation();
                 var $row = $(e.target).closest('tr');
+                if (!confirm(_t("Do you really want to remove these records?"))) {
+               	 return;
+               }                 
                 $(self).trigger('deleted', [[self.row_id($row)]]);
             })
             .delegate('td.oe_list_field_cell button', 'click', function (e) {

@@ -325,6 +325,7 @@ class mail_mail(osv.Model):
             except Exception:
                 _logger.exception('failed sending mail.mail %s', mail.id)
                 mail.write({'state': 'exception'})
+                raise e
 
             if auto_commit == True:
                 cr.commit()

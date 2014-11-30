@@ -63,8 +63,9 @@ class ir_translation_import_cursor(object):
         """
         self._cr = cr
         self._uid = uid
-        self._context = context     
-        self._overwrite = context.get('overwrite', False)  
+        self._context = context      
+        #self._overwrite = context.get('overwrite', False)   Removed by johnw 2013-05-30 to make the translations update correctly.
+        self._overwrite = context.get('overwrite', True)
         self._debug = False
         self._parent_table = parent._table
 
