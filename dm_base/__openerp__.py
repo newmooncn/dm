@@ -27,7 +27,9 @@ DM Base
         'option_list/option_view.xml',
         "wizard/confirm_message_view.xml",       
         'wizard/file_down_view.xml',
-        'ir_actions_server_email.xml'
+        'ir_actions_server_email.xml',
+        'ir_cron_view.xml',
+        'workflow_view.xml',
         ],
     'demo': [],
     'test': [],
