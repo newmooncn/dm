@@ -4,3 +4,4 @@
 #----------------------------------------------------------
 
 import ir_mail_server
+import email_template

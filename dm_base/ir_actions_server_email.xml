@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--server action view-->
+  
+        <record id="view_server_action_form_ext" model="ir.ui.view">
+            <field name="name">view_server_action_form_ext</field>
+            <field name="model">ir.actions.server</field>
+            <field name="inherit_id" ref="base.view_server_action_form"/>
+            <field name="arch" type="xml">            
+            	<xpath expr="//page[@string='Email Configuration']//field[@name='email']" position="after" >
+            		<field name="email_cc"/>
+            		<field name="email_bcc"/>
+            		<field name="email_reply_to"/>
+            		<field name="email_subtype"/>
+            	</xpath>             
+       		</field>
+        </record>  
+        
+    </data>
+</openerp>
