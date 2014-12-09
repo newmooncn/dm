@@ -18,6 +18,9 @@ Process Base
 
     'depends': ['base','dm_base'],
     'data':['rpt_base_view.xml',
+            'ir_attachment_view.xml',
+            'security/security.xml',
+            'security/ir.model.access.csv',
     ],
     'auto_install': False,
     'installable': True
