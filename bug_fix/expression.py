@@ -1042,9 +1042,13 @@ class expression(object):
                     if sql_operator == 'in':
                         # params will be flatten by to_sql() => expand the placeholders
                         instr = '(%s)' % ', '.join(['%s'] * len(right))
-
-                    subselect = """WITH temp_irt_current (id, name) as (
-                            SELECT ct.id, coalesce(it.value,ct.{quote_left})
+                        
+                    '''
+                    johnw, 12/10/2014, fix the searching under non-EN can not search the original name issue, 
+                    like grouping searhing use group english name under CN GUI 
+                    '''
+                    subselect = """WITH temp_irt_current (id, name, name_src) as (
+                            SELECT ct.id, coalesce(it.value,ct.{quote_left}), ct.{quote_left}
                             FROM {current_table} ct 
                             LEFT JOIN ir_translation it ON (it.name = %s and 
                                         it.lang = %s and 
@@ -1052,14 +1056,15 @@ class expression(object):
                                         it.res_id = ct.id and 
                                         it.value != '')
                             ) 
-                            SELECT id FROM temp_irt_current WHERE {name} {operator} {right} order by name
-                            """.format(current_table=working_model._table, quote_left=_quote(left), name=unaccent('name'), 
+                            SELECT id FROM temp_irt_current WHERE {name} {operator} {right} or {name_src} {operator} {right} order by name
+                            """.format(current_table=working_model._table, quote_left=_quote(left), name=unaccent('name'), name_src=unaccent('name_src'), 
                                        operator=sql_operator, right=instr)
 
                     params = (
                         working_model._name + ',' + left,
                         context.get('lang') or 'en_US',
                         'model',
+                        right,
                         right,
                     )
                     push(create_substitution_leaf(leaf, ('id', inselect_operator, (subselect, params)), working_model))
