@@ -33,3 +33,7 @@ since the default value is False in openerp/tools/config.py
         group.add_option("--i18n-overwrite", dest="overwrite_existing_translations", action="store_true", my_default=False,
                          help="overwrites existing translation terms on updating a module or importing a CSV or a PO file.")
 
+===================================
+openerp.osv.expression.py
+johnw, 12/10/2014, fix the searching under non-EN can not search the original name issue, 
+like grouping searhing use group english name under CN GUI 
