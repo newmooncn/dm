@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- Product  -->
+		<record id="product_product_tree_view_ext" model="ir.ui.view">
+            <field name="name">product_product_tree_view_ext</field>
+            <field name="model">product.product</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+	            <!-- <field name="name" position="after">
+	            	<field name="cn_name" string="中国名"/>
+	            </field> -->
+	            <field name="state" position="after">
+	            	<field name="sale_ok"/>
+	            	<field name="purchase_ok"/>
+	            	<field name="create_uid"/>
+	            	<field name="create_date"/>
+	            </field>
+
+	            <field name='standard_price' position="attributes">
+	            	<attribute name="invisible">0</attribute>
+	            </field>
+	            <field name='company_id' position="attributes">
+	            	<attribute name="invisible">0</attribute>
+	            </field>
+            </field>
+        </record>
+        
+		<record id="product_normal_form_view_ext" model="ir.ui.view">
+            <field name="name">product_normal_form_view_ext</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+            <data>
+                <field name="default_code" position="attributes">
+                    <attribute name="readonly">1</attribute>
+                </field>
+                <field name="default_code" position="after">
+                    <field name="part_no_external"/>
+                </field>
+                <xpath expr="//page[@string='Information']/group/group[3]" position="after">
+                     <group>
+                         <field name="create_uid"/>
+                         <field name="create_date"/>
+                     </group>
+                </xpath>
+		 
+				<!-- Chinese Name -->
+				<!-- <xpath expr="//h1" position="after">
+                  <label for="cn_name"/>
+                  <field name="cn_name" colspan="4" placeholder="中国名"/>
+                </xpath> -->
+                <!-- remove the original, control it by button and show use status bar -->
+	            <field name="state" position="replace">
+	            </field>
+	            <xpath expr="//form/sheet" position="before">
+	                <header>
+	                    <button name="button_approve" states="draft" string="Approve" type="object" class="oe_highlight" groups="dmp_product.group_product_manager"/>
+	                    <button name="button_eol" states="sellable" string="End of Life" type="object" groups="dmp_product.group_product_manager"/>
+	                    <button name="button_obsolete" states="sellable" string="Obsolete" type="object" groups="dmp_product.group_product_manager"/>
+	                    <button name="button_draft" states="end,obsolete" string="Restart" type="object" class="oe_highlight" groups="dmp_product.group_product_manager"/>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,sellable,end" statusbar_colors='{"end":"red","obsolete":"red"}' readonly="1"/>
+	                </header>	            
+	            </xpath>                
+            </data>
+            </field>
+		</record>
+		
+		<record id="product_mfg_view_ext" model="ir.ui.view">
+            <field name="name">product_mfg_view_ext</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product_manufacturer.view_product_form_expiry"/>
+            <field name="arch" type="xml">
+            <data>
+                <field name="manufacturer" position="before">
+                	<field name="mfg_standard"/>
+                </field>
+            </data>
+        	</field>
+       	</record>
+
+<!-- Hide the active field -->      			
+		<record id="product_procurement_view_dmp_product" model="ir.ui.view">
+            <field name="name">product_procurement_view_dmp_product</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_normal_procurement_locations_form"/>
+            <field name="arch" type="xml">
+            <data>
+	            <field name="active" position="attributes">
+	            	<attribute name="invisible">1</attribute>
+	            </field>
+            </data>
+        	</field>
+       	</record> 
+		
+        <record id="product_search_form_view_ext" model="ir.ui.view">
+            <field name="name">product_search_form_view_ext</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="arch" type="xml">
+            	<field name="name" position="replace">
+            		<field name="name" string="Product" filter_domain="['|','|',('name','ilike',self),('default_code','ilike',self),('cn_name','ilike',self)]"/>
+            		<field name="create_uid"/>
+            		<field name="create_date"/>
+            		<field name="default_code" filter_domain="[('default_code','in',self)]" string="Multi Part#"/>
+            	</field>
+            </field>
+        </record>
+<!-- add cn name to kanban view -->        		
+        <!-- <record model="ir.ui.view" id="product_kanban_view_dmp_product">
+            <field name="name">Product Kanban</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_kanban_view"/>
+            <field name="arch" type="xml">
+            	<field name="name" position="after">
+            		<field name="cn_name"/>
+            	</field>
+            </field>		
+		</record> -->
+
+<!--  add supplier product name and code to the supplier product info tree list -->	
+        <record model="ir.ui.view" id="product_supplierinfo_tree_view_ext">
+            <field name="name">product_supplierinfo_tree_view_ext</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+            <field name="arch" type="xml">
+            	<field name="name" position="after">
+                    <field name="product_code"/>
+            		<field name="product_name"/>
+            	</field>
+            </field>		
+		</record>
+	</data>		    
+</openerp>	

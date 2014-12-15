@@ -22,6 +22,12 @@
         <record id="base.group_user" model="res.groups">
             <field name="implied_ids" eval="[(4, ref('group_attachment_user'))]"/>  
         </record>
+        
+<!-- Data maintain group categpry, refer by other modules:dmp_product, dmp_res_partner -->
+    <record model="ir.module.category" id="module_data_maintain">
+        <field name="name">Data Maintenance</field>
+        <field name="sequence">10010</field>
+    </record>        
 
     </data>
  </openerp>
