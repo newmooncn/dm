@@ -20,3 +20,4 @@
 ##############################################################################
 import rpt_base
 import ir_attachment
+import custom_attributes
