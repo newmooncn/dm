@@ -87,7 +87,18 @@ def _email_send_template(cr, uid, ids, email_vals, context=None):
     #close the new cursor
     new_cr.close()
     return True
-
+'''
+            #generate the attachments by PDF report
+            attachments = []
+            report_name = 'Employee Welcome Checklist'
+            report_service = netsvc.LocalService('report.hr.welcome.checklist')
+            rpt_emp_ids = [emp.id for emp in emp_ids]            
+            (result, format) = report_service.create(cr, uid, rpt_emp_ids, {'model': 'hr.employee'}, context)
+            ext = "." + format
+            if not report_name.endswith(ext):
+                report_name += ext
+            attachments.append((report_name, result))
+'''
 def email_send_group(cr, uid, email_from, email_to, subject, body, email_to_group_id=False, email_cc=None, attachments=None, context=None):
     if email_from and (email_to or email_to_group_id):
         threaded_email = threading.Thread(target=_email_send_group, args=(cr, uid, email_from, email_to, subject, body, email_to_group_id, email_cc, attachments, context))
