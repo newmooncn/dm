@@ -1,0 +1,168 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* dmp_product
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20130413-232416\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-31 23:57+0000\n"
+"PO-Revision-Date: 2014-09-01 08:06+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.7\n"
+
+#. module: dmp_product
+#: model:ir.model.fields,field_description:dmp_product.field_product_product_qty_onhand
+#: field:product.product,qty_onhand:0
+msgid "Quantity On Hand"
+msgstr "在手数量"
+
+#. module: dmp_product
+#: model:ir.model.fields,field_description:dmp_product.field_product_product_safe_qty
+#: field:product.product,safe_qty:0
+msgid "Minimal Inventory"
+msgstr "最小库存"
+
+#. module: dmp_product
+#: model:ir.model.fields,field_description:dmp_product.field_product_product_qty_virtual
+#: field:product.product,qty_virtual:0
+msgid "Forecasted Quantity"
+msgstr "预测数量"
+
+#. module: dmp_product
+#: model:ir.model.fields,field_description:dmp_product.field_product_product_qty_in
+#: field:product.product,qty_in:0
+msgid "Incoming"
+msgstr "入库"
+
+#. module: dmp_product
+#: view:product.product:0
+msgid "No Print Barcode"
+msgstr "不打印条码"
+#. module: dmp_product
+#: model:ir.model.fields,field_description:dmp_product.field_product_product_property_prod_loc
+#: field:product.product,property_prod_loc:0
+msgid "Location"
+msgstr "库位"
+
+#. module: dmp_product
+#: view:product.product:0
+msgid ""
+"red:(virtual_available and virtual_available<0);blue:virtual_available>=0 "
+"and state in ('draft', 'end', 'obsolete');black:virtual_available>=0 and "
+"state not in ('draft', 'end', 'obsolete')"
+msgstr ""
+"red:(virtual_available and virtual_available<0);blue:virtual_available>=0 "
+"and state in ('draft', 'end', 'obsolete');black:virtual_available>=0 and "
+"state not in ('draft', 'end', 'obsolete')"
+
+#. module: dmp_product
+#: view:product.product:0
+msgid "Print Barcode"
+msgstr "打印条码"
+
+#. module: dmp_product
+#: view:product.product:0 view:product.set.printflag:0
+msgid "Clear Print Flag"
+msgstr "清除打印标志"
+
+#. module: dmp_product
+#: view:product.product:0
+msgid "Storage Location"
+msgstr "存储位置"
+
+#. module: dmp_product
+#: model:ir.model.fields,field_description:dmp_product.field_product_product_loc_pos_code
+#: field:product.product,loc_pos_code:0
+msgid "Storage Position Code"
+msgstr "存放位置"
+
+#. module: dmp_product
+#: model:ir.actions.act_window,name:dmp_product.action_view_product_set_printflag
+msgid "Set/Clear Print Flag"
+msgstr "设置/清除打印标志"
+
+#. module: dmp_product
+#: view:product.product:0
+msgid "No Onhand"
+msgstr "无库存"
+
+#. module: dmp_product
+#: model:ir.model.fields,field_description:dmp_product.field_product_product_max_qty
+#: field:product.product,max_qty:0
+msgid "Maximal Inventory"
+msgstr "最大库存"
+
+#. module: dmp_product
+#: model:ir.model.fields,field_description:dmp_product.field_product_product_is_print_barcode
+#: field:product.product,is_print_barcode:0
+msgid "Print barcode label"
+msgstr "打印条码标签"
+
+#. module: dmp_product
+#: model:ir.model,name:dmp_product.model_product_set_printflag
+msgid "Set product barcode print flag"
+msgstr "设置产品条码打印标志"
+
+#. module: dmp_product
+#: view:product.set.printflag:0
+msgid "Set/Clear Products Barcode Print Flag"
+msgstr "设置/清除产品条码打印标志"
+
+#. module: dmp_product
+#: model:ir.model.fields,field_description:dmp_product.field_product_product_safe_warn
+#: field:product.product,safe_warn:0
+msgid "Safe Warn"
+msgstr "安全报警"
+
+#. module: dmp_product
+#: view:product.product:0
+msgid "Negative Onhand"
+msgstr "负库存"
+
+#. module: dmp_product
+#: view:product.set.printflag:0
+msgid ""
+"Are you sure you want to set or clear these selected products barcode print "
+"flag?"
+msgstr "你确信要合并/清除所选择产品的条码打印标志吗？"
+
+#. module: dmp_product
+#: view:product.product:0 view:product.set.printflag:0
+msgid "Set Print Flag"
+msgstr "设置打印标志"
+
+#. module: dmp_product
+#: view:product.batch.query:0
+msgid "Query"
+msgstr "查询"
+
+#. module: dmp_product
+#: view:product.set.printflag:0
+msgid "Are you sure you want to set or clear these selected products barcode print flag?"
+msgstr "你确信要合并/清除所选择产品的条码打印标志吗？"
+
+#. module: dmp_product
+#: field:product.product,qty_onhand:0
+msgid "Quantity On Hand"
+msgstr "在手数量"
+
+#. module: dmp_product
+#: field:product.product,qty_virtual:0
+msgid "Forecasted Quantity"
+msgstr "预测数量"
+
+#. module: dmp_product
+#: field:product.product,qty_in:0
+msgid "Incoming"
+msgstr "入库"
+
+#. module: dmp_product
+#: field:product.product,qty_out:0
+msgid "Outgoing"
+msgstr "出仓"
