@@ -30,6 +30,7 @@ DM Base
         'ir_actions_server_email.xml',
         'ir_cron_view.xml',
         'workflow_view.xml',
+        'ir_translation_view.xml',
         ],
     'demo': [],
     'test': [],

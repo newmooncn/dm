@@ -13,3 +13,4 @@ import ir_attachment
 import ir_cron
 import rml
 import workflow
+import ir_translation
