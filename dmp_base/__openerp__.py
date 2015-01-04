@@ -6,7 +6,7 @@
 #
 ##############################################################################
 {
-    'name': 'DM Process Base',
+    'name': 'DMP Base',
     'version': '1.0',
     'category': 'Customization',
     'author': 'DMEMS',
@@ -21,6 +21,7 @@ Process Base
             'ir_attachment_view.xml',
             'security/security.xml',
             'security/ir.model.access.csv',
+            'hr_view.xml',
     ],
     'auto_install': False,
     'installable': True
