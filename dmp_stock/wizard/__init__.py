@@ -20,5 +20,10 @@
 ##############################################################################
 
 import product_set_printflag
+import stock_import_inventory
+import stock_change_product_qty
+import stock_return_picking
+import stock_partial_picking
+import stock_invoice_onshipping_single
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
