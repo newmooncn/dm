@@ -2,6 +2,11 @@
 openerp/osv/orm.py
 1)handle the message in Chinese for the db error
 convert_pgerror_23505(),convert_pgerror_23502()
+2)01/03/2015
+Change read_group() method:
+fix the issue that the int/float fields can not be removed from the
+aggregated_fields, if field's group_operator='None' then do not include
+this field in the aggregated_fields
 
 ===================================
 hr_evaluation/hr_evaluation_data.xml
@@ -37,3 +42,14 @@ since the default value is False in openerp/tools/config.py
 openerp.osv.expression.py
 johnw, 12/10/2014, fix the searching under non-EN can not search the original name issue, 
 like grouping searhing use group english name under CN GUI 
+
+===================================
+openerp.tools.translate.py
+johnw, 01/03/2015
+use the source/translation as group key, fix the issue: when export .po
+file,
+            for the same key, all of the items exported as one key, this
+will cause issue when the translation is difference among one same key,
+only the first translation will be exported.
+            we now group the translations by source and translate value.
+That means one translation per source/translation.

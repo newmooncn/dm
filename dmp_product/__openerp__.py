@@ -6,7 +6,7 @@
 #
 ##############################################################################
 {
-    'name': 'DM Process Product',
+    'name': 'DMP Product',
     'version': '1.0',
     'category': 'Customization',
     'author': 'DMEMS',

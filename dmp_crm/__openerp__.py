@@ -6,7 +6,7 @@
 #
 ##############################################################################
 {
-    'name': 'DM Process CRM',
+    'name': 'DMP CRM',
     'version': '1.0',
     'category': 'Customization',
     'author': 'DMEMS',

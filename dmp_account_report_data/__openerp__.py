@@ -6,7 +6,7 @@
 #
 ##############################################################################
 {
-    'name': 'DM Process Account - Finance Report Definition Data',
+    'name': 'DMP Account - Finance Report Definition Data',
     'version': '1.0',
     'category': 'Customization',
     'author': 'DMEMS',

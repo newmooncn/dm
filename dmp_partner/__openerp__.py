@@ -6,7 +6,7 @@
 #
 ##############################################################################
 {
-    'name': 'DM Process Partner',
+    'name': 'DMP Partner',
     'version': '1.0',
     'category': 'Customization',
     'author': 'DMEMS',

@@ -6,7 +6,7 @@
 #
 ##############################################################################
 {
-    'name': 'DM Process Account',
+    'name': 'DMP Account',
     'version': '1.0',
     'category': 'Customization',
     'author': 'DMEMS',
