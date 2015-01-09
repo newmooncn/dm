@@ -145,6 +145,20 @@
             	</field>
             </field>		
 		</record>
+<!-- Chante the onhand and virtual qty on Kanban view -->		
+        <record model="ir.ui.view" id="product_kanban_view_dmp_product">
+            <field name="name">product_kanban_view_dmp_product</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="stock.product_kanban_stock_view"/>
+            <field name="arch" type="xml">
+                <field name="qty_available" position="replace">
+                    <field name="qty_onhand"/>
+                </field>
+                <field name="virtual_available" position="replace">
+                    <field name="qty_virtual"/>
+                </field>
+            </field>        
+        </record>		
 <!-- inventory warning -->
 <!--         <record id="action_product_inventory_warning" model="ir.actions.act_window">
             <field name="name">Inventory Warning</field>

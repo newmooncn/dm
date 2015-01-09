@@ -30,6 +30,7 @@ Stocking Improvements
         'stock_sequence.xml',
         'stock_wh_loc.xml',     
         'stock_barcode_view.xml',
+        'stock_mt_rpt_view.xml',
     ],
     'auto_install': False,
     'installable': True,

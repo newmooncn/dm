@@ -1605,6 +1605,255 @@ msgstr "入库"
 msgid "Outgoing"
 msgstr "出仓"
 
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "Ready"
+msgstr "准备好"
+
+#. module: dmp_stock
+#: model:ir.model.fields,field_description:dmp_stock.field_stock_mt_rpt_picking_id
+#: field:stock.mt.rpt,picking_id:0
+msgid "Picking"
+msgstr "领料单"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "MFG ID"
+msgstr "MFG ID"
+
+#. module: dmp_stock
+#: field:stock.mt.rpt,location_id:0
+msgid "Source Location"
+msgstr "源库位"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "Material Req/Ret Products"
+msgstr "领退料产品"
+
+#. module: dmp_stock
+#: selection:stock.mt.rpt,state:0
+msgid "New"
+msgstr "新建"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "To Do"
+msgstr "准备处理"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "Today"
+msgstr "今天"
+
+#. module: dmp_stock
+#: field:stock.mt.rpt,mr_notes:0
+msgid "Reason and use"
+msgstr "原因和用途"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "From Date"
+msgstr "开始日期"
+
+#. module: dmp_stock
+#: selection:stock.mt.rpt,state:0
+msgid "Available"
+msgstr "可用"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+#: field:stock.mt.rpt,product_id:0
+msgid "Product"
+msgstr "产品"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "Stock moves that are Available (Ready to process)"
+msgstr "Stock moves that are Available (Ready to process)"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "Request"
+msgstr "领料"
+
+#. module: dmp_stock
+#: selection:stock.mt.rpt,state:0
+msgid "Waiting Another Move"
+msgstr "等待其他单据"
+
+#. module: dmp_stock
+#: selection:stock.mt.rpt,state:0
+msgid "Waiting Availability"
+msgstr "等待可用"
+
+#. module: dmp_stock
+#: field:stock.mt.rpt,mr_date_order:0
+msgid "Order Date"
+msgstr "订单日期"
+
+#. module: dmp_stock
+#: field:stock.mt.rpt,product_uom:0
+msgid "Unit of Measure"
+msgstr "单位"
+
+#. module: dmp_stock
+#: model:ir.model.fields,field_description:dmp_stock.field_stock_mt_rpt_date_to
+#: field:stock.mt.rpt,date_to:0
+msgid "Date End"
+msgstr "结束日期"
+
+#. module: dmp_stock
+#: field:stock.mt.rpt,create_date:0
+msgid "Creation Date"
+msgstr "创建日期"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+#: field:stock.mt.rpt,state:0
+msgid "Status"
+msgstr "状态"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "Return"
+msgstr "退料"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "Moves"
+msgstr "Moves"
+
+#. module: dmp_stock
+#: model:ir.model.fields,field_description:dmp_stock.field_stock_mt_rpt_prod_categ_id
+#: view:stock.mt.rpt:0
+#: field:stock.mt.rpt,prod_categ_id:0
+msgid "Product Category"
+msgstr "产品类别"
+
+#. module: dmp_stock
+#: field:stock.mt.rpt,mr_sale_prod_id:0
+msgid "Sale Product ID"
+msgstr "MFG ID"
+
+#. module: dmp_stock
+#: model:ir.model.fields,field_description:dmp_stock.field_stock_mt_rpt_date_done
+#: field:stock.mt.rpt,date_done:0
+msgid "Done Date"
+msgstr "完成日期"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "Group By..."
+msgstr "分组..."
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+#: field:stock.mt.rpt,date:0
+msgid "Date"
+msgstr "日期"
+
+#. module: dmp_stock
+#: model:ir.model.fields,field_description:dmp_stock.field_stock_mt_rpt_date_from
+#: field:stock.mt.rpt,date_from:0
+msgid "Date Sart"
+msgstr "开始日期"
+
+#. module: dmp_stock
+#: field:stock.mt.rpt,name:0
+msgid "Description"
+msgstr "描述"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+#: selection:stock.mt.rpt,state:0
+msgid "Done"
+msgstr "完成"
+
+#. module: dmp_stock
+#: field:stock.mt.rpt,price_subtotal:0
+msgid "Subtotal"
+msgstr "小计"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "Orders processed Today or planned for Today"
+msgstr "今天处理的单据"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "Stock Moves"
+msgstr "库存移动"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "Stock moves that have been processed"
+msgstr "已经处理的单据"
+
+#. module: dmp_stock
+#: field:stock.mt.rpt,price_unit:0
+msgid "Unit Price"
+msgstr "单价"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+#: field:stock.mt.rpt,mr_dept_id:0
+msgid "Department"
+msgstr "部门"
+
+#. module: dmp_stock
+#: view:stock.move:0
+#: view:stock.mt.rpt:0
+msgid "Material Request"
+msgstr "领料单"
+
+#. module: dmp_stock
+#: field:stock.mt.rpt,location_dest_id:0
+msgid "Destination Location"
+msgstr "目标库位"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "Total"
+msgstr "总计"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+#: field:stock.mt.rpt,mr_emp_id:0
+msgid "Employee"
+msgstr "员工"
+
+#. module: dmp_stock
+#: field:stock.mt.rpt,product_qty:0
+msgid "Quantity"
+msgstr "数量"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "Stock moves that are Confirmed, Available or Waiting"
+msgstr "已经确认,可用或者等待的单据"
+
+#. module: dmp_stock
+#: selection:stock.mt.rpt,state:0
+msgid "Cancelled"
+msgstr "取消"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "To Date"
+msgstr "结束日期"
+
+#. module: dmp_stock
+#: model:ir.actions.act_window,name:dmp_stock.action_stock_mt_rpt
+#: model:ir.ui.menu,name:dmp_stock.menu_action_stock_mt_rpt
+msgid "Material Req/Ret Products"
+msgstr "领退料产品"
+
+#. module: dmp_stock
+#: view:stock.mt.rpt:0
+msgid "Material Req/Ret Products"
+msgstr "领退料产品"
+
 ########################manual########################
 #. module: stock
 #: view:stock.picking:0
