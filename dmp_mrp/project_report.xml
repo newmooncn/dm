@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>   
+<!-- task by team -->                
+        <report auto="False" id="report_task_group_by_team" model="task.group" header="True"
+                name="task.group.by_team" rml="dmp_mrp/report/task_group_by_team.rml"
+                usage="default" string="Tasks by Team"/>      
+                                                                      
+    </data>
+</openerp>

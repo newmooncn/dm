@@ -111,7 +111,7 @@
             </field>
         </record>
 <!-- add cn name to kanban view -->        		
-        <!-- <record model="ir.ui.view" id="product_kanban_view_dmp_product">
+<!--         <record model="ir.ui.view" id="product_kanban_view_dmp_product">
             <field name="name">Product Kanban</field>
             <field name="model">product.product</field>
             <field name="inherit_id" ref="product.product_kanban_view"/>

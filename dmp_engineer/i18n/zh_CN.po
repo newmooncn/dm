@@ -1,0 +1,88 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+#   * dmp_engineer
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20130413-232416\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-29 08:53+0000\n"
+"PO-Revision-Date: 2014-08-29 17:12+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.7\n"
+
+
+#. module: dmp_engineer
+#: model:ir.model.fields,field_description:dmp_engineer.field_project_project_mfg_ids
+#: field:project.project,mfg_ids:0
+msgid "MFG IDs"
+msgstr "生产ID"
+
+#. module: dmp_engineer
+#: model:ir.model.fields,field_description:dmp_engineer.field_project_project_bom_id
+#: model:ir.model.fields,field_description:dmp_engineer.field_project_task_bom_id
+#: field:project.project,bom_id:0 view:project.task:0
+#: field:project.task,bom_id:0
+msgid "Bill of Material"
+msgstr "物料清单"
+
+#. module: dmp_engineer
+#: model:ir.model.fields,field_description:dmp_engineer.field_project_project_product_id
+#: model:ir.model.fields,field_description:dmp_engineer.field_project_task_product_id
+#: field:project.project,product_id:0
+#: field:project.task,product_id:0
+msgid "Product"
+msgstr "产品"
+
+#. module: dmp_engineer
+#: model:ir.model.fields,field_description:dmp_engineer.field_project_project_bom_components
+#: model:ir.model.fields,field_description:dmp_engineer.field_project_task_components
+#: field:project.project,bom_components:0 field:project.task,components:0
+msgid "Components"
+msgstr "组件"
+
+#. module: dmp_engineer
+#: model:ir.module.category,name:dmp_engineer.module_category_engineer
+#: model:ir.ui.menu,name:dmp_engineer.menu_eng_engingeering
+msgid "Engineering"
+msgstr "工程"
+
+#. module: dmp_engineer
+#: model:ir.actions.act_window,name:dmp_engineer.open_view_project_engineer
+#: model:ir.ui.menu,name:dmp_engineer.menu_projects_engineer
+msgid "Engineer Projects"
+msgstr "工程项目"
+
+#. module: dmp_engineer
+#: view:board.board:0
+#: model:ir.actions.act_window,name:dmp_engineer.action_view_task_engineer
+#: model:ir.ui.menu,name:dmp_engineer.menu_action_view_task_engineer
+msgid "Engineer Tasks"
+msgstr "工程任务"
+
+#. module: dmp_engineer
+#: model:ir.actions.act_window,name:dmp_engineer.action_view_task_engineer_my
+#: model:ir.ui.menu,name:dmp_engineer.menu_action_view_task_engineer_my
+msgid "My Engineer Tasks"
+msgstr "我的工程任务"
+
+#. module: dmp_engineer
+#: model:res.groups,name:dmp_engineer.group_engineer_user
+msgid "User"
+msgstr "用户"
+
+#. module: dmp_engineer
+#: model:res.groups,name:dmp_engineer.group_engineer_manager
+msgid "Manager"
+msgstr "经理"
+
+########################manual########################
+#. module: dmp_engineer
+#: model:ir.ui.menu,name:base.menu_eng_root
+msgid "Engineering"
+msgstr "工程"

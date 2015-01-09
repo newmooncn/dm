@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="project_mfg" model="project.project">
+            <field name="name">Manufacture Project(Reserved)</field>
+            <field name="project_type">mfg</field>
+            <field name="company_id"></field>
+        </record>
+    </data>
+</openerp>
