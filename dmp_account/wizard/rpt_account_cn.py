@@ -135,7 +135,7 @@ class rpt_account_cn(osv.osv_memory):
         if debit == credit: bal_direct = 'balanced'
         if debit > credit: bal_direct = 'debit'
         if debit < credit: bal_direct = 'credit'
-        balance = account.bal_direct == 'credit' and (credit-debit) or (debit-credit) 
+        balance = account.bal_direct == 'c' and (credit-debit) or (debit-credit) 
         return balance, bal_direct          
         
     def run_account_cn(self, cr, uid, ids, context=None):
@@ -215,7 +215,7 @@ class rpt_account_cn(osv.osv_memory):
 
                 #detail lines
                 if rpt.level == 'detail':
-                    cr.execute('SELECT aml.debit, aml.credit,aml.date_biz as move_date, am.name as move_name, aml.name as move_line_name, \
+                    cr.execute('SELECT aml.debit, aml.credit,am.date as move_date, am.name as move_name, aml.name as move_line_name, \
                             aml.id,aml.move_id \
                             FROM account_move_line aml \
                             JOIN account_move am ON (am.id = aml.move_id) \

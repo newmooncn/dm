@@ -1774,6 +1774,70 @@ msgstr "产品"
 msgid "位"
 msgstr "位"
 
+#. module: dmp_account
+#: help:account.invoice,auto_reconcile_sale_pay:0
+msgid "Auto reconcile the sale order payments when valid the invoice"
+msgstr "验证发票的时候自动核销预收款"
+
+#. module: dmp_account
+#: field:account.invoice,auto_reconcile_sale_pay:0
+#: model:ir.model.fields,field_description:dmp_account.field_account_invoice_auto_reconcile_sale_pay
+msgid "Auto Reconcile Sale Payment"
+msgstr "自动核销预付款"
+
+#. module: dmp_account
+#: model:ir.model.fields,field_description:dmp_account.field_sale_order_payment_moves
+#: view:sale.order:0 field:sale.order,payment_moves:0
+msgid "Payment Moves"
+msgstr "付款会计凭证明细"
+
+#. module: dmp_account
+#: view:sale.order:0
+msgid "Payments"
+msgstr "付款"
+
+#. module: dmp_account
+#: view:pay.sale.order:0
+msgid "date"
+msgstr "date"
+
+#. module: dmp_account
+#: constraint:pay.sale.order:0
+msgid "Pay amount only can be between zero and the balance."
+msgstr "付款金额必须介于零和余额之间."
+
+#. module: dmp_account
+#: view:pay.sale.order:0
+msgid "Pay"
+msgstr "付款"
+
+#. module: dmp_account
+#: field:account.invoice,sale_payment_ids:0
+#: model:ir.model.fields,field_description:dmp_account.field_account_invoice_sale_payment_ids
+msgid "Sale Payments"
+msgstr "销售预付款"
+
+#. module: dmp_account
+#: view:sale.order:0
+msgid "Total Paid"
+msgstr "已付"
+
+#. module: dmp_account
+#: field:account.move,sale_ids:0
+#: model:ir.model.fields,field_description:dmp_account.field_account_move_sale_ids
+msgid "Sales Orders"
+msgstr "销售订单"
+
+#. module: dmp_account
+#: view:sale.order:0
+msgid "Apply Payments"
+msgstr "登记付款"
+
+#. module: dmp_account
+#: view:sale.order:0
+msgid "Balance Due"
+msgstr "未付"
+
 ########################manual########################
 #. module: account_voucher
 #: model:ir.actions.act_window,name:account_voucher.action_vendor_payment

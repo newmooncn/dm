@@ -19,7 +19,9 @@ CRM
 
     'depends': ['dmp_base','crm'],
     'data':[
-     'security/crm_security.xml'
+        'security/crm_security.xml',
+        'security/ir.model.access.csv',
+        'crm_view.xml'
     ],
     'auto_install': False,
     'installable': True

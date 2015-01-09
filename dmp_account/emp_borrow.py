@@ -199,6 +199,7 @@ class emp_borrow(osv.osv):
             'journal_id': journal.id,
             'period_id': period.id,
             'date': order.date,
+            'date_biz': order.date,
             'amount_currency': amount_currency,
             'currency_id': currency_id,
         }
@@ -211,6 +212,7 @@ class emp_borrow(osv.osv):
             'journal_id': journal.id,
             'period_id': period.id,
             'date': order.date,
+            'date_biz': order.date,
             'amount_currency': amount_currency,
             'currency_id': currency_id,
         }

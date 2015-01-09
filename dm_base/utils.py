@@ -306,35 +306,38 @@ def deal_args_dt(cr, uid, obj,args,dt_fields,context=None):
             fld_operator = arg[1]
             fld_val = arg[2]
             fld = obj._columns.get(fld_name)
-            if fld._type == 'datetime' and fld_operator == "=" and fld_val.endswith('00:00'):
-                '''
-                ['date','=','2013-12-12 16:00:00'] the '16' was generated for the timezone
-                the user inputed is '2013-12-13 00:00:00', subtract 8 hours, then get this value
-                ''' 
-                time_start = [fld_name,'>=',fld_val]
-                time_obj = datetime.strptime(fld_val,DEFAULT_SERVER_DATETIME_FORMAT)
-                time_obj += relativedelta(days=1)
-                time_end = [fld_name,'<=',time_obj.strftime(DEFAULT_SERVER_DATETIME_FORMAT)]
-                new_args.append(time_start)
-                new_args.append(time_end)
-            elif fld._type == 'datetime' and fld_operator == "=" and len(fld_val) == 10:
-                '''
-                ['date','=','2013-12-12] only supply the date part without time
-                ''' 
-                dt_val = datetime.strptime(fld_val + ' 00:00:00', DEFAULT_SERVER_DATETIME_FORMAT)
-                dt_val = utc_timestamp(cr, uid, dt_val, context=context)
-                fld_val = dt_val.strftime(DEFAULT_SERVER_DATETIME_FORMAT)
-                
-                time_start = [fld_name,'>=',fld_val]
-                time_obj = datetime.strptime(fld_val,DEFAULT_SERVER_DATETIME_FORMAT)
-                time_obj += relativedelta(days=1)
-                time_end = [fld_name,'<=',time_obj.strftime(DEFAULT_SERVER_DATETIME_FORMAT)]
-                new_args.append(time_start)
-                new_args.append(time_end)
-            else:
-                new_args.append(arg)
+            if fld._type == 'datetime':
+                if len(fld_val) == 10:
+                    '''
+                    ['date','=','2013-12-12] only supply the date part without time
+                    ''' 
+                    dt_val = datetime.strptime(fld_val + ' 00:00:00', DEFAULT_SERVER_DATETIME_FORMAT)
+                    dt_val = utc_timestamp(cr, uid, dt_val, context=context)
+                    fld_val = dt_val.strftime(DEFAULT_SERVER_DATETIME_FORMAT)
+                if fld_val.endswith('00:00'):
+                    if fld_operator == "=":
+                        '''
+                        ['date','=','2013-12-12 16:00:00'] the '16' was generated for the timezone
+                        the user inputed is '2013-12-13 00:00:00', subtract 8 hours, then get this value
+                        ''' 
+                        time_start = [fld_name,'>=',fld_val]
+                        time_obj = datetime.strptime(fld_val,DEFAULT_SERVER_DATETIME_FORMAT)
+                        time_obj += relativedelta(days=1)
+                        time_end = [fld_name,'<=',time_obj.strftime(DEFAULT_SERVER_DATETIME_FORMAT)]
+                        new_args.append(time_start)
+                        new_args.append(time_end)
+                    elif fld_operator == "!=":
+                        time_start = [fld_name,'<',fld_val]
+                        time_obj = datetime.strptime(fld_val,DEFAULT_SERVER_DATETIME_FORMAT)
+                        time_obj += relativedelta(days=1)
+                        time_end = [fld_name,'>',time_obj.strftime(DEFAULT_SERVER_DATETIME_FORMAT)]
+                        new_args.extend(['|', '|', [fld_name,'=',False], time_start, time_end])                    
+                    else:
+                        new_args.append(arg)
+                else:
+                    new_args.append(arg)
         else:
-            new_args.append(arg)    
+            new_args.append(arg) 
     #TODO: refer fields.datetime.context_timestamp() to deal with the timezone
     #TODO: Improve the code in line#1014@osv/expression.py to handel the timezone for the datatime field:
     '''
@@ -346,3 +349,56 @@ def deal_args_dt(cr, uid, obj,args,dt_fields,context=None):
                     push(create_substitution_leaf(leaf, (left, operator, right), working_model))    
     '''
     return new_args
+
+def set_seq(cr, uid, data, table_name=None, context=None):
+    '''
+    Set the new data sequence in the related model's create() or write method.
+    @param data: the dict data will be create 
+    @param table_name: table name
+    '''
+    if not data or data.get('sequence') and data['sequence'] > 0: 
+        return
+    #get max seq in db
+    cr.execute('select max(sequence) as seq from %s'%(table_name))
+    seq_max = cr.fetchone()[0]
+    if seq_max is None:
+        seq_max = 0
+    seq_max += 1
+    data['sequence'] = seq_max
+        
+def set_seq_o2m(cr, uid, lines, m_table_name=None, o_id_name=None, o_id=None, context=None):
+    '''
+    Set the one2many list sequence in the 'one' in 'one2many' model's create() or write method.
+    @param lines: one list that contains list of line of one2many lines  
+    @param m_table_name: 'many' table name
+    @param o_id_name: field name of 'many' table related to 'one' table
+    @param o_id:'one' id value of field 'o_id_name'   
+    '''
+    '''
+    line's format in lines:
+    **create**:[0,False,{values...}]
+    **write**:[1,%so_line_id%,{values...}]
+    **delete**:[2, %so_line_id%, False]
+    **no change**:[4, %so_line_id%, False]
+    '''
+    if not lines: 
+        return
+    #get max seq in db
+    seq_max = 0
+    if m_table_name and o_id_name and o_id:
+        cr.execute('select max(sequence) as seq from %s where %s=%s'%(m_table_name, o_id_name, o_id))
+        seq_max = cr.fetchone()[0]
+        if seq_max is None:
+            seq_max = 0
+    #get max seq from saving data
+    lines_deal = []
+    for line in lines:
+        data = line[2]
+        if data and data.get('sequence') and data['sequence'] and seq_max < data['sequence']:
+            seq_max = data['sequence']
+        elif line[0] == 0:
+            lines_deal.append(line)
+    #generate the new seq
+    for line in lines_deal:
+        seq_max += 1
+        line[2]['sequence'] = seq_max
