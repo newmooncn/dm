@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
     <data>
-
-        <record id="acespritech_view_ir_attachment_type_form" model="ir.ui.view">
-            <field name="name">acespritech.ir.attachment.type.form</field>
+<!-- Attachment type views -->
+        <record id="view_ir_attachment_type_form" model="ir.ui.view">
+            <field name="name">view_ir_attachment_type_form</field>
             <field name="model">ir.attachment.type</field>
             <field name="arch" type="xml">
                 <form string="Attachment Type" version="7.0">
@@ -12,8 +12,8 @@
             </field>
         </record>
 
-        <record id="acespritech_view_ir_attachment_type_tree" model="ir.ui.view">
-            <field name="name">acespritech.ir.attachment.type.tree</field>
+        <record id="view_ir_attachment_type_tree" model="ir.ui.view">
+            <field name="name">view_ir_attachment_type_tree</field>
             <field name="model">ir.attachment.type</field>
             <field name="arch" type="xml">
                 <tree string="Attachment Type">
@@ -21,9 +21,13 @@
                 </tree>
             </field>
         </record>
-
-        <record id="acespritech_view_ir_attachment_form" model="ir.ui.view">
-            <field name="name">acespritech.ir.attachment.form</field>
+        
+<!-- Redefine the attachment for view
+1.Add the attachment type to attachment form view 
+2.In dmp_base.ir_attachment.fields_view_get() use this view
+-->
+        <record id="view_ir_attachment_form_ext" model="ir.ui.view">
+            <field name="name">view_ir_attachment_form_ext</field>
             <field name="model">ir.attachment</field>
             <field eval="50" name="priority"/>
             <field name="arch" type="xml">
@@ -57,5 +61,52 @@
             </field>
         </record>
 
+<!-- ir.attachment tree/form/search improvements, to show more useful information -->
+    <record model="ir.ui.view" id="view_attachment_tree_ext">
+        <field name="name">view_attachment_tree_ext</field>
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="base.view_attachment_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="res_model" />
+                <field name="res_name" />
+                <field name="attach_type_id"/>
+            </field>
+        </field>
+    </record>  
+    <record model="ir.ui.view" id="view_document_file_tree_ext">
+        <field name="name">view_document_file_tree_ext</field>
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="document.view_document_file_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="res_model" />
+                <field name="res_name" />
+                <field name="attach_type_id"/>
+            </field>
+            <field name="create_date" position="attributes">
+                <attribute name="groups" />
+            </field>
+            <field name="write_date" position="attributes">
+                <attribute name="groups" />
+            </field>
+            <field name="company_id" position="attributes">
+                <attribute name="groups">base.group_multi_company"</attribute>
+            </field>
+        </field>
+    </record>          
+
+    <record model="ir.ui.view" id="view_attachment_search_ext" >
+            <field name="name">view_attachment_search_ext</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_search"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="res_model"/>
+                    <field name="res_name"/>
+                    <field name="attach_type_id"/>
+                </field>
+            </field>
+    </record>
      </data>
 </openerp>

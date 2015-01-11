@@ -22,10 +22,9 @@ class ir_attachment(osv.osv):
         if context is None:
             context = {}
         if view_type == 'form' and context.get('o2m_attach'):
-            view_id = self.pool.get('ir.ui.view').search(cr, uid,
-                                    [('name', '=', 'acespritech.ir.attachment.form')])
-            if view_id and isinstance(view_id, (list, tuple)):
-                view_id = view_id[0]
+            view_id = self.pool.get('ir.model').get_object_reference(cr, uid, 
+                                                                     'dmp_base', 
+                                                                     'view_ir_attachment_form_ext')[1]
         return super(ir_attachment, self).fields_view_get(cr, uid, view_id,
                                         view_type, context, toolbar=toolbar,
                                         submenu=submenu)

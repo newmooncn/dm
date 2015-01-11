@@ -31,7 +31,6 @@ Project Improvements
     """,
     'depends': ["dmp_base", "project", "project_gtd", "project_timesheet", "multi_image"],
     'data': [
-        'security/project_security.xml', 
         'project_simple_view.xml',  
         'project_gtd_view.xml',  
         'project_report.xml',

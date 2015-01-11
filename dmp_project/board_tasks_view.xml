@@ -25,10 +25,8 @@
                 <form string="Tasks Dashboard" version="7.0">
                     <board style="2-1">
                         <column>
-                            <action name="%(tasks_opening_mfg_action)d" string="Manufacture Tasks" creatable='true'/>
                             <action name="%(tasks_opening_simple_action)d" string="Simple Tasks"/>
                             <action name="%(tasks_opening_simple_action)d" string="ERP Tasks"/>
-                            <action name="%(tasks_opening_eng_action)d" string="Engineer Tasks"/>
                         </column>
                     </board>
                 </form>

@@ -6,7 +6,7 @@
             name="GTD Tasks"
             sequence="41"/>
         <menuitem
-            id="menu_tasks_gtd_main_"
+            id="menu_tasks_gtd_main"
             parent="menu_tasks_gtd_root"
             name="GTD Tasks"
             sequence="41"/>

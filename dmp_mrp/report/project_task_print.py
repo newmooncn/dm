@@ -22,7 +22,7 @@
 import time
 from openerp.report import report_sxw
 from openerp.osv import osv
-from openerp.addond.dmp_project.report import project_task_print
+from openerp.addons.dmp_project.report import project_task_print
 #tasks by team, follow the report name in task_print.do_print(): 'task.group.%s'%(data.print_type,)
 report_sxw.report_sxw('report.task.group.by_team','task.group','addons/dmp_mrp/report/task_group_by_team.rml',parser=project_task_print.project_task_print, header='internal')
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

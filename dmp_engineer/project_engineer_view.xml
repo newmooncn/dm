@@ -21,8 +21,8 @@
             	</field>
         	</field>    
        	</record> 
-        <record model="ir.ui.view" id="dmp_engineer_engineer_form_view">
-            <field name="name">dmp_engineer_engineer_form_view</field>
+        <record model="ir.ui.view" id="project_form_view_engineer">
+            <field name="name">project_form_view_engineer</field>
             <field name="model">project.project</field>
             <field name="inherit_id" ref="project.edit_project"/>
             <field name="arch" type="xml">
@@ -30,11 +30,7 @@
                     <page string="Engineer" name="engineer" attrs="{'invisible': [('project_type','!=','engineer')]}">
                     	<group>
                     		<group>
-			                    <label for="bom_id"/>
-			                    <div>
-			                        <field name="bom_id" class="oe_inline"/> 
-				            		<button string="Import BOM" name="%(dmp_mrp.action_view_bom_import)d" type="action"/>
-			                    </div>
+			                    <field name="bom_id"/>
 								<field name="single_mrp_prod_order"/>  		
                     		</group>
                     		<group>
@@ -75,8 +71,8 @@
 		<menuitem action="open_view_project_engineer" id="menu_projects_engineer" parent="menu_eng_engingeering" sequence="1"/>
                 
 <!-- Engineer Tasks view and menu -->                
-        <record model="ir.ui.view" id="dmp_engineer_task_engineer_form_view">
-            <field name="name">dmp_engineer_task_engineer_form_view</field>
+        <record model="ir.ui.view" id="task_form_view_engineer">
+            <field name="name">task_form_view_engineer</field>
             <field name="model">project.task</field>
             <field name="inherit_id" ref="project.view_task_form2"/>
             <field name="arch" type="xml">
@@ -84,11 +80,7 @@
                     <page string="Bill of Material" name="bom" attrs="{'invisible':[('project_type','!=','engineer')]}">
                     	<group>
                     		<group>
-			                    <label for="bom_id"/>
-			                    <div>			                    
-			                        <field name="bom_id" class="oe_inline"/> 
-				            		<button string="Import BOM" name="%(dmp_mrp.action_view_bom_import)d" type="action"/>
-			                    </div>	                    		
+			                    <field name="bom_id"/>                  		
                     		</group>
                     		<group>
 	                    		<field name="product_id"/>

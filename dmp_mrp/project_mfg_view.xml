@@ -5,7 +5,7 @@
         <record model="ir.ui.view" id="project_task_mfg_form_view">
             <field name="name">project_task_mfg_form_view</field>
             <field name="model">project.task</field>
-            <field name="inherit_id" ref="dmp_project_task_simple_form_view"/>
+            <field name="inherit_id" ref="dmp_project.dmp_project_task_simple_form_view"/>
             <field name="arch" type="xml">
             <!-- Add team -->
             	<field name="user_id" position="after">
@@ -82,7 +82,7 @@
 	    <record id="project_task_mfg_search_view" model="ir.ui.view">
 	        <field name="name">project_task_mfg_search_view</field>
 	        <field name="model">project.task</field>
-	        <field name="inherit_id" ref="view_task_search_form_extend"/>
+	        <field name="inherit_id" ref="dmp_project.view_task_search_form_extend"/>
 	        <field name="arch" type="xml">
 	        	<field name="name" position="replace">
 	        		<field name="name" filter_domain="['|',('name','ilike',self),('workorder_id.name','ilike',self)]" string="Tasks"/>
@@ -280,7 +280,8 @@
         <record id="action_view_task_mfg" model="ir.actions.act_window">
             <field name="name">Manufacture Tasks</field>
             <field name="res_model">project.task</field>
-            <field name="view_mode">kanban,kanban_subgrp,tree,form,calendar,gantt,graph</field>
+            <!-- <field name="view_mode">kanban,kanban_subgrp,tree,form,calendar,gantt,graph</field> -->
+            <field name="view_mode">kanban,tree,form,calendar,gantt,graph</field>
             <field name="search_view_id" ref="project.view_task_search_form"/>
             <field name="domain">[('project_type','=','mfg')]</field>
             <field name="context">{'default_project_type':'mfg','search_default_not_done_cancelled': 1}</field>
@@ -297,12 +298,12 @@
             <field name="view_id" ref="view_mfg_task_kanban"/>
             <field name="act_window_id" ref="action_view_task_mfg"/>
         </record>
-        <record id="open_view_task_mfg_list_kanban_subgroup" model="ir.actions.act_window.view">
+        <!-- <record id="open_view_task_mfg_list_kanban_subgroup" model="ir.actions.act_window.view">
             <field name="sequence" eval="2"/>
             <field name="view_mode">kanban_subgrp</field>
             <field name="view_id" ref="view_mfg_task_kanban_subgroup"/>
             <field name="act_window_id" ref="action_view_task_mfg"/>
-        </record>
+        </record> -->
         <record id="open_view_task_mfg_list_tree" model="ir.actions.act_window.view">
             <field name="sequence" eval="3"/>
             <field name="view_mode">tree</field>
@@ -347,6 +348,39 @@
 	            	</xpath>
 	            </data>
 	        </field>
-	    </record>         
-    </data>
+	    </record>        
+    
+<!-- Add bom importing button to engineer project form -->
+        <record model="ir.ui.view" id="project_form_view_engineer_impbom">
+            <field name="name">project_form_view_engineer_impbom</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="dmp_engineer.project_form_view_engineer"/>
+            <field name="arch" type="xml">
+                <field name="bom_id" position="after">
+		            <label for="bom_id"/>
+		            <div>
+		                <field name="bom_id" class="oe_inline"/> 
+		                <button string="Import BOM" name="%(action_view_bom_import)d" type="action"/>
+		            </div>
+                </field>
+            </field>
+        </record>     
+              
+<!-- Add bom importing button to engineer task form -->
+        <record model="ir.ui.view" id="task_form_view_engineer_impbom">
+            <field name="name">task_form_view_engineer_impbom</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="dmp_engineer.task_form_view_engineer"/>
+            <field name="arch" type="xml">
+                <field name="bom_id" position="after">
+                    <label for="bom_id"/>
+                    <div>
+                        <field name="bom_id" class="oe_inline"/> 
+                        <button string="Import BOM" name="%(action_view_bom_import)d" type="action"/>
+                    </div>
+                </field>                  
+            </field>
+        </record>        
+        
+    </data> 
 </openerp>

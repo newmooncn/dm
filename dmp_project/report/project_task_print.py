@@ -58,7 +58,6 @@ report_sxw.report_sxw('report.project.task.sheet','project.task','addons/dmp_pro
 #tasks by group
 report_sxw.report_sxw('report.task.group.by_assignee','task.group','addons/dmp_project/report/task_group_by_assignee.rml',parser=project_task_print, header='internal')
 report_sxw.report_sxw('report.task.group.by_employee','task.group','addons/dmp_project/report/task_group_by_employee.rml',parser=project_task_print, header='internal')
-report_sxw.report_sxw('report.task.group.by_team','task.group','addons/dmp_project/report/task_group_by_team.rml',parser=project_task_print, header='internal')
 #daily task
 #report_sxw.report_sxw('report.task.daily.mfg','task.group','addons/dmp_project/report/task_daily_mfg.rml',parser=project_task_print, header='internal')
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

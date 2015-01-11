@@ -210,7 +210,7 @@
             		<field name="oper_next_ids" widget="many2many_tags"/>
             	</field>
             	<!-- routing work center tasks -->
-            	<group string="General Information" position="after">
+            	<xpath expr="//group" position="after">
                     <label for="wc_task_ids"/>
                     <field name="wc_task_ids" widget="one2many_list">
 	                         <tree string="Tasks" editable="bottom">
@@ -220,7 +220,7 @@
 	                             <field name="planned_hours"/>
 	                         </tree>
                     </field>            	
-            	</group>
+            	</xpath>
             </field>
         </record>
             
