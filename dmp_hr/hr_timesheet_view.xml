@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<!-- Add hourly rate to employee -->    
+        <record id="hr_timesheet_employee_extd_form_ext" model="ir.ui.view">
+            <field name="name">hr_timesheet_employee_extd_form_ext</field>
+            <field name="model">hr.employee</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_employee_extd_form"/>
+            <field name="arch" type="xml">
+            	<field name="product_id" position="after">
+            		<field name="hourly_rate"/>
+            	</field>
+            </field>
+        </record>
+<!-- Add employee_id to hr timesheet -->        
+        <record id="hr_timesheet_line_tree_ext" model="ir.ui.view">
+            <field name="name">hr_timesheet_line_tree_ext</field>
+            <field name="model">hr.analytic.timesheet</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_tree"/>
+            <field name="arch" type="xml">
+            	<field name="user_id" position="after">
+            		<field name="employee_id"/>
+            	</field>
+            	<field name="unit_amount" position="attributes">
+            		<attribute name="context">{'employee_id':employee_id}</attribute>
+            	</field>
+            	<field name="product_uom_id" position="attributes">
+            		<attribute name="context">{'employee_id':employee_id}</attribute>
+            	</field>
+            	<field name="product_id" position="attributes">
+            		<attribute name="context">{'employee_id':employee_id}</attribute>
+            	</field>
+            	<field name="journal_id" position="attributes">
+            		<attribute name="invisible">0</attribute>
+            	</field>
+            	<field name="amount" position="attributes">
+            		<attribute name="invisible">0</attribute>
+            	</field>
+            	<field name="general_account_id" position="attributes">
+            		<attribute name="invisible">0</attribute>
+            	</field>
+            </field>
+        </record>      
+        <record id="hr_timesheet_line_form_ext" model="ir.ui.view">
+            <field name="name">hr_timesheet_line_form_ext</field>
+            <field name="model">hr.analytic.timesheet</field>
+            <field name="inherit_id" ref="hr_timesheet.hr_timesheet_line_form"/>
+            <field name="arch" type="xml">
+            	<field name="user_id" position="after">
+            		<field name="employee_id" options='{"no_open": True}'/>
+            	</field>
+            	<field name="unit_amount" position="attributes">
+            		<attribute name="on_change">on_change_unit_amount(product_id, unit_amount, False, product_uom_id,journal_id,employee_id)</attribute>
+            	</field>
+            	<field name="product_uom_id" position="attributes">
+            		<attribute name="on_change">on_change_unit_amount(product_id, unit_amount, False, product_uom_id,journal_id,employee_id)</attribute>
+            	</field>
+            	<field name="product_id" position="attributes">
+            		<attribute name="on_change">on_change_unit_amount(product_id, unit_amount, False, product_uom_id,journal_id,employee_id)</attribute>
+            	</field>
+            </field>
+        </record>               
+    </data>
+
+    <data>      
+<!-- since the product_product_consultant' was changed by users to use as other usage
+so use this product for employee's product by default -->        
+        <record id="product_employee_cost" model="product.product">
+            <field name="list_price">0.0</field>
+            <field name="standard_price">0.0</field>
+            <field name="uom_id" ref="product.product_uom_hour"/>
+            <field name="uom_po_id" ref="product.product_uom_hour"/>
+            <field name="name">Employee Cost(Reserved)</field>
+            <field name="categ_id" ref="product.product_category_all"/>
+            <field name="type">service</field>
+            <field name="measure_type">mmp</field>
+            <field name="uom_categ_id" ref="product.uom_categ_wtime"/>
+            <field name="default_code">RESERVED_001</field>
+            <field name="company_id"></field>
+        </record>     
+    </data>    
+</openerp>

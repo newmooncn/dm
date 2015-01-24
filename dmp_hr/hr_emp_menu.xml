@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<!-- The human resource menu for employee -->
+        <menuitem id="menu_hr_emp_root" name="My Human Resources" groups="base.group_user" sequence="90"/>
+        <menuitem id="menu_hr_emp" parent="menu_hr_emp_root" name="My Human Resources" groups="base.group_user" sequence="90"/>
+    </data>
+</openerp>
