@@ -88,6 +88,18 @@ class hr_employee(osv.osv):
 		result = self.name_get(cr, user, ids, context=context)
 		return result 	
 	
+	def search(self, cr, user, args, offset=0, limit=None, order=None, context=None, count=False):
+		for arg in args:
+			#add the category improving
+			if arg[0] == 'department_id' and arg[1] == '=' and isinstance(arg[2], (int,long)):
+				idx = args.index(arg)
+				args.remove(arg)
+				args.insert(idx, [arg[0],'child_of',arg[2]])
+							
+		#get the search result		
+		ids = super(hr_employee,self).search(cr, user, args, offset, limit, order, context, count)
+		return ids	
+	
 	#update user related employee_id
 	def update_user_emp(self, cr, uid, user_id, emp_id, context=None):
 		if user_id and emp_id:
