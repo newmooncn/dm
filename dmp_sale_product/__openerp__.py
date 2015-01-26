@@ -15,7 +15,7 @@
 Sale Product ID
 =====================
     """,
-    'depends': ["dmp_base", "dmp_mto","product", "sale", "mrp"],
+    'depends': ["dmp_base", "dmp_mto","product", "sale", "mrp", "project"],
     'data':['sale_product_view.xml',
         'sale_product_workflow.xml',
         'sale_product_sequence.xml',

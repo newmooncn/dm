@@ -16,7 +16,7 @@ Process Base
 =====================
     """,
 
-    'depends': ['base','dm_base'],
+    'depends': ['base','dm_base', "base_custom_attributes", "document"],
     'data':['rpt_base_view.xml',
             'ir_attachment_view.xml',
             'security/security.xml',

@@ -266,9 +266,6 @@
                 	<field name="create_uid"/>
                 	<field name="create_date" widget="date"/>
                 </field>
-                <field name="amount_total" position="after">
-                	<field name="amount_paid"/>
-                </field>
             </field>
         </record>
         
