@@ -29,7 +29,8 @@ Accounting
             "wizard/rpt_account_cn_menu.xml",
             "wizard/rpt_account_cn_gl_view.xml",
             "wizard/rpt_account_cn_detail_view.xml",
-            "wizard/rpt_account_cn_detail_predefine_view.xml",
+            "wizard/rpt_account_cn_detail_predefine_view.xml",            
+            "wizard/rpt_account_cn_detail_money_view.xml",
             "wizard/rpt_inventory_view.xml",
             "wizard/rpt_account_partner_view.xml",          
             
@@ -46,8 +47,12 @@ Accounting
             "payment/pay_po.xml",
             "payment/purchase_payment_view.xml",
             "payment/sale_payment_view.xml",
-            "payment/invoice_payment_view.xml"
-             
+            "payment/invoice_payment_view.xml",
+            "payment/invoice_payment_workflow.xml",
+            #move source
+            'account_move_source_view.xml',
+            "hr_view.xml"
+            "res_partner_view.xml",
     ],
     'auto_install': False,
     'installable': True

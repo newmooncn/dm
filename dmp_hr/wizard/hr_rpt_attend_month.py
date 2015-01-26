@@ -40,7 +40,7 @@ class hr_rpt_attend_month(osv.osv):
     _description = "HR Attendance monthly report"
     _inherit = ['mail.thread']
     _columns = {
-        'name': fields.char('Report Name', size=16, required=False),
+        'name': fields.char('Report Name', size=32, required=False),
         'title': fields.char('Report Title', required=False),
         'type': fields.char('Report Type', size=16, required=True),
         'company_id': fields.many2one('res.company','Company',required=True),  
@@ -49,7 +49,7 @@ class hr_rpt_attend_month(osv.osv):
         'rpt_lines': fields.one2many('hr.rpt.attend.month.line', 'rpt_id', string='Report Line'),
         'date_from': fields.datetime("Start Date", required=True),
         'date_to': fields.datetime("End Date", required=True),
-        'emp_ids': fields.many2many('hr.employee', string='Employees'),
+        'emp_ids': fields.many2many('hr.employee', string='Selected Employees'),
         
         'state': fields.selection([
             ('draft', 'Draft'),
@@ -201,7 +201,7 @@ class hr_rpt_attend_month(osv.osv):
     
     def run_report(self, cr, uid, ids, context=None):
         rpt = self.browse(cr, uid, ids, context=context)[0]
-        if not rpt.emp_ids:
+        if not rpt.attend_day_id and not rpt.emp_ids:
             raise osv.except_osv(_('Warning!'),_('Please select employees to get attendance!'))
         rpt_method = getattr(self, 'run_%s'%(rpt.type,))
         #get report data
@@ -274,6 +274,8 @@ class hr_rpt_attend_month(osv.osv):
         #report data line
         rpt_lns = []        
         emp_ids = rpt.emp_ids
+        if rpt.attend_day_id:
+            emp_ids = rpt.attend_day_id.emp_ids
         if not emp_ids:
             emp_obj = self.pool.get('hr.employee')
             emp_ids = emp_obj.search(cr, uid, [], context=context) 

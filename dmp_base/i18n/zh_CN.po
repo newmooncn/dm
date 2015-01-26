@@ -1,6 +1,6 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* metro_hr
+#	* dmp_base
 #
 msgid ""
 msgstr ""
@@ -15,14 +15,14 @@ msgstr ""
 "Content-Transfer-Encoding: \n"
 "Plural-Forms: \n"
 
-#. module: metro_hr
+#. module: dmp_base
 #: field:hr.employee,emp_code:0
-#: model:ir.model.fields,field_description:metro_hr.field_hr_employee_emp_code
+#: model:ir.model.fields,field_description:dmp_base.field_hr_employee_emp_code
 msgid "Employee Code"
 msgstr "编号"
 
-#. module: metro_hr
+#. module: dmp_base
 #: field:hr.employee,emp_card_id:0
-#: model:ir.model.fields,field_description:metro_hr.field_hr_employee_emp_card_id
+#: model:ir.model.fields,field_description:dmp_base.field_hr_employee_emp_card_id
 msgid "Employee Card ID"
 msgstr "卡号"

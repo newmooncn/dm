@@ -280,7 +280,22 @@ class hr_contract(osv.osv):
                     }
             lines.append(line)
         return lines 
-        
+    
+    _OTPAY_SEL = [('wage', 'Wage'),('wage2', 'Basic Wage'),('fixed', 'Fixed Amount')]    
+
+    '''
+        加班小时工资设置:
+        正常加班小时工资: 默认-按实际工资(正常工资/应出勤天数/8), 倍数1
+        周末加班小时工资: 默认-按实际工资(正常工资/应出勤天数/8), 倍数1
+        节假日加班小时工资: 默认-按实际工资(正常工资/应出勤天数/8), 倍数1
+        5天制正常加班小时工资: 默认-按基本工资(基本工资/应出勤天数/8), 倍数1
+        5天制周末加班小时工资: 默认-按基本工资(基本工资/应出勤天数/8), 倍数2
+        5天制节假日加班小时工资: 默认-按基本工资(基本工资/应出勤天数/8), 倍数3
+        可设置选项:
+        按实际工资(正常工资/应出勤天数/8), 倍数
+        按基本工资(基本工资/应出勤天数/8), 倍数
+        按固定金额,金额
+    '''        
     _columns = {
         'alwded_ids': fields.one2many('hr.contract.alwded', 'contract_id', 'Allowance&Deduction'),
         'si_ids': fields.one2many('hr.contract.si', 'contract_id', 'Social Insurance'),
@@ -288,9 +303,47 @@ class hr_contract(osv.osv):
         'si_total_personal':fields.function(_amount_si, string='Personal Amount', type='float', digits_compute=dp.get_precision('Payroll'), multi="_amount_si"),
         
         'wage2':fields.float('Wage2', digits_compute=dp.get_precision('Payroll')),
+        'have_pit':fields.boolean('Have PIT'),        
         'pit_base':fields.float('PIT Start Point', digits_compute=dp.get_precision('Payroll')),
 
+        #OT pay setting
+        'ot_pay_normal':fields.selection(_OTPAY_SEL,'Normal OT Pay'),
+        'ot_pay_normal_multi':fields.float('Multiple', digits_compute=dp.get_precision('Payroll')),
+                
+        'ot_pay_weekend':fields.selection(_OTPAY_SEL,'Weekend OT Pay'),
+        'ot_pay_weekend_multi':fields.float('Multiple', digits_compute=dp.get_precision('Payroll')),
+        
+        'ot_pay_holiday':fields.selection(_OTPAY_SEL,'Holiday OT Pay'),
+        'ot_pay_holiday_multi':fields.float('Multiple', digits_compute=dp.get_precision('Payroll')),
+        
+        'ot_pay_normal2':fields.selection(_OTPAY_SEL,'Normal OT Pay by five days'),
+        'ot_pay_normal2_multi':fields.float('Multiple', digits_compute=dp.get_precision('Payroll')),
+        
+        'ot_pay_weekend2':fields.selection(_OTPAY_SEL,'Weekend OT Pay by five days'),
+        'ot_pay_weekend2_multi':fields.float('Multiple', digits_compute=dp.get_precision('Payroll')),
+        
+        'ot_pay_holiday2':fields.selection(_OTPAY_SEL,'Holiday OT Pay by five days'),
+        'ot_pay_holiday2_multi':fields.float('Multiple', digits_compute=dp.get_precision('Payroll')),
     }
+    
+    _defaults={
+        'have_pit':True,
+        
+        'ot_pay_normal': 'wage',
+        'ot_pay_normal_multi': 1,
+        'ot_pay_weekend': 'wage',
+        'ot_pay_weekend_multi': 2,
+        'ot_pay_holiday': 'wage',
+        'ot_pay_holiday_multi': 3,
+        
+        'ot_pay_normal2': 'wage2',
+        'ot_pay_normal2_multi': 1.5,
+        'ot_pay_weekend2': 'wage2',
+        'ot_pay_weekend2_multi': 2,
+        'ot_pay_holiday2': 'wage2',
+        'ot_pay_holiday2_multi': 3,               
+        }   
+     
     def default_get(self, cr, uid, fields_list, context=None):
         defaults = super(hr_contract, self).default_get(cr, uid, fields_list, context=context)
         user_comp = self.pool.get('res.users').browse(cr, uid, uid,context=context).company_id
@@ -320,8 +373,10 @@ class res_company(osv.osv):
     _columns = {
         'emppay_wage2':fields.float('Wage2', digits_compute=dp.get_precision('Payroll')),
         'emppay_pit_base':fields.float('PIT Start Point', digits_compute=dp.get_precision('Payroll')),
+        'emppay_pit_formula':fields.char('PIT Formula', size=128),
     }
-    _defaults={'emppay_pit_base':3500}
+    _defaults={'emppay_pit_base':3500,
+                    'emppay_pit_formula':'[(0.03, 0), (0.1, 105), (0.2, 555), (0.25, 1005), (0.3, 2755), (0.35, 5505), (0.45, 13505)]'}
 
 class hr_rpt_attend_month(osv.osv):
     _inherit = 'hr.rpt.attend.month'
@@ -473,7 +528,12 @@ class hr_rpt_attend_month(osv.osv):
                     line['amount'] = item.amount
             else:
                 #calc_method is  'base_attend', and attendance has the field from 'attend_field' value
-                line['amount'] = getattr(attend_line, item.attend_field)
+                line['amount'] = getattr(attend_line, item.attend_field)                
+                #the alwded's currency is not local currency, need convert the local amount on attend line to the foreign currency
+                line['currency_id'] = item.currency_id and item.currency_id.id or None
+                if item.currency_id and item.currency_id.id != attend_line.rpt_id.company_id.currency_id.id:
+                    line['amount_local'] = line['amount']
+                    line['amount'] = self.pool.get('res.currency').compute(cr, uid, attend_line.rpt_id.company_id.currency_id.id, item.currency_id.id, line['amount'], context=context)                
                 
             if item.type == 'alw':
                 lines_alw.append(line)
@@ -539,39 +599,43 @@ class hr_emppay_sheet(osv.osv):
         'wage_work': fields.function(_wage_all, digits_compute= dp.get_precision('Payroll'), string='Work Wage',
             store={
                 'hr.emppay': (_get_sheet, None, 10),
-            }, multi="sums", track_visibility='onchange', readonly=1),
+            }, multi="sums", readonly=1),
         'alw_total': fields.function(_wage_all, digits_compute= dp.get_precision('Payroll'), string='Allowance',
             store={
                 'hr.emppay': (_get_sheet, None, 10),
-            }, multi="sums", track_visibility='onchange', readonly=1),
+            }, multi="sums", readonly=1),
         'wage_total': fields.function(_wage_all, digits_compute= dp.get_precision('Payroll'), string='Total Wage',
             store={
                 'hr.emppay': (_get_sheet, None, 10),
-            }, multi="sums", track_visibility='onchange', readonly=1),  
+            }, multi="sums", readonly=1),  
         'ded_total': fields.function(_wage_all, digits_compute= dp.get_precision('Payroll'), string='Deduction',
             store={
                 'hr.emppay': (_get_sheet, None, 10),
-            }, multi="sums", track_visibility='onchange', readonly=1),  
+            }, multi="sums", readonly=1),  
         'si_total_personal': fields.function(_wage_all, digits_compute= dp.get_precision('Payroll'), string='SI(Personal)',
             store={
                 'hr.emppay': (_get_sheet, None, 10),
-            }, multi="sums", track_visibility='onchange', readonly=1),  
+            }, multi="sums", readonly=1),  
         'si_total_company': fields.function(_wage_all, digits_compute= dp.get_precision('Payroll'), string='SI(Company)',
             store={
                 'hr.emppay': (_get_sheet, None, 10),
-            }, multi="sums", track_visibility='onchange', readonly=1),  
+            }, multi="sums", readonly=1),    
+        'money_borrow_deduction': fields.function(_wage_all, digits_compute= dp.get_precision('Payroll'), string='Borrow Deduction',
+            store={
+                'hr.emppay': (_get_sheet, None, 10),
+            }, multi="sums", readonly=1),
         'wage_pay': fields.function(_wage_all, digits_compute= dp.get_precision('Payroll'), string='Wage Should Pay',
             store={
                 'hr.emppay': (_get_sheet, None, 10),
-            }, multi="sums", track_visibility='onchange', readonly=1),  
+            }, multi="sums", readonly=1),  
         'pit': fields.function(_wage_all, digits_compute= dp.get_precision('Payroll'), string='PIT',
             store={
                 'hr.emppay': (_get_sheet, None, 10),
-            }, multi="sums", track_visibility='onchange', readonly=1),  
+            }, multi="sums", readonly=1),  
         'wage_net': fields.function(_wage_all, digits_compute= dp.get_precision('Payroll'), string='Net Wage',
             store={
                 'hr.emppay': (_get_sheet, None, 10),
-            }, multi="sums", track_visibility='onchange', readonly=1),                              
+            }, multi="sums", readonly=1),                              
     }
     _defaults = {
         'state': 'draft'
@@ -669,7 +733,25 @@ class hr_emppay_sheet(osv.osv):
                  'form': form_data,
         }
         return {'type': 'ir.actions.report.xml', 'report_name': 'hr.emppay.slip.sign', 'datas': datas, 'nodestroy': True} 
+        
+    def print_sheet_slip_india(self, cr, uid, ids, context=None):
+        if context is None: 
+            context = {}
+        order = self.browse(cr, uid, ids[0], context=context)
+        emppay_ids = [emppay.id for emppay in order.emppay_ids]
+        return self.pool.get('hr.emppay').print_slip_india(cr, uid, emppay_ids, context=context)
     
+    def print_sheet_slip_sign_india(self, cr, uid, ids, context=None):
+        if context is None: 
+            context = {}
+        form_data = self.read(cr, uid, ids[0], context=context)
+        datas = {
+                 'model': self._name,
+                 'ids': [ids[0]],
+                 'form': form_data,
+        }
+        return {'type': 'ir.actions.report.xml', 'report_name': 'hr.emppay.slip.sign.india', 'datas': datas, 'nodestroy': True} 
+        
 hr_emppay_sheet()
 
 '''
@@ -757,19 +839,57 @@ class hr_emppay(osv.osv):
     '''    
     _name = 'hr.emppay'
     _description = 'Pay Slip'
-
-    def _wage_all(self, cr, uid, ids, field_names, args, context=None):
+    
+    def _ot_pay_info(self, cr, uid, contract, wage_days, wage2_days=None,  wage=None, wage2=None, context=None):
+        if not contract or not wage_days or wage_days <= 0 or (wage2_days and wage2_days <=0):
+            return False
+        if isinstance(contract,(int,long)):
+            contract = self.pool.get('hr.contract').browse(cr, uid, contract, context=context)
+        if not wage:
+            wage = contract.wage
+        if not wage2:
+            wage2 = contract.wage2
+        if not wage2_days:
+            wage2_days = wage_days
+            
+        curr_convert = False
+        if contract.wage_currency_id and contract.wage_currency_id.id != contract.employee_id.company_id.currency_id.id:
+            curr_convert = True
+            curr_obj = self.pool.get('res.currency')
+            curr_from_id = contract.wage_currency_id.id
+            curr_to_id = contract.employee_id.company_id.currency_id.id
+                
+        fld_list = [{'opt':'ot_pay_normal','multi':'ot_pay_normal_multi'},{'opt':'ot_pay_weekend','multi':'ot_pay_weekend_multi'},{'opt':'ot_pay_holiday','multi':'ot_pay_holiday_multi'},
+                    {'opt':'ot_pay_normal2','multi':'ot_pay_normal2_multi'},{'opt':'ot_pay_weekend2','multi':'ot_pay_weekend2_multi'},{'opt':'ot_pay_holiday2','multi':'ot_pay_holiday2_multi'}]
+        ot_pays = {}
+        for fld in fld_list:
+            ot_pay_rate = 0.0
+            fld_opt = fld['opt']
+            fld_multi = fld['multi']
+            ot_pay_opt = getattr(contract, fld_opt)
+            if ot_pay_opt == 'wage':
+                ot_pay_rate = (wage/wage_days/8.0)*getattr(contract,fld_multi) 
+            if ot_pay_opt == 'wage2':
+                ot_pay_rate = (wage2/wage2_days/8.0)*getattr(contract,fld_multi)
+            if ot_pay_opt == 'fixed':
+                ot_pay_rate = getattr(contract,fld_multi)
+            if curr_convert:
+                ot_pay_rate = curr_obj.compute(cr, uid, curr_from_id, curr_to_id, ot_pay_rate, context=context)
+            ot_pays[fld_opt] = ot_pay_rate
+        return ot_pays
+    
+    def _wage_compute(self, cr, uid, ids, field_names, args, context=None):
         res = dict((id,dict((field_name,None) for field_name in field_names)) for id in ids)
         for slip in self.browse(cr, uid, ids, context=context):
             wage_attend = 0.0
             wage_ot = 0.0
+            month_attend_days_law = slip.company_id.month_attend_days_law
+            ot_pays = self._ot_pay_info(cr, uid, slip.contract_id, slip.days_work, month_attend_days_law, wage=slip.wage, wage2=slip.wage2,context=context)
             if slip.days_work and slip.days_work != 0:
                 wage_attend = slip.wage*slip.days_attend/slip.days_work
-                
-                wage_hourly = slip.wage/slip.days_work/8.0
-                wage_ot = wage_hourly * slip.hours_ot
-                wage_ot_we = wage_hourly * slip.hours_ot_we * 2
-                wage_ot_holiday = wage_hourly * slip.hours_ot_holiday * 3
+                wage_ot = ot_pays['ot_pay_normal'] * slip.hours_ot
+                wage_ot_we = ot_pays['ot_pay_weekend'] * slip.hours_ot_we
+                wage_ot_holiday = ot_pays['ot_pay_holiday'] * slip.hours_ot_holiday
                 wage_ot_total = wage_ot + wage_ot_we + wage_ot_holiday
                 
                 wage_work = wage_attend + wage_ot_total
@@ -788,15 +908,28 @@ class hr_emppay(osv.osv):
                 si_total_personal += si.amount_personal
                 si_total_company += si.amount_company
                 
-            wage_total = wage_attend + wage_ot + alw_total
-            wage_pay = wage_total - ded_total - si_total_personal
+            wage_total = wage_attend + wage_ot + alw_total             
+            #johnw, 01/21/2015, add money_borrow_deduction       
+            money_borrow_original = slip.employee_id.money_residual
+            money_borrow_deduction = slip.money_borrow_deduction
+            money_borrow_residual = money_borrow_original - money_borrow_deduction
+            #money_borrow_deduction is in local currency            
+            if money_borrow_deduction !=0 and slip.currency_id and slip.currency_id.id != slip.company_id.currency_id.id:
+                curr_from_id = slip.company_id.currency_id.id
+                curr_to_id = slip.currency_id.id
+                money_borrow_deduction = self.pool.get('res.currency').compute(cr, uid, curr_from_id, curr_to_id, money_borrow_deduction, context=context)
+                
+            wage_pay = wage_total - ded_total - si_total_personal - money_borrow_deduction
             wage_tax = wage_total - si_total_personal
             
-            pit = max([
-                        (wage_tax - slip.contract_id.pit_base)*rate[0]-rate[1] 
-                        for rate in [(0.03, 0), (0.1, 105), (0.2, 555), (0.25, 1005), (0.3, 2755), (0.35, 5505), (0.45, 13505)]
-                        ])
-            pit = max([pit,0])
+            pit = 0.0
+            if slip.contract_id.have_pit:
+                pit_formula = slip.company_id.emppay_pit_formula
+                if not pit_formula:
+                    pit_formula = "[(0.03, 0), (0.1, 105), (0.2, 555), (0.25, 1005), (0.3, 2755), (0.35, 5505), (0.45, 13505)]"
+                pit_rates = eval(pit_formula)
+                pit = max([(wage_tax - slip.contract_id.pit_base)*rate[0]-rate[1]  for rate in pit_rates])
+                pit = max([pit,0])
             
             wage_net = wage_pay - pit
                         
@@ -805,21 +938,19 @@ class hr_emppay(osv.osv):
             see below code in hr_rpt_attend_month:
                 days_attend2 = days_attend2/days_work2*month_attend_days_law
             '''
-            month_attend_days_law = slip.company_id.month_attend_days_law                            
             wage_attend2 = slip.wage2*slip.days_attend2/month_attend_days_law
-            
-            wage_hourly2 = slip.wage2/month_attend_days_law/8.0
-            wage_ot2 = wage_hourly2 * slip.hours_ot2
-            wage_ot_we2 = wage_hourly2 * slip.hours_ot_we2 * 2
-            wage_ot_holiday2 = wage_hourly2 * slip.hours_ot_holiday2 * 3
+            wage_ot2 = ot_pays['ot_pay_normal2'] * slip.hours_ot2
+            wage_ot_we2 = ot_pays['ot_pay_weekend2'] * slip.hours_ot_we2
+            wage_ot_holiday2 = ot_pays['ot_pay_holiday2'] * slip.hours_ot_holiday2            
             wage_ot_total2 = wage_ot2 + wage_ot_we2 + wage_ot_holiday2
 
             alw_inwage_total = 0.0
             for alw_inwage in slip.alw_inwage_ids:
                 alw_inwage_total += alw_inwage.amount
             
-            wage_bonus2 = wage_work - wage_attend2 - wage_ot2 - alw_inwage_total
             wage_work2 = wage_work
+            wage_work2_subtotal = wage_work2 - wage_ot_total2
+            wage_bonus2 = wage_work2_subtotal - alw_inwage_total - wage_attend2                       
             
             res[slip.id].update({'wage_attend':wage_attend,
                                'wage_ot':wage_ot,
@@ -832,6 +963,9 @@ class hr_emppay(osv.osv):
                                'ded_total':ded_total,
                                'si_total_personal':si_total_personal,                               
                                'si_total_company':si_total_company,
+                               'money_borrow_original':money_borrow_original,
+                               'money_borrow_deduction':money_borrow_deduction,
+                               'money_borrow_residual':money_borrow_residual,
                                
                                'wage_pay':wage_pay,
                                
@@ -846,10 +980,17 @@ class hr_emppay(osv.osv):
                                'wage_ot_holiday2':wage_ot_holiday2,
                                'wage_ot_total2':wage_ot_total2,
                                'wage_bonus2':wage_bonus2,  
-                               'alw_inwage_total':alw_inwage_total,  
+                               'alw_inwage_total':alw_inwage_total, 
+                               'wage_work2_subtotal':wage_work2_subtotal,
                                'wage_work2':wage_work2,
                                })              
         return res
+    
+    def _wage_all(self, cr, uid, ids, field_names, args, context=None):
+        '''
+        For the function's field method reuse, call another _wage_compute, and override it on hr_emppay_currency.py 
+        '''
+        return self._wage_compute(cr, uid, ids, field_names, args, context=context)
     
     def _emp_year_total(self, cr, uid, ids, fields, args, context=None):
         res = dict.fromkeys(ids, None)
@@ -930,7 +1071,13 @@ class hr_emppay(osv.osv):
                                             digits_compute=dp.get_precision('Payroll'), multi="_wage_all"),
         'si_total_company':fields.function(_wage_all, string='SI(Company)', type='float',  store=True,
                                            digits_compute=dp.get_precision('Payroll'), multi="_wage_all"),
-        #wage_total - ded_total - si_total_personal
+        #employee borrowing
+        'money_borrow_original':fields.function(_wage_all, string='Borrowed Money', type='float',  store=True,
+                                    digits_compute=dp.get_precision('Payroll'), multi="_wage_all"),
+        'money_borrow_deduction':fields.float('Borrow Deduction', digits_compute=dp.get_precision('Payroll')),
+        'money_borrow_residual':fields.function(_wage_all, string='Borrowed Residual', type='float',  store=True,
+                                    digits_compute=dp.get_precision('Payroll'), multi="_wage_all"),
+        #wage_total - ded_total - si_total_personal - money_borrow_deduction
         'wage_pay':fields.function(_wage_all, string='Wage(Pay)', type='float',  store=True,
                                      digits_compute=dp.get_precision('Payroll'), multi="_wage_all",
                                      help="Wage(total) - Deduction - SI(Personal)"),
@@ -961,7 +1108,10 @@ class hr_emppay(osv.osv):
         #total of the alw_ids_inwage        
         'alw_inwage_total':fields.function(_wage_all, string='Allowage In Wage', type='float',  store=True,
                                     digits_compute=dp.get_precision('Payroll'), multi="_wage_all"),
-        #the calculation result: wage_work2 - wage_attend2 - wage_ot_total2 - alw_inwage_total
+        #wage_work2 - wage_ot_total2
+        'wage_work2_subtotal':fields.function(_wage_all, string='Wage2 Subtotal', type='float',  store=True,
+                                  digits_compute=dp.get_precision('Payroll'), multi="_wage_all"),                
+        #wage_work2_subtotal - wage_attend2 - alw_inwage_total
         'wage_bonus2':fields.function(_wage_all, string='Wage(Bonus)2', type='float',  store=True,
                                   digits_compute=dp.get_precision('Payroll'), multi="_wage_all"),
         #= wage_work
@@ -979,6 +1129,7 @@ class hr_emppay(osv.osv):
             \n* If the payslip is verified, the status is \'Verified\'. \
             \n* If the payslip is paid then status is set to \'Paid\'.'),
         'company_id': fields.many2one('res.company', 'Company', required=False, readonly=True, states={'draft': [('readonly', False)]}),
+        'company_currency_id': fields.related('company_id','currency_id',string='Company Currency', type='many2one', relation='res.currency', readonly=True),        
         'note': fields.text('Description', readonly=True, states={'draft':[('readonly',False)]}),
         'emppay_sheet_id': fields.many2one('hr.emppay.sheet', 'Payroll', readonly=True, states={'draft': [('readonly', False)]}, ondelete='cascade'),
         
@@ -1044,7 +1195,18 @@ class hr_emppay(osv.osv):
                  'form': form_data,
         }
         return {'type': 'ir.actions.report.xml', 'report_name': 'hr.emppay.slip', 'datas': datas, 'nodestroy': True} 
-        
+    
+    def print_slip_india(self, cr, uid, ids, context=None):
+        if context is None: 
+            context = {}
+        form_data = self.read(cr, uid, ids, context=context)
+        datas = {
+                 'model': 'hr.emppay',
+                 'ids': ids,
+                 'form': form_data,
+        }
+        return {'type': 'ir.actions.report.xml', 'report_name': 'hr.emppay.slip.india', 'datas': datas, 'nodestroy': True}     
+            
 hr_emppay()
 
 from openerp.report import report_sxw
@@ -1059,18 +1221,22 @@ class hr_emppay_slip_print(rml_parser_ext):
         })
     def list_alw(self,slip):
         ret = ''
-        alws = slip.alw_inwage_ids + slip.alw_ids
+        alws = slip.alw_ids
         for alw in alws:
-            ret += '%s: %s; '%(alw.name,alw.amount)
+            if alw.amount !=0:
+                ret += '%s: %s; '%(alw.name,alw.amount)
         return ret
     def list_ded(self,slip):
         ret = ''
         for item in slip.ded_ids:
-            ret += '%s: %s; '%(item.name,item.amount)
+            if item.amount !=0:
+                ret += '%s: %s; '%(item.name,item.amount)
         return ret
     
 report_sxw.report_sxw('report.hr.emppay.slip', 'hr.emppay', 'addons/dmp_hr/emppay/hr_emppay_slip.rml', parser=hr_emppay_slip_print, header='internal landscape')
 report_sxw.report_sxw('report.hr.emppay.slip.sign', 'hr.emppay.sheet', 'addons/dmp_hr/emppay/hr_emppay_slip_sign.rml', parser=hr_emppay_slip_print, header='internal landscape')
+report_sxw.report_sxw('report.hr.emppay.slip.india', 'hr.emppay', 'addons/dmp_hr/emppay/hr_emppay_india_slip.rml', parser=hr_emppay_slip_print, header='internal landscape')
+report_sxw.report_sxw('report.hr.emppay.slip.sign.india', 'hr.emppay.sheet', 'addons/dmp_hr/emppay/hr_emppay_india_slip_sign.rml', parser=hr_emppay_slip_print, header='internal landscape')
 
 class hr_employee(osv.osv):
     '''

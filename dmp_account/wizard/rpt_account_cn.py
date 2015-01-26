@@ -56,6 +56,7 @@ class rpt_account_cn(osv.osv_memory):
         return self.pool.get('account.account').search(cr, uid ,[('company_id','=',company_id),'|',('type','=','liquidity'),('type','=','payable')])
         
     _defaults = {
+        'name': 'Account Report',
         'type': 'account_cn',     
         'filter': 'filter_period',        
         'target_move': 'posted',
@@ -64,16 +65,17 @@ class rpt_account_cn(osv.osv_memory):
     }
     def default_get(self, cr, uid, fields_list, context=None):
         resu = super(rpt_account_cn,self).default_get(cr, uid, fields_list, context)
+        company_id = self.pool.get('res.company')._company_default_get(cr, uid, 'account.rptcn', context=context)
         #handle the "default_account_type" and "default_account_user_type" parameter
         account_ids = []
         if context.get('default_account_type',False):
             account_types = context.get('default_account_type').split(',')
-            account_ids_inc = self.pool.get('account.account').search(cr, uid, [('type','in',account_types)],context=context)
+            account_ids_inc = self.pool.get('account.account').search(cr, uid, [('type','in',account_types),('type','!=','view'),('company_id','=',company_id)],context=context)
             if account_ids_inc:
                 account_ids += account_ids_inc
         if context.get('default_account_user_type',False):
             account_types = context.get('default_account_user_type').split(',')
-            account_ids_inc = self.pool.get('account.account').search(cr, uid, [('user_type.code','in',account_types)],context=context)
+            account_ids_inc = self.pool.get('account.account').search(cr, uid, [('user_type.code','in',account_types),('type','!=','view'),('company_id','=',company_id)],context=context)
             if account_ids_inc:
                 account_ids += account_ids_inc
         if account_ids:
@@ -82,7 +84,7 @@ class rpt_account_cn(osv.osv_memory):
         
     def _check_periods(self, cr, uid, ids, context=None):
         for wiz in self.browse(cr, uid, ids, context=context):
-            if wiz.period_from and wiz.period_from.company_id.id != wiz.period_to.company_id.id:
+            if wiz.period_from and (wiz.period_from.company_id.id != wiz.period_to.company_id.id or wiz.period_from.company_id.id != wiz.company_id.id) :
                 return False
         return True
 
@@ -136,8 +138,37 @@ class rpt_account_cn(osv.osv_memory):
         if debit > credit: bal_direct = 'debit'
         if debit < credit: bal_direct = 'credit'
         balance = account.bal_direct == 'c' and (credit-debit) or (debit-credit) 
-        return balance, bal_direct          
-        
+        return balance, bal_direct         
+     
+    def onchange_company_id(self, cr, uid, ids, company_id, current_account_ids, rpt_name, context):
+        val = {}
+        resu = {'value':val}
+        if not company_id or not rpt_name:
+            return resu
+        account_ids = []
+        #filter currenet account ids using company_id
+        current_account_ids = current_account_ids and current_account_ids[0][2] or None        
+        if current_account_ids:
+            domain = [('id','in',current_account_ids),('company_id','=',company_id)]
+            account_ids = self.pool.get('account.account').search(cr, uid, domain,context=context)       
+        #refresh the accounting list
+        account_user_types = None
+        if rpt_name == 'actrpt_dtl_money':
+            account_user_types = 'cash,bank'
+        if rpt_name == 'actrpt_dtl_cash':
+            account_user_types = 'cash'
+        if rpt_name == 'actrpt_dtl_bank':
+            account_user_types = 'bank'
+        if account_user_types:
+            account_user_types = account_user_types.split(',')                
+            if not account_ids:
+                account_ids = self.pool.get('account.account').search(cr, uid, [('user_type.code','in',account_user_types),('type','!=','view'),('company_id','=',company_id)],context=context)            
+        val['account_ids'] = [[6, False, account_ids]]
+        #refresh the periods
+        period_resu = self.onchange_filter(cr, uid, ids, 'filter_period', company_id, context=context)
+        val.update(period_resu['value'])
+        return resu
+                
     def run_account_cn(self, cr, uid, ids, context=None):
         if context is None: context = {}         
         rpt = self.browse(cr, uid, ids, context=context)[0]
@@ -313,9 +344,9 @@ class rpt_account_cn(osv.osv_memory):
         rpt_name = 'rpt.account.cn.gl'
         if form_data['level'] == 'detail':
             rpt_name = 'rpt.account.cn.detail'
+            if form_data['name'] == 'actrpt_dtl_money':
+                rpt_name = 'rpt.account.cn.detail.money'
         return {'xmlrpt_name': rpt_name}
-    
-    
     
 rpt_account_cn()
 
@@ -330,6 +361,10 @@ class rpt_account_cn_line(osv.osv_memory):
         
         #for detail
         'aml_id': fields.many2one('account.move.line', 'Move Line', ),
+        'aml_account_id': fields.related('aml_id', 'account_id', string='Account',type='many2one',relation='account.account'),
+        'aml_partner_id': fields.related('aml_id', 'partner_id', string='Partner',type='many2one',relation='res.partner'),
+        'aml_source_id': fields.related('aml_id', 'source_id', string='Source',type='reference'),
+        
         'date': fields.date('Move Date', ),
         'am_name': fields.char('Move Name', size=64, ),
         'counter_account': fields.char('Counter Account', size=64, ),
@@ -348,10 +383,56 @@ class rpt_account_cn_line(osv.osv_memory):
         #Show counterpart account flag for detail report level   
         'show_counter': fields.related('rpt_id','show_counter',type='boolean', string="Show counterpart", required=False),
         }
+    def open_move(self, cr, uid, ids, context=None):
+        res_id = None
+        if isinstance(ids, list):
+            res_id = ids[0]
+        else:
+            res_id = ids
+        aml_id = self.browse(cr, uid, res_id, context=context).aml_id
+        if not aml_id:
+            return False
+        move_id = aml_id.move_id.id
+        #got to accountve move form
 
+        form_view = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'account', 'view_move_form')
+        form_view_id = form_view and form_view[1] or False
+        return {
+            'name': _('Account Move'),
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': [form_view_id],
+            'res_model': 'account.move',
+            'type': 'ir.actions.act_window',
+            'res_id': move_id,
+        }
+    
+    def open_source(self, cr, uid, ids, context=None):
+        res_id = None
+        if isinstance(ids, list):
+            res_id = ids[0]
+        else:
+            res_id = ids
+        aml_id = self.browse(cr, uid, res_id, context=context).aml_id
+        if not aml_id or not aml_id.source_id:
+            return False
+        res_model = aml_id.source_id._model._name
+        res_id = aml_id.source_id.id
+        #got to source model's form
+        return {
+            'name': _('Source Detail'),
+            'view_type': 'form',
+            'view_mode': 'form',
+            'res_model': res_model,
+            'type': 'ir.actions.act_window',
+            'res_id': res_id,
+        }
+                
 rpt_account_cn_line()
 
 from openerp.report import report_sxw
 report_sxw.report_sxw('report.rpt.account.cn.gl', 'rpt.account.cn', 'addons/dmp_account/report/rpt_account_cn_gl.rml', parser=report_sxw.rml_parse, header='internal landscape')
 report_sxw.report_sxw('report.rpt.account.cn.detail', 'rpt.account.cn', 'addons/dmp_account/report/rpt_account_cn_detail.rml', parser=report_sxw.rml_parse, header='internal landscape')
+report_sxw.report_sxw('report.rpt.account.cn.detail.money', 'rpt.account.cn', 'addons/dmp_account/report/rpt_account_cn_detail_money.rml', parser=report_sxw.rml_parse, header='internal landscape')
+
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

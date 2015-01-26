@@ -329,8 +329,6 @@ class stock_move(osv.osv):
                 mline_data.update({'analytic_account_id':mr_line.mr_sale_prod_id.analytic_account_id.id})
         return val
 
-from openerp.addons.stock import stock_picking as stock_picking_super
-      
 def _set_minimum_date(self, cr, uid, ids, name, value, arg, context=None):
     """ Calculates planned date if it is less than 'value'.
     @param name: Name of field
@@ -372,6 +370,21 @@ def _set_maximum_date(self, cr, uid, ids, name, value, arg, context=None):
             sql_str += " and (date_expected='" + pick.max_date + "' or date_expected>'" + value + "')"
         cr.execute(sql_str)
     return True   
+
+from openerp.addons.stock.stock import stock_picking as stock_picking_super     
+
+def fields_view_get_pick(self, cr, uid, view_id=None, view_type=False, context=None, toolbar=False, submenu=False):
+    if view_type == 'form' and not view_id:
+        mod_obj = self.pool.get('ir.model.data')
+        if self._name == "stock.picking.in":
+            model, view_id = mod_obj.get_object_reference(cr, uid, 'stock', 'view_picking_in_form')
+        if self._name == "stock.picking.out":
+            model, view_id = mod_obj.get_object_reference(cr, uid, 'stock', 'view_picking_out_form')
+        if self._name == "material.request":
+            model, view_id = mod_obj.get_object_reference(cr, uid, 'dmp_stock', 'view_material_request_form')
+    return super(stock_picking_super, self).fields_view_get(cr, uid, view_id=view_id, view_type=view_type, context=context, toolbar=toolbar, submenu=submenu)
+
+stock_picking_super.fields_view_get = fields_view_get_pick
      
 class stock_picking(osv.osv):
     _inherit = "stock.picking" 
@@ -573,6 +586,9 @@ class stock_inventory_line(osv.osv):
         if not product_id:
             return res        
         product = self.pool.get('product.product').browse(cr, uid, product_id)
+        if res['value'].get('product_uom') and res['value']['product_uom'] != product.uom_id.id:
+            #if user changed product, then need to change to new product's uom, this is an issue in addons/stock.py
+            res['value']['product_uom'] = product.uom_id.id        
         res['value']['uom_categ_id'] = product.uom_id.category_id.id
         return res    
 

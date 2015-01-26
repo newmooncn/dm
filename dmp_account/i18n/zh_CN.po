@@ -1838,6 +1838,38 @@ msgstr "登记付款"
 msgid "Balance Due"
 msgstr "未付"
 
+#. module: dmp_account
+#: model:ir.actions.act_window,name:dmp_account.rpt_account_cn_detail_money_action
+#: model:ir.ui.menu,name:dmp_account.rpt_account_cn_detail_money_menu
+#: report:rpt.account.cn:0
+msgid "Liquidity Detail"
+msgstr "资金流动明细"
+
+#. module: dmp_account
+#: field:rpt.account.cn.line,aml_account_id:0
+msgid "Account"
+msgstr "科目"
+
+#. module: dmp_account
+#: field:rpt.account.cn.line,aml_partner_id:0
+msgid "Partner"
+msgstr "合作伙伴"
+
+#. module: dmp_account
+#: field:rpt.account.cn.line,aml_source_id:0
+msgid "Source"
+msgstr "来源"
+
+#. module: dmp_account
+#: view:rpt.account.cn:0
+msgid "View Account Move"
+msgstr "查看会计凭证"
+
+#. module: dmp_account
+#: view:rpt.account.cn:0
+msgid "View Source Order"
+msgstr "查看源单据"
+
 ########################manual########################
 #. module: account_voucher
 #: model:ir.actions.act_window,name:account_voucher.action_vendor_payment
@@ -2058,6 +2090,12 @@ msgid "ERM[%s]"
 msgstr "报销[%s]"
 
 ###i18n for the report title, defined in the action by 'default_title':%title% in xml, did the i18n in rpt_base.default_get()###
+#. module: dmp_account
+#: code:addons/dmp_account/rpt_base.py:63
+#, python-format
+msgid "Liquidity Detail"
+msgstr "资金流动明细"
+
 #. module: dmp_account
 #: code:addons/dmp_account/rpt_base.py:63
 #, python-format

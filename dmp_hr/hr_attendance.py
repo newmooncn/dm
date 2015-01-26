@@ -6,14 +6,95 @@ import hashlib
 import openerp.addons.decimal_precision as dp
 from openerp.osv import fields, osv
 from openerp.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
+from openerp.tools.misc import DEFAULT_SERVER_DATE_FORMAT
 from openerp.addons.dm_base import utils
+from dateutil.relativedelta import relativedelta
 
 import pytz
+
+'''
+Working time group, handle the working time as a group:
+date_from, date_to, calendar_id, name
+...
+'''
+class hr_wt_grp(osv.osv):
+    _name = "hr.wt.grp"
+    _description="working time group"
+    _columns = {
+        'name' : fields.char('Name', size=32, required=True),
+        'worktime_ids': fields.one2many('hr.wt.grp.line', 'grp_id', 'Working times'),  
+    }
+    def get_wt(self, cr, uid, emp_id, dt_para=None, context=None):
+        '''
+        @param dt_para: time with timezone, can be local or UTC tz, but the real time should be in local, that is the employee punching time 
+        '''
+        emp = self.browse(cr, uid, emp_id, context=context)
+        if not emp.wt_grp_id or not emp.wt_grp_id.worktime_ids:
+            return None
+        if not dt_para:
+            dt_para = datetime.now()
+            #Assume above returns UTC time, convert it to time with local TZ
+            dt_para = fields.datetime.context_timestamp(cr, uid, dt_para, context=context) 
+        wt_found = None
+        for wt in emp.wt_grp_id.worktime_ids:            
+            wt_from =  datetime.strptime(wt.date_from + ' 00:00:00',DEFAULT_SERVER_DATETIME_FORMAT)
+            wt_to  = datetime.strptime(wt.date_to + ' 23:59:59', DEFAULT_SERVER_DATETIME_FORMAT)
+            #above from/to shoule be treated as same as user's local time, so need convert them from local to UTC
+            wt_from = utils.utc_timestamp(cr, uid, wt_from, context=context)
+            wt_to = utils.utc_timestamp(cr, uid, wt_to, context=context)
+            #the dt_para with local TZ can be compare with the from/to with UTC TZ 
+            if dt_para >= wt_from and dt_para <= wt_to:
+                wt_found = wt.calendar_id
+                break
+        return wt_found
+    def _check_wt(self,cr,uid,ids,context=None):
+        date_wts=[]
+        for grp in self.browse(cr, uid, ids):
+            date_wts=[]
+            for wt in grp.worktime_ids:
+                if wt.date_to < wt.date_from:
+                    raise osv.except_osv(_('Error'),_('Date to can not be earlier than from!'))                
+                for period in date_wts:
+                    if (wt.date_from >= period['from'] and wt.date_from <= period['to']) \
+                            or (wt.date_to >= period['from'] and wt.date_to <= period['to']) \
+                            or (wt.date_from <= period['from'] and wt.date_to >= period['to']):
+                        raise osv.except_osv(_('Error'),_('Period duration of %s is conflicted with other periods!'%(wt.name)))
+                date_wts.append({'from':wt.date_from, 'to':wt.date_to})
+        return True
+    
+    def create(self, cr, uid, vals, context=None):
+        new_id = super(hr_wt_grp, self).create(cr, uid, vals, context=context)
+        self._check_wt(cr, uid, [new_id], context=context)
+        return new_id    
+        
+    def write(self, cr, uid, ids, vals, context=None):
+        resu = super(hr_wt_grp, self).write(cr, uid, ids, vals, context=context)
+        self._check_wt(cr, uid, ids, context=context)
+        return resu    
+    
+class hr_wt_grp_line(osv.osv):
+    _name = 'hr.wt.grp.line'
+    _description="working time group line"
+    _columns = {
+        'name' : fields.char('Name', size=32, required=True),
+        'date_from' : fields.date('From Date', required=True),
+        'date_to' : fields.date('To Date', required=True),
+        'calendar_id' : fields.many2one("resource.calendar", "Working Time", required=True),
+        'grp_id': fields.many2one('hr.wt.grp', 'Group', required=True, ondelete='cascade'),
+    }  
+    def onchange_calendar(self, cr, uid, ids, calendar_id, name, context=None):
+        res = {'value':{}}
+        if not calendar_id or (name and name != ''):
+            return res
+        cale_name = self.pool.get('resource.calendar').read(cr, uid, calendar_id, ['name'], context=context)['name']
+        res['value']['name'] = cale_name
+        return res
 
 class hr_employee(osv.osv):
     _inherit = "hr.employee"
     _columns = {
         'last_punch_time': fields.datetime('Last Punching Time', required=False, select=1,readonly=True),
+        'wt_grp_id': fields.many2one('hr.wt.grp', 'Working time group'),
     }
     
     def update_punch_time(self, cr, uid, emp_id, dt_punch, context):
@@ -25,6 +106,10 @@ class hr_employee(osv.osv):
             dt_punch_current = datetime.strptime(dt_current.get('last_punch_time'),DEFAULT_SERVER_DATETIME_FORMAT)
             #convert to the offset aware datetime, since the dt_punch is offset aware, then they can be compared
             dt_punch_current = pytz.UTC.localize(dt_punch_current)
+        if isinstance(dt_punch, type(u' ')):
+            dt_punch = datetime.strptime(dt_punch,DEFAULT_SERVER_DATETIME_FORMAT)
+            #convert to the offset aware datetime
+            dt_punch = pytz.UTC.localize(dt_punch)            
         if not dt_punch_current or dt_punch_current < dt_punch:
             self.write(cr, uid, emp_id, {'last_punch_time': dt_punch}, context=context)
     
@@ -59,7 +144,10 @@ class hr_attendance(osv.osv):
         'create_uid':  fields.many2one('res.users', 'Creator', readonly=True),
         'create_date': fields.datetime('Creation Date', readonly=True, select=True),
         'write_uid':  fields.many2one('res.users', 'Modifier', readonly=True),
-        'write_date': fields.datetime('Modify Date', readonly=True, select=True),        
+        'write_date': fields.datetime('Modify Date', readonly=True, select=True),      
+        #the fields only for search usage
+        'date_search_from':fields.function(lambda *a,**k:{}, type='datetime',string="From Date",),
+        'date_search_to':fields.function(lambda *a,**k:{}, type='datetime',string="To Date",),
     }
 
     def name_get(self, cr, uid, ids, context=None):
@@ -67,7 +155,9 @@ class hr_attendance(osv.osv):
             return []
         res = []
         for data in self.read(cr, uid, ids, ['name', 'employee_id'], context=context):
-            res.append((data['id'],'%s[%s]'%(data['employee_id'][1],data['name']) ))
+            #convert date to local data
+            name_local = utils.dtstr_utc2local(cr, uid, data['name'])
+            res.append((data['id'],'%s[%s]'%(data['employee_id'][1],name_local) ))
         return res
         
     def copy(self, cr, uid, id, default=None, context=None):
@@ -91,6 +181,18 @@ class hr_attendance(osv.osv):
     def search(self, cr, user, args, offset=0, limit=None, order=None, context=None, count=False):
         #the day search support
         new_args = utils.deal_args_dt(cr, user, self, args,['name'],context=context)
+        #the date_start/end parameter
+        for arg in new_args:
+            if arg[0] == 'date_search_from':
+                arg[0] = 'name'
+                arg[1] = '>='
+            if arg[0] == 'date_search_to':
+                arg[0] = 'name'
+                arg[1] = '<='
+                #for the end date, need add one day to use as the end day
+                time_obj = datetime.strptime(arg[2],DEFAULT_SERVER_DATETIME_FORMAT)
+                time_obj += relativedelta(days=1)                                
+                arg[2] = time_obj.strftime(DEFAULT_SERVER_DATETIME_FORMAT)       
         return super(hr_attendance,self).search(cr, user, new_args, offset, limit, order, context, count)
     
     def create(self, cr, uid, vals, context=None):
@@ -100,7 +202,13 @@ class hr_attendance(osv.osv):
 
     def write(self, cr, uid, ids, vals, context=None):
         resu = super(hr_attendance, self).write(cr, uid, ids, vals, context=context)
-        self.pool.get('hr.employee').update_punch_time(cr, uid, vals.get('employee_id'), vals.get('name'), context=context)
+        emp_obj = self.pool.get('hr.employee')
+        if vals.get('name'):
+            if not vals.get('employee_id'):
+                for attend in self.read(cr, uid, ids, ['employee_id', 'name'], context=context):
+                    emp_obj.update_punch_time(cr, uid, attend['employee_id'][0], vals['name'], context=context)
+            else:
+                emp_obj.update_punch_time(cr, uid, vals['employee_id'], vals['name'], context=context)
         return resu
     
     def attend_create_clock(self, cr, uid, md5_src, data, context=False):
@@ -123,33 +231,31 @@ class hr_attendance(osv.osv):
             action = 'action'
             '''
             #move to hr_clock.download_log() to calculate all new attendance together, to improve the performance.
-            calendar_id = None
-            if employee.calendar_id:
-                calendar_id = employee.calendar_id.id
-                #find the time point by the calendar_id and attendance log time
-                action = self.action_by_cale_time(cr, uid, employee.calendar_id, data['time'], context=context)
             '''
             calendar_id = employee.calendar_id and employee.calendar_id.id or None
             #convert to UTC time
-            data['time'] = utils.utc_timestamp(cr, uid, data['time'], context)
+            data['time'] = utils.utc_timestamp(cr, uid, data['time'], context)            
+            calendar_id = emp_obj.get_wt(cr, uid, emp_id, data['time'], context=context)
             vals = {'name':data['time'],
                     'employee_id': emp_id,
                     'action': action,  
                     'clock_log_id':md5, 
                     'notes':data['notes'],
                     'clock_id':data['clock_id'],
-                    'calendar_id': calendar_id}
+                    'calendar_id': calendar_id and calendar_id.id or None}
             return self.create(cr, uid, vals, context=context)
         else:
             return 0
                         
     def calc_action(self, cr, uid, ids, context=None):
         days = self._day_compute(cr, uid, ids, [], [], context=context)
+        emp_obj = self.pool.get('hr.employee')
         for attend in self.browse(cr, uid, ids, context=context):
             #get the calendar id
             calendar_id = attend.calendar_id
             if not calendar_id:
-                calendar_id = attend.employee_id.calendar_id
+                dt_para = fields.datetime.context_timestamp(cr, uid, datetime.strptime(attend.name,DEFAULT_SERVER_DATETIME_FORMAT), context=context)
+                calendar_id = emp_obj.get_wt(cr, uid,  attend.employee_id.id, dt_para, context=context)
             if not calendar_id:
                 continue
             dt_action = datetime.strptime(attend.name,DEFAULT_SERVER_DATETIME_FORMAT)
@@ -188,7 +294,7 @@ class hr_attendance(osv.osv):
     def action_by_emp_cale_time(self, cr, uid, emp_id, cale_id, dt_action, context=None):
         actions = ['invalid',None]
         if emp_id:
-            calendar_id = self.pool.get('hr.employee').read(cr, uid, emp_id, ['calendar_id'], context=context)['calendar_id']
+            calendar_id = self.pool.get('hr.employee').get_wt(cr, uid,  emp_id, context=context)
             actions = self.action_by_cale_time(cr, uid, calendar_id, dt_action, context)
         return actions
     
@@ -361,7 +467,17 @@ class resource_calendar_attendance(osv.osv):
         'days_work2': fields.float('Work Days2', digits_compute=dp.get_precision('Product Unit of Measure')),        
         }   
     _defaults={'days_work':1, 'days_work2':1}
-    
+    def name_get(self, cr, uid, ids, context=None):
+        if not ids:
+            return []
+        res = []
+        for data in self.read(cr, uid, ids, ['name', 'calendar_id'], context=context):
+            if context.get('name_with_calendar'):
+                res.append((data['id'],'%s of %s'%(data['name'], data['calendar_id'][1]) ))
+            else:
+                res.append((data['id'], data['name']))
+        return res
+        
 class res_company(osv.osv):
     _inherit = "res.company"
     _columns = {

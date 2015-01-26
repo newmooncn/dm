@@ -10,7 +10,7 @@
                 <field name="type" invisible="1"/>
                 <field name="title" invisible="1"/>
                 <header>
-                   	<button name="run_report" string="Generate Attendance" type="object" states="draft,rejected" class="oe_highlight"/>
+                   	<button name="run_report" string="Generate Attendance" type="object" states="draft,rejected" class="oe_highlight" confirm="Are you sure to continue to generate attendance report?"/>
                    	
                    	<button name="confirm" string="Confirm" states="draft,rejected" class="oe_highlight"/>
                    	
@@ -27,13 +27,13 @@
                    	<button name="pdf_general" string="Print" type="object"/>
                    	<button name="pdf_notification" string="Print Notification" type="object"/>
                    	<button name="pdf_inspection" string="Print Inpsection" type="object"/>
-                   	<button name="pdf_attend_emp" string="Print With Attendance by Employee" type="object"/>
+                   	<button name="pdf_attend_emp" string="Print With Attendance by Employee" type="object" attrs="{'invisible':[('attend_day_id','=',False)]}"/>
                    	
                    	<field name="state" widget="statusbar" statusbar_visible="draft,confirmed,done"/>
                 </header>          
                 <group name="options">
 	                <group col="4" name="options">
-	                	<field name="name" attrs="{'readonly':[('state','not in',('draft','rejected'))]}"/>
+	                	<field name="name"/>
                         <label for="date_from" string="Dates"/>
                         <div>
 						    <field name="date_from" domain="[('company_id', '=', company_id)]" 
@@ -41,7 +41,7 @@
 						    <field name="date_to" domain="[('company_id', '=', company_id)]" 
 						    	class="oe_inline" widget="date" attrs="{'readonly':[('state','not in',('draft','rejected'))]}"/>  
                         </div>	        
-                        <field name="attend_day_id"/>
+                        <field name="attend_day_id" attrs="{'readonly':[('state','not in',('draft','rejected'))]}"/>
 						<field name="company_id" groups="base.group_multi_company" widget="selection"
 							 attrs="{'readonly':[('state','not in',('draft','rejected'))]}"/>   
 						<field name="note"/>
@@ -77,7 +77,7 @@
 							</tree>
 						</field>
                 	</page>
-                	<page name="employee" string="Employees" attrs="{'invisible':[('attend_day_id','!=',False)]}">
+                	<page name="employee" string="Selected Employees" attrs="{'invisible':[('attend_day_id','!=',False)]}">
                 		<field name="emp_ids" attrs="{'readonly':[('state','not in',('draft','rejected'))]}"/>
                 	</page>
 					<page string="Messages">

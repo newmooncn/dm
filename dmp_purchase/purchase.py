@@ -318,11 +318,36 @@ class purchase_order(osv.osv):
         for (id, name) in self.name_get(cr, uid, ids):
             wf_service.trg_validate(uid, 'purchase.order', id, 'purchase_reject', cr)
         return True
+
+    '''
+    Change the picking/invoice "cancel" to "unlink"
+    '''
     def action_cancel(self, cr, uid, ids, context=None):
-        resu = super(purchase_order,self).action_cancel(cr,uid,ids,context)
-        lines = self._get_lines(cr,uid,ids,context=context)
-        self.pool.get('purchase.order.line').write(cr, uid, lines, {'state': 'cancel'},context)
-        return resu
+        for purchase in self.browse(cr, uid, ids, context=context):
+            del_pick_ids = []
+            for pick in purchase.picking_ids:
+                if pick.state == 'done':
+                    raise osv.except_osv(
+                        _('Unable to cancel this purchase order.'),
+                        _('First cancel all receptions related to this purchase order.'))
+                if pick.state not in ('cancel','done'):
+                    del_pick_ids.append(pick.id)
+            if del_pick_ids:
+                self.pool.get('stock.picking').unlink(cr, uid, del_pick_ids, context=context)
+                
+            del_inv_ids = []
+            for inv in purchase.invoice_ids:
+                if inv and inv.state not in ('cancel','draft'):
+                    raise osv.except_osv(
+                        _('Unable to cancel this purchase order.'),
+                        _('You must first cancel all receptions related to this purchase order.'))
+                if inv.state == 'draft':
+                    del_inv_ids.append(inv.id)
+            if del_inv_ids:
+                self.pool.get('account.invoice').unlink(cr, uid, del_inv_ids, context=context)
+        self.write(cr,uid,ids,{'state':'cancel'})
+        return True
+                        
     def button_cancel_except(self, cr, uid, ids, context=None):
         wf_service = netsvc.LocalService("workflow")
         for purchase in self.browse(cr, uid, ids, context=context):
@@ -501,22 +526,35 @@ class purchase_order(osv.osv):
         assert len(ids) == 1, 'This option should only be used for a single order at a time'
         wf_service = netsvc.LocalService("workflow")
         for purchase in self.browse(cr, uid, ids, context=context):
+#            for pick in purchase.picking_ids:
+#                if pick.state not in ('draft','cancel','done'):
+#                    raise osv.except_osv(
+#                        _('Unable to change this purchase order.'),
+#                        _('First cancel all receptions not in draft/cancel/done related to this purchase order.'))
+#            for pick in purchase.picking_ids:
+#                if pick.state == 'draft':
+#                    wf_service.trg_validate(uid, 'stock.picking', pick.id, 'button_cancel', cr)
+            #johnw, 01/15/2015, change the po changing logic on the picking, delete the related picking not in cancel/done directly, other pickings are OK to change PO. 
+            del_pick_ids = []
             for pick in purchase.picking_ids:
-                if pick.state not in ('draft','cancel','done'):
-                    raise osv.except_osv(
-                        _('Unable to change this purchase order.'),
-                        _('First cancel all receptions not in draft/cancel/done related to this purchase order.'))
-            for pick in purchase.picking_ids:
-                if pick.state == 'draft':
-                    wf_service.trg_validate(uid, 'stock.picking', pick.id, 'button_cancel', cr)
+                if pick.state not in ('cancel','done'):
+                    del_pick_ids.append(pick.id)
+            if del_pick_ids:
+                self.pool.get('stock.picking').unlink(cr, uid, del_pick_ids, context=context)
+                
+            del_inv_ids = []
             for inv in purchase.invoice_ids:
                 if inv and inv.state not in ('cancel','draft','paid'):
                     raise osv.except_osv(
                         _('Unable to change this purchase order.'),
                         _('You must first cancel all invoices not in draft/cancel/paid related to this purchase order.'))
                 if inv.state == 'draft':
-                    wf_service.trg_validate(uid, 'account.invoice', inv.id, 'invoice_cancel', cr)
-                            
+#                    wf_service.trg_validate(uid, 'account.invoice', inv.id, 'invoice_cancel', cr)
+                    #johnw, 01/15/2015, change the related draft invoice logic, delete them directly
+                    del_inv_ids.append(inv.id)
+            if del_inv_ids:
+                self.pool.get('account.invoice').unlink(cr, uid, del_inv_ids, context=context)
+                             
         self.write(cr,uid,ids,{'state':'changing'},context)
         self._update_po_lines(cr,uid,ids,{'state':'changing'})        
         

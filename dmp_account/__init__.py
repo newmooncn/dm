@@ -32,3 +32,5 @@ import res_partner
 import wizard
 import report
 import payment
+import account_move_source
+import hr
