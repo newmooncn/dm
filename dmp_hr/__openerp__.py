@@ -29,7 +29,7 @@
     DMP HR Extension:  
         
         """,
-    'depends': ["dmp_base", "hr", "hr_holidays", "product", "hr_timesheet", "multi_image", "hr_recruitment", "hr_contract"],
+    'depends': ["dmp_base", "dmp_product", "hr", "hr_holidays", "product", "hr_timesheet", "multi_image", "hr_recruitment", "hr_contract", "audittrail"],
     'init_xml': [],
     'update_xml': [
         'hr_emp_menu.xml',

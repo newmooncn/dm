@@ -51,7 +51,7 @@ Accounting
             "payment/invoice_payment_workflow.xml",
             #move source
             'account_move_source_view.xml',
-            "hr_view.xml"
+            "hr_view.xml",
             "res_partner_view.xml",
     ],
     'auto_install': False,
