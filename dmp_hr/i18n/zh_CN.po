@@ -2347,7 +2347,7 @@ msgstr "已分配的员工"
 #: model:ir.ui.menu,name:dmp_hr.menu_hr_emp
 #: model:ir.ui.menu,name:dmp_hr.menu_hr_emp_root
 msgid "My Human Resources"
-msgstr "人力资源"
+msgstr "我的HR"
 
 #. module: dmp_hr
 #: view:hr.rpt.attend.emp.day:0

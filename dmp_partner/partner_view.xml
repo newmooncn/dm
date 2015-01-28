@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="view_partner_form_ext">
+            <field name="name">view_partner_form_ext</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="code" default_focus="1" placeholder="Code" class="oe_inline oe_form_field_code"/>
+                    -
+                    <field name="name" placeholder="Name" class="oe_inline"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

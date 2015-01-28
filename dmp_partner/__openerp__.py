@@ -28,6 +28,8 @@ Partner
      'partner_map_view.xml',
      'partner_comp_supp_cust.xml',
      'ir_attachment_view.xml',
+     'partner_view.xml',
+     'partner_data.xml',
     ],
     'auto_install': False,
     'installable': True

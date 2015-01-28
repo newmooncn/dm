@@ -51,7 +51,7 @@ class product_product(osv.osv):
 			else:
 				product_id = self.search(cr, uid, [('default_code', '=', vals['default_code'])])
 			if product_id:
-				raise osv.except_osv(_('Error!'), _('Reference must be unique!'))
+				raise osv.except_osv(_('Error!'), _('Product code must be unique!'))
 		if vals.get('cn_name'):
 			vals['cn_name'] = vals['cn_name'].strip()
 			if ids:

@@ -34,11 +34,13 @@
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
             <data>
-                <field name="default_code" position="attributes">
-                    <attribute name="readonly">1</attribute>
-                </field>
-                <field name="default_code" position="after">
+                <field name="default_code" position="replace">
                     <field name="part_no_external"/>
+                </field>
+                <field name="name" position="replace">
+                    <field name="default_code" default_focus="1" placeholder="Code" class="oe_inline oe_form_field_code"/>
+                    -
+                    <field name="name" placeholder="Name" class="oe_inline"/>
                 </field>
                 <xpath expr="//page[@string='Information']/group/group[3]" position="after">
                      <group>
@@ -133,6 +135,6 @@
             		<field name="product_name"/>
             	</field>
             </field>		
-		</record>
+		</record>		
 	</data>		    
 </openerp>	

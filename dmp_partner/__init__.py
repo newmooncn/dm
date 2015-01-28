@@ -20,3 +20,4 @@
 ##############################################################################
 import partner_map
 import ir_attachment
+import partner
