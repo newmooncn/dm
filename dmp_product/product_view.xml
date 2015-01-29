@@ -65,7 +65,22 @@
 	                    <button name="button_draft" states="end,obsolete" string="Restart" type="object" class="oe_highlight" groups="dmp_product.group_product_manager"/>
 	                    <field name="state" widget="statusbar" statusbar_visible="draft,sellable,end" statusbar_colors='{"end":"red","obsolete":"red"}' readonly="1"/>
 	                </header>	            
-	            </xpath>                
+	            </xpath>          
+	            <!-- supplier -->
+	            <!-- <field name="seller_ids" position="before">
+	            	<field name="seller_info_id"/>
+	            	<field name="seller_id"/>
+	            	<field name="seller_delay"/>
+	            	<field name="seller_qty"/>           	
+	            </field> -->      
+	            <!-- customer -->
+	            <field name="packaging" position="after">
+	            	<separator string="Customer"/>
+	            	<!-- <field name="customer_info_id"/>
+	            	<field name="customer_id"/>
+	            	<field name="customer_delay"/> -->            	
+	            	<field name="customer_ids"/>
+	            </field>
             </data>
             </field>
 		</record>
@@ -136,5 +151,37 @@
             	</field>
             </field>		
 		</record>		
+		
+<!-- product customer list -->
+        <record id="product_customerinfo_form_view" model="ir.ui.view">
+            <field name="name">product.customerinfo.form.view</field>
+            <field name="model">product.customerinfo</field>
+            <field name="arch" type="xml">
+                <form string="customer Information" version="7.0">
+                    <group col="4">
+                        <field name="sequence"/>
+                        <field name="name" context="{'default_supplier': 1, 'search_default_supplier': 1, 'default_supplier': 0}"/>
+                        <field name="product_name"/>
+                        <field name="product_code"/>
+                        <field name="delay"/>
+                        <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                    </group>
+                </form>
+            </field>
+        </record>
+        <record id="product_customerinfo_tree_view" model="ir.ui.view">
+            <field name="name">product.customerinfo.tree.view</field>
+            <field name="model">product.customerinfo</field>
+            <field name="arch" type="xml">
+                <tree string="customer Information" editable="bottom">
+                    <field name="sequence" widget="handle"/>
+                    <field name="name" context="{'default_supplier': 1, 'search_default_supplier': 1, 'default_supplier': 0}"/>
+                    <field name="product_name"/>
+                    <field name="product_code"/>
+                    <field name="delay"/>
+                    <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                </tree>
+            </field>
+        </record>		
 	</data>		    
 </openerp>	
