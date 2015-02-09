@@ -26,7 +26,7 @@
     'author': 'DMEMS',
     'website': 'www.dmems.com',
     'description': """
-Maunfacture Improvements
+Manufacture Improvements
 =====================
     """,
     #'depends': ["dmp_base", "sale", "dmp_stock", "product_manufacturer", "document", "mrp_operations", "procurement", "mrp","dmp_project"],

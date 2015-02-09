@@ -1140,3 +1140,9 @@ msgstr "工单明细"
 #, python-format
 msgid "%s inventory is not enough, please check onhand quantity and ready to delivery stock move for it."
 msgstr "%s 库存不够，请检查在手数量和准备出库的数量."
+
+#. module: mrp
+#: view:mrp.bom:0
+#: field:mrp.bom,code:0
+msgid "Reference"
+msgstr "BOM编号"

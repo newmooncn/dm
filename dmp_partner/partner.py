@@ -20,7 +20,7 @@
 ##############################################################################
 from openerp.osv import fields, osv, orm
 from openerp.tools.translate import _
-
+from openerp.addons.base.res import res_partner as res_partner_base
 
 class res_partner(osv.Model):
     _inherit = 'res.partner'
@@ -95,7 +95,7 @@ class res_partner(osv.Model):
                 operator = operator[1:]
 
             #unaccent = get_unaccent_wrapper(cr)
-            unaccent = openerp.addons.base.res.res_partner.res_partner.get_unaccent_wrapper(cr)
+            unaccent = res_partner_base.get_unaccent_wrapper(cr)
 
             # TODO: simplify this in trunk with `display_name`, once it is stored
             # Perf note: a CTE expression (WITH ...) seems to have an even higher cost
@@ -128,7 +128,7 @@ class res_partner(osv.Model):
                     LEFT JOIN res_partner company
                            ON res_partner.parent_id = company.id
                       {where} ({email} {operator} {percent}
-                           OR {display_name} {operator} {percent})
+                           OR {display_name} {operator} {percent}
                            OR {code} {operator} {percent})
                      ORDER BY {display_name}
                     """.format(where=where_str, operator=operator,
