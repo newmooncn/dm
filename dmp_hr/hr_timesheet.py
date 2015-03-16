@@ -32,7 +32,8 @@ class hr_employee(osv.osv):
         md = self.pool.get('ir.model.data')
         try:
             result = md.get_object_reference(cr, uid, 'dmp_hr', 'product_employee_cost')
-            return result[1]
+            if result:
+                return result[1]
         except ValueError:
             pass
         return False

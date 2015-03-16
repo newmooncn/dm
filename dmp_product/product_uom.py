@@ -276,11 +276,16 @@ limit 1
 		#if the uom category for the 'Multi Units Single Product' is the dummy category, then need to create one, add update the prodcut's uom category
 		if product.measure_type == 'msp':
 			mod_name, categ_dummy_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'dmp_product','uom_categ_msp_dummy')
+			mod_name, dummy_uom_id = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'dmp_product','uom_msp_dummy')
 			if  product.uom_categ_id.id == categ_dummy_id:
 				#create a new uom category
 				new_uom_categ_id = self.pool.get('product.uom.categ').create(cr, uid, {'name':'MSP_%s'%product.default_code})
-				#create a new uom of the new category
-				new_uom_id = self.pool.get('product.uom').create(cr, uid, {'name':'BaseUnit','category_id':new_uom_categ_id,'factor':1,'rounding': 0.0001},context)			
+				if product.uom_id.id == dummy_uom_id:
+					#if current UOM is dummy then create a new uom of the new category
+					new_uom_id = self.pool.get('product.uom').create(cr, uid, {'name':'PCS','category_id':new_uom_categ_id,'factor':1,'rounding': 0.0001},context)
+				else:
+					new_uom_id = self.pool.get('product.uom').copy(cr, uid, product.uom_id.id, {'category_id':new_uom_categ_id,'factor':1,'rounding': 0.0001},context)
+								
 				#update product's uom category and uom, po uom
 				self.pool.get('product.product').write(cr, uid, [product_id], {'uom_categ_id':new_uom_categ_id,'uom_id':new_uom_id,'uom_po_id':new_uom_id},context)
 
