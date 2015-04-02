@@ -37,7 +37,7 @@ class hr_department(osv.osv):
 class hr_employee(osv.osv):
 	_inherit = "hr.employee"
 	_order='emp_code'
-
+	#update hr_employee set emp_code = trim(to_char(id,'009'))
 	_columns = {'emp_code': fields.char('Employee Code', size=16),
 			'emp_card_id': fields.char('Employee Card ID', size=16),
 	}

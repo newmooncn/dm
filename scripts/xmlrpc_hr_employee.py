@@ -15,7 +15,7 @@ pwd = raw_input('Enter password : ')
 '''
 host = 'localhost'
 port = '9069'
-dbname = 'oe70-new-demo'
+dbname = 'qq_wuxue'
 username = 'admin'
 pwd = 'admin'
 

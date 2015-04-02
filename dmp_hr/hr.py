@@ -32,47 +32,10 @@ _logger = logging.getLogger(__name__)
 class hr_employee(osv.osv):
 	_inherit = "hr.employee"
 	_order='emp_code'
-
-	def _get_leave_status(self, cr, uid, ids, name, args, context=None):
-		holidays_obj = self.pool.get('hr.holidays')
-		#fix the time interval query parameter issue
-		''' old code
-		holidays_id = holidays_obj.search(cr, uid,
-		   [('employee_id', 'in', ids), ('date_from','<=',time.strftime('%Y-%m-%d %H:%M:%S')),
-		   ('date_to','>=',time.strftime('%Y-%m-%d 23:59:59')),('type','=','remove'),('state','not in',('cancel','refuse'))],
-		   context=context)
-		'''
-		now = datetime.utcnow()
-		holidays_id = holidays_obj.search(cr, uid,
-		   [('employee_id', 'in', ids), ('date_from','<=',now.strftime('%Y-%m-%d %H:%M:%S')),
-		   ('date_to','>=',now.strftime('%Y-%m-%d %H:%M:%S')),('type','=','remove'),('state','not in',('cancel','refuse'))],
-		   context=context)		
-		result = {}
-		for id in ids:
-			result[id] = {
-		        'current_leave_state': False,
-		        'current_leave_id': False,
-		        'leave_date_from':False,
-		        'leave_date_to':False,
-		    }
-		for holiday in self.pool.get('hr.holidays').browse(cr, uid, holidays_id, context=context):
-			result[holiday.employee_id.id]['leave_date_from'] = holiday.date_from
-			result[holiday.employee_id.id]['leave_date_to'] = holiday.date_to
-			result[holiday.employee_id.id]['current_leave_state'] = holiday.state
-			result[holiday.employee_id.id]['current_leave_id'] = holiday.holiday_status_id.id
-		return result
 	_columns = {
 		'employment_start':fields.date('Employment Started'),
         'employment_resigned':fields.date('Employment Resigned'),
 		'employment_finish':fields.date('Employment Finished'),
-		#need to copy the below columns here since redefine the method _get_leave_status
-		'current_leave_state': fields.function(_get_leave_status, multi="leave_status", string="Current Leave Status", type="selection",
-			selection=[('draft', 'New'), ('confirm', 'Waiting Approval'), ('refuse', 'Refused'),
-			('validate1', 'Waiting Second Approval'), ('validate', 'Approved'), ('cancel', 'Cancelled')]),
-		'current_leave_id': fields.function(_get_leave_status, multi="leave_status", string="Current Leave Type",type='many2one', relation='hr.holidays.status'),
-		'leave_date_from': fields.function(_get_leave_status, multi='leave_status', type='date', string='From Date'),
-		'leave_date_to': fields.function(_get_leave_status, multi='leave_status', type='date', string='To Date'),
-
         'multi_images': fields.text("Multi Images"),
         'room_no': fields.char("Room#",size=16),
         'bunk_no': fields.char('Bunk#',size=16),

@@ -20,43 +20,21 @@
 #
 ##############################################################################
 {
-    'name': 'DMP Human Resource',
+    'name': 'DMP HR Base',
     'version': '1.0',
     'category': 'Customization',
     'author': 'DMEMS',
     'website': 'www.dmems.com',
     'description': """
-    DMP HR Extension:  
+    DMP HR Base:  
         
         """,
-    'depends': ["dmp_base", "dmp_product", "hr", "hr_holidays", "product", "hr_attendance", "hr_timesheet", "multi_image", "hr_recruitment", "hr_contract", "audittrail"],
+    'depends': ["dmp_base", "hr", "product", "hr_timesheet", "multi_image", "hr_recruitment"],
     'init_xml': [],
     'update_xml': [
         'hr_emp_menu.xml',
         'hr_view.xml',
-        'hr_timesheet_view.xml',
-        'hr_contract_view.xml',
-        'wizard/hr_clock_emp_sync_view.xml',
-        'wizard/hr_emp_wtgrp_set_view.xml',
-        'wizard/hr_attend_calc_action_view.xml',
-        'wizard/hr_rpt_attend_month_view.xml',
-        'wizard/hr_rpt_attend_month_workflow.xml',
-        'wizard/hr_rpt_attend_emp_day_view.xml',
-        'wizard/hr_attend_report.xml',
-        'hr_attendance_view.xml',
-        'hr_attendance_data.xml',
-        'wizard/hr_attend_emp.xml',
-        'hr_clock_view.xml',
-        'hr_clock_data.xml',
-        'hr_holidays.xml',
-        'emppay/hr_emppay_sequence.xml',
-        'emppay/hr_emppay_view_setup.xml',
-        'emppay/hr_emppay_view_main.xml',
-        'emppay/ir.model.access.csv',
-        'emppay/hr_contact_emppay_batchset_view.xml',
-        'emppay/hr_emppay_report.xml',
-        'emppay/hr_emppay_currency_view.xml',        
-        'emppay/hr_emppay_emp.xml',
+        'hr_timesheet_view.xml',        
         'security/ir.model.access.csv',
     ],
     'demo_xml': [],
