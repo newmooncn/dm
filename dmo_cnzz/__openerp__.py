@@ -26,7 +26,7 @@
     'sequence': 1000,
     'summary': 'DMEMS CNZZ Connector',
     'description': """
-CNZZ Connector
+CNZZ Connector, once install this module, you can add the cnzz script to your returned html template in controler
 ==================================
     """,
     'author': 'DMEMS',

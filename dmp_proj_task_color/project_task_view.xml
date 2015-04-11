@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>      
+
+        <record model="ir.ui.view" id="dmp_project_task_tree_view_color">
+            <field name="name">dmp_project_task_tree_view</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+            	<!-- change row colors -->
+            	<tree string="Tasks" position="attributes">
+            		<attribute name="colors">green:state == 'done';blue:state == 'pending';red:date_deadline and (date_deadline&lt;current_date) and (state in ('draft','pending','open'));grey:state == 'cancelled'</attribute>
+            	</tree>
+            </field>
+        </record>     
+                         
+	<!-- Add color to project.task.type view -->
+	    <record id="task_type_tree_color" model="ir.ui.view">
+	        <field name="name">task_type_tree_extend</field>
+	        <field name="model">project.task.type</field>
+	        <field name="inherit_id" ref="project.task_type_tree"/>
+	        <field name="arch" type="xml">
+	        	<field name="name" position="before">
+	        		<field name="sequence"/>
+	        		<field name="color"/>
+	        	</field>
+	        </field>
+	    </record>         
+	    <record id="task_type_edit_color" model="ir.ui.view">
+	        <field name="name">task_type_edit_extend</field>
+	        <field name="model">project.task.type</field>
+	        <field name="inherit_id" ref="project.task_type_edit"/>
+	        <field name="arch" type="xml">
+	        	<field name="state" position="after">
+	        		<field name="color"/>
+	        	</field> 	
+	        </field>
+	    </record>  
+    
+    </data>
+</openerp>

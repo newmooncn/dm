@@ -35,6 +35,11 @@ msgstr "产品"
 msgid "Suppliers"
 msgstr "供应商"
 
+#. module: dmp_partner_defaults
+#: model:ir.actions.act_window,name:base.action_partner_supplier_form
+msgid "Suppliers"
+msgstr "供应商"
+
 #. module: mrp
 #: model:ir.ui.menu,name:base.menu_mrp_root
 msgid "Manufacturing"
@@ -44,3 +49,35 @@ msgstr "生产"
 #: model:ir.ui.menu,name:base.menu_tools
 msgid "Tools"
 msgstr "工具"
+
+#. module: mrp
+#: help:mrp.product.produce,mode:0
+msgid ""
+"'Consume only' mode will only consume the products with the quantity "
+"selected.\n"
+"'Consume & Produce' mode will consume as well as produce the products with "
+"the quantity selected and it will finish the production order when total "
+"ordered quantities are produced."
+msgstr ""
+"'只投料' 模式会仅消耗对应成品数量的原材料而无产成品产出。\n"
+"'投料并生产' 模式会消耗对应成品数量的原材料而且产出对应数量的产成品。"
+
+#. module: mrp
+#: selection:mrp.product.produce,mode:0
+msgid "Consume Only"
+msgstr "只投料"
+
+#. module: mrp
+#: selection:mrp.product.produce,mode:0
+msgid "Consume & Produce"
+msgstr "投料并生产"
+
+#. module: product
+#: field:product.product,incoming_qty:0
+msgid "Incoming"
+msgstr "将入库"
+
+#. module: product
+#: field:product.product,outgoing_qty:0
+msgid "Outgoing"
+msgstr "将出库"

@@ -1,0 +1,51 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* dmp_proj_emps
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20130413-232416\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-29 08:53+0000\n"
+"PO-Revision-Date: 2014-08-29 17:12+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.7\n"
+
+#. module: dmp_proj_emps
+#: model:ir.actions.report.xml,name:dmp_proj_emps.report_task_group_by_assignee
+msgid "Tasks by Assignee"
+msgstr "按分配者的任务列表"
+
+#. module: dmp_proj_emps
+#: report:project.task.print:0 report:project.task.sheet:0
+#: report:task.group.by_assignee:0 report:task.group.by_employee:0
+msgid "Employees:"
+msgstr "员工:"
+
+#. module: dmp_proj_emps
+#: selection:project.project,project_type:0
+#: selection:project.task,project_type:0
+#: selection:project.task.type,project_type:0 selection:task.print,task_type:0
+msgid "Simple"
+msgstr "普通"
+
+#. module: dmp_proj_emps
+#: view:hr.employee:0
+msgid "Employee"
+msgstr "员工"
+
+#. module: dmp_proj_emps
+#: view:project.task:0
+msgid "employee list"
+msgstr "员工列表"
+
+#. module: dmp_proj_emps
+#: model:ir.model.fields,field_description:dmp_proj_emps.field_project_task_emp_ids
+#: view:project.task:0 field:project.task,emp_ids:0 report:project.task.list:0
+msgid "Employees"
+msgstr "员工"

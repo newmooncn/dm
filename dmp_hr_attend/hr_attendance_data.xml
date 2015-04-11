@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>    
+
+    <data noupdate="1">
+<!-- Work Hours -->        
+        <record forcecreate="True" id="decimal_work_hours" model="decimal.precision">
+            <field name="name">HR Attend Hours</field>
+            <field name="digits">2</field>
+        </record> 
+<!-- Work Days -->        
+        <record forcecreate="True" id="decimal_work_days" model="decimal.precision">
+            <field name="name">HR Attend Days</field>
+            <field name="digits">2</field>
+        </record>       
+    </data>
+</openerp>

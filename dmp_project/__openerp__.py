@@ -29,17 +29,11 @@
 Project Improvements
 =====================
     """,
-    'depends': ["dmp_base", "project", "project_gtd", "project_timesheet", "multi_image"],
+    'depends': ["project"],
     'data': [
-        'project_simple_view.xml',  
-        'project_gtd_view.xml',  
-        'project_report.xml',
-        'project_data.xml',
-        'wizard/task_print.xml',
-        'board_tasks_view.xml'
+        'project_data.xml',  
+        'project_view.xml',  
     ],
-    'test': [],
-    'demo': [],
     'installable': True,
     'auto_install': False,
     'application': True,

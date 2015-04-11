@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+<!-- PO Line View -->
+        <record id="dmp_po_line_full_tree" model="ir.ui.view">
+            <field name="name">po.line.full.tree</field>
+            <field name="model">purchase.order.line</field>
+            <field name="arch" type="xml">
+                <tree colors="grey:state=='cancel';blue:state in ('confirmed');red:state in ('rejected')" string="Purchase Order Line">
+                    <field name="order_id"/>
+                    <field name="partner_id" string="Supplier" />
+                    <field name="date_order" />
+                    <field name="product_id"/>
+                    <field name="supplier_prod_name"/>
+                    <field name="name"/>
+                    <field name="date_planned"/>
+	                <field name="product_qty"/>
+	                <field name="product_uom"/>
+                    <field name="price_unit"/>
+                    <field name="price_subtotal"/>   
+                    <field name="state"/>
+                    <field name="create_uid"/> 
+                    <field name="create_date" widget="date"/>                  
+                </tree>
+            </field>
+        </record>
+        <record id="dmp_po_line_full_form" model="ir.ui.view">
+            <field name="name">po.line.full.form</field>
+            <field name="model">purchase.order.line</field>
+            <field name="arch" type="xml">
+                <form string="Purchase Order Line" version="7.0">  
+	                <header>
+	                    <field name="state" widget="statusbar" statusbar_visible="draft,confirmed,approved,done" statusbar_colors='{"confirmed":"blue"}' readonly="1"/>
+	                </header>
+                    <sheet>
+                        <group>
+                            <group>
+			                    <field name="order_id" readonly="1"/>
+			                    <field name="date_order" readonly="1"/>
+			                    <field name="payment_term_id" readonly="1"/>
+			                    <field name="has_freight" readonly="1"/>
+                            </group>
+                            <group>
+			                    <field name="partner_id" string="Supplier" readonly="1"/>
+			                    <field name="amount_freight" readonly="1"/>
+                            </group>
+                        </group>
+                 		<group>
+                			<field name="po_notes" readonly="1"/>
+                		</group>                         
+                        <group name="product">
+                            <group>
+                    			<label for="product_id"/>
+                    			<div>
+                    				<field name="image_medium" widget="image" class="oe_avatar oe_left" readonly="1"/>
+                                	<field name="product_id"  readonly="1"/>
+                                </div>
+                            </group>
+                            <group>
+                                <label for="product_qty"/>
+                                <div>
+                                    <field name="product_qty" class="oe_inline" attrs="{'readonly': [('state','!=', 'draft'),('state','!=', 'confirmed'),('state','!=', 'rejected')]}"/>
+                                    <field name="product_uom" class="oe_inline" attrs="{'readonly': [('state','!=', 'draft'),('state','!=', 'rejected')]}"/>
+                                </div>
+                                <field name="price_unit"  attrs="{'readonly': [('state','!=', 'draft'),('state','!=', 'rejected')]}"/>
+                                <field name="taxes_id" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','!=','sale')]"  attrs="{'readonly': [('state','!=', 'draft'),('state','!=', 'rejected')]}"/>
+                    			<field name="price_subtotal"/>
+                                <button string="Purchasing History" name="%(act_pur_history)d" type="action"/>
+                            </group>
+                        </group> 
+                        <group name="date_qty">
+                            <group name="dates">
+                                <field name="date_planned" widget="date"  attrs="{'readonly': [('state','!=', 'draft'),('state','!=', 'rejected')]}"  on_change = "onchange_lead('date_planned',date_planned,date_order,context)"/>
+                                <field name="account_analytic_id" colspan="2" groups="purchase.group_analytic_accounting"  attrs="{'readonly': [('state','!=', 'draft'),('state','!=', 'rejected')]}"/>
+                                <field name="company_id" groups="base.group_multi_company" widget="selection"  attrs="{'readonly': [('state','!=', 'draft'),('state','!=', 'rejected')]}"/>
+                                <field name="create_uid"/>
+                                <field name="create_date"/>
+                            </group>
+	                	</group>
+						<!-- <field name="product_id" context="{'form_view_ref':'dmp_product.dmp_product_normal_form_view'}"/> -->
+						<!-- <field name="product_id" widget="one2many" mode="tree"/> -->						
+                        <notebook>
+	                        <page string="Invoices and Receptions">
+	                            <field name="invoice_lines"/>
+	                            <field name="move_ids"/>
+	                        </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>            
+       <record id="view_po_line_full_filter" model="ir.ui.view">
+            <field name="name">po.line.full.search</field>
+            <field name="model">purchase.order.line</field>
+            <field name="arch" type="xml">
+                <search string="Search Purchase Order Line">
+                    <field name="name" string="PO Lines"/>                    
+                    <field name="order_id"/>
+                    <field name="partner_id"/>
+                    <!-- 
+                    Change the prodcut_id to allow query the purchase_ok=False/active=False products, since we will set the purchase_ok=False for the prodcuts that need to stop
+                    The purchase line's product searching won't show the products with purchase_ok=False, the reason is the below defining in purchase_order.py
+                    'product_id': fields.many2one('product.product', 'Product', domain=[('purchase_ok','=',True)], change_default=True),                    
+                     -->
+                    <!-- <field name="product_id"/> -->
+                    <field name="product_id" domain="['|','|',('purchase_ok','=',True),('purchase_ok','=',False),('active','=',False)]"/>
+                    <field name="create_uid"/>
+                    <field name="create_date"/>                   
+                    <group expand="0" string="Group By...">
+                        <filter string="Order" icon="terp-partner" domain="[]" context="{'group_by':'order_id'}"/>
+                        <filter string="Supplier" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Product" icon="terp-partner" domain="[]" context="{'group_by':'product_id'}"/>
+                        <filter string="Order Date" icon="terp-go-month" domain="[]" context="{'group_by':'date_order'}"/>
+                        <filter string="Status" icon="terp-stock_effects-object-colorize" domain="[]" context="{'group_by':'state'}"/>
+                        <filter string="Scheduled Date" icon="terp-go-month" domain="[]" context="{'group_by':'date_planned'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>                
+        <record model="ir.actions.act_window" id="dmp_po_line_full_action">
+            <field name="name">Purchase Products</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">purchase.order.line</field>
+            <!-- <field name="domain">[('state','=','confirmed')]</field> -->
+            <!-- <field name="context">{'search_default_confirmed': 1}</field> -->
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="view_po_line_full_filter"/>
+        </record>        
+        <record model="ir.actions.act_window.view" id="action_po_line_full_tree">
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="dmp_po_line_full_tree"/>
+            <field name="act_window_id" ref="dmp_po_line_full_action"/>
+        </record>        
+        <record model="ir.actions.act_window.view" id="action_po_line_full_form">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="dmp_po_line_full_form"/>
+            <field name="act_window_id" ref="dmp_po_line_full_action"/>
+        </record>                
+        <menuitem action="dmp_po_line_full_action" id="menu_po_line_full"
+            parent="purchase.menu_procurement_management"
+            sequence="7"
+            groups="purchase.group_purchase_manager,purchase.group_purchase_user"/>
+            
+<!-- Add the change log, depend dmp_pur_ln_log -->
+        <record id="dmp_po_line_full_form_wf" model="ir.ui.view">
+            <field name="name">dmp_po_line_full_form_wf</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="dmp_po_line_full_form"/>
+            <field name="arch" type="xml">
+            	<group name="product" position="after">
+					<group name="change_log">
+						<field name="change_log" readonly="1"/>
+					</group>
+            	</group>
+            </field>
+        </record>
+        
+<!-- Add the prod supplier log, depend dmp_pur_prod_supplier -->
+        <record id="dmp_po_line_full_form_wf" model="ir.ui.view">
+            <field name="name">dmp_po_line_full_form_wf</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="dmp_po_line_full_form"/>
+            <field name="arch" type="xml">
+            	<group name="date_qty" position="before">
+					<group name="prod_supplier">
+						<group>
+							<field name="supplier_prod_id" readonly="0" invisible="1"/>
+							<field name="supplier_prod_name" readonly="0" />
+							<field name="supplier_prod_code" readonly="0" />
+						</group>   
+						<group>
+							<field name="supplier_delay" on_change = "onchange_lead('supplier_delay',supplier_delay,date_order,context)" readonly="0" />
+						</group>
+					</group>
+            	</group>
+            </field>
+        </record>
+						
+<!-- Add the workflow for line, depend dmp_pur_workflow -->
+        <record id="dmp_po_line_full_form_wf" model="ir.ui.view">
+            <field name="name">dmp_po_line_full_form_wf</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="dmp_po_line_full_form"/>
+            <field name="arch" type="xml">
+            	<field name="state" position="before">
+                    <button name="action_confirm" states="rejected" string="Confirm" type="object" class="oe_highlight"/>
+                    <button name="action_approve" states="confirmed" string="Approve" type="object" class="oe_highlight" groups="purchase.group_purchase_manager"/>
+                    <button name="%(dmp_pur_workflow.act_purchase_line_reject)d" states="confirmed" string="Reject" type="action" groups="purchase.group_purchase_manager"/>
+            	</field>
+            	<xpath expr="//sheet/group[1]" position="before">
+                   	<group style="color: red">        	
+                        <field name="reject_msg" states="rejected" readonly="1"/>
+                   	</group>
+            	</xpath>
+            </field>
+        </record>
+                
+       <record id="view_po_line_full_filter_wf" model="ir.ui.view">
+            <field name="name">view_po_line_full_filter_wf</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="view_po_line_full_filter"/>
+            <field name="arch" type="xml">
+            	<field name="name" position="after">
+                    <filter icon="terp-document-new" name="draft" string="Quotations" domain="[('state','=','draft')]" help="Purchase order lines which are in draft state"/>
+            		<filter icon="terp-document-new" name="confirmed" string="Waitting Approval" domain="[('state','=','confirmed')]" help="Purchase order lines waitting approval"/>
+            		<filter icon="terp-document-new" name="rejected" string="Rejected" domain="[('state','=','rejected')]" help="Purchase order lines been rejected"/>
+                    <filter icon="terp-check" name="approved" string="Purchase Orders" domain="[('state','not in',('draft','cancel','rejected','confirmed'))]" help="Approved purchase order lines"/>
+                    <separator/>
+                    <filter icon="terp-emblem-important" name="cancelled" string="Cancelled" domain="[('state','=','cancel')]" help="Purchase order lines which are cancelled"/>                    
+            	</field>
+            </field>
+        </record>            
+   
+<!-- define pur rew line's po line view depends dmp_pur_req-->   
+        <record id="view_pur_req_form_po_line_full" model="ir.ui.view">
+	        <field name="name">view_pur_req_form_po_line_full</field>
+	        <field name="model">pur.req</field>
+            <field name="inherit_id" ref="dmp_pur_req.view_pur_req_form"/>
+            <field name="arch" type="xml">
+            	<field name="po_lines_ids" position="attributes">
+                    <attribute name="context">{'form_view_ref': 'dmp_pur_full_line.dmp_po_line_full_form', 'tree_view_ref': 'dmp_pur_full_line.dmp_po_line_full_tree'}</attribute>
+            	</field>
+            </field>
+        </record>
+        <record id="view_pur_req_line_full_form_po_line_full" model="ir.ui.view">
+	        <field name="name">view_pur_req_line_full_form_po_line_full</field>
+	        <field name="model">pur.req.line</field>
+            <field name="inherit_id" ref="dmp_pur_req.view_pur_req_line_full_form"/>
+            <field name="arch" type="xml">
+            	<field name="po_lines_ids" position="attributes">
+                    <attribute name="context">{'form_view_ref': 'dmp_pur_full_line.dmp_po_line_full_form', 'tree_view_ref': 'dmp_pur_full_line.dmp_po_line_full_tree'}</attribute>
+            	</field>
+            </field>
+        </record>
+<!-- show the return and received quantity, depends dmp_pur_pick -->
+        <record id="dmp_po_line_full_tree_pick" model="ir.ui.view">
+            <field name="name">dmp_po_line_full_tree_pick</field>
+            <field name="model">purchase.order.line</field>
+            <field name="inherit_id" ref="dmp_po_line_full_tree"/>
+            <field name="arch" type="xml">
+            	<field name="price_subtotal" position="after">       
+	               	<field name="receive_qty"/>
+	               	<field name="return_qty"/>      	      
+            		<field name="move_dest_id" readonly="1"/>
+            	</field>
+       		</field>
+        </record>          
+    </data>
+</openerp>

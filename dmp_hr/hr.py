@@ -19,11 +19,7 @@
 #
 ##############################################################################
 
-from osv import fields, osv
-from datetime import datetime, time
-import tools
-from tools.translate import _
-from openerp.tools.misc import resolve_attr
+from openerp.osv import fields, osv
 
 import logging
 

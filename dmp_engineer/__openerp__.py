@@ -29,7 +29,7 @@
 Engineer Improvements
 =====================
     """,
-    'depends': ["dmp_base", "dmp_project"],
+    'depends': ["dmp_proj_task_dashboard"],
     'data': [
         'security/engineer_security.xml', 
         'project_engineer_view.xml', 

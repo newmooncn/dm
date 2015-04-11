@@ -1,0 +1,16 @@
+<openerp>
+    <data>
+		<record id="sales_orders_view_form_contact_log" model="ir.ui.view">
+			<field name="name">dmp_sales_orders_view_form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+	            <xpath expr="//page[@string='Other Information']" position="before">
+	                <page name="contact_log" string="Contacts Log">
+	                    <field name="contact_log_ids" widget="one2many_list" context="{'op_name':name}"/>
+	                </page>
+	            </xpath>    			
+			</field>
+		</record>
+    </data>
+</openerp>

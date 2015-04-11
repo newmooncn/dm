@@ -1,0 +1,86 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* dmp_mrp_task
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20130413-232416\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-29 09:21+0000\n"
+"PO-Revision-Date: 2014-08-29 17:38+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.7\n"
+
+#. module: dmp_mrp_task
+#: model:ir.model,name:dmp_mrp_task.model_mrp_production_workcenter_line
+#: model:ir.model.fields,field_description:dmp_mrp_task.field_project_task_workorder_id
+#: view:project.task:0 field:project.task,workorder_id:0
+msgid "Work Order"
+msgstr "工票"
+
+#. module: dmp_mrp_task
+#: model:ir.model.fields,field_description:dmp_mrp_task.field_project_task_workcenter_id
+#: field:project.task,workcenter_id:0
+msgid "Work Center"
+msgstr "工作中心"
+
+#. module: dmp_mrp_task
+#: model:ir.model.fields,field_description:dmp_mrp_task.field_project_task_production_id
+#: field:project.task,production_id:0
+msgid "Manufacture Order"
+msgstr "生产单"
+
+#. module: dmp_mrp_task
+#: model:ir.model.fields,field_description:dmp_mrp_task.field_project_task_product
+#: field:project.task,product:0
+msgid "Product"
+msgstr "产品"
+
+#. module: dmp_mrp_task
+#: model:ir.model.fields,field_description:dmp_mrp_task.field_project_task_dept_id
+#: view:project.task:0 field:project.task,dept_id:0
+msgid "Team"
+msgstr "组"
+
+#. module: dmp_mrp_task
+#: model:ir.model.fields,field_description:dmp_mrp_task.field_project_task_dept_mgr_id
+#: model:ir.model.fields,field_description:dmp_mrp_task.field_task_group_team_leader
+#: field:project.task,dept_mgr_id:0 field:task.group,team_leader:0
+msgid "Team Leader"
+msgstr "组长"
+
+#. module: dmp_mrp_task
+#: model:ir.model.fields,field_description:dmp_mrp_task.field_mrp_production_workcenter_line_task_ids
+#: field:mrp.production.workcenter.line,task_ids:0
+msgid "Working Tasks"
+msgstr "工作任务"
+
+#. module: dmp_mrp_task
+#: model:ir.model.fields,field_description:dmp_mrp_task.field_project_task_work_emp_ids
+#: field:project.task.work,emp_ids:0
+msgid "Employees"
+msgstr "员工"
+
+#. module: dmp_mrp_task
+#: model:ir.actions.act_window,name:dmp_mrp_task.action_view_task_mfg_my
+#: model:ir.ui.menu,name:dmp_mrp_task.menu_action_view_task_mfg_my
+msgid "My Manufacture Tasks"
+msgstr "我的生产任务"
+
+#. module: dmp_mrp_task
+#: view:board.board:0
+#: model:ir.actions.act_window,name:dmp_mrp_task.action_view_task_mfg
+#: model:ir.actions.act_window,name:dmp_mrp_task.tasks_opening_mfg_action
+#: model:ir.ui.menu,name:dmp_mrp_task.menu_action_view_task_mfg
+msgid "Manufacture Tasks"
+msgstr "生产任务"
+
+#. module: dmp_mrp_task
+#: model:ir.actions.act_window,name:dmp_mrp_task.action_task_print_mfg_daily
+msgid "MFG Daily Tasks"
+msgstr "生产日任务"

@@ -12,7 +12,7 @@
         <record id="board_task_form_eng" model="ir.ui.view">
             <field name="name">board_task_form_eng</field>
             <field name="model">board.board</field>
-            <field name="inherit_id" ref='dmp_project.board_task_form'/>
+            <field name="inherit_id" ref='dmp_proj_task_dashboard.board_task_form'/>
             <field name="arch" type="xml">
                 <action string="ERP Tasks" position="after">
                     <action name="%(tasks_opening_eng_action)d" string="Engineer Tasks"/>

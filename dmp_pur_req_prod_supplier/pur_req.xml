@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+        <record id="view_pur_req_po_form_prod_supplier" model="ir.ui.view">
+            <field name="name">view_pur_req_po_form_prod_supplier</field>
+            <field name="model">pur.req.po</field>
+            <field name="inherit_id" ref="dmp_pur_req.view_pur_req_po_form"/>
+            <field name="arch" type="xml">
+            	<field name="product_uom_id" position="after">
+                      <field name="supplier_prod_id" invisible="1"/>
+                      <field name="supplier_prod_name"/>
+                      <field name="supplier_prod_code"/>
+                      <field name="supplier_delay" on_change = "onchange_lead('supplier_delay',supplier_delay,context)"/>
+            	</field>
+            </field>
+        </record>
+        
+    </data>
+</openerp>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="project_gtd" model="project.project">
+            <field name="name">GTD Project(Reserved)</field>
+            <field name="project_type">gtd</field>
+            <field name="company_id"></field>
+        </record>
+    </data>  
+</openerp>

@@ -1,0 +1,208 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* dmp_mrp_routing
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20130413-232416\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-29 09:21+0000\n"
+"PO-Revision-Date: 2014-08-29 17:38+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.7\n"
+
+#. module: dmp_mrp_routing
+#: view:mrp.production.workcenter.line:0
+msgid "Work Orders"
+msgstr "工票"
+
+#. module: dmp_mrp_routing
+#: view:mrp.production:0 view:mrp.production.workcenter.line:0
+msgid "Ready Start"
+msgstr "开始(准备好)"
+
+#. module: dmp_mrp_routing
+#: view:mrp.production:0 view:mrp.production.workcenter.line:0
+msgid "Manager Start"
+msgstr "开始(经理)"
+
+#. module: dmp_mrp_routing
+#: model:ir.model.fields,field_description:dmp_mrp_routing.field_mrp_production_workcenter_line_bom_id
+#: field:mrp.production.workcenter.line,bom_id:0
+msgid "BOM"
+msgstr "物料清单"
+
+#. module: dmp_mrp_routing
+#: model:ir.model.fields,field_description:dmp_mrp_routing.field_mrp_routing_workcenter_oper_next_ids
+#: field:mrp.routing.workcenter,oper_next_ids:0
+msgid "Next Workcenters"
+msgstr "后续工作中心"
+
+#. module: dmp_mrp_routing
+#: model:ir.model.fields,field_description:dmp_mrp_routing.field_mrp_workcenter_members
+#: field:mrp.workcenter,members:0
+msgid "Work Center Members"
+msgstr "工作中心成员"
+
+#. module: dmp_mrp_routing
+#: model:ir.model.fields,field_description:dmp_mrp_routing.field_mrp_production_workcenter_line_wo_next_ids
+#: view:mrp.production.workcenter.line:0
+#: field:mrp.production.workcenter.line,wo_next_ids:0
+msgid "Next WOs"
+msgstr "后续工单"
+
+#. module: dmp_mrp_routing
+#: view:mrp.workcenter:0
+msgid "Team"
+msgstr "组"
+
+#. module: dmp_mrp_routing
+#: model:ir.model.fields,field_description:dmp_mrp_routing.field_mrp_routing_workcenter_oper_pre_ids
+#: field:mrp.routing.workcenter,oper_pre_ids:0
+msgid "Previous Workcenters"
+msgstr "前置工作中心"
+
+#. module: dmp_mrp_routing
+#: view:mrp.production.workcenter.line:0
+msgid "Related WO"
+msgstr "相关工单"
+
+#. module: dmp_mrp_routing
+#: model:ir.model.fields,field_description:dmp_mrp_routing.field_mrp_production_workcenter_line_has_pre_ids
+#: field:mrp.production.workcenter.line,has_pre_ids:0
+msgid "Has Pre WO"
+msgstr "是否有前置工作重心"
+
+#. module: dmp_mrp_routing
+#: view:mrp.production:0 view:mrp.production.workcenter.line:0
+msgid "User Start"
+msgstr "开始(用户)"
+
+#. module: dmp_mrp_routing
+#: model:ir.model.fields,field_description:dmp_mrp_routing.field_mrp_production_workcenter_line_routing_id
+#: field:mrp.production.workcenter.line,routing_id:0
+msgid "Routing"
+msgstr "工艺流程"
+
+#. module: dmp_mrp_routing
+#: view:mrp.production.workcenter.line:0
+msgid "Information"
+msgstr "信息"
+
+#. module: dmp_mrp_routing
+#: model:ir.model,name:dmp_mrp_routing.model_mrp_workcenter
+msgid "Work Center"
+msgstr "工作中心"
+
+#. module: dmp_mrp_routing
+#: model:ir.model,name:dmp_mrp_routing.model_mrp_routing_workcenter
+msgid "Work Center Usage"
+msgstr "工作中心"
+
+#. module: dmp_mrp_routing
+#: model:ir.model,name:dmp_mrp_routing.model_mrp_production_workcenter_line
+msgid "Work Order"
+msgstr "工票"
+
+#. module: dmp_mrp_routing
+#: model:ir.model.fields,field_description:dmp_mrp_routing.field_mrp_production_workcenter_line_wo_pre_ids
+#: view:mrp.production.workcenter.line:0
+#: field:mrp.production.workcenter.line,wo_pre_ids:0
+msgid "Previous WOs"
+msgstr "前置工单"
+
+#. module: dmp_mrp_routing
+#: model:ir.actions.act_window,name:dmp_mrp_routing.action_view_cnc_line_done
+#: view:work.order.cnc.line.done:0
+msgid "Finish the work order line"
+msgstr "完成工单行"
+
+#. module: dmp_mrp_routing
+#: model:ir.model.fields,field_description:dmp_mrp_routing.field_mrp_workcenter_manager_id
+#: field:mrp.workcenter,manager_id:0
+msgid "Manager"
+msgstr "经理"
+
+########################manual########################
+#. module: mrp_operations
+#: model:ir.actions.act_window,name:mrp_operations.mrp_production_wc_action_form
+#: model:ir.ui.menu,name:mrp_operations.menu_mrp_production_wc_order
+#: view:mrp.production.workcenter.line:0
+#: view:mrp.workorder:0
+msgid "Work Orders"
+msgstr "工单"
+
+#. module: mrp_operations
+#: model:process.node,note:mrp_operations.process_node_canceloperation0
+msgid "Cancel the operation."
+msgstr "工单作废"
+
+#. module: mrp_operations
+#: model:process.transition,name:mrp_operations.process_transition_productionstart0
+msgid "Creation of the work order"
+msgstr "新建工单"
+
+#. module: mrp_operations
+#: model:process.transition,note:mrp_operations.process_transition_productionstart0
+msgid "The work orders are created on the basis of the production order."
+msgstr "工单基于生产订单创建"
+
+#. module: mrp_operations
+#: model:ir.actions.act_window,name:mrp_operations.action_report_mrp_workorder
+#: model:ir.model,name:mrp_operations.model_mrp_production_workcenter_line
+msgid "Work Order"
+msgstr "工单"
+
+#. module: mrp_operations
+#: model:process.transition,note:mrp_operations.process_transition_workstartoperation0
+msgid ""
+"There is 1 work order per work center. The information about the number of "
+"cycles or the cycle time."
+msgstr "每个加工中心有一个工单。有加工的次数或工时数"
+
+#. module: mrp_operations
+#: model:ir.ui.menu,name:mrp_operations.menu_report_mrp_workorders_tree
+msgid "Work Order Analysis"
+msgstr "工单分析"
+
+#. module: mrp_operations
+#: model:ir.actions.act_window,name:mrp_operations.mrp_production_wc_draft_action
+msgid "Future Work Orders"
+msgstr "未开工工单"
+
+#. module: mrp_operations
+#: model:ir.model,name:mrp_operations.model_mrp_workorder
+msgid "Work Order Report"
+msgstr "工单报表"
+
+#. module: mrp_operations
+#: model:ir.actions.act_window,name:mrp_operations.mrp_production_wc_action_planning
+msgid "Work Orders Planning"
+msgstr "工单计划"
+
+#. module: mrp_operations
+#: model:ir.actions.act_window,name:mrp_operations.mrp_production_wc_confirm_action
+msgid "Confirmed Work Orders"
+msgstr "已确认的工单"
+
+#. module: mrp_operations
+#: view:mrp.production.workcenter.line:0
+msgid "Search Work Orders"
+msgstr "查询工单："
+
+#. module: mrp_operations
+#: model:process.transition,note:mrp_operations.process_transition_startdoneoperation0
+msgid ""
+"When the operation is finished, the operator updates the system by finishing "
+"the work order."
+msgstr "加工结束后，操作者在系统中完成工单以报工"
+
+#. module: mrp_operations
+#: model:process.transition,name:mrp_operations.process_transition_workstartoperation0
+msgid "Details of the work order"
+msgstr "工单明细"

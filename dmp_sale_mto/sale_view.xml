@@ -1,0 +1,55 @@
+<openerp>
+    <data>
+		<record id="sales_orders_view_form_mto" model="ir.ui.view">
+			<field name="name">dmp_sales_orders_view_form</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+	            <xpath expr="//field[@name='order_line']/form//div[@name='discount']" position="after">
+	                <label for='mto_design_id'/>
+	                <div>
+	                    <field name="config_changed" invisible="1"/>
+	                    <field name="mto_design_id" on_change="onchange_config(mto_design_id)" options='{"no_open": True}' domain="[('type','=','common')]" class="oe_inline"/>                 
+	                    <button name="edit_config" string="Edit" context="{'config_id':mto_design_id}" type='object' attrs="{'invisible':[('mto_design_id','=',False)]}" class="oe_inline"/>
+	                    <!-- <button name="new_config" string="New" context="{'config_id':mto_design_id}" type='object' attrs="{'invisible':[('mto_design_id','=',False)]}" class="oe_inline"/> -->
+	                </div>
+	            </xpath>            
+	            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="after">
+	                <field name="mto_design_id"/>
+	            </xpath>
+			</field>
+		</record>  
+       <record id="sales_orders_view_form_product" model="ir.ui.view">
+            <field name="name">sales.orders.view.form</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale_stock.view_order_form_inherit"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='order_line']/form//field[@name='product_id']" position="attributes">
+                    <attribute name="context">{'config_changed':config_changed}</attribute>
+                </xpath> 
+            </field>
+        </record>
+        
+<!-- Add so_line_id to mto_design -->
+        <record id="mto_design_tree_view_so" model="ir.ui.view">
+            <field name="name">"mto_design_tree_view_so"</field>
+            <field name="model">mto.design</field>
+            <field name="inherit_id" ref="dmp_mto.mto_design_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="weight" position="after">
+                    <field name="so_line_id"/>
+                </field>    
+            </field> 
+        </record>
+        <record id="mto_design_form_view_so" model="ir.ui.view">
+            <field name="name">"mto_design_form_view_so"</field>
+            <field name="model">mto.design</field>
+            <field name="inherit_id" ref="dmp_mto.mto_design_form_view"/>
+            <field name="arch" type="xml">
+                <field name="weight" position="after">
+                    <field name="so_line_id"/>
+                </field>    
+            </field> 
+        </record>
+    </data>
+</openerp>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report auto="False" id="report_rpt_account_partner_gl" model="rpt.account.partner" header="True"
+                name="rpt.account.partner.gl" rml="dmp_account_rpt_partner/report/rpt_account_partner_gl.rml"
+                usage="default" string="Parter General Ledger"/>     
+        <report auto="False" id="report_rpt_account_partner_detail" model="rpt.account.partner" header="True"
+                name="rpt.account.partner.detail" rml="dmp_account_rpt_partner/report/rpt_account_partner_detail.rml"
+                usage="default" string="Partner Entry Detail"/>                        
+    </data>
+</openerp>

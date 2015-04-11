@@ -53,6 +53,12 @@ class product_supplierinfo(osv.osv):
     def create(self, cr, uid, data, context=None):
         if 'product_product_id' in data and data['product_product_id'] > 0:
             data['product_id'] = self._get_product_tmpl_id(cr, uid, data['product_product_id'], context=context)
+        else:
+            if not data.get('product_id'):
+                raise osv.except_osv(_('Error'), 'No product_id and product_product_id on product_supplierinfo!')
+            product_product_ids = self.pool.get('product.product').search(cr, uid, [('product_tmpl_id','=',data['product_id'])], context=context)
+            if product_product_ids:
+                data['product_product_id'] = product_product_ids[0]
         return super(product_supplierinfo, self).create(cr, uid, data, context)
             
     def onchange_product_product_id(self, cr, uid, ids, product_product_id, context=None):

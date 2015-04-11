@@ -175,12 +175,6 @@ msgid "China Employees"
 msgstr "中国员工"
 
 #. module: dmp_hr
-#: model:ir.ui.menu,name:dmp_hr.menu_hr_emp
-#: model:ir.ui.menu,name:dmp_hr.menu_hr_emp_root
-msgid "My Human Resources"
-msgstr "我的HR"
-
-#. module: dmp_hr
 #: report:hr.welcome.checklist:0
 msgid "Emergency Contact:"
 msgstr "Emergency Contact:"
@@ -291,5 +285,3 @@ msgstr "学历"
 #: model:ir.model,name:dmp_hr.model_hr_send_checklist
 msgid "Send Employee Welcome Checklist"
 msgstr "发送员工欢迎清单"
-
-########################manual########################

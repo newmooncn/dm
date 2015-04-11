@@ -15,15 +15,12 @@
 Product Improvements
 =====================
     """,
-    'depends': ["dmp_base", "product", "sale", "stock", "product_manufacturer", "purchase", "mrp"],
+    'depends': ["product", "sale", "stock", "purchase", "product_manufacturer"],
     'data':['security/dmp_product_security.xml',
         'security/ir.model.access.csv',            
         'product_sequence.xml',
         'product_view.xml',
-        'product_uom_data.xml',
-        'product_uom_view.xml',
         'wizard/product_batch_query_view.xml',
-        'wizard/products_approve.xml'
     ],
     'auto_install': False,
     'installable': True

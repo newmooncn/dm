@@ -21,7 +21,6 @@ Process Base
             'ir_attachment_view.xml',
             'security/security.xml',
             'security/ir.model.access.csv',
-            'hr_view.xml',
     ],
     'auto_install': False,
     'installable': True

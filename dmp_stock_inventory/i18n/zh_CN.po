@@ -1,0 +1,126 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* dmp_stock_inventory
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20130413-232416\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-15 06:43+0000\n"
+"PO-Revision-Date: 2014-10-15 14:44+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.7\n"
+
+#. module: dmp_stock_inventory
+#: model:ir.model.fields,field_description:dmp_stock_inventory.field_stock_change_product_qty_reason
+#: field:stock.change.product.qty,reason:0
+msgid "Changing Reason"
+msgstr "改变原因"
+
+#. module: dmp_stock_inventory
+#: model:ir.model,name:dmp_stock_inventory.model_stock_change_product_qty
+msgid "Change Product Quantity"
+msgstr "更改产品数量"
+
+#. module: dmp_stock_inventory
+#: model:ir.model.fields,field_description:dmp_stock_inventory.field_product_product_qty_onhand
+#: field:product.product,qty_onhand:0
+msgid "Quantity On Hand"
+msgstr "在手数量"
+
+#. module: dmp_stock_inventory
+#: model:ir.model.fields,field_description:dmp_stock_inventory.field_product_product_safe_qty
+#: field:product.product,safe_qty:0
+msgid "Minimal Inventory"
+msgstr "最小库存"
+
+#. module: dmp_stock_inventory
+#: model:ir.model.fields,field_description:dmp_stock_inventory.field_product_product_qty_virtual
+#: field:product.product,qty_virtual:0
+msgid "Forecasted Quantity"
+msgstr "预测数量"
+
+#. module: dmp_stock_inventory
+#: model:ir.model.fields,field_description:dmp_stock_inventory.field_product_product_qty_in
+#: field:product.product,qty_in:0
+msgid "Incoming"
+msgstr "将入库"
+
+#. module: dmp_stock_inventory
+#: model:ir.model.fields,field_description:dmp_stock_inventory.field_product_product_property_prod_loc
+#: field:product.product,property_prod_loc:0
+msgid "Location"
+msgstr "库位"
+
+#. module: dmp_stock_inventory
+#: view:product.product:0
+msgid ""
+"red:(virtual_available and virtual_available<0);blue:virtual_available>=0 "
+"and state in ('draft', 'end', 'obsolete');black:virtual_available>=0 and "
+"state not in ('draft', 'end', 'obsolete')"
+msgstr ""
+"red:(virtual_available and virtual_available<0);blue:virtual_available>=0 "
+"and state in ('draft', 'end', 'obsolete');black:virtual_available>=0 and "
+"state not in ('draft', 'end', 'obsolete')"
+
+#. module: dmp_stock_inventory
+#: view:product.product:0
+msgid "Storage Location"
+msgstr "存储位置"
+
+#. module: dmp_stock_inventory
+#: model:ir.model.fields,field_description:dmp_stock_inventory.field_product_product_loc_pos_code
+#: field:product.product,loc_pos_code:0
+msgid "Storage Position Code"
+msgstr "存放位置"
+
+#. module: dmp_stock_inventory
+#: view:product.product:0
+msgid "No Onhand"
+msgstr "无库存"
+
+#. module: dmp_stock_inventory
+#: model:ir.model.fields,field_description:dmp_stock_inventory.field_product_product_max_qty
+#: field:product.product,max_qty:0
+msgid "Maximal Inventory"
+msgstr "最大库存"
+
+#. module: dmp_stock_inventory
+#: model:ir.model.fields,field_description:dmp_stock_inventory.field_product_product_safe_warn
+#: field:product.product,safe_warn:0
+msgid "Safe Warn"
+msgstr "安全报警"
+
+#. module: dmp_stock_inventory
+#: view:product.product:0
+msgid "Negative Onhand"
+msgstr "负库存"
+
+#. module: dmp_stock_inventory
+#: field:product.product,qty_onhand:0
+msgid "Quantity On Hand"
+msgstr "在手数量"
+
+#. module: dmp_stock_inventory
+#: field:product.product,qty_virtual:0
+msgid "Forecasted Quantity"
+msgstr "预测数量"
+
+#. module: dmp_stock_inventory
+#: field:product.product,qty_out:0
+msgid "Outgoing"
+msgstr "将出库"
+
+########################manual########################
+#. module: dmp_stock_inventory
+#: code:addons/dmp_stock_inventory/wizard/stock_change_product_qty.py:58
+#, python-format
+msgid "Product onhand change: %s,reason: %s"
+msgstr "产品在手数量修改: %s,原因: %s"
+
+

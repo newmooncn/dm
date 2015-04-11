@@ -22,17 +22,6 @@ msgid "product.attribute"
 msgstr "product.attribute"
 
 #. module: dmp_product
-#: model:ir.model.fields,field_description:dmp_product.field_product_uom_factor_display
-#: field:product.uom,factor_display:0
-msgid "Ratio"
-msgstr "比率"
-
-#. module: dmp_product
-#: selection:product.product,measure_type:0
-msgid "Multi Units Multi Products"
-msgstr "多单位-多品种"
-
-#. module: dmp_product
 #: model:ir.model.fields,field_description:dmp_product.field_product_product_qty_onhand
 #: field:product.product,qty_onhand:0
 msgid "Quantity On Hand"
@@ -155,11 +144,6 @@ msgid "Location"
 msgstr "库位"
 
 #. module: dmp_product
-#: view:products.approve:0
-msgid "Approve products"
-msgstr "批准产品"
-
-#. module: dmp_product
 #: view:product.product:0
 msgid ""
 "red:(virtual_available and virtual_available<0);blue:virtual_available>=0 "
@@ -177,8 +161,7 @@ msgstr "产品目录"
 
 #. module: dmp_product
 #: model:ir.model.fields,field_description:dmp_product.field_product_product_create_date
-#: model:ir.model.fields,field_description:dmp_product.field_product_uom_create_date
-#: field:product.product,create_date:0 field:product.uom,create_date:0
+#: field:product.product,create_date:0
 msgid "Creation Date"
 msgstr "创建日期"
 
@@ -234,11 +217,6 @@ msgid "MSP_UOM_DUMMY"
 msgstr "MSP_UOM_DUMMY"
 
 #. module: dmp_product
-#: model:ir.model,name:dmp_product.model_products_approve
-msgid "Approve products by batch"
-msgstr "批量批准产品"
-
-#. module: dmp_product
 #: model:ir.model.fields,field_description:dmp_product.field_product_sequence_separator
 #: field:product.sequence,separator:0
 msgid "Separator"
@@ -253,18 +231,6 @@ msgstr "导出结果文件:"
 #: view:product.product:0
 msgid "Storage Location"
 msgstr "存储位置"
-
-#. module: dmp_product
-#: model:ir.model.fields,field_description:dmp_product.field_product_product_measure_type
-#: field:product.product,measure_type:0
-msgid "Measure Type"
-msgstr "计量类型"
-
-#. module: dmp_product
-#: model:ir.model.fields,field_description:dmp_product.field_products_approve_purchase_ok
-#: field:products.approve,purchase_ok:0
-msgid "Can be purchased"
-msgstr "可采购"
 
 #. module: dmp_product
 #: view:product.product:0
@@ -282,28 +248,11 @@ msgid "Storage Position Code"
 msgstr "存放位置"
 
 #. module: dmp_product
-#: model:ir.actions.act_window,name:dmp_product.action_products_approve
-msgid "Approve Products"
-msgstr "批准产品"
-
-#. module: dmp_product
 #: model:ir.actions.act_window,name:dmp_product.action_wizard_product_batch_query
 #: model:ir.ui.menu,name:dmp_product.menu_wizard_product_batch_query
 #: view:product.batch.query:0
 msgid "Product Batch Query"
 msgstr "产品批量查询"
-
-#. module: dmp_product
-#: view:product.batch.query:0 view:product.set.printflag:0
-#: view:products.approve:0
-msgid "or"
-msgstr "or"
-
-#. module: dmp_product
-#: model:ir.model.fields,field_description:dmp_product.field_product_product_uom_po_price
-#: field:product.product,uom_po_price:0
-msgid "Purchase Unit Price"
-msgstr "采购单位单价"
 
 #. module: dmp_product
 #: model:ir.model,name:dmp_product.model_product_uom
@@ -317,25 +266,9 @@ msgid "External Part#"
 msgstr "外部物料号"
 
 #. module: dmp_product
-#: model:ir.model.fields,field_description:dmp_product.field_products_approve_sale_ok
-#: field:products.approve,sale_ok:0
-msgid "Can be sold"
-msgstr "可销售"
-
-#. module: dmp_product
 #: view:product.product:0
 msgid "中国名"
 msgstr "中国名"
-
-#. module: dmp_product
-#: selection:product.product,measure_type:0
-msgid "Single Unit"
-msgstr "唯一单位"
-
-#. module: dmp_product
-#: selection:product.product,measure_type:0
-msgid "Multi Units Single Product"
-msgstr "多单位-单品种"
 
 #. module: dmp_product
 #: model:ir.model.fields,field_description:dmp_product.field_product_product_qty_out
@@ -347,12 +280,6 @@ msgstr "出仓"
 #: model:ir.actions.act_window,name:dmp_product.action_view_product_set_printflag
 msgid "Set/Clear Print Flag"
 msgstr "设置/清除打印标志"
-
-#. module: dmp_product
-#: model:ir.model.fields,field_description:dmp_product.field_product_product_uom_po_factor
-#: field:product.product,uom_po_factor:0
-msgid "UOM Ratio"
-msgstr "单位比率"
 
 #. module: dmp_product
 #: model:ir.model.fields,field_description:dmp_product.field_product_batch_query_state
@@ -382,20 +309,10 @@ msgid "No Onhand"
 msgstr "无库存"
 
 #. module: dmp_product
-#: view:product.product:0
-msgid "Restart"
-msgstr "重新启用"
-
-#. module: dmp_product
 #: model:ir.model.fields,field_description:dmp_product.field_product_product_mfg_standard
 #: field:product.product,mfg_standard:0
 msgid "Manufacture Standard"
 msgstr "制造标准"
-
-#. module: dmp_product
-#: view:product.product:0
-msgid "[('category_id','=',uom_categ_id)]"
-msgstr "[('category_id','=',uom_categ_id)]"
 
 #. module: dmp_product
 #: view:product.product:0
@@ -416,8 +333,7 @@ msgstr "最大库存"
 
 #. module: dmp_product
 #: model:ir.model.fields,field_description:dmp_product.field_product_product_create_uid
-#: model:ir.model.fields,field_description:dmp_product.field_product_uom_create_uid
-#: field:product.product,create_uid:0 field:product.uom,create_uid:0
+#: field:product.product,create_uid:0
 msgid "Creator"
 msgstr "创建人"
 
@@ -439,18 +355,6 @@ msgstr "打印条码标签"
 #: field:product.sequence,prefix:0
 msgid "Prefix"
 msgstr "前缀"
-
-#. module: dmp_product
-#: model:ir.model.fields,field_description:dmp_product.field_product_product_uom_categ_id
-#: field:product.product,uom_categ_id:0
-msgid "UOM Category"
-msgstr "单位类别"
-
-#. module: dmp_product
-#: view:product.batch.query:0 view:product.set.printflag:0
-#: view:products.approve:0
-msgid "Cancel"
-msgstr "取消"
 
 #. module: dmp_product
 #: view:product.batch.query:0
@@ -493,11 +397,6 @@ msgid "product.sequence"
 msgstr "product.sequence"
 
 #. module: dmp_product
-#: view:product.product:0
-msgid "End of Life"
-msgstr "停用"
-
-#. module: dmp_product
 #: view:product.uom:0
 msgid "Product UOM"
 msgstr "产品计量单位"
@@ -518,11 +417,6 @@ msgid ""
 "Are you sure you want to set or clear these selected products barcode print "
 "flag?"
 msgstr "你确信要合并/清除所选择产品的条码打印标志吗？"
-
-#. module: dmp_product
-#: view:products.approve:0
-msgid "Are you sure you want to approve those products?"
-msgstr "确定批准这些产品吗?"
 
 #. module: dmp_product
 #: model:ir.model.fields,field_description:dmp_product.field_product_attribute_name
@@ -556,20 +450,10 @@ msgid "Select the file including your query products"
 msgstr "选择包括查询产品的文件"
 
 #. module: dmp_product
-#: view:product.product:0 view:products.approve:0
-msgid "Approve"
-msgstr "批准"
-
-#. module: dmp_product
 #: model:ir.model.fields,field_description:dmp_product.field_product_batch_query_filename
 #: field:product.batch.query,filename:0
 msgid "File Name"
 msgstr "文件名"
-
-#. module: dmp_product
-#: view:product.product:0
-msgid "Obsolete"
-msgstr "废弃"
 
 #. module: dmp_product
 #: model:ir.actions.act_window,name:dmp_product.action_product_inventory_warning
@@ -627,26 +511,6 @@ msgid "There are related business data with '%s', cannot change the Category,Typ
 msgstr "'%s'已经有相关的业务数据,不能更改'类别','类型'或者'比例'."
 
 #. module: dmp_product
-#: view:product.product:0
-msgid "Approve"
-msgstr "批准"
-
-#. module: dmp_product
-#: view:product.product:0
-msgid "End of Life"
-msgstr "停用"
-
-#. module: dmp_product
-#: view:product.product:0
-msgid "Obsolete"
-msgstr "废弃"
-
-#. module: dmp_product
-#: view:product.product:0
-msgid "Restart"
-msgstr "重新启用"
-
-#. module: dmp_product
 #: field:product.product,qty_onhand:0
 msgid "Quantity On Hand"
 msgstr "在手数量"
@@ -670,3 +534,14 @@ msgstr "出仓"
 #: view:product.product:0
 msgid "On hand:"
 msgstr "在手:"
+
+#. module: dmp_stock
+#: view:product.batch.query:0
+msgid "Query"
+msgstr "查询"
+
+#. module: dmp_product
+#: model:ir.model.fields,field_description:dmp_mrp.field_product_product_material
+#: field:product.product,material:0
+msgid "Material"
+msgstr "材质"

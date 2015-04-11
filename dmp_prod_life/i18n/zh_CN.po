@@ -1,0 +1,101 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* dmp_prod_life
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20130413-232416\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-31 23:57+0000\n"
+"PO-Revision-Date: 2014-09-01 08:06+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.7\n"
+
+#. module: dmp_prod_life
+#: view:products.approve:0
+msgid "Approve products"
+msgstr "批准产品"
+
+#. module: dmp_prod_life
+#: view:product.product:0 view:products.approve:0
+msgid "Approve"
+msgstr "批准"
+
+#. module: dmp_prod_life
+#: view:product.product:0
+msgid "Approve"
+msgstr "批准"
+
+#. module: dmp_prod_life
+#: view:product.product:0
+msgid "End of Life"
+msgstr "停用"
+
+#. module: dmp_prod_life
+#: view:product.product:0
+msgid "End of Life"
+msgstr "停用"
+
+#. module: dmp_prod_life
+#: view:product.product:0
+msgid "Obsolete"
+msgstr "废弃"
+
+#. module: dmp_prod_life
+#: view:product.product:0
+msgid "Obsolete"
+msgstr "废弃"
+
+#. module: dmp_prod_life
+#: view:product.product:0
+msgid "Restart"
+msgstr "重新启用"
+
+#. module: dmp_prod_life
+#: view:product.product:0
+msgid "Restart"
+msgstr "重新启用"
+
+#. module: dmp_product
+#: model:ir.model.fields,field_description:dmp_product.field_products_approve_sale_ok
+#: field:products.approve,sale_ok:0
+msgid "Can be sold"
+msgstr "可销售"
+
+#. module: dmp_product
+#: model:ir.model.fields,field_description:dmp_product.field_products_approve_purchase_ok
+#: field:products.approve,purchase_ok:0
+msgid "Can be purchased"
+msgstr "可采购"
+
+#. module: dmp_product
+#: model:ir.model,name:dmp_product.model_products_approve
+msgid "Approve products by batch"
+msgstr "批量批准产品"
+
+#. module: dmp_product
+#: model:ir.actions.act_window,name:dmp_product.action_products_approve
+msgid "Approve Products"
+msgstr "批准产品"
+
+#. module: dmp_product
+#: view:products.approve:0
+msgid "Are you sure you want to approve those products?"
+msgstr "确定批准这些产品吗?"
+
+#. module: dmp_product
+#: view:product.batch.query:0 view:product.set.printflag:0
+#: view:products.approve:0
+msgid "Cancel"
+msgstr "取消"
+
+#. module: dmp_product
+#: view:product.batch.query:0 view:product.set.printflag:0
+#: view:products.approve:0
+msgid "or"
+msgstr "or"

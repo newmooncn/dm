@@ -1,0 +1,79 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* dmp_prod_uom
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20130413-232416\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-31 23:57+0000\n"
+"PO-Revision-Date: 2014-09-01 08:06+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.7\n"
+
+#. module: dmp_prod_uom
+#: selection:product.product,measure_type:0
+msgid "Multi Units Multi Products"
+msgstr "多单位-多品种"
+
+#. module: dmp_prod_uom
+#: selection:product.product,measure_type:0
+msgid "Single Unit"
+msgstr "唯一单位"
+
+#. module: dmp_prod_uom
+#: selection:product.product,measure_type:0
+msgid "Multi Units Single Product"
+msgstr "多单位-单品种"
+
+#. module: dmp_prod_uom
+#: model:ir.model.fields,field_description:dmp_prod_uom.field_product_product_measure_type
+#: field:product.product,measure_type:0
+msgid "Measure Type"
+msgstr "计量类型"
+
+#. module: dmp_prod_uom
+#: view:product.product:0
+msgid "[('category_id','=',uom_categ_id)]"
+msgstr "[('category_id','=',uom_categ_id)]"
+
+#. module: dmp_prod_uom
+#: model:ir.model.fields,field_description:dmp_prod_uom.field_product_product_uom_categ_id
+#: field:product.product,uom_categ_id:0
+msgid "UOM Category"
+msgstr "单位类别"
+
+#. module: dmp_prod_uom
+#: model:ir.model.fields,field_description:dmp_prod_uom.field_product_product_uom_po_price
+#: field:product.product,uom_po_price:0
+msgid "Purchase Unit Price"
+msgstr "采购单位单价"
+
+#. module: dmp_prod_uom
+#: model:ir.model.fields,field_description:dmp_prod_uom.field_product_product_uom_po_factor
+#: field:product.product,uom_po_factor:0
+msgid "UOM Ratio"
+msgstr "单位比率"
+
+#. module: dmp_prod_uom
+#: model:ir.model.fields,field_description:dmp_prod_uom.field_product_uom_factor_display
+#: field:product.uom,factor_display:0
+msgid "Ratio"
+msgstr "比率"
+
+#. module: dmp_prod_uom
+#: model:ir.model.fields,field_description:dmp_prod_uom.field_product_uom_create_uid
+#: field:field:product.uom,create_uid:0
+msgid "Creator"
+msgstr "创建人"
+
+#. module: dmp_prod_uom
+#: model:ir.model.fields,field_description:dmp_prod_uom.field_product_uom_create_date
+#: field:product.uom,create_date:0
+msgid "Creation Date"
+msgstr "创建日期"

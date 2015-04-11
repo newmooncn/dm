@@ -5,7 +5,7 @@
 		<record id="dmp_employee_form_view" model="ir.ui.view">
 			<field name="name">dmp_employee_form_view</field>
 			<field name="model">hr.employee</field>
-			<field name="inherit_id" ref="dmp_base.view_employee_form_ext_base"/>
+			<field name="inherit_id" ref="dmp_hr_empcode.view_employee_form_ext_base"/>
 			<field name="arch" type="xml">
 				<data>
 					<notebook position="inside">
@@ -50,7 +50,7 @@
 		<record id="dmp_employee_tree_view" model="ir.ui.view">
 			<field name="name">dmp_employee_tree_view</field>
 			<field name="model">hr.employee</field>
-			<field name="inherit_id" ref="dmp_base.view_employee_tree_ext_base"/>
+			<field name="inherit_id" ref="dmp_hr_empcode.view_employee_tree_ext_base"/>
 			<field name="arch" type="xml">
 				<field name="name" position="before">
 					<field name="image_small" widget="image"/>
@@ -86,7 +86,7 @@
             <field name="domain_force">[(1,'=',1)]</field>
             <field name="groups" eval="[(4,ref('base.group_hr_user'))]"/>
         </record>   
-        <menuitem id="menu_hr_employee_my" name="Employees" action="hr.open_view_employee_list_my" sequence="1" parent="menu_hr_emp"/>
+        <menuitem id="menu_hr_employee_my" name="Employees" action="hr.open_view_employee_list_my" sequence="1" parent="dmp_hr_my.menu_hr_emp"/>
 			
 	</data>
 </openerp>	

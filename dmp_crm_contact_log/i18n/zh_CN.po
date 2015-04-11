@@ -1,0 +1,118 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* dmp_crm
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20130413-232416\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-08-29 10:17+0000\n"
+"PO-Revision-Date: 2014-08-29 18:30+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.7\n"
+
+#. module: dmp_crm
+#: view:crm.lead:0 view:sale.order:0
+msgid "Contacts Log"
+msgstr "联系日志"
+
+#. module: dmp_crm
+#: field:crm.lead,contact_log_ids:0
+#: model:ir.model.fields,field_description:dmp_crm.field_crm_lead_contact_log_ids
+msgid "Contact Logs"
+msgstr "联系日志"
+
+#. module: dmp_crm
+#: view:crm.lead:0
+msgid "Calling"
+msgstr "通话"
+
+#. module: dmp_crm
+#: field:crm.lead,phonecall_ids:0
+#: model:ir.model.fields,field_description:dmp_crm.field_crm_lead_phonecall_ids
+msgid "Callings"
+msgstr "通话"
+
+#. module: dmp_crm
+#: field:contact.log,name:0
+#: model:ir.model.fields,field_description:dmp_crm.field_contact_log_name
+msgid "Summary"
+msgstr "总计"
+
+#. module: dmp_crm
+#: field:contact.log,description:0
+#: model:ir.model.fields,field_description:dmp_crm.field_contact_log_description
+msgid "Description"
+msgstr "描述"
+
+#. module: dmp_crm
+#: field:contact.log,mto_design_wiz_id:0
+#: model:ir.model.fields,field_description:dmp_crm.field_contact_log_mto_design_wiz_id
+msgid "Config Log"
+msgstr "配置日志"
+
+#. module: dmp_crm
+#: view:contact.log:0 view:contact.log.type:0
+msgid "Channels"
+msgstr "通道"
+
+#. module: dmp_crm
+#: field:contact.log,type_id:0
+#: model:ir.model.fields,field_description:dmp_crm.field_contact_log_type_id
+msgid "Type"
+msgstr "类型"
+
+#. module: dmp_crm
+#: view:contact.log:0 view:contact.log.type:0
+msgid "Channel"
+msgstr "通道"
+
+#. module: dmp_crm
+#: field:contact.log,duration:0
+#: model:ir.model.fields,field_description:dmp_crm.field_contact_log_duration
+msgid "Hours"
+msgstr "小时"
+
+#. module: dmp_crm
+#: view:contact.log:0 view:sale.product:0
+msgid "Description..."
+msgstr "描述..."
+
+#. module: dmp_crm
+#: field:contact.log.type,name:0
+#: model:ir.model.fields,field_description:dmp_crm.field_contact_log_type_name
+msgid "Type Name"
+msgstr "类型名称"
+
+#. module: dmp_crm
+#: field:contact.log.type,active:0
+#: model:ir.model.fields,field_description:dmp_crm.field_contact_log_type_active
+msgid "Active"
+msgstr "有效"
+
+#. module: dmp_crm
+#: field:contact.log,date:0
+#: model:ir.model.fields,field_description:dmp_crm.field_contact_log_date
+msgid "Contact Date"
+msgstr "联系日期"
+
+#. module: dmp_crm
+#: field:contact.log,person:0
+#: model:ir.model.fields,field_description:dmp_crm.field_contact_log_person
+msgid "Person"
+msgstr "人"
+
+#. module: dmp_crm
+#: model:ir.model,name:dmp_crm.model_crm_lead
+msgid "Lead/Opportunity"
+msgstr "线索/商机"
+
+#. module: dmp_crm
+#: model:ir.actions.act_window,name:dmp_crm_contact_log.contact_log_action
+msgid "Contact Log"
+msgstr "联系记录"

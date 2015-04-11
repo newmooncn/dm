@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<!--Work Orders -->
+		<record id="dmp_mrp_production_workcenter_form_view_material" model="ir.ui.view">
+            <field name="name">dmp_mrp_production_workcenter_form_view_material</field>
+            <field name="model">mrp.production.workcenter.line</field>
+            <field name="inherit_id" ref="mrp_operations.mrp_production_workcenter_form_view_inherit"/>
+            <field name="arch" type="xml">
+	        	<!-- Add the material request fields -->
+                <button name="button_pause" position="after">
+                	<button name="%(action_wo_material_request)d" string="Material Request" states="startworking" type="action"/>
+                </button>
+	        	<page string="Information" position="after">
+	        		<page string="Material">
+	        			<field name="stock_move_ids" context="{'form_view_ref':'dmp_stock_mt.view_material_request_line_form', 'tree_view_ref':'dmp_stock_mt.view_material_request_line_tree'}"/>
+	        		</page>
+	        	</page>     	
+            </field>
+         </record>   
+               		        			    
+    <!-- Add the mrp order's production new fields -->
+        <record id="dmp_mrp_production_product_tree_view" model="ir.ui.view">
+            <field name="name">dmp_mrp_production_product_tree_view</field>
+            <field name="model">mrp.production.product.line</field>
+            <field name="inherit_id" ref="mrp.mrp_production_product_tree_view"/>
+            <field name="arch" type="xml">
+            	<field name="product_uos" position="after">
+            		<field name="parent_bom_id"/>
+            		<field name="bom_id"/>
+            		<field name="consume_move_id"/>
+            	</field>
+            </field>
+        </record>
+        
+	</data>	  
+</openerp>

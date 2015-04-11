@@ -30,7 +30,7 @@
         DMEMS Make to Order Extension
         
         """,
-    'depends': ["base_custom_attributes","dmp_base", "base","product","multi_image"],
+    'depends': ["base_custom_attributes","product","multi_image","dmp_base"],
     'data': [
         'mto_sequence.xml',
         'security/ir.model.access.csv',

@@ -29,31 +29,13 @@
 Manufacture Improvements
 =====================
     """,
-    #'depends': ["dmp_base", "sale", "dmp_stock", "product_manufacturer", "document", "mrp_operations", "procurement", "mrp","dmp_project"],
-    #dmp_project: simple task...
-    #dmp_stock: material request
-    #dmp_engineer: Add bom import button to engineer proeject/task
-    'depends': ["dmp_base","dmp_project", "dmp_engineer", "dmp_stock", "sale", "product_manufacturer", "document", "mrp_operations", "procurement", "mrp"],
+    'depends': ["mrp","mrp_operations"],
     'data': [
-        'security/ir.model.access.csv',
-        'security/mrp_security.xml',
-        'wizard/wo_material_request_view.xml',
+        'mrp_security.xml',
         'wizard/mo_actions_view.xml',
         'mrp_view.xml',
         'mrp_sequence.xml',
-        'wizard/add_common_bom_view.xml',
-        'wizard/bom_import_view.xml',
-        'mrp_workflow.xml',
-        'pdm.xml',
-        'procurement_view.xml',
-        'project_mfg_view.xml',
-        'project_report.xml',
-        'project_data.xml',
-        'board_tasks_view.xml',
-        'wizard/task_print.xml',
     ],
-    'test': [],
-    'demo': [],
     'installable': True,
     'auto_install': False,
     'application': True,

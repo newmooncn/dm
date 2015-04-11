@@ -30,13 +30,11 @@ Sale
 =====================
     * 
     """,
-    'depends': ["dmp_base", "dmp_crm", "dmp_mto","sale", "sale_stock", "sale_quick_payment", "sale_exceptions"],
+    'depends': ["sale"],
     'data': [
         'sale_view.xml',
         'sale_data.xml'
     ],
-    'test': [],
-    'demo': [],
     'installable': True,
     'auto_install': False,
     'application': True,

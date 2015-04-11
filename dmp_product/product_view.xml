@@ -53,66 +53,17 @@
 				<!-- <xpath expr="//h1" position="after">
                   <label for="cn_name"/>
                   <field name="cn_name" colspan="4" placeholder="中国名"/>
-                </xpath> -->
-                <!-- remove the original, control it by button and show use status bar -->
-	            <field name="state" position="replace">
-	            </field>
-	            <xpath expr="//form/sheet" position="before">
-	                <header>
-	                    <button name="button_approve" states="draft" string="Approve" type="object" class="oe_highlight" groups="dmp_product.group_product_manager"/>
-	                    <button name="button_eol" states="sellable" string="End of Life" type="object" groups="dmp_product.group_product_manager"/>
-	                    <button name="button_obsolete" states="sellable" string="Obsolete" type="object" groups="dmp_product.group_product_manager"/>
-	                    <button name="button_draft" states="end,obsolete" string="Restart" type="object" class="oe_highlight" groups="dmp_product.group_product_manager"/>
-	                    <field name="state" widget="statusbar" statusbar_visible="draft,sellable,end" statusbar_colors='{"end":"red","obsolete":"red"}' readonly="1"/>
-	                </header>	            
-	            </xpath>          
+                </xpath> -->        
 	            <!-- supplier -->
 	            <!-- <field name="seller_ids" position="before">
 	            	<field name="seller_info_id"/>
 	            	<field name="seller_id"/>
 	            	<field name="seller_delay"/>
 	            	<field name="seller_qty"/>           	
-	            </field> -->      
-	            <!-- customer -->
-	            <field name="packaging" position="after">
-	            	<separator string="Customer"/>
-	            	<!-- <field name="customer_info_id"/>
-	            	<field name="customer_id"/>
-	            	<field name="customer_delay"/> -->            	
-	            	<field name="customer_ids"/>
-	            </field>
+	            </field> --> 
             </data>
             </field>
 		</record>
-		
-		<record id="product_mfg_view_ext" model="ir.ui.view">
-            <field name="name">product_mfg_view_ext</field>
-            <field name="model">product.product</field>
-            <field name="type">form</field>
-            <field name="inherit_id" ref="product_manufacturer.view_product_form_expiry"/>
-            <field name="arch" type="xml">
-            <data>
-                <field name="manufacturer" position="before">
-                	<field name="mfg_standard"/>
-                </field>
-            </data>
-        	</field>
-       	</record>
-
-<!-- Hide the active field -->      			
-		<record id="product_procurement_view_dmp_product" model="ir.ui.view">
-            <field name="name">product_procurement_view_dmp_product</field>
-            <field name="model">product.product</field>
-            <field name="type">form</field>
-            <field name="inherit_id" ref="stock.view_normal_procurement_locations_form"/>
-            <field name="arch" type="xml">
-            <data>
-	            <field name="active" position="attributes">
-	            	<attribute name="invisible">1</attribute>
-	            </field>
-            </data>
-        	</field>
-       	</record> 
 		
         <record id="product_search_form_view_ext" model="ir.ui.view">
             <field name="name">product_search_form_view_ext</field>
@@ -150,38 +101,20 @@
             		<field name="product_name"/>
             	</field>
             </field>		
-		</record>		
-		
-<!-- product customer list -->
-        <record id="product_customerinfo_form_view" model="ir.ui.view">
-            <field name="name">product.customerinfo.form.view</field>
-            <field name="model">product.customerinfo</field>
+		</record>                 	       	
+	<!-- Add 'material' field to product -->                                 
+		<record id="dmp_product_mfg_view_material" model="ir.ui.view">
+            <field name="name">dmp_product_mfg_view_material</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product_manufacturer.view_product_form_expiry"/>
             <field name="arch" type="xml">
-                <form string="customer Information" version="7.0">
-                    <group col="4">
-                        <field name="sequence"/>
-                        <field name="name" context="{'default_supplier': 1, 'search_default_supplier': 1, 'default_supplier': 0}"/>
-                        <field name="product_name"/>
-                        <field name="product_code"/>
-                        <field name="delay"/>
-                        <field name="company_id" groups="base.group_multi_company" widget="selection"/>
-                    </group>
-                </form>
-            </field>
-        </record>
-        <record id="product_customerinfo_tree_view" model="ir.ui.view">
-            <field name="name">product.customerinfo.tree.view</field>
-            <field name="model">product.customerinfo</field>
-            <field name="arch" type="xml">
-                <tree string="customer Information" editable="bottom">
-                    <field name="sequence" widget="handle"/>
-                    <field name="name" context="{'default_supplier': 1, 'search_default_supplier': 1, 'default_supplier': 0}"/>
-                    <field name="product_name"/>
-                    <field name="product_code"/>
-                    <field name="delay"/>
-                    <field name="company_id" groups="base.group_multi_company" widget="selection"/>
-                </tree>
-            </field>
-        </record>		
+	            <data>
+	                <field name="manufacturer" position="before">
+	                	<field name="material"/>
+	                </field>
+	            </data>
+        	</field>
+       	</record>
 	</data>		    
 </openerp>	

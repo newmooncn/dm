@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>  
+        <record model="ir.ui.view" id="dmp_project_simple_form_view_projtype">
+            <field name="name">dmp_project_simple_form_view_projtype</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.edit_project"/>
+            <field name="arch" type="xml">
+            	<field name="partner_id" position="before">
+            		<field name="project_type" on_change="onchange_project_type(project_type)"/>
+            	</field>
+            </field>
+        </record> 
+        
+        <record model="ir.ui.view" id="dmp_project_simple_tree_view_projtype">
+            <field name="name">dmp_project_simple_tree_view_projtype</field>
+            <field name="model">project.project</field>
+            <field name="inherit_id" ref="project.view_project"/>
+            <field name="arch" type="xml">
+            	<field name="name" position="after">
+            		<field name="project_type"/>
+            	</field>
+            </field>
+        </record>           
+
+<!-- tasks tree view improvement -->
+        <record model="ir.ui.view" id="dmp_project_task_tree_view_projtype">
+            <field name="name">dmp_project_task_tree_view_projtype</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_tree2"/>
+            <field name="arch" type="xml">
+            	<field name="project_id" position="after">
+            		<field name="project_type"/>
+            	</field>
+            </field>
+        </record> 
+
+<!-- tasks form view improvement -->
+        <record model="ir.ui.view" id="dmp_project_task_simple_form_view_projtype">
+            <field name="name">dmp_project_task_simple_form_view_projtype</field>
+            <field name="model">project.task</field>
+            <field name="inherit_id" ref="project.view_task_form2"/>
+            <field name="arch" type="xml">
+            	<field name="name" position="after">
+            		<field name="project_type" invisible="1"/>
+            	</field>	
+            </field>
+        </record>    
+
+<!-- the original projects menu only display the simple projects -->
+        <record id="project.open_view_project_all" model="ir.actions.act_window">
+            <field name="name">Projects</field>
+            <field name="res_model">project.project</field>
+            <field name="domain">['|',('project_type','=',False),('project_type','=','simple')]</field>
+            <field name="context">{'default_project_type':'simple'}</field>
+        </record>
+<!-- the original tasks menu only display the simple projects -->
+        <record id="project.action_view_task" model="ir.actions.act_window">
+            <field name="name">Tasks</field>
+            <field name="res_model">project.task</field>
+            <field name="domain">[('project_type','=','simple')]</field>
+            <field name="context">{'default_project_type':'simple'}</field>
+        </record>  
+            
+<!-- Add project_type to project.task.type view -->
+    <record id="task_type_tree_projtype" model="ir.ui.view">
+        <field name="name">task_type_tree_projtype</field>
+        <field name="model">project.task.type</field>
+        <field name="inherit_id" ref="project.task_type_tree"/>
+        <field name="arch" type="xml">
+        	<field name="state" position="after">
+        		<field name="project_type"/>
+        	</field>   	
+        </field>
+    </record>       
+    <record id="task_type_edit_projtype" model="ir.ui.view">
+        <field name="name">task_type_edit_projtype</field>
+        <field name="model">project.task.type</field>
+        <field name="inherit_id" ref="project.task_type_edit"/>
+        <field name="arch" type="xml">
+        	<field name="state" position="after">
+        		<field name="project_type"/>
+        	</field> 	
+        </field>
+    </record>           
+<!-- improve the task searching filters -->
+    <record id="view_task_search_form_projtype" model="ir.ui.view">
+        <field name="name">view_task_search_form_projtype</field>
+        <field name="model">project.task</field>
+        <field name="inherit_id" ref="project.view_task_search_form"/>
+        <field name="arch" type="xml">
+        	<field name="project_id" position="after">
+        		<field name="project_type"/>
+        	</field>
+        	<filter name="group_project_id" position="after">
+        		<filter string="Type" name="group_project_type" icon="terp-folder-violet" domain="[]" context="{'group_by':'project_type'}"/>
+        	</filter>
+        </field>
+    </record>           
+                      
+    </data>
+</openerp>

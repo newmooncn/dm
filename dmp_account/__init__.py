@@ -18,19 +18,3 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
-import account_account
-import account_move
-import account_analytic
-import account_financial_report
-import account_invoice
-import account_voucher
-import cash_bank_trans
-import emp_borrow
-import emp_reimburse
-import stock
-import res_partner
-import wizard
-import report
-import payment
-import account_move_source
-import hr

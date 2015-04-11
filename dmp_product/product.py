@@ -24,34 +24,9 @@ from openerp.osv import fields, osv
 from openerp.tools.translate import _
 from openerp.addons.dm_base.utils import deal_args_dt
 import openerp.addons.decimal_precision as dp
-	
+	    
 class product_product(osv.osv):
 	_inherit = "product.product"
-	
-	def _get_main_product_customer(self, cr, uid, product, context=None):
-		"""Determines the main (best) product customer for ``product``,
-		returning the corresponding ``customerinfo`` record, or False
-		if none were found. The default strategy is to select the
-		customer with the highest priority (i.e. smallest sequence).
-
-		:param browse_record product: product to sell
-		:rtype: product.customerinfo browse_record or False
-		"""
-		customers = [(customer_info.sequence, customer_info)
-					   for customer_info in product.customer_ids or []
-					   if customer_info and isinstance(customer_info.sequence, (int, long))]
-		return customers and customers[0][1] or False
-		
-	def _calc_customer(self, cr, uid, ids, fields, arg, context=None):
-		result = {}
-		for product in self.browse(cr, uid, ids, context=context):
-			main_customer = self._get_main_product_customer(cr, uid, product, context=context)
-			result[product.id] = {
-				'customer_info_id': main_customer and main_customer.id or False,
-				'customer_delay': main_customer.delay if main_customer else 1,
-				'customer_id': main_customer and main_customer.name.id or False
-			}
-		return result
 		
 	_columns = {
 		'create_uid':  fields.many2one('res.users', 'Creator', readonly=True),
@@ -60,15 +35,9 @@ class product_product(osv.osv):
 		'default_code' : fields.char('Internal Reference', size=64, select=True, required=True),
 		#Chinese name
 		'cn_name': fields.char(string=u'Chinese Name', size=128, track_visibility='onchange'),
-		'mfg_standard': fields.char(string=u'Manufacture Standard', size=32, help="The manufacture standard name, like GB/T5782-86"),
 		#the external part#, for example from engineering
         'part_no_external': fields.char(string=u'External Part#', size=32, help="The external part#, may be from engineering, purchase..."),
-        #product customers, like seller_ids link to the product.supplierinfo
-        'customer_ids': fields.one2many('product.customerinfo', 'product_id', 'Customer'),		
-		'customer_info_id': fields.function(_calc_customer, type='many2one', relation="product.customerinfo", string="Customer Info", multi="customer_info"),
-		'customer_delay': fields.function(_calc_customer, type='integer', string='Supplier Lead Time', multi="customer_info"),
-		'customer_id': fields.function(_calc_customer, type='many2one', relation="res.partner", multi="customer_info", string='Main Supplier', help="Main customer who has highest priority in Customer List."),
-        
+        'material': fields.char(string=u'Material', size=32, help="The material of the product"),
 	}
 	_defaults = {
 		'default_code': '/',
@@ -158,7 +127,7 @@ class product_product(osv.osv):
 		result = self.name_get(cr, user, ids, context=context)
 		return result
 	
-	#Add cn_name,mfg_standard
+	#Add cn_name
 	def name_get(self, cr, user, ids, context=None):
 		if context is None:
 			context = {}
@@ -176,8 +145,6 @@ class product_product(osv.osv):
 				name = '%s, %s' % (name,cn_name)
 			if d.get('variants'):
 				name = name + ' - %s' % (d['variants'],)
-			if d.get('mfg_standard'):
-				name = name + '[%s]' % (d['mfg_standard'],)
 				
 			return (d['id'], name)
 
@@ -196,8 +163,7 @@ class product_product(osv.osv):
 							  'name': s.product_name or product.name,
 							  'cn_name': product.cn_name,
 							  'default_code': s.product_code or product.default_code,
-							  'variants': product.variants,
-							  'mfg_standard': product.mfg_standard
+							  'variants': product.variants
 							  }
 					result.append(_name_get(mydict))
 			else:
@@ -206,8 +172,7 @@ class product_product(osv.osv):
 						  'name': product.name,
 						  'cn_name': product.cn_name,
 						  'default_code': product.default_code,
-						  'variants': product.variants,
-						  'mfg_standard': product.mfg_standard
+						  'variants': product.variants
 						  }
 				result.append(_name_get(mydict))
 		return result	
@@ -247,54 +212,15 @@ class product_product(osv.osv):
 			'cn_name':cn_name,
 		})
 		return super(product_product, self).copy(cr, uid, id, default, context)		
-	
-	def button_approve(self, cr, uid, ids, context=None):
-		#state will be changed to 'sellable', purchase_ok=1, sale_ok=1, active=1
-		self.write(cr,uid,ids,{'state':'sellable','purchase_ok':1,'sale_ok':1,'active':1},context=context)
-	def button_eol(self, cr, uid, ids, context=None):
-		#state will be changed to 'end', purchase_ok=0, sale_ok=0
-		self.write(cr,uid,ids,{'state':'end','purchase_ok':0,'sale_ok':0},context=context)
-	def button_obsolete(self, cr, uid, ids, context=None):
-		#state will be changed to 'obsolete', purchase_ok=0, sale_ok=0, active=0
-		self.write(cr,uid,ids,{'state':'obsolete','purchase_ok':0,'sale_ok':0,'active':0},context=context)
-	def button_draft(self, cr, uid, ids, context=None):
-		#state will be changed to 'draft', purchase_ok=0, sale_ok=0, active=1
-		self.write(cr,uid,ids,{'state':'draft','purchase_ok':0,'sale_ok':0,'active':1},context=context)
 				
 product_product()
-
-
-class product_customerinfo(osv.osv):
-	_name = "product.customerinfo"
-	_description = "Information about a product customer"
-	_columns = {
-        'name' : fields.many2one('res.partner', 'Customer', required=True,domain = [('customer','=',True),('is_company','=',True)], ondelete='cascade'),
-        'product_name': fields.char('Customer Product Name', size=128),
-        'product_code': fields.char('Customer Product Code', size=64),
-        'sequence' : fields.integer('Sequence', help="Assigns the priority to the list of product supplier."),
-        'product_id' : fields.many2one('product.product', 'Product', required=True, ondelete='cascade', select=True),
-        'delay' : fields.integer('Delivery Lead Time', required=True),
-        'company_id':fields.many2one('res.company','Company',select=1),
-    }
-	_defaults = {
-        'sequence': lambda *a: 1,
-        'delay': lambda *a: 1,
-        'company_id': lambda self,cr,uid,c: self.pool.get('res.company')._company_default_get(cr, uid, 'product.customerinfo', context=c),
-    }
-	_order = 'sequence'
-
-product_customerinfo()
 
 class product_template(osv.osv):
 	_inherit = "product.template"
 
 	_columns = {
 		#add track_visibility
-        'name': fields.char('Name', size=128, required=True, translate=False, select=True, track_visibility='onchange'),   
-		'state': fields.selection([('draft', 'In Development'),
-			('sellable','Normal'),
-			('end','End of Lifecycle'),
-			('obsolete','Obsolete')], 'Status', track_visibility='onchange'), 
+        'name': fields.char('Name', size=128, required=True, translate=False, select=True, track_visibility='onchange'),    
 		'list_price': fields.float('Sale Price', digits_compute=dp.get_precision('Product Price'), track_visibility='onchange', help="Base price to compute the customer price. Sometimes called the catalog price."),
 		'standard_price': fields.float('Cost', digits_compute=dp.get_precision('Product Price'), track_visibility='onchange', help="Cost price of the product used for standard stock valuation in accounting and used as a base price on purchase orders.", groups="base.group_user"),
 		
@@ -311,7 +237,4 @@ class product_template(osv.osv):
 
 	_defaults = {
         'type' : 'product',
-		'purchase_ok':False,
-		'sale_ok':False,
-		'state':'draft'
     }

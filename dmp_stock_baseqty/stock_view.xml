@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>  
+        <record id="dmp_view_move_picking_tree_baseqty" model="ir.ui.view">
+            <field name="name">dmp_view_move_picking_tree_baseqty</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"/>	
+            <field name="arch" type="xml">
+            	<field name="product_uom" position="after">
+            		<field name="product_uom_base_qty" invisible="context.get('picking_type') == 'internal'"/>
+            		<field name="product_uom_base" invisible="context.get('picking_type') == 'internal'"/>
+            	</field>
+        	</field>        
+		</record> 
+				
+        <record id="dmp_view_move_picking_form_baseqty" model="ir.ui.view">
+            <field name="name">dmp_view_move_picking_form_baseqty</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_form"/>	
+            <field name="arch" type="xml">
+            	<field name="product_uom" position="after">
+            		<field name="product_uom_base_qty" invisible="context.get('picking_type') == 'internal'"/>
+            		<field name="product_uom_base" invisible="context.get('picking_type') == 'internal'"/>
+            	</field>
+            </field>
+        </record>        
+        <!--  for the incoming and deliver products -->
+        <record id="dmp_view_move_tree_reception_picking_baseqty" model="ir.ui.view">
+            <field name="name">dmp_view_move_tree_reception_picking_baseqty</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree_reception_picking"/>	
+            <field name="arch" type="xml">
+            	<field name="product_uom" position="after">
+            		<field name="product_uom_base_qty"/>
+            		<field name="product_uom_base"/>
+            	</field>
+            </field>
+        </record>	
+                
+        <record id="dmp_view_move_tree_baseqty" model="ir.ui.view">
+            <field name="name">dmp_view_move_tree_baseqty</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree"/>	
+            <field name="arch" type="xml">
+            	<field name="product_uom" position="after">
+            		<field name="product_uom_base_qty"/>
+            		<field name="product_uom_base"/>
+            	</field>
+            </field>
+        </record>              
+                
+        <record id="dmp_view_move_form_baseqty" model="ir.ui.view">
+            <field name="name">dmp_view_move_form_baseqty</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form"/>	
+            <field name="arch" type="xml">
+            	<field name="product_uom" position="after">
+            		<field name="product_uom_base_qty"/>
+            		<field name="product_uom_base"/>
+            	</field>
+            </field>
+        </record> 
+    </data>
+</openerp>

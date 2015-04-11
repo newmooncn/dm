@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+        <record id="dmp_purchase_order_form_invoice" model="ir.ui.view">
+            <field name="name">dmp_purchase_order_form_invoice</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">            
+                <xpath expr="//button[@name='invoice_ok']" position="replace" >
+                </xpath>    
+                 <xpath expr="//page[@string='Incoming Shipments &amp; Invoices']" position="inside" >
+                 	<separator string="Invoices"/>
+                	<field name="invoice_ids" readonly="1"/>
+                </xpath> 
+                <button name="view_invoice" position="replace">
+                	<!-- <button name="view_invoice" string="Receive Invoice" type="object" attrs="{'invisible': ['|', ('invoice_method','=','picking'), '|', ('state','!=', 'approved'), ('invoiced','=',True) ]}" class="oe_highlight"/> -->
+                	<button name="%(act_pur_invoice)d" string="Receive Invoice" type="action" groups="account.group_account_invoice" attrs="{'invisible': [('state','!=','approved')]}"/>
+                </button>
+       		</field>
+        </record>  
+             
+    </data>
+</openerp>

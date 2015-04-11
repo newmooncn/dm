@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- Product tree view-->
+		<record id="product_product_tree_view_barcode" model="ir.ui.view">
+            <field name="name">product_product_tree_view_barcode</field>
+            <field name="model">product.product</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+                <field name="state" position="after">
+                    <field name="is_print_barcode"/>
+                </field>
+            </field>
+        </record>
+        
+        
+        <!-- Product form view-->
+		<record id="product_normal_form_view_barcode" model="ir.ui.view">
+            <field name="name">product_normal_form_view_barcode</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+            <data>           
+                <div name="buttons" position="inside">
+                	<button name="print_barcode" string="Set Print Flag" type="object" context="{'print_flag':True}"/>
+                	<button name="print_barcode" string="Clear Print Flag" type="object" context="{'print_flag':False}"/>
+                </div>        
+            </data>
+            </field>
+		</record>
+		
+        <!-- Product form view inherited from the stock module-->
+		<record id="view_normal_procurement_locations_form_barcode" model="ir.ui.view">
+            <field name="name">view_normal_procurement_locations_form_barcode</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="stock.view_normal_procurement_locations_form"/>
+            <field name="arch" type="xml">
+            <data>	
+           		<group name="store" position="replace">
+            		<group name="barcode" string="Barcode">
+                        <field name="is_print_barcode"/>
+                	</group>
+               	</group>      
+            </data>
+            </field>
+		</record>	
+		
+        <record id="product_search_form_view_barcode" model="ir.ui.view">
+            <field name="name">product_search_form_view_barcode</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="arch" type="xml">
+            	<filter name="filter_to_sell" position="after">
+            		<separator/>
+            		<filter string="Print Barcode" icon="terp-accessories-archiver" domain="[('is_print_barcode','=',True)]"/>
+            		<filter string="No Print Barcode" icon="terp-accessories-archiver" domain="[('is_print_barcode','=',False)]"/>
+            	</filter>
+            </field>
+        </record>
+	</data>		    
+</openerp>	

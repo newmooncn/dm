@@ -10,17 +10,7 @@
             id="menu_eng_engingeering"
             parent="base.menu_eng_root"
             sequence="1"/>             
-<!-- Engineer Project view and menu -->       
-        <record id="dmp_view_project_engineer_tree" model="ir.ui.view">
-            <field name="name">dmp_view_project_engineer_tree</field>
-            <field name="model">project.project</field>
-            <field name="inherit_id" ref="project.view_project"/>
-            <field name="arch" type="xml">
-            	<field name="name" position='after'>
-            		<field name="mfg_ids" widget='many2many_tags'/>
-            	</field>
-        	</field>    
-       	</record> 
+<!-- Engineer Project view and menu -->
         <record model="ir.ui.view" id="project_form_view_engineer">
             <field name="name">project_form_view_engineer</field>
             <field name="model">project.project</field>
@@ -39,8 +29,6 @@
                     	</group>
                     	<label for='components'/>
 	                    <field name="bom_components" widget='one2many_tree'/>
-                    	<label for='mfg_ids'/>
-	                    <field name="mfg_ids" domain="[('state','in',('confirmed','engineer','manufacture'))]"/>
                     </page>
             	</page>
             </field>

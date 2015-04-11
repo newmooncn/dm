@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+   
+		<record id="dmp_mrp_production_tree_view_priority" model="ir.ui.view">
+            <field name="name">dmp_mrp_production_tree_view_priority</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
+            <field name="arch" type="xml">
+                  <field name="product_id" position="before">
+                   		<field name="priority"/>
+                  </field>
+			</field>
+        </record>      
+<!-- Manufacture Orders -->        
+		<record id="dmp_mrp_production_form_view_priority" model="ir.ui.view">
+            <field name="name">dmp_mrp_production_form_view_priority</field>
+            <field name="model">mrp.production</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+	            <data>
+                    <!-- add the work order extended fields -->
+                    <xpath expr="//field[@name='workcenter_lines']/form//field[@name='hour']" position="after">
+	        			<field name="priority"/>
+                    </xpath>
+                    <xpath expr="//field[@name='workcenter_lines']/tree/field[@name='name']" position="before">
+	        			<field name="priority"/>
+                    </xpath> 
+	            </data>
+        	</field>
+       	</record>  
+<!--Work Orders -->
+		<record id="dmp_mrp_production_workcenter_form_view_priority" model="ir.ui.view">
+            <field name="name">dmp_mrp_production_workcenter_form_view_priority</field>
+            <field name="model">mrp.production.workcenter.line</field>
+            <field name="inherit_id" ref="mrp_operations.mrp_production_workcenter_form_view_inherit"/>
+            <field name="arch" type="xml">
+            	<!--  add the BOM/Routing/Operation info to manufacture order's work center line -->
+	        	<field name="production_state" position="after">
+	        		<field name="priority"/>
+	        	</field>	        	
+            </field>
+         </record>   
+	    <record model="ir.ui.view" id="dmp_production_workcenter_tree_view_priority">
+	        <field name="name">dmp_production_workcenter_tree_view_priority</field>
+	        <field name="model">mrp.production.workcenter.line</field>
+	        <field name="inherit_id" ref="mrp_operations.mrp_production_workcenter_tree_view_inherit"/>
+	        <field name="arch" type="xml">
+	        	<field name="workcenter_id" position="after">
+	        		<field name="priority"/>
+	        	</field>
+	        </field>
+	    </record>  
+               		        			    
+	</data>	  
+</openerp>

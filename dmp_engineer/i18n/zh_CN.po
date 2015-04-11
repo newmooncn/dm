@@ -16,13 +16,6 @@ msgstr ""
 "Plural-Forms: \n"
 "X-Generator: Poedit 1.5.7\n"
 
-
-#. module: dmp_engineer
-#: model:ir.model.fields,field_description:dmp_engineer.field_project_project_mfg_ids
-#: field:project.project,mfg_ids:0
-msgid "MFG IDs"
-msgstr "生产ID"
-
 #. module: dmp_engineer
 #: model:ir.model.fields,field_description:dmp_engineer.field_project_project_bom_id
 #: model:ir.model.fields,field_description:dmp_engineer.field_project_task_bom_id

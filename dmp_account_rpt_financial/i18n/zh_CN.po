@@ -1,0 +1,214 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* dmp_account_rpt_financial
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20130413-232416\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-11-12 06:50+0000\n"
+"PO-Revision-Date: 2014-11-12 14:53+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.7\n"
+
+#. module: dmp_account_rpt_financial
+#: view:account.financial.report.account.item:0
+msgid "Group By..."
+msgstr "Group By..."
+
+#. module: dmp_account_rpt_financial
+#: sql_constraint:account.financial.report.account.item:0
+msgid "Account must be unique per report!"
+msgstr "报表下面不能重复添加科目"
+
+#. module: dmp_account_rpt_financial
+#: model:ir.actions.act_window,name:dmp_account_rpt_financial.account_financial_report_bscn_action
+#: model:ir.model.fields,field_description:dmp_account_rpt_financial.field_res_company_report_bscn_id
+#: model:ir.ui.menu,name:dmp_account_rpt_financial.account_financial_report_bscn_menu
+#: field:res.company,report_bscn_id:0
+msgid "Balance Sheet"
+msgstr "资产负债表"
+
+#. module: dmp_account_rpt_financial
+#: model:ir.actions.act_window,name:dmp_account_rpt_financial.account_financial_report_plcn_action
+#: model:ir.model.fields,field_description:dmp_account_rpt_financial.field_res_company_report_plcn_id
+#: model:ir.ui.menu,name:dmp_account_rpt_financial.account_financial_report_plcn_menu
+#: field:res.company,report_plcn_id:0
+msgid "Profit and Loss"
+msgstr "损益类"
+
+#. module: dmp_account_rpt_financial
+#: selection:account.financial.report,operator:0
+#: selection:account.financial.report.account.item,operator:0
+msgid "Plus"
+msgstr "加"
+
+#. module: dmp_account_rpt_financial
+#: model:ir.model.fields,field_description:dmp_account_rpt_financial.field_res_company_report_cfcn_id
+#: field:res.company,report_cfcn_id:0
+msgid "Cash Flow"
+msgstr "现金流量表"
+
+#. module: dmp_account_rpt_financial
+#: field:account.financial.report,operator:0
+#: field:account.financial.report.account.item,operator:0
+#: model:ir.model.fields,field_description:dmp_account_rpt_financial.field_account_financial_report_account_item_operator
+#: model:ir.model.fields,field_description:dmp_account_rpt_financial.field_account_financial_report_operator
+msgid "Operator"
+msgstr "操作符"
+
+#. module: dmp_account_rpt_financial
+#: view:accounting.report:0
+msgid "Excel"
+msgstr "Excel"
+
+#. module: dmp_account_rpt_financial
+#: selection:account.financial.report,operator:0
+msgid "None"
+msgstr "None"
+
+#. module: dmp_account_rpt_financial
+#: selection:account.financial.report.account.item,fetch_logic:0
+msgid "Credit Balance"
+msgstr "贷方余额"
+
+#. module: dmp_account_rpt_financial
+#: selection:account.financial.report.account.item,fetch_logic:0
+msgid "Debit Balance"
+msgstr "借方余额"
+
+#. module: dmp_account_rpt_financial
+#: field:account.financial.report.account.item,fetch_logic:0
+#: model:ir.model.fields,field_description:dmp_account_rpt_financial.field_account_financial_report_account_item_fetch_logic
+msgid "Fetch Logic"
+msgstr "取数方式"
+
+#. module: dmp_account_rpt_financial
+#: view:account.financial.report.account.item:0
+#: field:account.financial.report.account.item,report_id:0
+#: model:ir.model.fields,field_description:dmp_account_rpt_financial.field_account_financial_report_account_item_report_id
+msgid "Report"
+msgstr "报表"
+
+#. module: dmp_account_rpt_financial
+#: field:account.financial.report.account.item,name:0
+#: model:ir.model.fields,field_description:dmp_account_rpt_financial.field_account_financial_report_account_item_name
+msgid "Account Item Name"
+msgstr "科目项目名称"
+
+#. module: dmp_account_rpt_financial
+#: view:accounting.report:0
+msgid "Report Options"
+msgstr "报表选项"
+
+#. module: dmp_account_rpt_financial
+#: view:account.financial.report.account.item:0
+msgid "Account Report Account Items"
+msgstr "报表科目项目"
+
+#. module: dmp_account_rpt_financial
+#: field:account.financial.report,excel_template_file:0
+#: model:ir.model.fields,field_description:dmp_account_rpt_financial.field_account_financial_report_excel_template_file
+msgid "User Excel Template"
+msgstr "用户Excel模版"
+
+#. module: dmp_account_rpt_financial
+#: sql_constraint:account.financial.report:0
+msgid "The code of the report must be unique !"
+msgstr "The code of the report must be unique !"
+
+#. module: dmp_account_rpt_financial
+#: selection:account.financial.report,operator:0
+#: selection:account.financial.report.account.item,operator:0
+msgid "Subtract"
+msgstr "减"
+
+#. module: dmp_account_rpt_financial
+#: selection:account.financial.report.account.item,fetch_logic:0
+msgid "Debit Total"
+msgstr "借方发生额"
+
+#. module: dmp_account_rpt_financial
+#: model:ir.model,name:dmp_account_rpt_financial.model_account_financial_report_account_item
+msgid "Account Report Account Item"
+msgstr "报表科目项目"
+
+#. module: dmp_account_rpt_financial
+#: view:accounting.report:0
+msgid "PDF"
+msgstr "PDF"
+
+#. module: dmp_account_rpt_financial
+#: field:account.financial.report,default_excel_template_file:0
+#: model:ir.model.fields,field_description:dmp_account_rpt_financial.field_account_financial_report_default_excel_template_file
+msgid "Default Excel Template"
+msgstr "默认Excel模版"
+
+#. module: dmp_account_rpt_financial
+#: selection:account.financial.report.account.item,fetch_logic:0
+msgid "Credit Total"
+msgstr "贷方发生额"
+
+#. module: dmp_account_rpt_financial
+#: field:account.financial.report,code:0
+#: model:ir.model.fields,field_description:dmp_account_rpt_financial.field_account_financial_report_code
+msgid "Code"
+msgstr "代码"
+
+#. module: dmp_account_rpt_financial
+#: view:account.financial.report.account.item:0
+#: field:account.financial.report.account.item,account_id:0
+#: model:ir.model.fields,field_description:dmp_account_rpt_financial.field_account_financial_report_account_item_account_id
+msgid "Account"
+msgstr "科目"
+
+#. module: dmp_account_rpt_financial
+#: model:ir.model,name:dmp_account_rpt_financial.model_accounting_report
+msgid "Accounting Report"
+msgstr "会计报表"
+
+#. module: dmp_account_rpt_financial
+#: field:account.financial.report,excel_template_file_name:0
+#: model:ir.model.fields,field_description:dmp_account_rpt_financial.field_account_financial_report_excel_template_file_name
+msgid "User Excel Template File Name"
+msgstr "用户Excel模版文件名"
+
+#. module: dmp_account_rpt_financial
+#: field:account.financial.report,default_excel_template_file_name:0
+#: model:ir.model.fields,field_description:dmp_account_rpt_financial.field_account_financial_report_default_excel_template_file_name
+msgid "Default Excel Template File Name"
+msgstr "默认Excel模版文件名"
+
+#. module: dmp_account_rpt_financial
+#: field:account.financial.report,complete_name:0
+#: model:ir.model.fields,field_description:dmp_account_rpt_financial.field_account_financial_report_complete_name
+msgid "Name"
+msgstr "名称"
+
+#. module: dmp_account_rpt_financial
+#: model:ir.actions.act_window,name:dmp_account_rpt_financial.action_account_financial_report_account_item_tree
+#: model:ir.ui.menu,name:dmp_account_rpt_financial.menu_account_financial_report_account_item_tree
+msgid "Financial Report Account Items"
+msgstr "财务报表会计项目"
+
+#. module: dmp_account_rpt_financial
+#: field:account.financial.report,account_item_ids:0
+#: model:ir.model.fields,field_description:dmp_account_rpt_financial.field_account_financial_report_account_item_ids
+msgid "Account Items"
+msgstr "科目项目"
+
+#. module: dmp_account_rpt_financial
+#: view:account.financial.report:0
+#: model:ir.model,name:dmp_account_rpt_financial.model_account_financial_report
+msgid "Account Report"
+msgstr "科目报表"
+
+#. module: dmp_account_rpt_financial
+#: view:account.financial.report.account.item:0
+msgid "Report Account Items"
+msgstr "报表科目项目"

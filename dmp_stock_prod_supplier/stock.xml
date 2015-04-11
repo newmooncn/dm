@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+<!--  add supplier product name and code to the supplier product info tree list -->	
+        <record model="ir.ui.view" id="product_supplierinfo_tree_view_stock">
+            <field name="name">product.supplierinfo.tree.view</field>
+            <field name="model">product.supplierinfo</field>
+            <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
+            <field name="arch" type="xml">
+            	<field name="name" position="after">
+            		<field name="product_code"/>
+            		<field name="product_name"/>
+            	</field>
+            </field>		
+		</record>
+<!-- supplier_prod_name add to stock -->
+        <record id="view_move_picking_tree_sup_prod_name" model="ir.ui.view">
+            <field name="name">view_move_picking_tree_sup_prod_name</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"/>   
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="supplier_prod_name" invisible="context.get('picking_type') != 'in'"/>
+                </field>
+            </field>        
+        </record>
+        <record id="view_move_picking_form_sup_prod_name" model="ir.ui.view">
+            <field name="name">view_move_picking_form_sup_prod_name</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_form"/>   
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="supplier_prod_name" invisible="context.get('picking_type') != 'in'"/>
+                </field>
+            </field>
+        </record>
+        <!--  for the incoming and deliver products -->
+        <record id="view_move_tree_reception_picking_sup_prod_name" model="ir.ui.view">
+            <field name="name">view_move_tree_reception_picking_sup_prod_name</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree_reception_picking"/> 
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="supplier_prod_name"/>
+                </field>
+            </field>
+        </record>   
+        <record id="view_move_form_sup_prod_name" model="ir.ui.view">
+            <field name="name">view_move_form_sup_prod_name</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form"/>   
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="supplier_prod_name"/>
+                </field>
+            </field>
+        </record> 
+        <record id="view_move_search_sup_prod_name" model="ir.ui.view">
+            <field name="name">view_move_search_sup_prod_name</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_search"/> 
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="supplier_prod_name"/>
+                </field>
+            </field>
+        </record>                                                           
+    </data>
+</openerp>

@@ -16,20 +16,6 @@ msgstr ""
 "Plural-Forms: \n"
 "X-Generator: Poedit 1.5.7\n"
 
-
-#. module: dmp_sale
-#: model:ir.actions.act_window,name:dmp_sale.action_sale_product
-#: model:ir.ui.menu,name:dmp_sale.menu_sale_product_mrp
-#: model:ir.ui.menu,name:dmp_sale.menu_sale_product_warehouse
-msgid "MFG IDs"
-msgstr "生产ID"
-
-#. module: dmp_sale
-#: model:ir.model.fields,field_description:dmp_sale.field_sale_order_contact_log_ids
-#: field:sale.order,contact_log_ids:0
-msgid "Contact Logs"
-msgstr "联系日志"
-
 #. module: dmp_sale
 #: model:ir.model,name:dmp_sale.model_sale_order
 msgid "Sales Order"
@@ -41,48 +27,9 @@ msgid "Sales Order Line"
 msgstr "销售订单明细"
 
 #. module: dmp_sale
-#: model:ir.model.fields,field_description:dmp_sale.field_mttl_serials_mfg_id_id
-#: field:mttl.serials,mfg_id_id:0
-msgid "MFG ID"
-msgstr "生产ID"
-
-#. module: dmp_sale
-#: model:ir.actions.act_window,name:dmp_sale.contact_log_type_action
-#: model:ir.ui.menu,name:dmp_sale.menu_contact_log_type
-msgid "Contact Log Types"
-msgstr "联系日志类型"
-
-#. module: dmp_sale
-#: model:ir.actions.act_window,name:dmp_sale.contact_log_action
-#: model:ir.model,name:dmp_sale.model_contact_log
-#: model:ir.ui.menu,name:dmp_sale.menu_contact_log
-msgid "Contact Log"
-msgstr "联系日志"
-
-#. module: dmp_sale
-#: model:ir.model.fields,field_description:dmp_sale.field_sale_order_line_mto_design_id
-msgid "Configuration"
-msgstr "配置"
-
-#. module: dmp_sale
 #: view:sale.order:0
 msgid "Order Date"
 msgstr "订单日期"
-
-#. module: dmp_sale
-#: model:ir.model.fields,field_description:dmp_sale.field_res_company_info
-msgid "Wire Transfer Information"
-msgstr "电汇信息"
-
-#. module: dmp_sale
-#: view:pay.sale.order:0
-msgid "or"
-msgstr "or"
-
-#. module: dmp_sale
-#: model:ir.model,name:dmp_sale.model_res_company
-msgid "Companies"
-msgstr "公司"
 
 #. module: dmp_sale
 #: field:account.invoice,sale_ids:0 field:account.invoice,sale_order_ids:0
@@ -90,16 +37,6 @@ msgstr "公司"
 #: model:ir.model.fields,field_description:dmp_sale.field_account_invoice_sale_order_ids
 msgid "Sale Orders"
 msgstr "销售订单"
-
-#. module: dmp_sale
-#: model:ir.model,name:dmp_sale.model_sale_product
-msgid "MFG ID"
-msgstr "生产ID"
-
-#. module: dmp_sale
-#: model:ir.model,name:dmp_sale.model_contact_log_type
-msgid "Types"
-msgstr "类型"
 
 #. module: dmp_sale
 #: view:sale.order:0
@@ -110,4 +47,3 @@ msgstr "客户"
 #: view:sale.order:0
 msgid "[('customer','=',True),('is_company','=',True)]"
 msgstr "[('customer','=',True),('is_company','=',True)]"
-

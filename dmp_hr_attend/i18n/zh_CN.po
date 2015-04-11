@@ -1,0 +1,2038 @@
+﻿#. module: dmp_hr_attend
+#: sql_constraint:resource.calendar:0
+msgid "Calendar must be unique!"
+msgstr "日历必须唯一"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.month,attend_day_id:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_attend_day_id
+msgid "Daily Attendances Report"
+msgstr "出勤日报表"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_attendance_punch_in_late
+#: field:resource.calendar.attendance,punch_in_late:0
+msgid "Sign in punching late"
+msgstr "签入迟到"
+
+#. module: dmp_hr_attend
+#: view:hr.clock:0
+msgid "Delete Employees on Clock"
+msgstr "删除考勤机上的员工"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day.line,hours_ot:0
+msgid "Work OT"
+msgstr "加班工作时数"
+
+#. module: dmp_hr_attend
+#: field:hr.employee,clock_pwd:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_employee_clock_pwd
+msgid "Clock Password"
+msgstr "考勤机密码"
+
+#. module: dmp_hr_attend
+#: view:hr.clock.emp.sync:0
+msgid "Are you sure to execute?"
+msgstr "确认执行?"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.month.line,days_attend2_real:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_days_attend2_real
+msgid "Days Attended2 Real"
+msgstr "5天制实出勤"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.month.line,days_work_injury_holiday:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_days_work_injury_holiday
+msgid "Days  of work injury Holiday"
+msgstr "工伤假天数"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.month.line,alw_hightemp:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_alw_hightemp
+msgid "High Temperature Allowance"
+msgstr "高温补贴"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.month:0
+msgid "Reject"
+msgstr "拒绝"
+
+#. module: dmp_hr_attend
+#: field:hr.employee,clock_fp9:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_employee_clock_fp9
+msgid "Finger Print9"
+msgstr "指纹9"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_attendance_hours_work_ot2
+#: field:resource.calendar.attendance,hours_work_ot2:0
+msgid "Working hours(OT)2"
+msgstr "5天制加班工作时数"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_attendance_is_full_ot
+#: field:resource.calendar.attendance,is_full_ot:0
+msgid "Full OT"
+msgstr "全为加班"
+
+#. module: dmp_hr_attend
+#: field:hr.clock,name:0
+#: field:hr.clock.emp.sync.emp,emp_name:0
+#: field:hr.rpt.attend.emp.day.line,emp_name:0
+#: field:hr.rpt.attend.month.line,emp_name:0
+#: field:hr.rpt.attend.month.line,name:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_emp_sync_emp_emp_name
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_name
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_emp_name
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_emp_name
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_name
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_wt_grp_line_name
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_wt_grp_name
+msgid "Name"
+msgstr "名称"
+
+#. module: dmp_hr_attend
+#: field:hr.clock,message_summary:0
+#: field:hr.rpt.attend.month,message_summary:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_message_summary
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_message_summary
+msgid "Summary"
+msgstr "总计"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "考勤月报表(Attendances Monthly Report)"
+msgstr "考勤月报表(Attendances Monthly Report)"
+
+#. module: dmp_hr_attend
+#: field:attend.empday.group.line,sign_out_a:0
+#: field:attend.empday.group.line,sign_out_b:0
+#: field:attend.empday.group.line,sign_out_c:0
+#: field:hr.rpt.attend.emp.day.line,sign_out:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_line_sign_out_a
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_line_sign_out_b
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_line_sign_out_c
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_sign_out
+msgid "Sign Out"
+msgstr "签出"
+
+#. module: dmp_hr_attend
+#: view:hr.emp.wtgrp.set:0
+#: view:hr.rpt.attend.emp.day.wizard:0
+msgid "Cancel"
+msgstr "取消"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.emp.day:0
+#: view:hr.rpt.attend.month:0
+msgid "Confirm"
+msgstr "确认"
+
+#. module: dmp_hr_attend
+#: selection:resource.calendar,type:0
+msgid "Employee Working Time"
+msgstr "员工班次"
+
+#. module: dmp_hr_attend
+#: field:hr.emppay.sheet,attend_month_id:0
+#: model:ir.actions.report.xml,name:dmp_hr_attend.report_hr_rpt_attend_month_general
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_emppay_sheet_attend_month_id
+msgid "Attendance Report"
+msgstr "考勤月报表"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "OT Hours in Law Holiday"
+msgstr "OT Hours in Law Holiday"
+
+#. module: dmp_hr_attend
+#: selection:hr.clock.emp.sync.emp,target_state:0
+msgid "to delete"
+msgstr "将删除"
+
+#. module: dmp_hr_attend
+#: view:hr.clock.emp.sync:0
+#: model:ir.actions.act_window,name:dmp_hr_attend.action_hr_clock_emp_sync
+msgid "Sync Employees with Clock"
+msgstr "同考勤机同步员工"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "应出勤"
+msgstr "应出勤"
+
+#. module: dmp_hr_attend
+#: field:hr.clock,message_ids:0
+#: field:hr.rpt.attend.month,message_ids:0
+msgid "Messages"
+msgstr "消息"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_attendance_hours_work_normal2
+#: field:resource.calendar.attendance,hours_work_normal2:0
+msgid "Working hours(normal)2"
+msgstr "5天制正常工作时数"
+
+#. module: dmp_hr_attend
+#: selection:hr.rpt.attend.month,state:0
+msgid "Waiting Approve"
+msgstr "待审批"
+
+#. module: dmp_hr_attend
+#: field:attend.empday.group.line,weekday:0
+#: field:hr.rpt.attend.emp.day.line,p_weekday:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_line_weekday
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_p_weekday
+msgid "Day of Week"
+msgstr "星期"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.month:0
+msgid "Are you sure to candel this done order?"
+msgstr "确定取消此已经完成的单据?"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_period_id
+msgid "Period"
+msgstr "期间"
+
+#. module: dmp_hr_attend
+#: field:hr.employee,clock_fp10:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_employee_clock_fp10
+msgid "Finger Print10"
+msgstr "指纹10"
+
+#. module: dmp_hr_attend
+#: field:hr.attendance,notes:0
+#: field:hr.rpt.attend.month.line,note:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_attendance_notes
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_note
+msgid "Notes"
+msgstr "备注"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day.line,is_early:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_is_early
+#: selection:res.company,hr_att_no_out_option:0
+#: selection:resource.calendar,no_out_option:0
+msgid "Leave Early"
+msgstr "早退"
+
+#. module: dmp_hr_attend
+#: view:hr.attend.calc.action:0
+#: view:hr.clock.emp.sync:0
+#: view:hr.emp.wtgrp.set:0
+#: view:hr.rpt.attend.emp.day.wizard:0
+msgid "or"
+msgstr "or"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "法定节假日加班小时"
+msgstr "法定节假日加班小时"
+
+#. module: dmp_hr_attend
+#: field:hr.worktime.type,name:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_worktime_type_name
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_attendance_type_id
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_type
+#: field:resource.calendar,type:0
+#: field:resource.calendar.attendance,type_id:0
+msgid "Type"
+msgstr "类型"
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_hr_clock
+msgid "HR Attendance Clock"
+msgstr "HR考勤机"
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_hr_rpt_attend_emp_day
+msgid "HR Attendance Employee Day Report"
+msgstr "HR考勤报表(员工/天)"
+
+#. module: dmp_hr_attend
+#: selection:hr.clock.emp.sync.emp,emp_pos:0
+msgid "On Clocks"
+msgstr "打卡机上"
+
+#. module: dmp_hr_attend
+#: view:hr.clock:0
+msgid "Download Attendance Log"
+msgstr "下载考勤记录"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day.wizard,emp_ids:0
+msgid "Selected Employees"
+msgstr "选择的员工"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.emp.day:0
+#: selection:hr.rpt.attend.emp.day,state:0
+#: selection:hr.rpt.attend.emp.day.line,state:0
+msgid "Confirmed"
+msgstr "已确认"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_attendance_hours_non_work
+#: field:resource.calendar.attendance,hours_non_work:0
+msgid "Non work hours"
+msgstr "非工作时数"
+
+#. module: dmp_hr_attend
+#: field:hr.clock.emp.sync,sync_direction:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_emp_sync_sync_direction
+msgid "Sync Direction"
+msgstr "同步方向"
+
+#. module: dmp_hr_attend
+#: selection:attend.empday.group.line,weekday:0
+#: selection:hr.rpt.attend.emp.day.line,p_weekday:0
+msgid "Friday"
+msgstr "五"
+
+#. module: dmp_hr_attend
+#: view:hr.employee:0
+#: model:ir.actions.act_window,name:dmp_hr_attend.action_hr_attendance_employee
+msgid "Attendances"
+msgstr "考勤记录"
+
+#. module: dmp_hr_attend
+#: field:hr.emppay,hours_ot:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_emppay_hours_ot
+msgid "Hours OT(Normal)"
+msgstr "加班时数"
+
+#. module: dmp_hr_attend
+#: view:hr.emp.wtgrp.set:0
+msgid "Are you sure to set the working time group to the selected employees?"
+msgstr "确定设置班次分组到选择的员工吗？"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_res_company_hr_att_tole_start_stop_default
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_tolerence_start_stop_default
+#: field:res.company,hr_att_tole_start_stop_default:0
+#: field:resource.calendar,tolerence_start_stop_default:0
+msgid "Default Start/Stop Tolerance (minutes)"
+msgstr "默认可打卡偏移间隔(分钟)"
+
+#. module: dmp_hr_attend
+#: view:resource.calendar:0
+msgid "Working Time"
+msgstr "排班"
+
+#. module: dmp_hr_attend
+#: view:hr.clock:0
+msgid "HR Clocks Search"
+msgstr "考勤机搜索"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.month:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_message_ids
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_message_ids
+msgid "Messages"
+msgstr "Messages"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.month.line,ded_meal:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_ded_meal
+msgid "Meal"
+msgstr "餐费"
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_hr_clock_emp_sync
+msgid "Sync Clock Employee"
+msgstr "同步考勤机员工"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.emp.day:0
+#: view:hr.rpt.attend.emp.day.wizard:0
+#: model:ir.actions.act_window,name:dmp_hr_attend.action_rpt_attend_emp_day_wizard
+msgid "Generate Daily Attendance"
+msgstr "生成日考勤表"
+
+#. module: dmp_hr_attend
+#: field:attend.empday.group,hours_ot:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_hours_ot
+msgid "Overtime"
+msgstr "加班"
+
+#. module: dmp_hr_attend
+#: field:hr.clock.emp.sync,sync_opt_base:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_emp_sync_sync_opt_base
+msgid "Base Info"
+msgstr "基本信息"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.emp.day:0
+#: model:ir.actions.act_window,name:dmp_hr_attend.hr_rpt_attend_emp_day_action
+#: model:ir.ui.menu,name:dmp_hr_attend.hr_rpt_attend_emp_day_menu
+msgid "Attendances Daily Report"
+msgstr "考勤日报表"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day,name:0
+#: field:hr.rpt.attend.month,name:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_name
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_name
+msgid "Report Name"
+msgstr "报表名称"
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_hr_emp_wt
+msgid "Employee's working time"
+msgstr "Employee's working time"
+
+#. module: dmp_hr_attend
+#: view:hr.clock.emp.sync:0
+msgid "Previous"
+msgstr "前一步"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.month.line,days_work:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_days_work
+msgid "Days"
+msgstr "应出勤"
+
+#. module: dmp_hr_attend
+#: selection:attend.empday.group.line,weekday:0
+#: selection:hr.rpt.attend.emp.day.line,p_weekday:0
+msgid "Monday"
+msgstr "一"
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_resource_calendar
+msgid "Resource Calendar"
+msgstr "资源日程表"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "工伤假天数"
+msgstr "工伤假天数"
+
+#. module: dmp_hr_attend
+#: field:attend.empday.group.line,seq:0
+#: field:hr.rpt.attend.emp.day.line,seq:0
+#: field:hr.rpt.attend.month.line,seq:0
+#: field:hr.worktime.type,sequence:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_line_seq
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_seq
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_seq
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_worktime_type_sequence
+msgid "Sequence"
+msgstr "#"
+
+#. module: dmp_hr_attend
+#: field:hr.clock.emp.sync,sync_opt_pwd:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_emp_sync_sync_opt_pwd
+msgid "Password"
+msgstr "密码"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+#: report:hr.rpt.attend.month.notification:0
+#: field:hr.wt.grp,name:0
+#: field:hr.wt.grp.line,name:0
+msgid "Name"
+msgstr "名称"
+
+#. module: dmp_hr_attend
+#: field:hr.employee,clock_fp6:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_employee_clock_fp6
+msgid "Finger Print6"
+msgstr "指纹6"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.month.line,hours_ot2_we:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_hours_ot2_we
+msgid "Hours OT2 Weekend"
+msgstr "加班时数(周末)"
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_hr_rpt_attend_month_line
+msgid "HR Attendance Monthly Report Lines"
+msgstr "出勤日报表明细"
+
+#. module: dmp_hr_attend
+#: field:attend.empday.group,attend_month_line_id:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_attend_month_line_id
+msgid "Attend Month Line"
+msgstr "Attend Month Line"
+
+#. module: dmp_hr_attend
+#: view:hr.employee:0
+msgid "No Punching today"
+msgstr "今天未打卡"
+
+#. module: dmp_hr_attend
+#: field:hr.employee,clock_fp5:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_employee_clock_fp5
+msgid "Finger Print5"
+msgstr "指纹5"
+
+#. module: dmp_hr_attend
+#: field:hr.attendance,create_uid:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_attendance_create_uid
+msgid "Creator"
+msgstr "创建人"
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_hr_emp_worktime
+#: model:ir.model,name:dmp_hr_attend.model_hr_emp_wt_set
+msgid "Set Employee Working Time"
+msgstr "设置员工班次"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+msgid "Attended Days by 21.75"
+msgstr "Attended Days by 21.75"
+
+#. module: dmp_hr_attend
+#: model:ir.actions.server,name:dmp_hr_attend.action_server_hr_empday_line_pdf
+msgid "Employee Daily Attendance Report"
+msgstr "出勤日报表"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.month:0
+msgid "Print Notification"
+msgstr "打印考勤公示"
+
+#. module: dmp_hr_attend
+#: model:ir.actions.report.xml,name:dmp_hr_attend.report_hr_rpt_attend_month_notification
+msgid "Attendance Notification"
+msgstr "考勤公示"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.month.line,hours_ot:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_hours_ot
+msgid "Hours OT"
+msgstr "加班时数"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day.line,hours_normal2:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_hours_normal2
+msgid "Work Normal2"
+msgstr "5天制正常工作时数"
+
+#. module: dmp_hr_attend
+#: selection:hr.clock.emp.sync.emp,emp_pos:0
+msgid "Clock All"
+msgstr "考勤机-所有"
+
+#. module: dmp_hr_attend
+#: field:resource.calendar.attendance,days_work:0
+msgid "Work Days"
+msgstr "应出勤天数"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.emp.day:0
+#: view:hr.rpt.attend.month:0
+msgid "Set to Draft"
+msgstr "设为草稿"
+
+#. module: dmp_hr_attend
+#: selection:hr.clock.emp.sync.emp,clock_role:0
+#: selection:hr.employee,clock_role:0
+msgid "Manager"
+msgstr "管理员"
+
+#. module: dmp_hr_attend
+#: model:ir.actions.act_window,name:dmp_hr_attend.action_attendance_my
+#: model:ir.ui.menu,name:dmp_hr_attend.menu_hr_attendance_my
+msgid "My Attendances"
+msgstr "我的考勤"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day,note:0
+#: field:hr.rpt.attend.month,note:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_note
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_note
+msgid "Description"
+msgstr "描述"
+
+#. module: dmp_hr_attend
+#: view:hr.attendance:0
+msgid "Foreign Employees"
+msgstr "外国员工"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.month:0
+msgid "Print With Attendance by Employee"
+msgstr "按照员工打印考勤明细"
+
+#. module: dmp_hr_attend
+#: field:hr.attendance,cale_period_id:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_attendance_cale_period_id
+msgid "Working Period"
+msgstr "时间段"
+
+#. module: dmp_hr_attend
+#: view:hr.attend.calc.action:0
+msgid "Please confirm the attendance log action calculation"
+msgstr "确认计算打卡的动作?"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day,attend_month_ids:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_attend_month_ids
+msgid "Attendances Monthly"
+msgstr "考勤月报表"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.month:0
+#: model:ir.actions.act_window,name:dmp_hr_attend.hr_rpt_attend_month_action
+#: model:ir.ui.menu,name:dmp_hr_attend.hr_rpt_attend_month_menu
+msgid "Attendances Monthly Report"
+msgstr "考勤月报表"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_attendance_hours_total
+#: field:resource.calendar.attendance,hours_total:0
+msgid "Total hours"
+msgstr "总时数"
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_hr_wt_grp_line
+msgid "working time group line"
+msgstr "working time group line"
+
+#. module: dmp_hr_attend
+#: selection:attend.empday.group.line,weekday:0
+#: selection:hr.rpt.attend.emp.day.line,p_weekday:0
+msgid "Wednesday"
+msgstr "三"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day.line,hours_ot2:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_hours_ot2
+msgid "Work OT2"
+msgstr "5天制加班工作时数"
+
+#. module: dmp_hr_attend
+#: help:hr.clock,message_unread:0
+#: help:hr.rpt.attend.month,message_unread:0
+msgid "If checked new messages require your attention."
+msgstr "If checked new messages require your attention."
+
+#. module: dmp_hr_attend
+#: selection:attend.empday.group.line,weekday:0
+#: selection:hr.rpt.attend.emp.day.line,p_weekday:0
+msgid "Thursday"
+msgstr "四"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+msgid "Attended Days by five days"
+msgstr "Attended Days by five days"
+
+#. module: dmp_hr_attend
+#: view:hr.clock.emp.sync:0
+msgid "Select Employess of Clock"
+msgstr "选择考勤机上的员工"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day.line,p_hours_normal:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_p_hours_normal
+msgid "Normal"
+msgstr "正常"
+
+#. module: dmp_hr_attend
+#: selection:hr.clock.emp.sync,sync_direction:0
+msgid "Clock to Servr"
+msgstr "考勤机到ERP"
+
+#. module: dmp_hr_attend
+#: field:hr.clock.emp.sync.emp,clock_role:0
+#: field:hr.employee,clock_role:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_emp_sync_emp_clock_role
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_employee_clock_role
+msgid "Clock Role"
+msgstr "考勤机角色"
+
+#. module: dmp_hr_attend
+#: help:hr.clock,message_ids:0
+#: help:hr.rpt.attend.month,message_ids:0
+msgid "Messages and communication history"
+msgstr "Messages and communication history"
+
+#. module: dmp_hr_attend
+#: view:hr.clock.emp.sync:0
+msgid "Next"
+msgstr "下一步"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.month.line,ded_utilities:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_ded_utilities
+msgid "Utilities"
+msgstr "水电费"
+
+#. module: dmp_hr_attend
+#: constraint:hr.attendance:0
+msgid "Error ! Sign in (resp. Sign out) must follow Sign out (resp. Sign in)"
+msgstr "错误！签入（或签出）动作必须在签出（或签入）动作之后。"
+
+#. module: dmp_hr_attend
+#: field:hr.employee,clock_fp7:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_employee_clock_fp7
+msgid "Finger Print7"
+msgstr "指纹7"
+
+#. module: dmp_hr_attend
+#: field:hr.attendance,clock_log_id:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_attendance_clock_log_id
+msgid "Clock Log ID"
+msgstr "打卡ID"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_attendance_hours_work_ot
+#: field:resource.calendar.attendance,hours_work_ot:0
+msgid "Working hours(OT)"
+msgstr "加班工作时数"
+
+#. module: dmp_hr_attend
+#: field:hr.wt.grp.line,date_to:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_wt_grp_line_date_to
+msgid "To Date"
+msgstr "到"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_attendance_punch_in_start
+#: field:resource.calendar.attendance,punch_in_start:0
+msgid "Sign in punching start"
+msgstr "签入开始"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day.line,hours_normal:0
+msgid "Work Normal"
+msgstr "正常工作时数"
+
+#. module: dmp_hr_attend
+#: selection:attend.empday.group.line,weekday:0
+#: selection:hr.rpt.attend.emp.day.line,p_weekday:0
+msgid "Saturday"
+msgstr "六"
+
+#. module: dmp_hr_attend
+#: field:hr.clock,clock_info:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_clock_info
+msgid "Clock Information"
+msgstr "考勤机信息"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day,type:0
+#: field:hr.rpt.attend.month,type:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_type
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_type
+msgid "Report Type"
+msgstr "报表类型"
+
+#. module: dmp_hr_attend
+#: constraint:hr.rpt.attend.emp.day:0
+#: constraint:hr.rpt.attend.month:0
+msgid "The date end must be after the date start."
+msgstr "结束时间必须在开始时间之后"
+
+#. module: dmp_hr_attend
+#: view:hr.clock:0
+#: model:ir.actions.act_window,name:dmp_hr_attend.action_hr_clock
+#: model:ir.ui.menu,name:dmp_hr_attend.menu_open_view_attendance
+msgid "HR Clocks"
+msgstr "HR考勤机"
+
+#. module: dmp_hr_attend
+#: field:hr.clock.emp.sync,emp_ids_sync:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_emp_sync_emp_ids_sync
+msgid "Employees to Sync"
+msgstr "将同步的员工"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "水电费"
+msgstr "水电费"
+
+#. module: dmp_hr_attend
+#: view:hr.attend.calc.action:0
+msgid "Are you sure to recalcuate the action of all the selected attendances?"
+msgstr "确认重新计算所有选定打卡记录的动作吗?"
+
+#. module: dmp_hr_attend
+#: help:hr.clock,message_summary:0
+#: help:hr.rpt.attend.month,message_summary:0
+msgid "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+msgstr "Holds the Chatter summary (number of messages, ...). This summary is directly in html format in order to be inserted in kanban views."
+
+#. module: dmp_hr_attend
+#: view:hr.clock.emp.sync:0
+#: selection:hr.clock.emp.sync,step_no:0
+msgid "Select Clock"
+msgstr "选择考勤机"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+msgid "5天制应出勤"
+msgstr "5天制应出勤"
+
+#. module: dmp_hr_attend
+#: view:hr.emp.wtgrp.set:0
+msgid "Set Employees Working Time Group"
+msgstr "设置员工班次分组"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+msgid "加班时数(非周末)"
+msgstr "加班时数(非周末)"
+
+#. module: dmp_hr_attend
+#: field:attend.empday.group,date_from:0
+#: field:hr.rpt.attend.emp.day,date_from:0
+#: field:hr.rpt.attend.month,date_from:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_date_from
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_date_from
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_date_from
+msgid "Start Date"
+msgstr "开始日期"
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_hr_clock_emp_sync_emp
+msgid "hr.clock.emp.sync.emp"
+msgstr "hr.clock.emp.sync.emp"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day.line,p_hour_to:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_p_hour_to
+msgid "To"
+msgstr "到"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.month:0
+msgid "Generate Payroll"
+msgstr "生成工资表"
+
+#. module: dmp_hr_attend
+#: field:hr.emppay,days_attend:0
+#: field:hr.rpt.attend.month.line,days_attend:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_emppay_days_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_days_attend
+msgid "Days Attended"
+msgstr "实出勤"
+
+#. module: dmp_hr_attend
+#: field:attend.empday.group,line_ids:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_line_ids
+msgid "Group Lines"
+msgstr "Group Lines"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_res_company_hr_att_no_out_time
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_no_out_time
+#: field:res.company,hr_att_no_out_time:0
+#: field:resource.calendar,no_out_time:0
+msgid "No Out to Subtract Minutes"
+msgstr "无签出减分钟"
+
+#. module: dmp_hr_attend
+#: field:hr.clock,message_unread:0
+#: field:hr.rpt.attend.month,message_unread:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_message_unread
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_message_unread
+msgid "Unread Messages"
+msgstr "未读消息"
+
+#. module: dmp_hr_attend
+#: help:resource.calendar.attendance,hours_total:0
+msgid "[Work to] - [Work from]"
+msgstr "[下班] - [上班]"
+
+#. module: dmp_hr_attend
+#: selection:hr.clock.emp.sync,step_no:0
+msgid "Do Sync"
+msgstr "开始同步"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "其他补贴"
+msgstr "其他补贴"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "Utilities"
+msgstr "Utilities"
+
+#. module: dmp_hr_attend
+#: help:res.company,hr_att_tole_late_early_default:0
+#: help:resource.calendar,tolerence_late_early_default:0
+msgid "default tolerance in minutes for the punching late/early time comparing to the resource_calendar_attendance's hour from/to"
+msgstr "默认相对上下班时间点,迟到/早退的时间间隔,在(上班时间+间隔(分钟))后打卡为迟到,在(下班时间-间隔(分钟)) 前打卡为早退"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.emp.day.wizard:0
+msgid "Generate"
+msgstr "生成"
+
+#. module: dmp_hr_attend
+#: help:res.company,hr_att_no_in_time:0
+#: help:resource.calendar,no_in_time:0
+msgid "if 'Be Late', then this field identify the minutes that will be substract from the 'WorkHours'"
+msgstr "如果设为\"迟到\",此为从\"工作时数\"里面减掉的分钟数"
+
+#. module: dmp_hr_attend
+#: selection:attend.empday.group.line,weekday:0
+#: selection:hr.rpt.attend.emp.day.line,p_weekday:0
+msgid "Tuesday"
+msgstr "二"
+
+#. module: dmp_hr_attend
+#: selection:hr.clock.emp.sync.emp,clock_role:0
+#: selection:hr.employee,clock_role:0
+msgid "Operator"
+msgstr "操作员"
+
+#. module: dmp_hr_attend
+#: field:attend.empday.group.line,hours_ot_a:0
+#: field:attend.empday.group.line,hours_ot_b:0
+#: field:attend.empday.group.line,hours_ot_c:0
+#: field:attend.empday.group.line,hours_ot_total:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_line_hours_ot_a
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_line_hours_ot_b
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_line_hours_ot_c
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_line_hours_ot_total
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_hours_ot
+msgid "Work OT"
+msgstr "加班工作"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day.line,p_hour_ot:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_p_hour_ot
+msgid "OT"
+msgstr "加班"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.month:0
+msgid "Generate Attendance"
+msgstr "生成考勤表"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.notification:0
+msgid "Other"
+msgstr "Other"
+
+#. module: dmp_hr_attend
+#: field:hr.clock.emp.sync,sync_opt_fp:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_emp_sync_sync_opt_fp
+msgid "Finger Print"
+msgstr "指纹"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "加班时数"
+msgstr "加班时数"
+
+#. module: dmp_hr_attend
+#: selection:hr.clock.emp.sync.emp,target_state:0
+msgid "Exist"
+msgstr "已存在"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.emp.day:0
+#: field:hr.rpt.attend.emp.day.line,rpt_id:0
+#: view:hr.rpt.attend.month:0
+#: field:hr.rpt.attend.month.line,rpt_id:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_rpt_id
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_rpt_id
+msgid "Report"
+msgstr "报表"
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_attend_empday_group_line
+msgid "attend.empday.group.line"
+msgstr "attend.empday.group.line"
+
+#. module: dmp_hr_attend
+#: view:hr.attend.calc.action:0
+#: view:hr.clock.emp.sync:0
+#: view:hr.rpt.attend.emp.day:0
+#: selection:hr.rpt.attend.emp.day,state:0
+#: selection:hr.rpt.attend.emp.day.line,state:0
+#: view:hr.rpt.attend.month:0
+#: selection:hr.rpt.attend.month,state:0
+msgid "Cancel"
+msgstr "取消"
+
+#. module: dmp_hr_attend
+#: view:hr.employee:0
+msgid "Clock Settings"
+msgstr "考勤机设置"
+
+#. module: dmp_hr_attend
+#: view:hr.attendance:0
+msgid "Invalid"
+msgstr "无效"
+
+#. module: dmp_hr_attend
+#: field:hr.clock.emp.sync.emp,target_state:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_emp_sync_emp_target_state
+msgid "Data state of Base Info on target"
+msgstr "基础信息在同步目标的状态"
+
+#. module: dmp_hr_attend
+#: view:hr.wt.grp:0
+#: field:hr.wt.grp.line,calendar_id:0
+msgid "Working Time"
+msgstr "班次"
+
+#. module: dmp_hr_attend
+#: field:attend.empday.group,date_to:0
+#: field:hr.rpt.attend.emp.day,date_to:0
+#: field:hr.rpt.attend.month,date_to:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_date_to
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_date_to
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_date_to
+msgid "End Date"
+msgstr "截止日期"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day.line,is_late:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_is_late
+#: selection:res.company,hr_att_no_in_option:0
+#: selection:resource.calendar,no_in_option:0
+msgid "Be Late"
+msgstr "迟到"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+msgid "餐费"
+msgstr "餐费"
+
+#. module: dmp_hr_attend
+#: view:hr.attendance:0
+msgid "China Employees"
+msgstr "中国员工"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.emp.day:0
+#: view:hr.rpt.attend.month:0
+msgid "Search Attendances"
+msgstr "搜索考勤"
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_resource_calendar_attendance
+msgid "Work Detail"
+msgstr "工作细节"
+
+#. module: dmp_hr_attend
+#: view:hr.employee:0
+msgid "Punched today"
+msgstr "今天已打卡"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day.line,p_hour_from:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_p_hour_from
+msgid "From"
+msgstr "从"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+msgid "住宿"
+msgstr "住宿"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+msgid "21.75天折算"
+msgstr "21.75天折算"
+
+#. module: dmp_hr_attend
+#: view:hr.clock:0
+msgid "HR Clocks attendances"
+msgstr "HR考勤机打卡记录"
+
+#. module: dmp_hr_attend
+#: view:hr.clock:0
+msgid "Delete employees will erase all user data, including base info, finger print, password and the attendance log. Are you sure to continue? "
+msgstr "删除员工将删除所有相关数据,包括:基础信息,指纹,密码和打卡记录,继续吗?"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.notification:0
+msgid "Days"
+msgstr "Days"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.notification:0
+msgid "Work"
+msgstr "Work"
+
+#. module: dmp_hr_attend
+#: view:hr.wt.grp:0
+msgid "Assigned Employees"
+msgstr "已分配的员工"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.emp.day:0
+#: view:hr.rpt.attend.month:0
+msgid "Print"
+msgstr "打印"
+
+#. module: dmp_hr_attend
+#: help:resource.calendar.attendance,hours_work_normal2:0
+msgid "[Working hours] - [Working hours(OT)2]"
+msgstr "[工作时数] - [5天制加班时数]"
+
+#. module: dmp_hr_attend
+#: help:resource.calendar.attendance,hours_work_normal:0
+msgid "[Working hours] - [Working hours(OT)]"
+msgstr "[[工作时数] - [加班时数]"
+
+#. module: dmp_hr_attend
+#: report:hr.emppay.slip:0
+msgid "序号"
+msgstr "序号"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_attendance_days_work
+msgid "Work Days"
+msgstr "应出勤"
+
+#. module: dmp_hr_attend
+#: view:hr.attendance:0
+msgid "Today"
+msgstr "今天"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.month:0
+#: selection:hr.rpt.attend.month,state:0
+msgid "Done"
+msgstr "完成"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day.line,is_absent:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_is_absent
+#: selection:res.company,hr_att_no_in_option:0
+#: selection:res.company,hr_att_no_out_option:0
+#: selection:resource.calendar,no_in_option:0
+#: selection:resource.calendar,no_out_option:0
+msgid "Absenteeism"
+msgstr "缺勤"
+
+#. module: dmp_hr_attend
+#: model:ir.actions.report.xml,name:dmp_hr_attend.report_hr_rpt_attend_month_inspection
+msgid "Attendance Inspection"
+msgstr "考勤(5天制)"
+
+#. module: dmp_hr_attend
+#: selection:hr.clock.emp.sync,sync_direction:0
+msgid "Server to Clock"
+msgstr "ERP到考勤机"
+
+#. module: dmp_hr_attend
+#: field:hr.employee,clock_fp3:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_employee_clock_fp3
+msgid "Finger Print3"
+msgstr "指纹3"
+
+#. module: dmp_hr_attend
+#: model:ir.actions.act_window,name:dmp_hr_attend.action_hr_worktime_type
+#: model:ir.ui.menu,name:dmp_hr_attend.menu_hr_worktime_type
+msgid "Working Time Type"
+msgstr "班次类型"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+msgid "Non Weekend OT Hours"
+msgstr "Non Weekend OT Hours"
+
+#. module: dmp_hr_attend
+#: field:hr.clock,date_conn_last:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_date_conn_last
+msgid "Last date connected"
+msgstr "最后连接"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.emp.day.line:0
+msgid "Search Attendances Line"
+msgstr "搜素出勤明细"
+
+#. module: dmp_hr_attend
+#: view:hr.clock:0
+msgid "Sync from Server to Clock"
+msgstr "同步-从ERP到考勤机"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.month.line,days_attend2:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_days_attend2
+msgid "Days Attended2"
+msgstr "21.75天折算"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+msgid "其他扣费"
+msgstr "其他扣费"
+
+#. module: dmp_hr_attend
+#: field:hr.employee,clock_fp2:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_employee_clock_fp2
+msgid "Finger Print2"
+msgstr "指纹2"
+
+#. module: dmp_hr_attend
+#: field:hr.clock.emp.sync,clock_id:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_emp_sync_clock_id
+msgid "Clock to Sync"
+msgstr "同步的考勤机"
+
+#. module: dmp_hr_attend
+#: field:hr.clock,datetime_set:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_datetime_set
+msgid "Set Datetime"
+msgstr "设置时间"
+
+#. module: dmp_hr_attend
+#: field:hr.employee,clock_fp1:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_employee_clock_fp1
+msgid "Finger Print1"
+msgstr "指纹1"
+
+#. module: dmp_hr_attend
+#: field:hr.attendance,write_uid:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_attendance_write_uid
+msgid "Modifier"
+msgstr "修改人"
+
+#. module: dmp_hr_attend
+#: field:hr.clock.emp.sync.emp,emp_pos:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_emp_sync_emp_emp_pos
+msgid "Action"
+msgstr "动作"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "工号"
+msgstr "工号"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_attendance_punch_in_stop
+#: field:resource.calendar.attendance,punch_in_stop:0
+msgid "Sign in punching stop"
+msgstr "签入结束"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_attendance_is_full_ot2
+#: field:resource.calendar.attendance,is_full_ot2:0
+msgid "Full OT2"
+msgstr "5天制全为加班"
+
+#. module: dmp_hr_attend
+#: help:res.company,hr_att_no_in_option:0
+#: help:resource.calendar,no_in_option:0
+msgid "the configuration how to deal with the attendance only have sign in"
+msgstr "无签入处理方式"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.month.line,alw_other:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_alw_other
+msgid "Other Allowance"
+msgstr "其他补贴"
+
+#. module: dmp_hr_attend
+#: field:hr.wt.grp,worktime_ids:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_wt_grp_worktime_ids
+msgid "Working times"
+msgstr "Working times"
+
+#. module: dmp_hr_attend
+#: field:hr.clock,port:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_port
+msgid "Port"
+msgstr "端口"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.emp.day:0
+msgid "Generate Monthly Report"
+msgstr "生成考勤月报"
+
+#. module: dmp_hr_attend
+#: field:hr.employee,clock_fp4:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_employee_clock_fp4
+msgid "Finger Print4"
+msgstr "指纹4"
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_hr_emp_wtgrp_set
+msgid "Set Employee Working Time Group"
+msgstr "设置员工班次分组"
+
+#. module: dmp_hr_attend
+#: view:hr.clock:0
+msgid "Sync from Clock to Server"
+msgstr "同步-从考勤机到ERP"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_res_company_hr_att_no_in_time
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_no_in_time
+#: field:res.company,hr_att_no_in_time:0
+#: field:resource.calendar,no_in_time:0
+msgid "No In to Subtract Minutes"
+msgstr "无签入减分钟"
+
+#. module: dmp_hr_attend
+#: field:hr.emp.wtgrp.set,wt_grp_id:0
+#: view:hr.employee:0
+#: field:hr.employee,wt_grp_id:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_emp_wtgrp_set_wt_grp_id
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_employee_wt_grp_id
+msgid "Working time group"
+msgstr "班次分组"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.month.line,data_level:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_data_level
+msgid "Data level code"
+msgstr "Data level code"
+
+#. module: dmp_hr_attend
+#: view:hr.clock.emp.sync:0
+msgid "Select Employess of Server"
+msgstr "选择ERP里的员工"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+msgid "Weekend OT Hours"
+msgstr "Weekend OT Hours"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.month:0
+msgid "Print Inpsection"
+msgstr "打印考勤(5天制)"
+
+#. module: dmp_hr_attend
+#: field:hr.attendance,create_date:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_attendance_create_date
+msgid "Creation Date"
+msgstr "创建日期"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+msgid "Other Allowance"
+msgstr "Other Allowance"
+
+#. module: dmp_hr_attend
+#: view:hr.attend.calc.action:0
+#: model:ir.actions.act_window,name:dmp_hr_attend.action_hr_attend_calc_action
+#: model:ir.model,name:dmp_hr_attend.model_hr_attend_calc_action
+msgid "Calculate attendance action"
+msgstr "计算打卡动作"
+
+#. module: dmp_hr_attend
+#: field:attend.empday.group,days_attend:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_days_attend
+msgid "Attended Days"
+msgstr "实出勤"
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_hr_rpt_attend_month
+msgid "HR Attendance monthly report"
+msgstr "HR考勤月报表"
+
+#. module: dmp_hr_attend
+#: field:attend.empday.group,period_type_a_id:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_period_type_a_id
+msgid "Worktime A"
+msgstr "Worktime A"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_res_company_month_attend_days_law
+#: field:res.company,month_attend_days_law:0
+msgid "Month working days in law"
+msgstr "月工作天数(法定)"
+
+#. module: dmp_hr_attend
+#: field:hr.clock.emp.sync,emp_ids_server:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_emp_sync_emp_ids_server
+msgid "Employees on Server"
+msgstr "ERP上的员工"
+
+#. module: dmp_hr_attend
+#: help:resource.calendar.attendance,hours_work:0
+msgid "[Total hours] - [Non work hours]"
+msgstr "[总时数] - [非工作时数]"
+
+#. module: dmp_hr_attend
+#: view:hr.emp.wtgrp.set:0
+#: view:hr.wt.grp:0
+#: model:ir.actions.act_window,name:dmp_hr_attend.action_hr_emp_wtgrp_set_batch
+#: model:ir.ui.menu,name:dmp_hr_attend.menu_hr_emp_wtgrp_set_batch
+msgid "Set Working Time Group"
+msgstr "设置班次分组"
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_hr_wt_grp
+msgid "working time group"
+msgstr "working time group"
+
+#. module: dmp_hr_attend
+#: selection:hr.clock.emp.sync.emp,emp_pos:0
+msgid "On Servers"
+msgstr "ERP上"
+
+#. module: dmp_hr_attend
+#: selection:hr.clock.emp.sync,step_no:0
+msgid "Select Employee"
+msgstr "选择员工"
+
+#. module: dmp_hr_attend
+#: field:hr.clock.emp.sync.emp,emp_code:0
+#: field:hr.rpt.attend.emp.day.line,emp_code:0
+#: field:hr.rpt.attend.month.line,code:0
+#: field:hr.rpt.attend.month.line,emp_code:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_emp_sync_emp_emp_code
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_emp_code
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_code
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_emp_code
+msgid "Code"
+msgstr "编码"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_attendance_punch_out_start
+#: field:resource.calendar.attendance,punch_out_start:0
+msgid "Sign out punching start"
+msgstr "签出开始"
+
+#. module: dmp_hr_attend
+#: selection:hr.clock.emp.sync,sync_direction:0
+msgid "Delete Users"
+msgstr "删除用户"
+
+#. module: dmp_hr_attend
+#: view:hr.wt.grp:0
+msgid "Work times"
+msgstr "Work times"
+
+#. module: dmp_hr_attend
+#: view:hr.attendance:0
+msgid "Today's Valid"
+msgstr "今天有效"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day,rpt_lines:0
+#: field:hr.rpt.attend.month,rpt_lines:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_rpt_lines
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_rpt_lines
+msgid "Report Line"
+msgstr "报表行"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_attendance_hours_work
+#: field:resource.calendar.attendance,hours_work:0
+msgid "Working hours"
+msgstr "工作时数"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "Code"
+msgstr "Code"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_attendance_punch_out_early
+#: field:resource.calendar.attendance,punch_out_early:0
+msgid "Sign out punching early"
+msgstr "签出早退"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "OT Hours"
+msgstr "OT Hours"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.emp.day:0
+#: view:hr.rpt.attend.emp.day.line:0
+#: model:ir.actions.act_window,name:dmp_hr_attend.act_empday_rpt_2_line
+msgid "Attendances Daily Report Line"
+msgstr "出勤日报表行"
+
+#. module: dmp_hr_attend
+#: field:hr.clock,ip:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_ip
+msgid "IP Address"
+msgstr "IP地址"
+
+#. module: dmp_hr_attend
+#: view:hr.attend.calc.action:0
+msgid "Calculate"
+msgstr "计算"
+
+#. module: dmp_hr_attend
+#: view:hr.employee:0
+#: view:hr.wt.grp:0
+#: model:ir.actions.act_window,name:dmp_hr_attend.action_hr_wt_grp
+#: model:ir.ui.menu,name:dmp_hr_attend.menu_hr_wt_grp
+msgid "Working Time Group"
+msgstr "班次分组"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_res_company_hr_att_tole_late_early_default
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_tolerence_late_early_default
+#: field:res.company,hr_att_tole_late_early_default:0
+#: field:resource.calendar,tolerence_late_early_default:0
+msgid "Default Late/Early Tolerance (minutes)"
+msgstr "默认迟到早退偏移时间(分钟)"
+
+#. module: dmp_hr_attend
+#: field:hr.attendance,calendar_id:0
+#: view:hr.worktime.type:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_attendance_calendar_id
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_wt_grp_line_calendar_id
+msgid "Working Time"
+msgstr "班次"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_attendance_punch_out_stop
+#: field:resource.calendar.attendance,punch_out_stop:0
+msgid "Sign out punching stop"
+msgstr "签出结束"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_res_company_hr_att_no_out_option
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_no_out_option
+#: field:res.company,hr_att_no_out_option:0
+#: field:resource.calendar,no_out_option:0
+msgid "How to Deal No Sign Out"
+msgstr "无签出处理方式"
+
+#. module: dmp_hr_attend
+#: field:hr.wt.grp.line,date_from:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_wt_grp_line_date_from
+msgid "From Date"
+msgstr "从"
+
+#. module: dmp_hr_attend
+#: field:hr.clock.emp.sync,emp_ids_clock:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_emp_sync_emp_ids_clock
+msgid "Clock Employees"
+msgstr "考勤机员工"
+
+#. module: dmp_hr_attend
+#: view:hr.attendance:0
+msgid "Valid"
+msgstr "有效"
+
+#. module: dmp_hr_attend
+#: field:resource.calendar.attendance,days_work2:0
+msgid "Work Days2"
+msgstr "5天制应出勤天数"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "Attended Days"
+msgstr "Attended Days"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+msgid "Other Deduction"
+msgstr "Other Deduction"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.emp.day:0
+msgid "Monthly Report"
+msgstr "考勤月报表"
+
+#. module: dmp_hr_attend
+#: field:attend.empday.group.line,sign_in_a:0
+#: field:attend.empday.group.line,sign_in_b:0
+#: field:attend.empday.group.line,sign_in_c:0
+#: field:hr.rpt.attend.emp.day.line,sign_in:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_line_sign_in_a
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_line_sign_in_b
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_line_sign_in_c
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_sign_in
+msgid "Sign In"
+msgstr "签入"
+
+#. module: dmp_hr_attend
+#: help:res.company,hr_att_no_out_option:0
+#: help:resource.calendar,no_out_option:0
+msgid " the configuration how to deal with the attendance only have sign out"
+msgstr "没有签出记录的处理方式"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.emp.day:0
+msgid "View Generated Attendances"
+msgstr "查看生成的考勤表"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "员工"
+msgstr "员工"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.emp.day:0
+#: field:hr.rpt.attend.emp.day,emp_ids:0
+#: view:hr.rpt.attend.month:0
+#: field:hr.rpt.attend.month,emp_ids:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_emp_ids
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_wizard_emp_ids
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_emp_ids
+msgid "Selected Employees"
+msgstr "选择的员工"
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_hr_worktime_type
+msgid "hr.worktime.type"
+msgstr "hr.worktime.type"
+
+#. module: dmp_hr_attend
+#: view:hr.emppay.sheet:0
+msgid "Generate from Attendance Report"
+msgstr "从考勤报表生成"
+
+#. module: dmp_hr_attend
+#: field:hr.clock,active:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_active
+msgid "Active"
+msgstr "有效"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day,state:0
+#: field:hr.rpt.attend.emp.day.line,state:0
+#: field:hr.rpt.attend.month,state:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_state
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_state
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_state
+msgid "Status"
+msgstr "状态"
+
+#. module: dmp_hr_attend
+#: field:hr.clock,message_follower_ids:0
+#: field:hr.rpt.attend.month,message_follower_ids:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_message_follower_ids
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_message_follower_ids
+msgid "Followers"
+msgstr "Followers"
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_hr_rpt_attend_emp_day_line
+msgid "HR Attendance Employee Day Report Lines"
+msgstr "出勤日报表明细"
+
+#. module: dmp_hr_attend
+#: field:hr.wt.grp.line,grp_id:0
+msgid "Group"
+msgstr "Group"
+
+#. module: dmp_hr_attend
+#: help:res.company,hr_att_no_out_time:0
+#: help:resource.calendar,no_out_time:0
+msgid "if 'Leave Early', then this field identify the minutes that will be substract from the 'WorkHours'"
+msgstr "如果设为\"早退\",此为从\"工作时数\"里面减掉的分钟数"
+
+#. module: dmp_hr_attend
+#: sql_constraint:hr.clock:0
+msgid "Clock name must be unique!"
+msgstr "考勤机名字必须唯一!"
+
+#. module: dmp_hr_attend
+#: field:hr.emppay,wage_ot2:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_emppay_wage_ot2
+msgid "Wage(OT)2"
+msgstr "5天制加班工资"
+
+#. module: dmp_hr_attend
+#: field:hr.clock,message_is_follower:0
+#: field:hr.rpt.attend.month,message_is_follower:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_message_is_follower
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_message_is_follower
+msgid "Is a Follower"
+msgstr "Is a Follower"
+
+#. module: dmp_hr_attend
+#: field:hr.emp.wtgrp.set,emp_ids:0
+msgid "Employees"
+msgstr "选择员工"
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_attend_empday_group
+msgid "attend.empday.group"
+msgstr "attend.empday.group"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+msgid "5天制实出勤"
+msgstr "5天制实出勤"
+
+#. module: dmp_hr_attend
+#: view:hr.attendance:0
+msgid "Recalculate Action"
+msgstr "重新计算动作"
+
+#. module: dmp_hr_attend
+#: field:hr.clock.emp.sync.emp,order_id:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_emp_sync_emp_order_id
+msgid "Sync Order"
+msgstr "Sync Order"
+
+#. module: dmp_hr_attend
+#: field:attend.empday.group,emp_id:0
+#: view:hr.rpt.attend.emp.day.line:0
+#: field:hr.rpt.attend.emp.day.line,emp_id:0
+#: field:hr.rpt.attend.month.line,emp_id:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_emp_id
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_line_emp_id
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_emp_id
+msgid "Employee"
+msgstr "员工"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "日期(Date):"
+msgstr "日期(Date):"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+msgid "Apartment"
+msgstr "Apartment"
+
+#. module: dmp_hr_attend
+#: view:hr.emppay:0
+#: view:hr.rpt.attend.emp.day.line:0
+msgid "Group By..."
+msgstr "分组..."
+
+#. module: dmp_hr_attend
+#: field:attend.empday.group,name:0
+#: field:attend.empday.group.line,group_id:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_line_group_id
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_name
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_wt_grp_line_grp_id
+msgid "Group"
+msgstr "组"
+
+#. module: dmp_hr_attend
+#: view:hr.clock.emp.sync:0
+msgid "Execute"
+msgstr "执行"
+
+#. module: dmp_hr_attend
+#: view:hr.clock.emp.sync:0
+msgid "Employess"
+msgstr "员工"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+msgid "Meal"
+msgstr "Meal"
+
+#. module: dmp_hr_attend
+#: model:ir.actions.act_window,help:dmp_hr_attend.action_emp_worktime
+msgid "Define working hours of employees"
+msgstr "定义员工的工作小时数"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.month.line,alw_house:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_alw_house
+msgid "House"
+msgstr "住宿"
+
+#. module: dmp_hr_attend
+#: field:attend.empday.group,period_type_b_id:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_period_type_b_id
+msgid "Worktime B"
+msgstr "Worktime B"
+
+#. module: dmp_hr_attend
+#: help:res.company,hr_att_tole_start_stop_default:0
+#: help:resource.calendar,tolerence_start_stop_default:0
+msgid "default tolerance for the punching start/stop time comparing to the resource_calendar_attendance's hour from/to"
+msgstr "默认相对上下班时间点,可打卡的时间间隔,在(上班时间-间隔(分钟)) 到 (上班时间+间隔(分钟)) / (下班时间-间隔(分钟)) 到 (下班时间+间隔(分钟)), 时间段内可以打卡"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.emp.day,company_id:0
+#: field:hr.rpt.attend.month,company_id:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_emp_day_company_id
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_company_id
+msgid "Company"
+msgstr "公司"
+
+#. module: dmp_hr_attend
+#: view:hr.clock:0
+msgid "Refresh Clock Info"
+msgstr "刷新考勤机信息"
+
+#. module: dmp_hr_attend
+#: field:hr.attendance,clock_id:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_attendance_clock_id
+msgid "Clock"
+msgstr "考勤机"
+
+#. module: dmp_hr_attend
+#: field:hr.clock.emp.sync,step_no:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_emp_sync_step_no
+msgid "Wizard Step"
+msgstr "Wizard Step"
+
+#. module: dmp_hr_attend
+#: help:hr.rpt.attend.month,state:0
+msgid ""
+"* When the report is created the status is 'Draft'.            \n"
+"* If the report is confirmed, the status is 'Waiting Approve'.             \n"
+"* If the report is approved then status is set to 'Done'.            \n"
+"* If the report is rejected then status is set to 'Rejected'.            \n"
+"* When user cancel payslip the status is 'Cancel'."
+msgstr ""
+"* When the report is created the status is 'Draft'.            \n"
+"* If the report is confirmed, the status is 'Waiting Approve'.             \n"
+"* If the report is approved then status is set to 'Done'.            \n"
+"* If the report is rejected then status is set to 'Rejected'.            \n"
+"* When user cancel payslip the status is 'Cancel'."
+
+#. module: dmp_hr_attend
+#: model:ir.model,name:dmp_hr_attend.model_hr_emp_wt_set_line
+msgid "Employee's working time set line"
+msgstr "Employee's working time set line"
+
+#. module: dmp_hr_attend
+#: selection:hr.clock.emp.sync.emp,target_state:0
+msgid "Missing"
+msgstr "不存在"
+
+#. module: dmp_hr_attend
+#: view:hr.clock.emp.sync.emp:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_emp_wtgrp_set_emp_ids
+msgid "Employees"
+msgstr "员工"
+
+#. module: dmp_hr_attend
+#: selection:hr.clock.emp.sync.emp,target_state:0
+msgid "Exist with Difference"
+msgstr "已存在并且有差异"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "Days of work injury Holiday"
+msgstr "Days of work injury Holiday"
+
+#. module: dmp_hr_attend
+#: view:res.company:0
+#: view:resource.calendar:0
+msgid "Minutes"
+msgstr "分钟"
+
+#. module: dmp_hr_attend
+#: field:hr.attendance,write_date:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_attendance_write_date
+msgid "Modify Date"
+msgstr "修改日期"
+
+#. module: dmp_hr_attend
+#: field:hr.clock.emp.sync.emp,emp_card_id:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_clock_emp_sync_emp_emp_card_id
+msgid "Employee Card ID"
+msgstr "卡号"
+
+#. module: dmp_hr_attend
+#: selection:attend.empday.group.line,weekday:0
+#: selection:hr.rpt.attend.emp.day.line,p_weekday:0
+msgid "Sunday"
+msgstr "日"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+msgid "Work Days"
+msgstr "Work Days"
+
+#. module: dmp_hr_attend
+#: view:hr.clock.emp.sync:0
+msgid "Sync Options"
+msgstr "同步选项"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.emp.day:0
+#: selection:hr.rpt.attend.emp.day,state:0
+#: selection:hr.rpt.attend.emp.day.line,state:0
+#: view:hr.rpt.attend.month:0
+#: selection:hr.rpt.attend.month,state:0
+msgid "Draft"
+msgstr "草稿"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.month.line,ded_other:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_ded_other
+msgid "Other Deduction"
+msgstr "其他扣费"
+
+#. module: dmp_hr_attend
+#: field:attend.empday.group,period_type_c_id:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_period_type_c_id
+msgid "Worktime C"
+msgstr "Worktime C"
+
+#. module: dmp_hr_attend
+#: view:hr.emppay:0
+#: view:hr.rpt.attend.emp.day:0
+#: view:hr.rpt.attend.month:0
+msgid "Dates"
+msgstr "日期"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_res_company_hr_att_no_in_option
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_resource_calendar_no_in_option
+#: field:res.company,hr_att_no_in_option:0
+#: field:resource.calendar,no_in_option:0
+msgid "How to Deal No Sign In"
+msgstr "无签入处理方式"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "–"
+msgstr "–"
+
+#. module: dmp_hr_attend
+#: view:hr.rpt.attend.emp.day:0
+#: view:hr.rpt.attend.month:0
+#: model:ir.model,name:dmp_hr_attend.model_hr_attendance
+#: view:res.company:0
+msgid "Attendance"
+msgstr "考勤"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.inspection:0
+msgid "加班时数(周末)"
+msgstr "加班时数(周末)"
+
+#. module: dmp_hr_attend
+#: field:hr.employee,clock_fp8:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_employee_clock_fp8
+msgid "Finger Print8"
+msgstr "指纹8"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.month.line,hours_ot2_nonwe:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_hours_ot2_nonwe
+msgid "Hours OT2 Non Weekend"
+msgstr "加班时数(非周末)"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.month.line,hours_ot_law_holiday:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_hours_ot_law_holiday
+msgid "Hours OT in Law Holiday"
+msgstr "法定节假日加班小时"
+
+#. module: dmp_hr_attend
+#: field:hr.rpt.attend.month.line,days_work2:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_rpt_attend_month_line_days_work2
+msgid "Days2"
+msgstr "5天制应出勤"
+
+#. module: dmp_hr_attend
+#: report:hr.rpt.attend.month.general:0
+#: report:hr.rpt.attend.month.notification:0
+msgid "实出勤"
+msgstr "实出勤"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_attendance_date_search_from
+#: field:hr.attendance,date_search_from:0
+msgid "From Date"
+msgstr "开始日期"
+
+#. module: dmp_hr_attend
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_hr_attendance_date_search_to
+#: field:hr.attendance,date_search_to:0
+msgid "To Date"
+msgstr "结束日期"
+
+#. module: dmp_hr_attend
+#: model:ir.actions.act_window,name:dmp_hr_attend.action_audittrail_log_tree_attendance
+#: model:ir.ui.menu,name:dmp_hr_attend.menu_audittrail_log_tree_attendance
+msgid "Attendance Changing Log"
+msgstr "考勤修改日志"
+
+########################manual########################
+#. module: hr_attendance
+#: view:hr.attendance:0
+#: field:hr.employee,state:0
+#: model:ir.model,name:hr_attendance.model_hr_attendance
+msgid "Attendance"
+msgstr "考勤记录"
+
+#. module: hr_attendance
+#: model:ir.actions.act_window,name:hr_attendance.open_view_attendance
+#: model:ir.ui.menu,name:hr_attendance.menu_open_view_attendance
+msgid "Attendances"
+msgstr "考勤记录"
+
+#. module: hr_attendance
+#: model:ir.ui.menu,name:hr_attendance.menu_hr_attendance
+msgid "Attendances"
+msgstr "考勤"
+
+#. module: dmp_hr_attend
+#: selection:hr.attendance,action:0
+msgid "Invalid"
+msgstr "无效"
+
+#. module: dmp_hr_attend
+#: selection:hr.attendance,action:0
+msgid "Sign In Late"
+msgstr "迟到"
+
+#. module: dmp_hr_attend
+#: selection:hr.attendance,action:0
+msgid "Sign Out Early"
+msgstr "早退"
+
+#. module: dmp_hr_attend
+#: field:attend.empday.group,hours_ot:0
+#: model:ir.model.fields,field_description:dmp_hr_attend.field_attend_empday_group_hours_ot
+msgid "Overtime"
+msgstr "加班"
+
+#. module: dmp_hr_attend
+#: model:ir.actions.act_window,name:dmp_hr_attend.action_emp_worktime
+#: model:ir.ui.menu,name:dmp_hr_attend.menu_view_emp_resource_calendar
+msgid "Working Time"
+msgstr "班次管理"

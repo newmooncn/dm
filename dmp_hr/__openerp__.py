@@ -29,10 +29,9 @@
     DMP HR Base:  
         
         """,
-    'depends': ["dmp_base", "hr", "product", "hr_timesheet", "multi_image", "hr_recruitment"],
+    'depends': ["dmp_hr_empcode", "dmp_hr_my", "hr", "product", "hr_timesheet", "multi_image"],
     'init_xml': [],
     'update_xml': [
-        'hr_emp_menu.xml',
         'hr_view.xml',
         'hr_timesheet_view.xml',        
         'security/ir.model.access.csv',
@@ -41,7 +40,6 @@
     'test': [],
     'installable': True,
     'auto_install': False,
-    'active': False,
-	'sequence': 150,
+    'application': True,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
