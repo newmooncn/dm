@@ -4,8 +4,8 @@
 <!-- Clock sync data cron -->         
         <record id="ir_cron_scheduler_hr_clock_download" model="ir.cron">
             <field name="name">HR Clock log data download</field>
-            <field name="interval_number">30</field>
-            <field name="interval_type">minutes</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
             <field name="numbercall">-1</field>
             <field name="doall" eval="False"/>
             <field name="model">hr.clock</field>
