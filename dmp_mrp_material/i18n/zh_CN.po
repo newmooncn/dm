@@ -100,3 +100,14 @@ msgstr "工票"
 #: model:ir.model,name:dmp_mrp_material.model_wo_material_request
 msgid "Work Order Material Request"
 msgstr "工单领料单"
+
+########################manual########################
+#. module: stock_no_autopicking
+#: field:product.product,auto_pick:0
+msgid "Auto Picking"
+msgstr "自动领料"
+
+#. module: stock_no_autopicking
+#: help:product.product,auto_pick:0
+msgid "Auto picking for raw materials of production orders."
+msgstr "生产定单生成的调拨单自动领料"

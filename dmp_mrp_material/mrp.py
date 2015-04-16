@@ -2,13 +2,8 @@
 from openerp.osv import fields,osv
 from openerp.tools.translate import _
 from openerp import netsvc
-import time
-from openerp.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
-from lxml import etree
-from openerp.addons.mrp.mrp import rounding as mrp_rounding
-from openerp import tools
 from openerp.tools import float_compare
-import openerp.addons.decimal_precision as dp
+    
 class mrp_production(osv.osv):
     _inherit = 'mrp.production'
     _order = 'id desc, priority, date_planned asc';
@@ -164,7 +159,10 @@ def action_produce_dmp_mrp(self, cr, uid, production_id, production_qty, product
                 prod_name = produce_product.product_id.name_get()[0][1]
                 raise osv.except_osv(_('Warning!'), _('You are going to produce total %s quantities of "%s".\nBut you can only produce up to total %s quantities.') % ((subproduct_factor * production_qty), prod_name, rest_qty))
             if rest_qty > 0 :
-                stock_mov_obj.action_consume(cr, uid, [produce_product.id], (subproduct_factor * production_qty), context=context)
+                a = {}
+                c = context.copy()
+                c['stock_move_consume_manual_done'] = True
+                stock_mov_obj.action_consume(cr, uid, [produce_product.id], (subproduct_factor * production_qty), context=c)
 
     for raw_product in production.move_lines2:
         new_parent_ids = []

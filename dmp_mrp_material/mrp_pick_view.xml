@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<!-- manufacture order -->    
+		<record id="dmp_mrp_production_form_view_pick" model="ir.ui.view">
+            <field name="name">dmp_mrp_production_form_view_pick</field>
+            <field name="model">mrp.production</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="mrp.mrp_production_form_view"/>
+            <field name="arch" type="xml">
+	            <data>   
+	            	<!-- hide the two 'Force Reservation' buttons -->
+                    <button name="force_production" states="confirmed" position="attributes">
+                    	<attribute name="invisible">1</attribute>
+                    </button>
+                    <button name="force_production" states="picking_except" position="attributes">
+                    	<attribute name="invisible">1</attribute>
+                    </button>
+                    <!-- useless, and no data assigned to it, use the move_created_ids/move_created_ids2 now -->
+                    <field name="move_prod_id" position="attributes">
+                    	<attribute name="invisible">1</attribute>
+                    </field>
+                    <!-- <field name="picking_id" position="after">
+                    	<field name="picking_done_id"/>
+                    </field> -->
+                    <!-- show the finished product stock move line's state -->
+                    <xpath expr="//field[@name='move_created_ids2']/tree/field[@name='state']" position='attributes'>
+                    	<attribute name='invisible'>0</attribute>
+                    </xpath>
+	            </data>
+        	</field>
+       	</record>
+        
+	</data>	  
+</openerp>
