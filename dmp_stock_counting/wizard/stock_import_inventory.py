@@ -154,7 +154,7 @@ class stock_import_inventory(osv.osv_memory):
             self.write(cr,uid,import_inventory.id,{'all_done':True})
         
         mod_obj = self.pool.get('ir.model.data')
-        views = mod_obj.get_object_reference(cr, uid, 'dmp_stock', 'view_stock_import_inventory_result')
+        views = mod_obj.get_object_reference(cr, uid, 'dmp_stock_counting', 'view_stock_import_inventory_result')
         view_id = views and views[1]
                 
         return {
