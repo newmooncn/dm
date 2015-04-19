@@ -177,3 +177,38 @@ def action_produce_dmp_mrp(self, cr, uid, production_id, production_qty, product
     return True    
 
 mrp_prod_patch.action_produce = action_produce_dmp_mrp    
+
+#make the internal material picking do auto confirm when the auto picking is true
+def action_confirm_dmp_mrp(self, cr, uid, ids, context=None):
+    """ Confirms production order.
+    @return: Newly generated Shipment Id.
+    """
+    shipment_id = False
+    wf_service = netsvc.LocalService("workflow")
+    uncompute_ids = filter(lambda x:x, [not x.product_lines and x.id or False for x in self.browse(cr, uid, ids, context=context)])
+    self.action_compute(cr, uid, uncompute_ids, context=context)
+    for production in self.browse(cr, uid, ids, context=context):
+        shipment_id = self._make_production_internal_shipment(cr, uid, production, context=context)
+        produce_move_id = self._make_production_produce_line(cr, uid, production, context=context)
+
+        # Take routing location as a Source Location.
+        source_location_id = production.location_src_id.id
+        if production.routing_id and production.routing_id.location_id:
+            source_location_id = production.routing_id.location_id.id
+
+        for line in production.product_lines:
+            consume_move_id = self._make_production_consume_line(cr, uid, line, produce_move_id, source_location_id=source_location_id, context=context)
+            if shipment_id:
+                shipment_move_id = self._make_production_internal_shipment_line(cr, uid, line, shipment_id, consume_move_id,\
+                             destination_location_id=source_location_id, context=context)
+                self._make_production_line_procurement(cr, uid, line, shipment_move_id, context=context)
+            
+        #if shipment_id:
+        #johnw, make the internal material picking do auto confirm when the auto picking is true
+        if shipment_id and self._get_auto_picking(cr, uid, production):
+            #
+            wf_service.trg_validate(uid, 'stock.picking', shipment_id, 'button_confirm', cr)
+        production.write({'state':'confirmed'}, context=context)
+    return shipment_id
+
+mrp_prod_patch.action_confirm = action_confirm_dmp_mrp    
