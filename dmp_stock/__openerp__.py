@@ -13,6 +13,9 @@
     'website': 'www.dmems.com',
     'description': """
 Stocking Improvements
+04/19:
+Add stock_move.packaging and show stock_move.note
+
 =====================
     """,
     'depends': ["stock","purchase"],
