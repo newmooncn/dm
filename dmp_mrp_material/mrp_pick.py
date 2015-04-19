@@ -20,6 +20,11 @@ class mrp_production(osv.osv):
             domain=[('picking_id','!=', False)], readonly=True, states={'draft':[('readonly',False)]}),
     }
 
+    def _make_production_internal_shipment(self, cr, uid, production, context=None):
+        picking_id = super(mrp_production, self)._make_production_internal_shipment(cr, uid, production, context=context)
+        self.pool.get('stock.picking').write(cr, uid, picking_id, {'state': 'draft'}, context=context)
+        return picking_id
+        
     def test_production_done(self, cr, uid, ids):
         """ Tests whether production is done or not.
         @return: True or False
