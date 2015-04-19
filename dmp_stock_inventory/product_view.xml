@@ -22,6 +22,8 @@
             		<field name="qty_in"/>
             		<field name="qty_out"/>
             		<field name="qty_virtual"/>
+            		<field name="qty_out_assigned"/>
+            		<field name="qty_out_available"/>
             		<field name="loc_pos_code"/>
             	</field>
 	            
@@ -70,18 +72,19 @@
             		<attribute name="invisible">1</attribute>
             	</field>
             	<field name="virtual_available" position="before">
-            		<field name="qty_virtual" class="oe_inline"/>
+            		<field name="qty_virtual"/>
+            		<field name="qty_out_assigned"/>
+            		<field name="qty_out_available"/>
             	</field>           
                 
            		<group name="store" position="replace">
             		<group name="store" string="Storage Location">
                         <field name="loc_pos_code"/>
                 	</group>
-               	</group>      
+               	</group>     
             </data>
             </field>
-		</record>	
-
+		</record>
 		
         <record id="product_search_form_view_inventory" model="ir.ui.view">
             <field name="name">product_search_form_view_inventory</field>
