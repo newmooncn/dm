@@ -77,11 +77,18 @@
             		<field name="qty_out_available"/>
             	</field>           
                 
-           		<group name="store" position="replace">
-            		<group name="store" string="Storage Location">
-                        <field name="loc_pos_code"/>
-                	</group>
-               	</group>     
+                <field name="loc_rack" position="attributes">
+            		<attribute name="invisible">1</attribute>
+            	</field> 
+                <field name="loc_row" position="attributes">
+            		<attribute name="invisible">1</attribute>
+            	</field> 
+                <field name="loc_case" position="attributes">
+            		<attribute name="invisible">1</attribute>
+            	</field>
+                <field name="loc_case" position="after">
+            		<field name="loc_pos_code"/>
+            	</field>  
             </data>
             </field>
 		</record>

@@ -39,10 +39,8 @@
             <field name="inherit_id" ref="stock.view_normal_procurement_locations_form"/>
             <field name="arch" type="xml">
             <data>	
-           		<group name="store" position="replace">
-            		<group name="barcode" string="Barcode">
-                        <field name="is_print_barcode"/>
-                	</group>
+           		<group name="store" position="inside">
+                	<field name="is_print_barcode"/>
                	</group>      
             </data>
             </field>
