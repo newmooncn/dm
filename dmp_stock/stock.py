@@ -43,6 +43,7 @@ class stock_move(osv.osv):
                 "backorder. Changing this quantity on assigned moves affects "
                 "the product reservation, and should be done with care."
         ),
+        'packaging': fields.char('Packaging', size=32),    
     }
 
     def search(self, cr, user, args, offset=0, limit=None, order=None, context=None, count=False):

@@ -54,3 +54,10 @@ class stock_picking_in(osv.osv):
         #fields added to stock_picking_in/out also need add to stock_picking, since the read() method to the 2 classes are using stock_picking class, see addons/stock/stock.py.stock_picking_in
         'deliver_ticket_no': fields.char('Deliver Ticket#', size=16, track_visibility='onchange')                  
     } 
+        
+class stock_picking_out(osv.osv):
+    _inherit = "stock.picking.out"
+    _columns = {
+        #fields added to stock_picking_in/out also need add to stock_picking, since the read() method to the 2 classes are using stock_picking class, see addons/stock/stock.py.stock_picking_in
+        'deliver_ticket_no': fields.char('Deliver Ticket#', size=16, track_visibility='onchange')                  
+    } 

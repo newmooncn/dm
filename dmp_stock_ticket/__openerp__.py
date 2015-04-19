@@ -15,7 +15,7 @@
 Stock Deliver Ticket#
 =====================
     """,
-    'depends': ["stock"],
+    'depends': ["stock","product_fifo_lifo"],
     'data':['stock_view.xml',
         'wizard/stock_partial_picking_view.xml',
     ],
