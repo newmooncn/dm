@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<!-- Add 'quantity_out_available' to picking move line-->	  
+        <record id="view_move_picking_tree_avail" model="ir.ui.view">
+            <field name="name">view_move_picking_tree_avail</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"/>
+            <field name="arch" type="xml">
+            	<field name="product_qty" position="after">
+            		<field name="quantity_out_available"/>
+            		<field name="quantity_out_missing"/>
+            	</field>
+            	<xpath expr="//tree" position="attributes">
+            		<attribute name="fonts">bold:quantity_out_missing>0</attribute>
+            		<attribute name="colors">red:quantity_out_missing>0</attribute>
+            	</xpath>
+            </field>
+        </record>
+<!-- Add check available button to picking if there are moves are partial ready -->        
+        <record id="dmp_view_picking_form_partial_assign" model="ir.ui.view">
+            <field name="name">dmp_view_picking_form_partial_assign</field>
+            <field name="model">stock.picking</field>
+            <field name="inherit_id" ref="stock.view_picking_form"/>	
+            <field name="arch" type="xml">
+                <xpath expr="//button[@name='draft_validate']" position="after">
+                	<field name="partial_assigned" invisible="1"/>
+                    <button name="action_assign" states="assigned" string="Check Availability" type="object" class="oe_highlight" 
+                    	attrs="{'invisible':[('partial_assigned','=', True)]}"/>
+                </xpath>              
+        	</field>        
+		</record>      		      		
+    </data>
+</openerp>
