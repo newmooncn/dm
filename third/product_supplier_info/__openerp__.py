@@ -30,8 +30,8 @@
 Add a specific View for Supplier 
 ==================================================
     """,
-    'author': 'Elico Corp, Changed by Metro Tow Trucks',
-    'website': 'http://www.elico-corp.com, http://www.metrotowtrucks.com',
+    'author': 'Elico Corp, Changed by DMEMS',
+    'website': 'http://www.elico-corp.com, http://www.dmems.com',
     'images' : [],
     'depends': ['product','stock'],#TO REMOVE joomlaconnector for standard
     'data': [
