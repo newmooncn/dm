@@ -144,22 +144,6 @@ class stock_picking(osv.osv):
                 self.pool.get('stock.move').check_assign(cr, uid, todo, context=context)
         return resu
     
-    def action_assign(self, cr, uid, ids, *args):
-        """ Changes state of picking to available if all moves are confirmed.
-        @return: True
-        """
-        wf_service = netsvc.LocalService("workflow")
-        for pick in self.browse(cr, uid, ids):
-            if pick.state == 'draft':
-                wf_service.trg_validate(uid, 'stock.picking', pick.id, 'button_confirm', cr)
-            #04/15/2014, johnw, change the stock move checking state to do stock_move.action_assign()
-            #move_ids = [x.id for x in pick.move_lines if x.state == 'confirmed']
-            move_ids = [x.id for x in pick.move_lines if x.state not in ('done','assigned','cancel')]
-            if not move_ids:
-                raise osv.except_osv(_('Warning!'),_('Not enough stock, unable to reserve the products.'))
-            self.pool.get('stock.move').action_assign(cr, uid, move_ids)
-        return True
-    
 class stock_picking_out(osv.osv):
     _inherit = "stock.picking.out"  
     _order = 'name desc'   
