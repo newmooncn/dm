@@ -134,7 +134,9 @@ def _make_production_internal_shipment_dmp(self, cr, uid, production, context=No
     return picking_id
 
 mrp_prod_patch._make_production_internal_shipment = _make_production_internal_shipment_dmp 
-
+'''
+johnw, 04/25/2014, improve the picking checking, if the picking does not exist then no need raise error
+'''
 def action_cancel_dmp(self, cr, uid, ids, context=None):
     """ Cancels the production order and related stock moves.
     @return: True
