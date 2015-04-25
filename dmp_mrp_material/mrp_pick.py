@@ -18,12 +18,22 @@ class mrp_production(osv.osv):
             domain=[('picking_id','=', False,)], readonly=True, states={'draft':[('readonly',False)]}),
         'move_created_ids2': fields.one2many('stock.move', 'production_id', 'Produced Products',
             domain=[('picking_id','!=', False)], readonly=True, states={'draft':[('readonly',False)]}),
+        #change 'ondelete' to setnull, user can delete the MO's picking, and generate again on the MO's screen
+        'picking_id': fields.many2one('stock.picking', 'Picking List', readonly=True, ondelete="set null",
+            help="This is the Internal Picking List that brings the finished product to the production plan"),                
     }
 
     def _make_production_internal_shipment(self, cr, uid, production, context=None):
         picking_id = super(mrp_production, self)._make_production_internal_shipment(cr, uid, production, context=context)
-        self.pool.get('stock.picking').write(cr, uid, picking_id, {'state': 'draft'}, context=context)
+        #change move_type from 'one' to 'direct', state: auto-->draft
+        self.pool.get('stock.picking').write(cr, uid, picking_id, {'move_type':'direct', 'state': 'draft'}, context=context)
         return picking_id
+    
+    def _make_production_internal_shipment_line(self, cr, uid, production_line, shipment_id, parent_move_id, destination_location_id=False, context=None):
+        move_id = super(mrp_production,self)._make_production_internal_shipment_line(cr, uid, production_line, shipment_id, parent_move_id, destination_location_id, context)
+        #state: waiting --> draft
+        self.pool.get('stock.move').write(cr, uid, [move_id], {'state':'draft'})
+        return move_id
         
     def test_production_done(self, cr, uid, ids):
         """ Tests whether production is done or not.
@@ -76,7 +86,77 @@ class mrp_production(osv.osv):
             'company_id': production.company_id.id,
         })
         return picking_id
+    
+from openerp.addons.mrp.mrp import mrp_production as mrp_prod_patch
+'''
+johnw, 04/25/2015, for the internal mateial picking type, need consider the mo's routing first to decide it is internal or deliver picking
+'''
+def _make_production_internal_shipment_dmp(self, cr, uid, production, context=None):
+    ir_sequence = self.pool.get('ir.sequence')
+    stock_picking = self.pool.get('stock.picking')
+    routing_loc = None
+    pick_type = 'internal'
+    partner_id = False
 
+    # Take routing address as a Shipment Address.
+    # If usage of routing location is a internal, make outgoing shipment otherwise internal shipment
+#    if production.bom_id.routing_id and production.bom_id.routing_id.location_id:
+#        routing_loc = production.bom_id.routing_id.location_id
+#        if routing_loc.usage != 'internal':
+#            pick_type = 'out'
+#        partner_id = routing_loc.partner_id and routing_loc.partner_id.id or False
+        
+    #johnw, 04/25/2015, for the internal mateial picking type, need consider the mo's routing first to decide it is internal or deliver picking
+    routing_id = production.routing_id or production.bom_id.routing_id
+    if routing_id and routing_id.location_id:
+        routing_loc = routing_id.location_id
+        if routing_loc.usage != 'internal':
+            pick_type = 'out'
+        partner_id = routing_loc.partner_id and routing_loc.partner_id.id or False    
+
+    # Take next Sequence number of shipment base on type
+    if pick_type!='internal':
+        pick_name = ir_sequence.get(cr, uid, 'stock.picking.' + pick_type)
+    else:
+        pick_name = ir_sequence.get(cr, uid, 'stock.picking')
+
+    picking_id = stock_picking.create(cr, uid, {
+        'name': pick_name,
+        'origin': (production.origin or '').split(':')[0] + ':' + production.name,
+        'type': pick_type,
+        'move_type': 'one',
+        'state': 'auto',
+        'partner_id': partner_id,
+        'auto_picking': self._get_auto_picking(cr, uid, production),
+        'company_id': production.company_id.id,
+    })
+    production.write({'picking_id': picking_id}, context=context)
+    return picking_id
+
+mrp_prod_patch._make_production_internal_shipment = _make_production_internal_shipment_dmp 
+
+def action_cancel_dmp(self, cr, uid, ids, context=None):
+    """ Cancels the production order and related stock moves.
+    @return: True
+    """
+    if context is None:
+        context = {}
+    move_obj = self.pool.get('stock.move')
+    for production in self.browse(cr, uid, ids, context=context):
+        #if production.state == 'confirmed' and production.picking_id.state not in ('draft', 'cancel'):
+        #improve the picking checking, if the picking does not exist then no need raise error
+        if production.state == 'confirmed' and production.picking_id and production.picking_id.state not in ('draft', 'cancel'):
+            raise osv.except_osv(
+                _('Cannot cancel manufacturing order!'),
+                _('You must first cancel related internal picking attached to this manufacturing order.'))
+        if production.move_created_ids:
+            move_obj.action_cancel(cr, uid, [x.id for x in production.move_created_ids])
+        move_obj.action_cancel(cr, uid, [x.id for x in production.move_lines])
+    self.write(cr, uid, ids, {'state': 'cancel'})
+    return True
+
+mrp_prod_patch.action_cancel = action_cancel_dmp 
+    
 '''
 johnw, 04/16/2015, add the 'stock_move_consume_manual_done' flag checking in the context
 will be used for the mrp production to generated one new move but not finish it automatically.

@@ -178,7 +178,7 @@ def action_produce_dmp_mrp(self, cr, uid, production_id, production_qty, product
 
 mrp_prod_patch.action_produce = action_produce_dmp_mrp    
 
-#make the internal material picking do auto confirm when the auto picking is true
+#only make the internal material picking do auto confirm when the auto picking is true
 def action_confirm_dmp_mrp(self, cr, uid, ids, context=None):
     """ Confirms production order.
     @return: Newly generated Shipment Id.
@@ -205,8 +205,8 @@ def action_confirm_dmp_mrp(self, cr, uid, ids, context=None):
             
         #if shipment_id:
         #johnw, make the internal material picking do auto confirm when the auto picking is true
+        #if shipment_id:
         if shipment_id and self._get_auto_picking(cr, uid, production):
-            #
             wf_service.trg_validate(uid, 'stock.picking', shipment_id, 'button_confirm', cr)
         production.write({'state':'confirmed'}, context=context)
     return shipment_id
