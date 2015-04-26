@@ -16,17 +16,6 @@
                     <button name="force_production" states="picking_except" position="attributes">
                     	<attribute name="invisible">1</attribute>
                     </button>
-                    <!-- useless, and no data assigned to it, use the move_created_ids/move_created_ids2 now -->
-                    <field name="move_prod_id" position="attributes">
-                    	<attribute name="invisible">1</attribute>
-                    </field>
-                    <!-- <field name="picking_id" position="after">
-                    	<field name="picking_done_id"/>
-                    </field> -->
-                    <!-- show the finished product stock move line's state -->
-                    <xpath expr="//field[@name='move_created_ids2']/tree/field[@name='state']" position='attributes'>
-                    	<attribute name='invisible'>0</attribute>
-                    </xpath>
 	            </data>
         	</field>
        	</record>

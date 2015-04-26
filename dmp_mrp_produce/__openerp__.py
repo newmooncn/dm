@@ -20,25 +20,21 @@
 #
 ##############################################################################
 {
-    'name': 'DMP MRP Materials Consuming',
+    'name': 'DMP MRP Producing product',
     'version': '1.0',
     'category': 'Customization',
     'author': 'DMEMS',
     'website': 'www.dmems.com',
     'description': """
-Manufacture Materials Consuming and Picking Improvements
-1.Set auto_pick to False by default
-2.hide the two 'Force Reservation' buttons on MO
-3.When do MO's produce, generate a finished stock picking for the finished stock moving everytime, 
+Manufacture Producing product
+1.When do MO's produce, generate a finished stock picking for the finished stock moving everytime, 
 and do not auto done the moves, warehouse will do the receiving based on the picking,
 Once all products are finisehd and receiving then the MO will be finished.
 =====================
     """,
-    'depends': ["mrp","dmp_mrp_hook","dmp_stock_mt","stock_no_autopicking","dmp_mrp_bom_route"],
+    'depends': ["mrp","dmp_stock_hook","dmp_mrp_hook"],
     'data': [
-        'wizard/wo_material_request_view.xml',
-        'mrp_view.xml',
-        'mrp_pick_view.xml',
+        'mrp_produce_view.xml',
     ],
     'installable': True,
     'auto_install': False,

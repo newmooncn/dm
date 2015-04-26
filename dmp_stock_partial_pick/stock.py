@@ -97,9 +97,10 @@ class stock_picking(osv.osv):
         res = {}
         for pick in self.browse(cr, uid, ids, context=context):
             res[pick.id] = False
+            if pick.state not in('confirmed', 'assigned'):
+                continue
             for move in pick.move_lines:
-                #partial missing
-                if move.quantity_out_missing > 0 and move.product_qty > move.quantity_out_missing:
+                if move.state == 'confirmed':
                     res[pick.id] = True
                     break
         return res
@@ -130,3 +131,9 @@ class stock_picking(osv.osv):
                     return True
                 ok = ok and (move.state in ('cancel', 'done', 'assigned'))
         return ok
+    
+class stock_picking_out(osv.osv):
+    _inherit = "stock.picking.out"  
+    _columns = {   
+        'partial_assigned' : fields.function(stock_picking._partial_assigned, string="Partial Assigned", type = "boolean", readonly=True),
+    }  

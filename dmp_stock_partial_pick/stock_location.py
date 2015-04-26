@@ -20,6 +20,7 @@
 #
 ##############################################################################
 from openerp.osv import fields,osv
+from openerp.tools import float_compare
 import logging
 _logger = logging.getLogger(__name__)
           

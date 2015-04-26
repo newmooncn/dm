@@ -19,17 +19,6 @@
             		<attribute name="colors">red:state != 'assigned'</attribute>
             	</xpath>
             </field>
-        </record>
-		
-        <record id="dmp_view_picking_out_form_partial_deliver" model="ir.ui.view">
-            <field name="name">dmp_view_picking_out_form_partial_deliver</field>
-            <field name="model">stock.picking.out</field>
-            <field name="inherit_id" ref="stock.view_picking_out_form"/>	
-            <field name="arch" type="xml">       	
-                <xpath expr="//button[@name='action_process']" position="before">
-                	<button name="action_process" states="confirmed" string="Partial Deliver" type="object" class="oe_highlight"/>
-                </xpath>                			                        	
-        	</field>        
-		</record>    
+        </record> 
     </data>
 </openerp>

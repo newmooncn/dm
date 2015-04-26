@@ -20,8 +20,8 @@
          </record>   
                		        			    
     <!-- Add the mrp order's production new fields -->
-        <record id="dmp_mrp_production_product_tree_view" model="ir.ui.view">
-            <field name="name">dmp_mrp_production_product_tree_view</field>
+        <record id="dmp_mrp_production_product_tree_view_material" model="ir.ui.view">
+            <field name="name">dmp_mrp_production_product_tree_view_material</field>
             <field name="model">mrp.production.product.line</field>
             <field name="inherit_id" ref="mrp.mrp_production_product_tree_view"/>
             <field name="arch" type="xml">

@@ -27,7 +27,8 @@
     'website': 'www.dmems.com',
     'description': """
 MRP Hooks
-1.Hooks for BOM explode
+1.mrp_bom._bom_explode(): _hook_bom_prod_line, _hook_bom_wo_line
+2.mrp_production.action_produce(): _produce_consume_material_get_raw_products(), 
 =====================
     """,
     'depends': ["mrp"],
