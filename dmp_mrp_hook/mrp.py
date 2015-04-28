@@ -203,7 +203,7 @@ def action_produce_dmp_mrp(self, cr, uid, production_id, production_qty, product
                     continue
                 #johnw, change calling use stock_mov_obj
                 #raw_product[0].action_consume(qty, raw_product[0].location_id.id, context=context)
-                stock_mov_obj.action_consume(cr, uid, qty, raw_product[0].location_id.id, context=context)
+                stock_mov_obj.action_consume(cr, uid, [raw_product[0].id], qty, raw_product[0].location_id.id, context=context)
 
     if production_mode == 'consume_produce':
         # To produce remaining qty of final product
