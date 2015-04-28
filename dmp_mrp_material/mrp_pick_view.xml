@@ -16,6 +16,17 @@
                     <button name="force_production" states="picking_except" position="attributes">
                     	<attribute name="invisible">1</attribute>
                     </button>
+                    <!-- add the available quantity to the consume move lines -->
+                    <xpath expr="//field[@name='move_lines']/tree/field[@name='product_qty']" position="after">
+                    	<field name="quantity_out_available"/>
+                    	<!-- <field name="quantity_out_missing"/> -->
+                    </xpath>
+                    <!-- add the material picking list -->
+                    <page string="Extra Information" position="after">
+                        <page string="Material Pickings">
+                            <field name="picking_ids"/>
+                        </page>
+                    </page> 
 	            </data>
         	</field>
        	</record>

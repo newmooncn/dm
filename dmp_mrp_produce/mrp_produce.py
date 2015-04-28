@@ -14,7 +14,10 @@ class mrp_production(osv.osv):
         'move_created_ids': fields.one2many('stock.move', 'production_id', 'Products to Produce',
             domain=[('picking_id','=', False,)], readonly=True, states={'draft':[('readonly',False)]}),
         'move_created_ids2': fields.one2many('stock.move', 'production_id', 'Produced Products',
-            domain=[('picking_id','!=', False)], readonly=True, states={'draft':[('readonly',False)]}),             
+            domain=[('picking_id','!=', False)], readonly=True, states={'draft':[('readonly',False)]}),   
+        
+#        'move_lines2': fields.many2many('stock.move', 'mrp_production_move_ids', 'production_id', 'move_id', 'Consumed Products',
+#            domain=[('state','in', ('done', 'cancel'))], readonly=True, states={'draft':[('readonly',False)]}),          
     }
         
     def test_production_done(self, cr, uid, ids):

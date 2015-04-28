@@ -201,8 +201,9 @@ def action_produce_dmp_mrp(self, cr, uid, production_id, production_qty, product
                 if float_compare(qty, 0, precision_rounding=scheduled.product_id.uom_id.rounding) <= 0:                        
                     # we already have more qtys consumed than we need
                     continue
-
-                raw_product[0].action_consume(qty, raw_product[0].location_id.id, context=context)
+                #johnw, change calling use stock_mov_obj
+                #raw_product[0].action_consume(qty, raw_product[0].location_id.id, context=context)
+                stock_mov_obj.action_consume(cr, uid, qty, raw_product[0].location_id.id, context=context)
 
     if production_mode == 'consume_produce':
         # To produce remaining qty of final product

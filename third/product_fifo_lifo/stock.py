@@ -108,7 +108,9 @@ class stock_picking(osv.osv):
                             'state': 'assigned',
                             'move_dest_id': False,
                             'price_unit': product_price,
-                            'product_uom': product_uoms[move.id]
+                            'product_uom': product_uoms[move.id],
+                            #johnw, 04/27/2015, set the new move as the child of the original move
+                            'move_history_ids2':[(6, False, [move.id])]
                     }
                     prodlot_id = prodlot_ids[move.id]
                     if prodlot_id:

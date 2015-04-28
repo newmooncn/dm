@@ -34,11 +34,12 @@ and do not auto done the moves, warehouse will do the receiving based on the pic
 Once all products are finisehd and receiving then the MO will be finished.
 =====================
     """,
-    'depends': ["mrp","dmp_mrp_hook","dmp_stock_mt","stock_no_autopicking","dmp_mrp_bom_route"],
+    'depends': ["mrp","dmp_mrp_hook","dmp_stock_mt","stock_no_autopicking","dmp_mrp_bom_route","dmp_stock_partial_pick"],
     'data': [
         'wizard/wo_material_request_view.xml',
         'mrp_view.xml',
         'mrp_pick_view.xml',
+        'mrp_workflow.xml'
     ],
     'installable': True,
     'auto_install': False,

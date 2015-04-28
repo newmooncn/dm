@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 from openerp.osv import fields,osv
 from openerp.tools.translate import _
+from openerp import netsvc
 
 class product(osv.osv):
     _inherit = "product.product"
@@ -8,19 +9,80 @@ class product(osv.osv):
     _defaults = {
         'auto_pick': False
     }
-    
+
+class stock_picking(osv.osv):
+    _inherit = "stock.picking" 
+                   
+    def do_partial(self, cr, uid, ids, partial_datas, context=None):
+        res = super(stock_picking,self).do_partial(cr, uid, ids, partial_datas, context)
+        '''
+        1.update the quantity_out_available of the target moves
+        For MRP, the target moves is mrp.production.move_lines2
+        2.Add new picking to MO's picking_ids
+        3.trigger related mo to be ready
+        '''
+        move_obj = self.pool.get('stock.move')
+        wf_service = netsvc.LocalService("workflow")
+        for pick_id, new_pick_id in res.items():
+            if new_pick_id.get('delivered_picking') and pick_id != new_pick_id.get('delivered_picking'):
+                new_pick_id = new_pick_id.get('delivered_picking')
+            else:
+                new_pick_id = None
+            if new_pick_id:
+                #partial picking
+                new_pick = self.browse(cr, uid, new_pick_id, context=context)
+                for move in new_pick.move_lines:
+                    if move.move_history_ids2 and move.move_history_ids2[0].move_dest_id:
+                        move_dest = move.move_history_ids2[0].move_dest_id
+                        move_obj.write(cr, uid, move_dest.id, {'quantity_out_available':move_dest.quantity_out_available + move.product_qty})
+            else:
+                #full picking
+                pick = self.browse(cr, uid, pick_id, context=context)
+                for move in pick.move_lines:
+                    if move.move_dest_id:
+                        move_dest = move.move_dest_id
+                        move_obj.write(cr, uid, move_dest.id, {'quantity_out_available':move_dest.quantity_out_available + move.product_qty})
+            
+            mo_obj = self.pool.get('mrp.production')
+            mo_ids = mo_obj.search(cr, uid, [('picking_id', '=', pick_id)], context=context)
+            if mo_ids:
+                if new_pick_id:
+                    #update mo's picking_ids
+                    mo_obj.write(cr, uid, mo_ids[0], {'picking_ids':[(4,new_pick_id)]}, context=context)
+                #go to 'ready' state
+                wf_service.trg_validate(uid, 'mrp.production', mo_ids[0], 'material_ready', cr)
+                    
+        return res
+        
 class mrp_production(osv.osv):
     _inherit = 'mrp.production'
+    '''
+    picking_ids:
+    many2many for the multi time material requistions
+    the above original picking_id is also link to the newest picking_id
+    Except the above picking, the others should be done
+    ''' 
     _columns = {
         #change 'ondelete' to setnull, user can delete the MO's picking, and generate again on the MO's screen
         'picking_id': fields.many2one('stock.picking', 'Picking List', readonly=True, ondelete="set null",
-            help="This is the Internal Picking List that brings the finished product to the production plan"),                
+            help="This is the Internal Picking List that brings the finished product to the production plan"), 
+        'picking_ids': fields.many2many('stock.picking', 'mrp_production_picking_ids', 'mo_id', 'material_pick_id', 'Material Picking',readonly=True),
+                               
     }
+    
+    def copy(self, cr, uid, id, default=None, context=None):
+        if not default:
+            default = {}
+        if not default.get('picking_ids'):
+            default['picking_ids'] = None
+        return super(mrp_production, self).copy(cr, uid, id, default, context)
 
     def _make_production_internal_shipment(self, cr, uid, production, context=None):
         picking_id = super(mrp_production, self)._make_production_internal_shipment(cr, uid, production, context=context)
         #change move_type from 'one' to 'direct', state: auto-->draft
         self.pool.get('stock.picking').write(cr, uid, picking_id, {'move_type':'direct', 'state': 'draft'}, context=context)
+        #update mo's picking_ids
+        self.write(cr, uid, production.id, {'picking_ids':[(4,picking_id)]}, context=context)
         return picking_id
     
     def _make_production_internal_shipment_line(self, cr, uid, production_line, shipment_id, parent_move_id, destination_location_id=False, context=None):
