@@ -21,5 +21,6 @@
 import stock_partial_picking
 import stock_location
 import stock
+import stock_move_consume
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 

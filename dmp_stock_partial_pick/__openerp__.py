@@ -28,8 +28,8 @@
     'description': """
         Metro Stocking out partial picking improvements    
         """,
-    'depends': ["stock","product_fifo_lifo"],
-    'data': ['stock_partial_picking_view.xml', 'stock_view.xml'],
+    'depends': ["stock","product_fifo_lifo","dmp_stock_hook"],
+    'data': ['stock_partial_picking_view.xml', 'stock_view.xml', 'stock_move_consume_view.xml'],
     'installable': True,
     'auto_install': False,
     'application': True,

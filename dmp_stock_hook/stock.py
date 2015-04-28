@@ -32,12 +32,24 @@ class stock_move(osv.osv):
         @return: True - can done; False - do not done
         '''
         return True
-    
-'''
-johnw, 04/26/2015, add hook on action_consume
 
+    def action_cusume_partial_write_before(self, cr, uid, move, update_val, context=None):
+        '''
+        if this is a partial consume, called by action_consume before write to the original move
+        @param move: the move object data 
+        @param update_val: the dict values will be update, keys:product_qty, product_uos_qty
+        @return: True - can write; False - can not write
+        We can update the update_val in our program, to update more values of the move
+        '''
+        return True
+        
+'''
+johnw, 04/26/2015, add hooks:
+1.action_consume_done_before():
 will be used for the mrp production(mo.action_produce()) to produce a product
 generated one new move but not finish it automatically.
+
+2.
 '''    
 from openerp.addons.stock.stock import stock_move as stock_move_patch
 def action_consume_hook(self, cr, uid, ids, quantity, location_id=False, context=None):
@@ -81,7 +93,10 @@ def action_consume_hook(self, cr, uid, ids, quantity, location_id=False, context
             update_val = {}
             update_val['product_qty'] = quantity_rest
             update_val['product_uos_qty'] = uos_qty_rest
-            self.write(cr, uid, [move.id], update_val)
+            #johnw, 04/28/2015, update hook for partial consume
+            #self.write(cr, uid, [move.id], update_val)
+            if self.action_cusume_partial_write_before(cr, uid, move, update_val, context=context):
+                self.write(cr, uid, [move.id], update_val)
 
         else:
             quantity_rest = quantity
