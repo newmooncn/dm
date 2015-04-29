@@ -110,7 +110,7 @@ def action_consume_hook(self, cr, uid, ids, quantity, location_id=False, context
             self.write(cr, uid, [move.id], update_val)
     #johnw, 04/26/2015, add before book for the move done
     #self.action_done(cr, uid, res, context=context)    
-    if self.action_consume_done_before(cr, uid, res, context=None):
+    if self.action_consume_done_before(cr, uid, res, context=context):
         self.action_done(cr, uid, res, context=context)
 
     return res    

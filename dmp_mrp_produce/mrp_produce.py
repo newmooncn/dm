@@ -6,11 +6,11 @@ from openerp.tools import float_compare
     
 class mrp_production(osv.osv):
     _inherit = 'mrp.production'
+    '''
+    change the domain for the produced product moves, once there are pikcing_id assigned to them, 
+    then we can think the product are produced and warehouse keeper will do the stocking in of the products.
+    ''' 
     _columns = {
-        '''
-        change the domain for the produced product moves, once there are pikcing_id assigned to them, 
-        then we can think the product are produced and warehouse keeper will do the stocking in of the products.
-        ''' 
         'move_created_ids': fields.one2many('stock.move', 'production_id', 'Products to Produce',
             domain=[('picking_id','=', False,)], readonly=True, states={'draft':[('readonly',False)]}),
         'move_created_ids2': fields.one2many('stock.move', 'production_id', 'Produced Products',
@@ -19,7 +19,13 @@ class mrp_production(osv.osv):
 #        'move_lines2': fields.many2many('stock.move', 'mrp_production_move_ids', 'production_id', 'move_id', 'Consumed Products',
 #            domain=[('state','in', ('done', 'cancel'))], readonly=True, states={'draft':[('readonly',False)]}),          
     }
-        
+
+    def _make_production_produce_line(self, cr, uid, production, context=None):
+        #update the produce product move line's quantity_out_available
+        move_id = super(mrp_production,self)._make_production_produce_line(cr, uid, production, context=context)
+        self.pool.get('stock.move').write(cr, uid, [move_id], {'quantity_out_available':production.product_qty}, context=context)
+        return move_id
+            
     def test_production_done(self, cr, uid, ids):
         """ Tests whether production is done or not.
         @return: True or False
@@ -44,15 +50,16 @@ class mrp_production(osv.osv):
         ir_sequence = self.pool.get('ir.sequence')
         stock_picking = self.pool.get('stock.picking')
         routing_loc = None
-        pick_type = 'internal'
+        pick_type = 'in'
         partner_id = False
 
         # Take routing address as a Shipment Address.
         # If usage of routing location is a internal, make outgoing shipment otherwise internal shipment
-        if production.bom_id.routing_id and production.bom_id.routing_id.location_id:
-            routing_loc = production.bom_id.routing_id.location_id
-            if routing_loc.usage != 'internal':
-                pick_type = 'in'
+        routing_id = production.routing_id or production.bom_id.routing_id
+        if routing_id and routing_id.location_id:
+            routing_loc = routing_id.location_id
+            if routing_loc.usage == 'internal':
+                pick_type = 'internal'
             partner_id = routing_loc.partner_id and routing_loc.partner_id.id or False
 
         # Take next Sequence number of shipment base on type
@@ -92,8 +99,11 @@ class stock_move(osv.osv):
         johnw, 04/16/2015, add the 'stock_move_consume_manual_done' flag checking in the context
         will be used for the mrp production(mo.action_produce()) to produce a product
         generated one new move but not finish it automatically.
-        '''           
-        return not context.get('stock_move_consume_manual_done')   
+        '''    
+        if context:       
+            return not context.get('stock_move_consume_manual_done')
+        else:
+            return True
     
     def action_consume(self, cr, uid, ids, product_qty, location_id=False, context=None):
         """ Consumed product with specific quatity from specific source location.
@@ -114,8 +124,11 @@ class stock_move(osv.osv):
             production_ids = production_obj.search(cr, uid, [('move_created_ids', 'in', new_moves)])
             if production_ids:
                 mo = production_obj.browse(cr, uid, production_ids[0], context=context)
-                picking_done_id = production_obj._make_production_done_pick(cr, uid, mo, context=context)
+                picking_done_id = production_obj._make_production_done_pick(cr, uid, mo, context=context)                
                 self.write(cr, uid, new_moves, {'picking_id':picking_done_id}, context=context)
+#                for move in self.browse(cr, uid, new_moves, context=context):
+#                    self.write(cr, uid, move.id, {'quantity_out_available':move.product_qty}, context=context)
+                #cr.execute('update stock_move set quantity_out_available=product_qty where picking_id=%s' % (picking_done_id,))
                 self.pool.get('stock.picking').draft_force_assign(cr, uid, [picking_done_id])
                 self.pool.get('stock.picking').force_assign(cr, uid, [picking_done_id])
             

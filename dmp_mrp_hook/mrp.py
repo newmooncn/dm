@@ -135,11 +135,19 @@ class mrp_production(osv.osv):
         '''
         return True
     
+    def _can_consume(self, cr, uid, production_id, production_qty, production_mode, context=None):
+        return production_mode in ['consume','consume_produce']
+    
+    def _can_produce(self, cr, uid, production_id, production_qty, production_mode, context=None):
+        return production_mode == 'consume_produce'
+    
 from openerp.addons.mrp.mrp import mrp_production as mrp_prod_patch
 '''
 johnw, 04/26/2015, add hooks:
 _produce_consume_material_get_raw_products()
 _produce_consume_product_get_context()
+_can_consume()
+_can_produce()
 '''
 def action_produce_dmp_mrp(self, cr, uid, production_id, production_qty, production_mode, context=None):
     """ To produce final product based on production mode (consume/consume&produce).
@@ -164,7 +172,9 @@ def action_produce_dmp_mrp(self, cr, uid, production_id, production_qty, product
         if (produced_product.scrapped) or (produced_product.product_id.id != production.product_id.id):
             continue
         produced_qty += produced_product.product_qty
-    if production_mode in ['consume','consume_produce']:
+    #johnw, add hook _can_consume(), 04/28/2015
+    #if production_mode in ['consume','consume_produce']:
+    if self._can_consume(cr, uid, production_id, production_qty, production_mode, context=context):
         consumed_data = {}
 
         # Calculate already consumed qtys
@@ -205,7 +215,9 @@ def action_produce_dmp_mrp(self, cr, uid, production_id, production_qty, product
                 #raw_product[0].action_consume(qty, raw_product[0].location_id.id, context=context)
                 stock_mov_obj.action_consume(cr, uid, [raw_product[0].id], qty, raw_product[0].location_id.id, context=context)
 
-    if production_mode == 'consume_produce':
+    #johnw, add hook _can_produce(), 04/28/2015
+    #if production_mode == 'consume_produce':
+    if self._can_produce(cr, uid, production_id, production_qty, production_mode, context=context):
         # To produce remaining qty of final product
         #vals = {'state':'confirmed'}
         #final_product_todo = [x.id for x in production.move_created_ids]

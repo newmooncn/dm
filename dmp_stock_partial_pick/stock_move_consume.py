@@ -68,7 +68,7 @@ class stock_move(osv.osv):
         if consumed_qty > move.product_qty:
             raise osv.except_osv(_('Error!'), _('[%s]%s consume quantity (%d) can not be greater than move quantity (%d)!') \
                     % (product.default_code, product.name, consumed_qty, move.product_qty))
-        if move.state != 'assigned':
+        if move.state == 'confirmed':
             if consumed_qty > move.quantity_out_available:
                 raise osv.except_osv(_('Error!'), _('[%s]%s consume quantity (%d) can not be greater than available quantity (%d)!') \
                         % (product.default_code, product.name, consumed_qty, move.quantity_out_available))

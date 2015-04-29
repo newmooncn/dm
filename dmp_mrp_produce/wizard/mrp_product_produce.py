@@ -20,11 +20,22 @@
 ##############################################################################
 
 from openerp.osv import fields, osv
-import openerp.addons.decimal_precision as dp
 from openerp.tools.translate import _
 
 class mrp_product_produce(osv.osv_memory):
     _inherit = "mrp.product.produce"
+    '''
+    johnw, 04/28/2015
+    change the mode's selction name, the 'consume_produce' is produce in fact, since prodcut must consume material first
+    change the 'help'                                  
+    '''
+    _columns = {
+        'mode': fields.selection([('consume', 'Consume'),('consume_produce', 'Produce')], 'Mode', required=True,
+                                  help="'Consume' mode will only consume the products with the quantity selected.\n"
+                                        "'Produce' mode will consume as well as produce the products with the quantity selected."),
+    }
+    
+    _defaults={'mode':'consume'}
 
     def _get_product_qty(self, cr, uid, context=None):
         """ To obtain product quantity

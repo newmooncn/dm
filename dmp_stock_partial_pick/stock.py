@@ -46,6 +46,8 @@ class stock_move(osv.osv):
         for move in self.browse(cr, uid, ids, context=context):
             if move.product_id.type == 'consu' or move.location_id.usage == 'supplier':
                 if move.state in ('confirmed', 'waiting'):
+                    #johnw, for the move from consu or supplier, update the quantity_out_available direct
+                    self.write(cr, uid, [move.id], {'quantity_out_available':move.product_qty, 'quantity_out_missing':0})
                     done.append(move.id)
                 pickings[move.picking_id.id] = 1
                 continue
@@ -57,6 +59,8 @@ class stock_move(osv.osv):
                 res, qty_missing, total_avail = self.pool.get('stock.location')._product_out_avail(cr, uid, [move.location_id.id], move.product_id.id, move.product_qty, {'uom': move.product_uom.id}, lock=True)
                 if total_avail < 0:
                     total_avail = 0
+                if move.type == 'in':
+                    total_avail = move.product_qty
                 self.write(cr, uid, [move.id], {'quantity_out_available':total_avail, 'quantity_out_missing':move.product_qty-min(total_avail,move.product_qty)})
                 if qty_missing <= 0:
                     #_product_available_test depends on the next status for correct functioning
