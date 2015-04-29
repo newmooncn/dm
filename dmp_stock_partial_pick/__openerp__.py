@@ -31,7 +31,7 @@
     'depends': ["stock","product_fifo_lifo","dmp_stock_hook"],
     'data': ['stock_partial_picking_view.xml', 'stock_view.xml', 'stock_move_consume_view.xml'],
     'installable': True,
-    'auto_install': False,
+    'auto_install': True,
     'application': True,
 }
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

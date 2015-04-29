@@ -91,7 +91,7 @@ class product_customerinfo(osv.osv):
         'product_name': fields.char('Customer Product Name', size=128),
         'product_code': fields.char('Customer Product Code', size=64),
         'sequence' : fields.integer('Sequence', help="Assigns the priority to the list of product supplier."),
-        'product_id' : fields.many2one('product.product', 'Product', required=True, ondelete='cascade', select=True),
+        'product_id' : fields.many2one('product.product', 'Product', required=False, ondelete='cascade', select=True),
         'delay' : fields.integer('Delivery Lead Time', required=True),
         'company_id':fields.many2one('res.company','Company',select=1),
     }

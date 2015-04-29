@@ -3,7 +3,7 @@
     <data>
 
 <!--  add supplier product name and code to the supplier product info tree list -->	
-        <record model="ir.ui.view" id="product_supplierinfo_tree_view_stock">
+<!--         <record model="ir.ui.view" id="product_supplierinfo_tree_view_stock">
             <field name="name">product.supplierinfo.tree.view</field>
             <field name="model">product.supplierinfo</field>
             <field name="inherit_id" ref="product.product_supplierinfo_tree_view"/>
@@ -13,7 +13,7 @@
             		<field name="product_name"/>
             	</field>
             </field>		
-		</record>
+		</record> -->
 <!-- supplier_prod_name add to stock -->
         <record id="view_move_picking_tree_sup_prod_name" model="ir.ui.view">
             <field name="name">view_move_picking_tree_sup_prod_name</field>
