@@ -355,9 +355,9 @@ class product_uom(osv.osv):
 	        'create_uid':  fields.many2one('res.users', 'Creator', readonly=True),
 	        'create_date': fields.datetime('Creation Date', readonly=True, select=True),
 	        }   
-	_defaults = {
-	    'rounding': 0.0001,
-	}    
+#	_defaults = {
+#	    'rounding': 0.0001,
+#	}    
 
 	def has_related_data(self, cr, uid, ids, context=None):
 		'''
