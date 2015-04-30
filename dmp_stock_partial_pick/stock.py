@@ -80,9 +80,8 @@ class stock_move(osv.osv):
                         move_id = self.copy(cr, uid, move.id, {'product_uos_qty': product_uos_qty, 'product_qty': r[0], 'location_id': r[1]})
                         done.append(move_id)
                 else:
-                    if total_avail > 0:
-                        count += 1
-                        pickings[move.picking_id.id] = 1                    
+                    count += 1
+                    pickings[move.picking_id.id] = 1                    
                     
         if done:
             count += len(done)
@@ -122,7 +121,7 @@ class stock_picking(osv.osv):
         ok = True
         for pick in self.browse(cr, uid, ids):
             mt = pick.move_type
-            # incomming shipments are always set as available if they aren't chained
+            # incoming shipments are always set as available if they aren't chained
             if pick.type == 'in':
                 if all([x.state != 'waiting' for x in pick.move_lines]):
                     return True
@@ -131,7 +130,9 @@ class stock_picking(osv.osv):
                     return False
                 #Improve confirmed-->assigned logic, if the move is partial available(quantity_out_available>0), also make the picking state to assigned
                 #if (mt == 'direct') and (move.state == 'assigned') and (move.product_qty):
-                if (mt == 'direct') and (move.state == 'confirmed') and (move.product_qty) and (move.quantity_out_available):
+                if (mt == 'direct') and(\
+                    (move.state == 'assigned' and move.product_qty)\
+                    or (move.state == 'confirmed' and move.product_qty and move.quantity_out_available)):
                     return True
                 ok = ok and (move.state in ('cancel', 'done', 'assigned'))
         return ok
