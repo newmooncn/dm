@@ -241,5 +241,18 @@
 				</form>
             </field>
         </record> 
+        
+        <record id="dmp_view_move_search_mr" model="ir.ui.view">
+            <field name="name">dmp_view_move_search_mr</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_search"/>	
+            <field name="arch" type="xml">
+            	<filter string="Today"  position='after'>
+            		 <separator/>
+            		 <filter string="Material Request" name="move_incoming" domain="[('type','=','mr')]"/>
+            		 <filter string="Material Return" name="move_incoming" domain="[('type','=','mrr')]"/>
+            	</filter>
+            </field>
+        </record>         
     </data>
 </openerp>

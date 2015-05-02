@@ -251,8 +251,6 @@
             		 <filter string="Getting Goods" name="move_incoming" domain="[('type','=','in')]"/>
             		 <filter string="Sending Goods" name="move_incoming" domain="[('type','=','out')]"/>
             		 <filter string="Internal" name="move_incoming" domain="[('type','=','internal')]"/>
-            		 <filter string="Material Request" name="move_incoming" domain="[('type','=','mr')]"/>
-            		 <filter string="Material Return" name="move_incoming" domain="[('type','=','mrr')]"/>
             	</filter>
             </field>
         </record>        

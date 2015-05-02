@@ -17,15 +17,37 @@ msgstr ""
 "X-Generator: Poedit 1.5.7\n"
 
 #. module: dmp_stock_ticket
-#: model:ir.model,name:dmp_stock_ticket.model_stock_partial_picking
-msgid "Partial Picking Processing Wizard"
-msgstr "分步骤拣货处理向导"
+#: model:ir.model,name:dmp_stock_ticket.model_stock_picking_in
+msgid "Incoming Shipments"
+msgstr "入库"
 
 #. module: dmp_stock_ticket
 #: model:ir.model.fields,field_description:dmp_stock_ticket.field_stock_partial_picking_deliver_ticket_no
 #: model:ir.model.fields,field_description:dmp_stock_ticket.field_stock_picking_deliver_ticket_no
+#: model:ir.model.fields,field_description:dmp_stock_ticket.field_stock_picking_deliver_ticket_no_5431
+#: model:ir.model.fields,field_description:dmp_stock_ticket.field_stock_picking_deliver_ticket_no_6024
 #: field:stock.partial.picking,deliver_ticket_no:0
 #: field:stock.picking,deliver_ticket_no:0
 #: field:stock.picking.in,deliver_ticket_no:0
 msgid "Deliver Ticket#"
 msgstr "送货单号"
+
+#. module: dmp_stock_ticket
+#: field:stock.picking.out,deliver_ticket_no:0
+msgid "Deliver Ticket#"
+msgstr "送货单号"
+
+#. module: dmp_stock_ticket
+#: model:ir.model,name:dmp_stock_ticket.model_stock_picking_out
+msgid "Delivery Orders"
+msgstr "送货单"
+
+#. module: dmp_stock_ticket
+#: model:ir.model,name:dmp_stock_ticket.model_stock_picking
+msgid "Picking List"
+msgstr "分拣单"
+
+#. module: dmp_stock_ticket
+#: model:ir.model,name:dmp_stock_ticket.model_stock_partial_picking
+msgid "Partial Picking Processing Wizard"
+msgstr "分步骤拣货处理向导"
