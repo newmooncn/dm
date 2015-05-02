@@ -48,7 +48,7 @@ class mrp_production(osv.osv):
         
     def _make_production_done_pick(self, cr, uid, production, context=None):
         ir_sequence = self.pool.get('ir.sequence')
-        stock_picking = self.pool.get('stock.picking')
+        stock_picking = self.pool.get('stock.picking.in')
         routing_loc = None
         pick_type = 'in'
         partner_id = False
@@ -67,7 +67,10 @@ class mrp_production(osv.osv):
             pick_name = ir_sequence.get(cr, uid, 'stock.picking.' + pick_type)
         else:
             pick_name = ir_sequence.get(cr, uid, 'stock.picking')
-
+            
+        warehouse_ids = self.pool.get('stock.warehouse').search(cr, uid, [('lot_input_id','=',production.location_dest_id.id),\
+                                                  ('lot_stock_id','=',production.location_dest_id.id)], \
+                                        context=context)
         picking_id = stock_picking.create(cr, uid, {
             'name': pick_name,
             'origin': (production.origin or '').split(':')[0] + ':' + production.name,
@@ -77,6 +80,7 @@ class mrp_production(osv.osv):
             'partner_id': partner_id,
             'auto_picking': self._get_auto_picking(cr, uid, production),
             'company_id': production.company_id.id,
+            'warehouse_id': warehouse_ids and warehouse_ids[0]
         })
         return picking_id
     
@@ -159,7 +163,8 @@ def action_consume_mrp_dmp_mrp_pick(self, cr, uid, ids, product_qty, location_id
     production_obj = self.pool.get('mrp.production')
     wf_service = netsvc.LocalService("workflow")
     for move in self.browse(cr, uid, ids):
-        move.action_confirm(context)
+        print move.state
+        #move.action_confirm(context)
         #new_moves = super(StockMove, self).action_consume(cr, uid, [move.id], product_qty, location_id, context=context)
         new_moves = super(stock_move_mrp_patch, self).action_consume(cr, uid, [move.id], product_qty, location_id, context=context)
         production_ids = production_obj.search(cr, uid, [('move_lines', 'in', [move.id])])

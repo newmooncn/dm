@@ -50,6 +50,21 @@ class stock_picking_in(osv.osv):
     def onchange_warehouse_dest_id(self, cr, uid, ids, warehouse_id):
         return self.pool.get('stock.picking').onchange_warehouse_dest_id(cr, uid, ids, warehouse_id)
     
+    def _update_warehouse(self, cr, uid, vals, context=None):
+        if 'warehouse_id' in vals and 'warehouse_dest_id' not in vals:
+            vals['warehouse_dest_id'] = vals['warehouse_id']
+            vals['location_dest_id'] = self.pool.get('stock.warehouse').browse(cr, uid, vals['warehouse_id'], context=context).lot_input_id.id
+        elif 'warehouse_dest_id' in vals and 'warehouse_id' not in vals:
+            vals['warehouse_id'] = vals['warehouse_dest_id']
+            
+    def create(self, cr, uid, vals, context=None):
+        self._update_warehouse(cr, uid, vals, context=context)            
+        return super(stock_picking_in, self).create(cr, uid, vals, context=context)
+    
+    def write(self, cr, uid, ids, vals, context=None):
+        self._update_warehouse(cr, uid, vals, context=context)
+        return super(stock_picking_in, self).create(cr, uid, ids, vals, context=context)
+    
 class stock_picking_out(osv.osv):
     _inherit = "stock.picking.out"         
     _columns = {   

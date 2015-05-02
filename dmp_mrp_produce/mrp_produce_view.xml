@@ -20,6 +20,9 @@
                     <xpath expr="//field[@name='move_created_ids2']/tree/field[@name='state']" position='attributes'>
                     	<attribute name='invisible'>0</attribute>
                     </xpath>
+                    <xpath expr="//field[@name='move_created_ids2']/tree/field[@name='product_uom']" position='after'>
+                    	<field name="picking_id"/>
+                    </xpath>
 	            </data>
         	</field>
        	</record>

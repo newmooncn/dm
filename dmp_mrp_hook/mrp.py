@@ -240,9 +240,9 @@ def action_produce_dmp_mrp(self, cr, uid, production_id, production_qty, product
                 prod_name = produce_product.product_id.name_get()[0][1]
                 raise osv.except_osv(_('Warning!'), _('You are going to produce total %s quantities of "%s".\nBut you can only produce up to total %s quantities.') % ((subproduct_factor * production_qty), prod_name, rest_qty))
             if rest_qty > 0 :
-                stock_mov_obj.action_consume(cr, uid, [produce_product.id], (subproduct_factor * production_qty), context=context)
                 #johnw, 04/26/2015, add hook to get produced product's consuming context
                 c = self._produce_consume_product_get_context(cr, uid, production, produce_product, context=context)
+                #stock_mov_obj.action_consume(cr, uid, [produce_product.id], (subproduct_factor * production_qty), context=context)
                 stock_mov_obj.action_consume(cr, uid, [produce_product.id], (subproduct_factor * production_qty), context=c)
 
     for raw_product in production.move_lines2:
