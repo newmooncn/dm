@@ -89,6 +89,10 @@
                 <field name="loc_case" position="after">
             		<field name="loc_pos_code"/>
             	</field>  
+            	<!-- only warehouse manager can see the 'update' button  -->
+            	<button string="update" position="attributes">
+            		<attribute name="groups">stock.group_stock_manager</attribute>
+            	</button>
             </data>
             </field>
 		</record>

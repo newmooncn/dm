@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+<!-- Product supplier name in tree  -->
+		<record id="product_product_tree_view_supplier" model="ir.ui.view">
+            <field name="name">product_product_tree_view_supplier</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+	            <!-- supplier -->
+	            <field name="name" position="after">
+	            	<field name="seller_product_name"/>           	
+	            </field> 	            
+            </field>
+		</record>
+<!-- Product customer name in search  -->		   
+        <record id="product_search_form_view_supplier" model="ir.ui.view">
+            <field name="name">product_search_form_view_supplier</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="arch" type="xml">
+            	<field name="name" position="after">
+            		<field name="seller_product_name"/>
+            	</field>
+            </field>
+        </record>		
+	</data>		    
+</openerp>	

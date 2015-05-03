@@ -160,5 +160,14 @@
             parent="menu_rpt_account_inventory"
             sequence="2"
            />             
+           
+<!-- Add a menu to warehouse's physical inventory -->
+        <menuitem
+            id="stock_rpt_inventory_qty_menu"
+            action="rpt_inventory_qty_action"
+            groups="stock.group_stock_user"
+            parent="stock.menu_stock_inventory_control"
+            sequence="101"
+           />
     </data>
 </openerp>

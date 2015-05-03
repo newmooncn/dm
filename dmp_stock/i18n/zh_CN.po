@@ -299,6 +299,33 @@ msgstr "出库"
 msgid "Back Order of"
 msgstr "关联出入库"
 
+#. module: stock
+#: model:ir.actions.act_window,name:stock.action_picking_tree
+#: model:ir.model,name:stock.model_stock_picking_out
+#: model:ir.ui.menu,name:stock.menu_action_picking_tree
+#: view:stock.picking.out:0
+msgid "Delivery Orders"
+msgstr "出库单"
+
+#. module: stock
+#: model:ir.actions.act_window,help:stock.action_picking_tree
+msgid ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                Click to create a delivery order. \n"
+"              </p><p>\n"
+"                This is the list of all delivery orders that have to be\n"
+"                prepared, according to your different sales orders and your\n"
+"                logistics rules.\n"
+"              </p>\n"
+"            "
+msgstr ""
+"<p class=\"oe_view_nocontent_create\">\n"
+"                创建一个出库单. \n"
+"              </p><p>\n"
+"                这里是所有出库单的列表，它们是根据不同的销售订单和物流规则 被准备好的。\n"
+"              </p>\n"
+"            "
+
 #. module: dmp_stock_mt
 #: view:stock.picking:0
 msgid "Are you sure you want to reopen this stock picking?"

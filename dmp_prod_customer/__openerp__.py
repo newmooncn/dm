@@ -15,7 +15,7 @@
 Product Customer
 =====================
     """,
-    'depends': ["product","dmp_product"],
+    'depends': ["product","dmp_product","product_x_attributes"],
     'data':['ir.model.access.csv',    
         'product_view.xml',
     ],

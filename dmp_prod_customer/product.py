@@ -49,17 +49,30 @@ class product_product(osv.osv):
 			result[product.id] = {
 				'customer_info_id': main_customer and main_customer.id or False,
 				'customer_delay': main_customer.delay if main_customer else 1,
-				'customer_id': main_customer and main_customer.name.id or False
+				'customer_id': main_customer and main_customer.name.id or False,
+				'customer_product_code': main_customer and main_customer.product_code or '',
+				'customer_product_name': main_customer and main_customer.product_name or ''
 			}
 		return result
+	
+	def _get_customer(self, cr, uid, ids, context=None):
+		result = {}
+		#self is product.supplierinfo not product.product
+		for line in self.browse(cr, uid, ids, context=context):
+			result[line.product_id.id] = True
+		return result.keys()
 		
 	_columns = {
         #product customers, like seller_ids link to the product.supplierinfo
         'customer_ids': fields.one2many('product.customerinfo', 'product_id', 'Customer'),		
 		'customer_info_id': fields.function(_calc_customer, type='many2one', relation="product.customerinfo", string="Customer Info", multi="customer_info"),
-		'customer_delay': fields.function(_calc_customer, type='integer', string='Supplier Lead Time', multi="customer_info"),
-		'customer_id': fields.function(_calc_customer, type='many2one', relation="res.partner", multi="customer_info", string='Main Supplier', help="Main customer who has highest priority in Customer List."),
-        
+		'customer_delay': fields.function(_calc_customer, type='integer', string='Customer Lead Time', multi="customer_info"),
+		'customer_id': fields.function(_calc_customer, type='many2one', relation="res.partner", multi="customer_info", string='Main Customer', help="Main customer who has highest priority in Customer List."),
+		'customer_product_code': fields.function(_calc_customer, type='char', size=64, string='Customer Product Code', multi="customer_info"),
+		'customer_product_name': fields.function(_calc_customer, type='char', size=128, string='Customer Product Name', multi="customer_info", 
+				store={
+                'product.customerinfo': (_get_customer, None, 10),
+            }),        
 	}
 	
 	def get_customer_product(self, cr, uid, customer_id, product_id, context=None):
@@ -90,7 +103,7 @@ class product_customerinfo(osv.osv):
         'name' : fields.many2one('res.partner', 'Customer', required=True,domain = [('customer','=',True),('is_company','=',True)], ondelete='cascade'),
         'product_name': fields.char('Customer Product Name', size=128),
         'product_code': fields.char('Customer Product Code', size=64),
-        'sequence' : fields.integer('Sequence', help="Assigns the priority to the list of product supplier."),
+        'sequence' : fields.integer('Sequence', help="Assigns the priority to the list of product customer."),
         'product_id' : fields.many2one('product.product', 'Product', required=False, ondelete='cascade', select=True),
         'delay' : fields.integer('Delivery Lead Time', required=True),
         'company_id':fields.many2one('res.company','Company',select=1),

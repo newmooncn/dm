@@ -134,3 +134,31 @@ msgstr "工单"
 #: field:mrp.bom,code:0
 msgid "Reference"
 msgstr "BOM编号"
+
+#. module: mrp
+#: model:ir.model,name:mrp.model_mrp_production
+#: view:mrp.config.settings:0
+#: view:mrp.production:0
+#: field:mrp.production.workcenter.line,production_id:0
+#: field:procurement.order,production_id:0
+msgid "Manufacturing Order"
+msgstr "生产订单"
+
+#. module: mrp
+#: report:mrp.production.order:0
+msgid "Production Order N° :"
+msgstr "生产订单:"
+
+#. module: mrp
+#: model:ir.actions.report.xml,name:mrp.report_mrp_production_report
+#: field:mrp.production.product.line,production_id:0
+#: model:process.node,name:mrp.process_node_production0
+#: model:process.node,name:mrp.process_node_productionorder0
+msgid "Production Order"
+msgstr "生产订单"
+
+#. module: mrp
+#: view:mrp.production:0
+#: field:stock.move,production_id:0
+msgid "Production"
+msgstr "生产订单"

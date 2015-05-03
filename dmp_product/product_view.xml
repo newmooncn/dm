@@ -53,14 +53,7 @@
 				<!-- <xpath expr="//h1" position="after">
                   <label for="cn_name"/>
                   <field name="cn_name" colspan="4" placeholder="中国名"/>
-                </xpath> -->        
-	            <!-- supplier -->
-	            <!-- <field name="seller_ids" position="before">
-	            	<field name="seller_info_id"/>
-	            	<field name="seller_id"/>
-	            	<field name="seller_delay"/>
-	            	<field name="seller_qty"/>           	
-	            </field> --> 
+                </xpath> -->       
             </data>
             </field>
 		</record>
@@ -71,7 +64,7 @@
             <field name="inherit_id" ref="product.product_search_form_view"/>
             <field name="arch" type="xml">
             	<field name="name" position="replace">
-            		<field name="name" string="Product" filter_domain="['|','|',('name','ilike',self),('default_code','ilike',self),('cn_name','ilike',self)]"/>
+            		<field name="name" string="Product" filter_domain="['|','|','|',('name','ilike',self),('default_code','ilike',self),('cn_name','ilike',self),('description','ilike',self)]"/>
             		<field name="create_uid"/>
             		<field name="create_date"/>
             		<field name="default_code" filter_domain="[('default_code','in',self)]" string="Multi Part#"/>

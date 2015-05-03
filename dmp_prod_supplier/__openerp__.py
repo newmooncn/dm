@@ -15,8 +15,8 @@
 Product Supplier
 =====================
     """,
-    'depends': ["product","dmp_product"],
-    'data':[],
+    'depends': ["product","dmp_product","purchase"],
+    'data':["product_view.xml"],
     'auto_install': True,
     'installable': True
 }

@@ -351,6 +351,7 @@ class product_uom(osv.osv):
 		return res 
 	
 	_columns = {
+			'name': fields.char('Unit of Measure', size=64, required=True, translate=False),
 	        'factor_display': fields.function(_factor_display, digits=(12,4),string='Ratio',),
 	        'create_uid':  fields.many2one('res.users', 'Creator', readonly=True),
 	        'create_date': fields.datetime('Creation Date', readonly=True, select=True),

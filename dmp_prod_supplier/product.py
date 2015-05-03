@@ -23,15 +23,45 @@ from openerp.osv import fields, osv
 
 class product_product(osv.osv):
 	_inherit = "product.product"
+	def _calc_seller(self, cr, uid, ids, fields, arg, context=None):
+		result = {}
+		for product in self.browse(cr, uid, ids, context=context):
+			main_supplier = self._get_main_product_supplier(cr, uid, product, context=context)
+			result[product.id] = {
+				'seller_info_id': main_supplier and main_supplier.id or False,
+				'seller_delay': main_supplier.delay if main_supplier else 1,
+				'seller_qty': main_supplier and main_supplier.qty or 0.0,
+				'seller_id': main_supplier and main_supplier.name.id or False,
+				'seller_product_code': main_supplier and main_supplier.product_code or '',
+				'seller_product_name': main_supplier and main_supplier.product_name or ''
+			}
+		return result
 	
-	def get_supplier_product(self, cr, uid, supplier_id, product_id, context=None):
-		"""Determines the main (best) product supplier for ``product``,
-		returning the corresponding ``product_supplierinfo`` record, or False
-		if none were found. The default strategy is to select the
-		customer with the highest priority (i.e. smallest sequence).
+	def _get_seller(self, cr, uid, ids, context=None):
+		result = {}
+		#self is product.supplierinfo not product.product
+		for line in self.browse(cr, uid, ids, context=context):
+			product_ids = self.pool.get('product.product').search(cr, uid, [('product_tmpl_id','=',line.product_id.id)], context=context)
+			if product_ids:
+				result[product_ids[0]] = True
+		return result.keys()
 		
-		:param browse_record product: product to sell
-		:rtype: product.customerinfo browse_record or False
+	_columns = {
+		'seller_info_id': fields.function(_calc_seller, type='many2one', relation="product.supplierinfo", string="Supplier Info", multi="seller_info"),
+		'seller_delay': fields.function(_calc_seller, type='integer', string='Supplier Lead Time', multi="seller_info", help="This is the average delay in days between the purchase order confirmation and the reception of goods for this product and for the default supplier. It is used by the scheduler to order requests based on reordering delays."),
+		'seller_qty': fields.function(_calc_seller, type='float', string='Supplier Quantity', multi="seller_info", help="This is minimum quantity to purchase from Main Supplier."),
+		'seller_id': fields.function(_calc_seller, type='many2one', relation="res.partner", string='Main Supplier', help="Main Supplier who has highest priority in Supplier List.", multi="seller_info"),
+		#johnw, 05/03/2015, add supplier product code and name
+		'seller_product_code': fields.function(_calc_seller, type='char', size=64, string='Supplier Product Code', multi="seller_info"),
+		'seller_product_name': fields.function(_calc_seller, type='char', size=128, string='Supplier Product Name', multi="seller_info", 
+				store={
+                'product.supplierinfo': (_get_seller, None, 10),
+            }),
+	}  
+		
+	def get_supplier_product(self, cr, uid, supplier_id, product_id, context=None):
+		"""
+		Get supplier product name, used by PDF
 		"""
 		supplier_product_name=""
 		if isinstance(product_id,(int,long)):

@@ -20,6 +20,7 @@ msgstr ""
 #: model:ir.actions.act_window,name:dmp_account_rpt_stock.rpt_inventory_qty_action
 #: model:ir.actions.report.xml,name:dmp_account_rpt_stock.report_rpt_inventory_qty
 #: model:ir.ui.menu,name:dmp_account_rpt_stock.rpt_inventory_qty_menu
+#: model:ir.ui.menu,name:dmp_account_rpt_stock.stock_rpt_inventory_qty_menu
 msgid "Inventory Quantity Report"
 msgstr "物料出入库"
 
