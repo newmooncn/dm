@@ -89,8 +89,12 @@ class product_product(osv.osv):
             for i in range(len(attributes_notebook)):
                 attributes_notebook[i].set('modifiers', json.dumps({"invisible":[("all_attribute_group_ids","not contains",attribute_group_ids[i])]}))
 
-            attr_page = eview.xpath("//page[@class='custom_attributes']" )[0]
-            attr_page.append(attributes_notebook)
+            #johnw, improve the code to avoid the deploying issue
+            #attr_page = eview.xpath("//page[@class='custom_attributes']" )[0]
+            #attr_page.append(attributes_notebook)
+            attr_pages = eview.xpath("//page[@class='custom_attributes']" )
+            if attr_pages:
+                attr_pages[0].append(attributes_notebook)
 
             result['arch'] = etree.tostring(eview, pretty_print=True)
             result = self._fix_size_bug(cr, uid, result, context=context)
