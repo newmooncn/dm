@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+		<record id="product_normal_form_view_parent_product" model="ir.ui.view">
+            <field name="name">product_normal_form_view_parent_product</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+              <page string="Sales" position="after">
+              	<page string="Manufacture">
+              		<separator string="Parent Products"/>
+              		<field name="parent_product_ids">
+              			<tree string="Parent Products">
+              				<field name="default_code"/>
+              				<field name="name"/>
+              				<field name="customer_product_name"/>
+              			</tree>
+              		</field>
+              	</page>
+              </page>
+            </field>
+        </record>  
+    </data>
+</openerp>
