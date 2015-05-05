@@ -32,7 +32,7 @@ class stock_partial_picking(osv.osv_memory):
     _inherit = "stock.partial.picking"
 
     _columns = {
-            'deliver_ticket_no': fields.char('Deliver Ticket#', size=16),
+            'deliver_ticket_no': fields.char('Deliver Ticket#', size=64, required=True),
      }
     def do_partial(self, cr, uid, ids, context=None):
         if context == None:
