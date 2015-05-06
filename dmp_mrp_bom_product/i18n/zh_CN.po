@@ -35,7 +35,7 @@ msgstr "物料清单"
 #. module: dmp_mrp_bom_product
 #: view:product.product:0
 msgid "Customer Product Name"
-msgstr "客户成品名"
+msgstr "客户品名"
 
 #. module: dmp_mrp_bom_product
 #: model:ir.model.fields,field_description:dmp_mrp_bom_product.field_mrp_bom_bom_product_id
