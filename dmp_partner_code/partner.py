@@ -152,3 +152,25 @@ class res_partner(osv.Model):
         return super(res_partner,self).name_search(cr, uid, name, args, operator=operator, context=context, limit=limit)
         
 res_partner()
+
+class res_partner_name(osv.Model):
+    _inherit = 'res.partner'
+    _order = 'display_name'
+
+    def _display_name_compute(self, cr, uid, ids, name, args, context=None):
+        context = dict(context or {})
+        context.pop('show_address', None)
+        return dict(self.name_get(cr, uid, ids, context=context))
+
+    _display_name_store_triggers = {
+        'res.partner': (lambda self,cr,uid,ids,context=None: self.search(cr, uid, [('id','child_of',ids)], context=dict(active_test=False)),
+                        ['parent_id', 'is_company', 'name', 'code'], 10)
+    }
+
+    # indirection to avoid passing a copy of the overridable method when declaring the function field
+    _display_name = lambda self, *args, **kwargs: self._display_name_compute(*args, **kwargs)
+
+    _columns = {
+        # extra field to allow ORDER BY to match visible names
+        'display_name': fields.function(_display_name, type='char', string='Name', store=_display_name_store_triggers, select=1),
+    }

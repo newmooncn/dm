@@ -14,9 +14,10 @@
     'description': """
 Partner Code
 =====================
+depends: account_report_company, for the display_name
     """,
 
-    'depends': ['base'],
+    'depends': ['base','account_report_company'],
     'data':[
      'partner_view.xml',
      'partner_data.xml',
