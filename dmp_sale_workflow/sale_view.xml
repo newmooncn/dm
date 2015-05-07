@@ -1,0 +1,195 @@
+<openerp>
+    <data>
+		<record id="view_so_form_sale_wf" model="ir.ui.view">
+			<field name="name">view_so_form_sale_wf</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">				
+				<xpath expr="//button[@name='action_button_confirm'][1]" position="attributes">
+					<attribute name="invisible">1</attribute>
+				</xpath>
+                <xpath expr="//button[@name='action_button_confirm'][2]" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+				<xpath expr="//button[@name='action_button_confirm'][1]" position="before">
+	                <button name="sale_confirm" states="draft" string="Sales Confirm" groups="base.group_sale_salesman"/>
+	                <button name="engineer_confirm" states="sale_confirmed" string="Engineering Confirm" groups="dmp_sale_workflow.group_engineer_manager"/>
+	                <!-- <button name="action_plan_confirm" states="engineer_confirmed" string="Plan Confirm" type="object" groups="dmp_sale_workflow.group_mrp_plan_manager"/> -->
+	                <button name="plan_confirm" states="engineer_confirmed" string="Plan Confirm" groups="dmp_sale_workflow.group_mrp_plan_manager"/>
+	                <button name="purchase_confirm" states="plan_confirmed" string="Purchase Confirm" groups="purchase.group_purchase_manager"/>
+	                <!-- <button name="top_confirm" states="purchase_confirmed" string="Top Confirm" groups="dmp_sale_workflow.group_top_manager"/> -->
+	                <button name="top_confirm" states="purchase_confirmed" string="Final Check" groups="dmp_sale_workflow.group_top_manager"/>
+	                <button name="top2plan" states="purchase_confirmed" string="Plan Recheck" groups="dmp_sale_workflow.group_top_manager"/>
+	                <button name="top2purchase" states="purchase_confirmed" string="Purchase Recheck" groups="dmp_sale_workflow.group_top_manager"/>
+                    <button name="customer_confirm" states="top_confirmed" string="Customer Confirm" groups="base.group_sale_manager"/>
+				</xpath>
+				<field name="state" position="attributes">
+				    <attribute name="statusbar_visible">draft,sale_confirmed,engineer_confirmed,plan_confirmed,purchase_confirmed,top_confirmed,progress,done</attribute>
+				</field>
+				<page string="Other Information" position="after">
+				    <page string="Review Information">
+				        <group>
+					        <group name="sale_confirm" string="Sales Confirmation">
+					           <field name="is_sale" invisible="1"/>
+                               <field name="date_expect" 
+                                attrs="{'readonly':['|',('is_sale','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>
+                               <field name="date_promise" 
+                                attrs="{'readonly':['|',('is_sale','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>
+                               <field name="date_effected" 
+                                attrs="{'readonly':['|',('is_sale','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>
+                               <field name="sale_req_user_id"/>
+                               <field name="sale_req_date"/>			
+                               <field name="sale_req_note" 
+                                attrs="{'readonly':['|',('is_sale','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>            
+					        </group>
+                            <group name="eng_confirm" string="Engineering Confirmation">
+                               <field name="is_eng_mgr" invisible="1"/>
+                               <field name="bom_confirmed" 
+                                attrs="{'readonly':['|',('is_eng_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>
+                               <field name="pcb_model" 
+                                attrs="{'readonly':['|',('is_eng_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>
+                               <field name="need_trial_mfg" 
+                                attrs="{'readonly':['|',('is_eng_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>
+                               <field name="have_spec" 
+                                attrs="{'readonly':['|',('is_eng_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>
+                               <field name="user_ref_sample" 
+                                attrs="{'readonly':['|',('is_eng_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>
+                               <field name="eng_user_id"/>
+                               <field name="eng_date"/>
+                               <field name="eng_note" 
+                                attrs="{'readonly':['|',('is_eng_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>                     
+                            </group>
+				        </group>
+                        <group>
+                            <group name="plan_confirm" string="Plan Confirmation">
+                               <field name="is_plan_mgr" invisible="1"/>
+                               <field name="mfg_order_no"
+                                attrs="{'readonly':['|',('is_plan_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>
+                               <field name="date_mfg_exp_start"
+                                attrs="{'readonly':['|',('is_plan_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>
+                               <field name="date_mfg_exp_finish"
+                                attrs="{'readonly':['|',('is_plan_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>
+                               <field name="plan_user_id"/>
+                               <field name="plan_date"/> 
+                               <field name="plan_note"
+                                attrs="{'readonly':['|',('is_plan_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>                          
+                            </group>   
+                            <group name="purchase_confirm" string="Purchase Confirmation">
+                               <field name="is_pur_mgr" invisible="1"/>
+                               <field name="date_pur_order"
+                                attrs="{'readonly':['|',('is_pur_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>
+                               <field name="date_pur_receive"
+                                attrs="{'readonly':['|',('is_pur_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>
+                               <field name="pur_user_id"/>
+                               <field name="pur_date"/>
+                               <field name="pur_note"
+                                attrs="{'readonly':['|',('is_pur_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>                        
+                            </group>
+                        </group>
+                        <group>
+                            <group name="top_confirm" string="Top Confirmation">
+                               <field name="is_top_mgr" invisible="1"/>
+                               <field name="top_advice"
+                                attrs="{'readonly':['|',('is_top_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>
+                               <field name="date_top_receive"
+                                attrs="{'readonly':['|',('is_top_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>
+                               <field name="date_top_finish"
+                                attrs="{'readonly':['|',('is_top_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>
+                               <field name="date_top_deliver"
+                                attrs="{'readonly':['|',('is_top_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>
+                               <field name="top_user_id"/>
+                               <field name="top_date"/>
+                               <field name="top_note"
+                                attrs="{'readonly':['|',('is_top_mgr','!=',True),('state','not in',('sale_confirmed','engineer_confirmed','plan_confirmed','purchase_confirmed','top_confirmed'))]}"/>                               
+                            </group>
+                            <group>      
+                            </group>
+                        </group>		        
+				    </page>
+				</page>
+				<!-- hide fields for group approver -->
+				<field name="partner_id" position="attributes">
+				    <attribute name="groups">base.group_sale_salesman</attribute>
+				</field>
+                <xpath expr="//tree/field[@name='tax_id']" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='price_unit']" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </xpath>
+                <xpath expr="//tree/field[@name='price_subtotal']" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </xpath>
+                
+                <xpath expr="//field/form//field[@name='tax_id']" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </xpath>
+                <xpath expr="//field/form//field[@name='price_unit']" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </xpath>
+                
+                <xpath expr="//group[@name='sale_total']" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </xpath>                
+                <xpath expr="//page[@string='Other Information']" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </xpath>              
+                <xpath expr="//div[@class='oe_chatter']" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </xpath>
+                
+                <button name="invoice_recreate" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </button>
+                <button name="invoice_corrected" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </button>
+                <xpath expr="//button[@name='action_quotation_send'][2]" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </xpath>
+                <xpath expr="//button[@name='print_quotation'][2]" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </xpath>
+                <button name="action_view_invoice" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </button>
+                <xpath expr="//button[@string='Create Invoice']" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </xpath>
+                <button name="copy_quotation" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </button>
+                <button name="cancel" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </button>
+                <button name="action_cancel" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </button>
+                <button name="invoice_cancel" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </button> 
+		    </field>
+		</record>  
+        <record id="sale_stock.view_order_form_inherit" model="ir.ui.view">
+            <field name="groups_id" eval="[(6,0,[ref('base.group_sale_salesman')])]"/>
+        </record>
+<!--         <record id="delivery.view_order_withcarrier_form" model="ir.ui.view">
+            <field name="groups_id" eval="[(6,0,[ref('base.group_sale_salesman')])]"/>
+        </record> -->
+        
+        <record id="view_so_tree_sale_wf" model="ir.ui.view">
+            <field name="name">view_so_tree_sale_wf</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_tree" />
+            <field name="arch" type="xml">   
+                <field name="partner_id" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </field>  
+                <field name="amount_total" position="attributes">
+                    <attribute name="groups">base.group_sale_salesman</attribute>
+                </field>
+            </field>       
+        </record>  
+             
+    </data>
+</openerp>

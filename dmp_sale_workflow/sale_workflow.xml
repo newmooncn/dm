@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>       
+        <!-- Activity --> 
+        <record id="act_sale_confirm" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">sale_confirm</field>
+            <field name="kind">function</field>
+            <field name="action">to_state('sale_confirmed')</field>
+        </record> 
+        <record id="act_engineer_confirm" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">engineer_confirm</field>
+            <field name="kind">function</field>
+            <field name="action">to_state('engineer_confirmed')</field>
+        </record>      
+        <record id="act_plan_confirm" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">plan_confirm</field>
+            <field name="kind">function</field>
+            <field name="action">to_state('plan_confirmed')</field>
+        </record>   
+        <record id="act_purchase_confirm" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">purchase_confirm</field>
+            <field name="kind">function</field>
+            <field name="action">to_state('purchase_confirmed')</field>
+        </record>   
+        <record id="act_top_confirm" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">purchase_confirm</field>
+            <field name="kind">function</field>
+            <field name="action">to_state('top_confirmed')</field>
+        </record>   
+        <record id="act_customer_confirm" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">customer_confirm</field>
+            <field name="kind">function</field>
+            <field name="action">action_wait()</field>
+        </record> 
+        
+        <!-- Transition -->
+        <record id="trans_draft_sale_confirm" model="workflow.transition">
+            <field name="act_from" ref="sale.act_draft"/>
+            <field name="act_to" ref="act_sale_confirm"/>
+            <field name="signal">sale_confirm</field>
+        </record>
+        <record id="trans_sale_confirm_router" model="workflow.transition">
+            <field name="act_from" ref="act_sale_confirm"/>
+            <field name="act_to" ref="sale.act_router"/>
+            <field name="signal">engineer_confirm</field>
+        </record>
+        <record id="trans_router_eng" model="workflow.transition">
+            <field name="act_from" ref="sale.act_router"/>
+            <field name="act_to" ref="act_engineer_confirm"/>
+        </record>
+        <record id="trans_eng_plan" model="workflow.transition">
+            <field name="act_from" ref="act_engineer_confirm"/>
+            <field name="act_to" ref="act_plan_confirm"/>
+            <field name="signal">plan_confirm</field>
+        </record>
+        <record id="trans_plan_purchase" model="workflow.transition">
+            <field name="act_from" ref="act_plan_confirm"/>
+            <field name="act_to" ref="act_purchase_confirm"/>
+            <field name="signal">purchase_confirm</field>
+        </record>
+        <record id="trans_purchase_top" model="workflow.transition">
+            <field name="act_from" ref="act_purchase_confirm"/>
+            <field name="act_to" ref="act_top_confirm"/>
+            <field name="signal">top_confirm</field>
+        </record>
+        <record id="trans_top2plan" model="workflow.transition">
+            <field name="act_from" ref="act_purchase_confirm"/>
+            <field name="act_to" ref="act_engineer_confirm"/>
+            <field name="signal">top2plan</field>
+        </record>
+        <record id="trans_top2purchase" model="workflow.transition">
+            <field name="act_from" ref="act_purchase_confirm"/>
+            <field name="act_to" ref="act_plan_confirm"/>
+            <field name="signal">top2purchase</field>
+        </record>
+        
+        <record id="trans_top_customer_confirm" model="workflow.transition">
+            <field name="act_from" ref="act_top_confirm"/>
+            <field name="act_to" ref="act_customer_confirm"/>
+            <field name="signal">customer_confirm</field>
+        </record>
+        <record id="trans_customer_confirm_done" model="workflow.transition">
+            <field name="act_from" ref="act_customer_confirm"/>
+            <field name="act_to" ref="sale.act_done"/>
+        </record>
+    </data>
+</openerp>
