@@ -19,16 +19,6 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from dateutil.relativedelta import relativedelta
-import time
-import datetime
-from openerp import netsvc
-from openerp.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT, DATETIME_FORMATS_MAP
-from openerp.osv import fields,osv
-from openerp.tools.translate import _
-import openerp.addons.decimal_precision as dp
-from openerp.addons.purchase import purchase
-from openerp import pooler
 
 #redefine the purchase PDF report to new rml
 from openerp.addons.purchase.report.order import order
@@ -36,7 +26,7 @@ from openerp.report import report_sxw
 
 class dmp_pur_order(order):
     def __init__(self, cr, uid, name, context):
-        super(order, self).__init__(cr, uid, name, context=context)
+        super(dmp_pur_order, self).__init__(cr, uid, name, context=context)
         self.localcontext.update({'get_taxes_name':self._get_tax_name})
         self.localcontext.update({'get_boolean_name':self._get_boolean_name})
     #get the taxes name             
