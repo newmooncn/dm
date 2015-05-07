@@ -5,7 +5,7 @@
         <record id="OI_po_wait_approval" model="email.template">
             <field name="name">OI_po_wait_approval</field>
             <field name="model_id" ref="purchase.model_purchase_order"/>
-            <field name="report_template" ref="dmp_pur_print.report_purchase_order_dmp"/>
+            <field name="report_template" ref="purchase.report_purchase_order"/>
             <field name="report_name"><![CDATA[${(object.name or '').replace('/','_')}]]></field>
             <field name="email_recipients"><![CDATA[$list_names$ need your approval]]></field>
             <field name="subject"><![CDATA[${object.name}]]></field>
@@ -152,7 +152,7 @@ Contact: <a href="mailto:johnw@dmems.com">John Wang</a>
         <record id="OI_po_changing_wait_approval" model="email.template">
             <field name="name">OI_po_changing_wait_approval</field>
             <field name="model_id" ref="purchase.model_purchase_order"/>
-            <field name="report_template" ref="dmp_pur_print.report_purchase_order_dmp"/>
+            <field name="report_template" ref="purchase.report_purchase_order"/>
             <field name="report_name"><![CDATA[${(object.name or '').replace('/','_')}]]></field>
             <field name="email_recipients"><![CDATA[$list_names$ quantity or price were changed after approval, need your review and approve]]></field>
             <field name="subject"><![CDATA[${object.name}]]></field>

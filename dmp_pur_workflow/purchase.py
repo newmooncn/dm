@@ -62,6 +62,7 @@ class purchase_order(osv.osv):
         'state': fields.selection(STATE_SELECTION, 'Status', readonly=True, help="The status of the purchase order or the quotation request. A quotation is a purchase order in a 'Draft' status. Then the order has to be confirmed by the user, the status switch to 'Confirmed'. Then the supplier must confirm the order to change the status to 'Approved'. When the purchase order is paid and received, the status becomes 'Done'. If a cancel action occurs in the invoice or in the reception of goods, the status becomes in exception.", select=True),
         'reject_msg': fields.text('Rejection Message', track_visibility='onchange'),
         'inform_type': fields.char('Informer Type', size=10, readonly=True, select=True),
+        'approver': fields.many2one('res.users','Approver', readonly=True),
     }
 
     def _get_lines(self,cr,uid,ids,states=None,context=None):
@@ -99,7 +100,8 @@ class purchase_order(osv.osv):
                 if line.state=='confirmed':
                     lines.append(line.id)
         self.pool.get('purchase.order.line').write(cr, uid, lines, {'state':'approved'},context)
-        self.write(cr, uid, ids, {'state': 'approved', 'date_approve': fields.date.context_today(self,cr,uid,context=context), 'inform_type':'3'})
+        self.write(cr, uid, ids, {'state': 'approved', 'approver': uid,\
+                                  'date_approve': fields.date.context_today(self,cr,uid,context=context), 'inform_type':'3'})
         return True
     
     def wkf_done(self, cr, uid, ids, context=None):
