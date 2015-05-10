@@ -71,6 +71,7 @@ class stock_picking(osv.osv):
                 if new_pick_id:
                     #update mo's picking_ids
                     mo_obj.write(cr, uid, mo_ids[0], {'picking_ids':[(4,new_pick_id)]}, context=context)
+                    self.write(cr, uid, new_pick_id, {'production_id':mo_ids[0]})
                 #go to 'ready' state
                 wf_service.trg_validate(uid, 'mrp.production', mo_ids[0], 'material_ready', cr)
                     
