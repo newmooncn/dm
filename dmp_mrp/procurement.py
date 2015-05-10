@@ -71,10 +71,11 @@ class procurement_order(osv.osv):
             })
             
             res[procurement.id] = produce_id
-            self.write(cr, uid, [procurement.id], {'state': 'running', 'production_id': produce_id})   
-            bom_result = production_obj.action_compute(cr, uid,
-                    [produce_id], properties=[x.id for x in procurement.property_ids])
-            wf_service.trg_validate(uid, 'mrp.production', produce_id, 'button_confirm', cr)
+            self.write(cr, uid, [procurement.id], {'state': 'running', 'production_id': produce_id})  
+            #johnw, 05/10/2015, disable the auto confirm MO 
+#            bom_result = production_obj.action_compute(cr, uid,
+#                    [produce_id], properties=[x.id for x in procurement.property_ids])
+#            wf_service.trg_validate(uid, 'mrp.production', produce_id, 'button_confirm', cr)
             
             #johnw, add the location_id
             if res_id:
