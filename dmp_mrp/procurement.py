@@ -58,7 +58,8 @@ class procurement_order(osv.osv):
                 'product_uom': procurement.product_uom.id,
                 'product_uos_qty': procurement.product_uos and procurement.product_uos_qty or False,
                 'product_uos': procurement.product_uos and procurement.product_uos.id or False,
-                'location_src_id': procurement.location_id.id,
+                #use system default material source location, johnw, 05/10/2014
+#                'location_src_id': procurement.location_id.id,
                 'location_dest_id': procurement.location_id.id,
                 #johnw, improve the bom_id logic
                 #'bom_id': procurement.bom_id and procurement.bom_id.id or False,

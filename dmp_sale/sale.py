@@ -62,6 +62,8 @@ class sale_order(osv.osv):
         return super(sale_order, self).create(cr, uid, data, context)
         
     def write(self, cr, uid, ids, vals, context=None):      
+        if not isinstance(ids,list):
+            ids = [ids]
         set_seq_o2m(cr, uid, vals.get('order_line'), 'sale_order_line', 'order_id', ids[0], context=context)  
         return super(sale_order, self).write(cr, uid, ids, vals, context=context)
 

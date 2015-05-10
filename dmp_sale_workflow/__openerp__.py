@@ -30,7 +30,7 @@ Sales Workflow
 =====================
     * 
     """,
-    'depends': ["dm_base","sale"],
+    'depends': ["dm_base","sale","mrp"],
     'data': [
         'security/security.xml',
         'security/ir.model.access.csv',

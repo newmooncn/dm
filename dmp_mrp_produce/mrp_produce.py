@@ -3,7 +3,16 @@ from openerp.osv import fields,osv
 from openerp.tools.translate import _
 from openerp import netsvc
 from openerp.tools import float_compare
-    
+
+class stock_picking_in(osv.osv):
+    _inherit = "stock.picking.in" 
+    _columns = {
+        'production_id': fields.many2one('mrp.production', 'Manufacture Order', ondelete='set null', select=True),
+    }
+    _defaults = {
+        'production_id': False
+    }
+        
 class mrp_production(osv.osv):
     _inherit = 'mrp.production'
     '''
@@ -80,7 +89,8 @@ class mrp_production(osv.osv):
             'partner_id': partner_id,
             'auto_picking': self._get_auto_picking(cr, uid, production),
             'company_id': production.company_id.id,
-            'warehouse_id': warehouse_ids and warehouse_ids[0]
+            'warehouse_id': warehouse_ids and warehouse_ids[0],
+            'production_id': production.id
         })
         return picking_id
     

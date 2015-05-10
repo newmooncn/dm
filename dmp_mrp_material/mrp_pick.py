@@ -9,9 +9,31 @@ class product(osv.osv):
     _defaults = {
         'auto_pick': False
     }
-
+class stock_picking_out(osv.osv):
+    _inherit = "stock.picking.out" 
+    _columns = {
+        'production_id': fields.many2one('mrp.production', 'Manufacture Order', ondelete='set null', select=True),
+    }
+    _defaults = {
+        'production_id': False
+    }
+    
 class stock_picking(osv.osv):
     _inherit = "stock.picking" 
+    _columns = {
+        'production_id': fields.many2one('mrp.production', 'Manufacture Order', ondelete='set null', select=True),
+        'product_id': fields.related('order_line','product_id', type='many2one', relation='product.product', string='Product'),
+    }
+    _defaults = {
+        'production_id': False
+    }
+    
+    def copy(self, cr, uid, id, default=None, context=None):
+        if not default:
+            default = {}
+        if not default.get('production_id'):
+            default['production_id'] = None
+        return super(stock_picking, self).copy(cr, uid, id, default, context)
                    
     def do_partial(self, cr, uid, ids, partial_datas, context=None):
         res = super(stock_picking,self).do_partial(cr, uid, ids, partial_datas, context)
@@ -80,7 +102,7 @@ class mrp_production(osv.osv):
     def _make_production_internal_shipment(self, cr, uid, production, context=None):
         picking_id = super(mrp_production, self)._make_production_internal_shipment(cr, uid, production, context=context)
         #change move_type from 'one' to 'direct', state: auto-->draft
-        self.pool.get('stock.picking').write(cr, uid, picking_id, {'move_type':'direct', 'state': 'draft'}, context=context)
+        self.pool.get('stock.picking').write(cr, uid, picking_id, {'move_type':'direct', 'state': 'draft', 'production_id':production.id}, context=context)
         #update mo's picking_ids
         self.write(cr, uid, production.id, {'picking_ids':[(4,picking_id)]}, context=context)
         return picking_id
