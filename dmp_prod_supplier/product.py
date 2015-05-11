@@ -27,13 +27,15 @@ class product_product(osv.osv):
 		result = {}
 		for product in self.browse(cr, uid, ids, context=context):
 			main_supplier = self._get_main_product_supplier(cr, uid, product, context=context)
+			seller_product_code = main_supplier and '[%s]'%(main_supplier.product_code) or ''
+			seller_product_name = main_supplier and main_supplier.product_name or ''
+			seller_product_name = '%s%s'%(seller_product_code, seller_product_name)
 			result[product.id] = {
 				'seller_info_id': main_supplier and main_supplier.id or False,
 				'seller_delay': main_supplier.delay if main_supplier else 1,
 				'seller_qty': main_supplier and main_supplier.qty or 0.0,
 				'seller_id': main_supplier and main_supplier.name.id or False,
-				'seller_product_code': main_supplier and main_supplier.product_code or '',
-				'seller_product_name': main_supplier and main_supplier.product_name or ''
+				'seller_product_name': seller_product_name
 			}
 		return result
 	
@@ -52,7 +54,6 @@ class product_product(osv.osv):
 		'seller_qty': fields.function(_calc_seller, type='float', string='Supplier Quantity', multi="seller_info", help="This is minimum quantity to purchase from Main Supplier."),
 		'seller_id': fields.function(_calc_seller, type='many2one', relation="res.partner", string='Main Supplier', help="Main Supplier who has highest priority in Supplier List.", multi="seller_info"),
 		#johnw, 05/03/2015, add supplier product code and name
-		'seller_product_code': fields.function(_calc_seller, type='char', size=64, string='Supplier Product Code', multi="seller_info"),
 		'seller_product_name': fields.function(_calc_seller, type='char', size=128, string='Supplier Product Name', multi="seller_info", 
 				store={
                 'product.supplierinfo': (_get_seller, None, 10),
@@ -71,5 +72,15 @@ class product_product(osv.osv):
 				supplier_product_name += (supplier_info.product_code and '[%s]'%(supplier_info.product_code,) or '')
 				supplier_product_name += supplier_info.product_name
 		return supplier_product_name
+	
+	def create(self, cr, uid, vals, context=None):
+		if vals.get('seller_ids'):
+			#[(0,0,{dict values}),(0,0,{dict values}),(0,0,{dict values})]
+			sup_info = vals['seller_ids'][0][2]
+			seller_product_code = sup_info['product_code'] and '[%s]'%(sup_info['product_code']) or ''
+			seller_product_name = sup_info['product_name'] and sup_info['product_name'] or ''
+			seller_product_name = '%s%s'%(seller_product_code, seller_product_name)
+			vals['seller_product_name'] = seller_product_name
+		return super(product_product,self).create(cr, uid, vals, context=context)
 				
 product_product()

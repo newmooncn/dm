@@ -46,12 +46,14 @@ class product_product(osv.osv):
 		result = {}
 		for product in self.browse(cr, uid, ids, context=context):
 			main_customer = self._get_main_product_customer(cr, uid, product, context=context)
+			main_customer_code = main_customer and '[%s]'%(main_customer.product_code) or ''
+			main_customer_name = main_customer and main_customer.product_name or ''
+			main_customer_name = '%s%s'%(main_customer_code, main_customer_name)
 			result[product.id] = {
 				'customer_info_id': main_customer and main_customer.id or False,
 				'customer_delay': main_customer.delay if main_customer else 1,
 				'customer_id': main_customer and main_customer.name.id or False,
-				'customer_product_code': main_customer and main_customer.product_code or '',
-				'customer_product_name': main_customer and main_customer.product_name or ''
+				'customer_product_name': main_customer_name
 			}
 		return result
 	
@@ -68,7 +70,6 @@ class product_product(osv.osv):
 		'customer_info_id': fields.function(_calc_customer, type='many2one', relation="product.customerinfo", string="Customer Info", multi="customer_info"),
 		'customer_delay': fields.function(_calc_customer, type='integer', string='Customer Lead Time', multi="customer_info"),
 		'customer_id': fields.function(_calc_customer, type='many2one', relation="res.partner", multi="customer_info", string='Main Customer', help="Main customer who has highest priority in Customer List."),
-		'customer_product_code': fields.function(_calc_customer, type='char', size=64, string='Customer Product Code', multi="customer_info"),
 		'customer_product_name': fields.function(_calc_customer, type='char', size=128, string='Customer Product Name', multi="customer_info", 
 				store={
                 'product.customerinfo': (_get_customer, None, 10),
@@ -92,6 +93,16 @@ class product_product(osv.osv):
 				customer_product_name += (customer_info.product_code and '[%s]'%(customer_info.product_code,) or '')
 				customer_product_name += customer_info.product_name
 		return customer_product_name
+	
+	def create(self, cr, uid, vals, context=None):
+		if vals.get('customer_ids'):
+			#[(0,0,{dict values}),(0,0,{dict values}),(0,0,{dict values})]
+			cust_info = vals['customer_ids'][0][2]
+			cust_product_code = cust_info['product_code'] and '[%s]'%(cust_info['product_code']) or ''
+			cust_product_name = cust_info['product_name'] and cust_info['product_name'] or ''
+			cust_product_name = '%s%s'%(cust_product_code, cust_product_name)
+			vals['customer_product_name'] = cust_product_name
+		return super(product_product,self).create(cr, uid, vals, context=context)
 				
 product_product()
 
