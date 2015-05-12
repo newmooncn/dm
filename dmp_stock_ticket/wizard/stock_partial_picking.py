@@ -33,12 +33,15 @@ class stock_partial_picking(osv.osv_memory):
 
     _columns = {
             'deliver_ticket_no': fields.char('Deliver Ticket#', size=64, required=True),
+            'deliver_method': fields.selection([('home_delivery','Home delivery service'),('customer_pick','Customer Picking'),('courier','Courier')],\
+                                               'Deliver Method', required=False), 
      }
     def do_partial(self, cr, uid, ids, context=None):
         if context == None:
             context = {}
         data = self.browse(cr, uid, ids[0], context=context)
         context.update({'deliver_ticket_no':data.deliver_ticket_no})
+        context.update({'deliver_method':data.deliver_method})
         return super(stock_partial_picking,self).do_partial(cr, uid, ids, context=context)
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
