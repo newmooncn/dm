@@ -130,7 +130,14 @@ class mrp_production(osv.osv):
             states={'draft':[('readonly',False)]},
             help="Location where the system will stock the finished products."),     
     }
-
+    
+    _defaults={'name': '/',}
+        
+    def create(self, cr, uid, vals, context=None):
+        if vals.get('name','/')=='/':
+            vals['name'] = self.pool.get('ir.sequence').get(cr, uid, 'mrp.production') or '/'
+        return super(mrp_production,self).create(cr, uid, vals, context=context)
+    
     def copy(self, cr, uid, id, default=None, context=None):
         if default is None:
             default = {}
