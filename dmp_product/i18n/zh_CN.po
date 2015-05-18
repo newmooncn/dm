@@ -33,12 +33,6 @@ msgid "You can use an attribute on a Product once !"
 msgstr "一个属性只能在一个产品上使用一次!"
 
 #. module: dmp_product
-#: model:ir.model.fields,field_description:dmp_product.field_product_product_safe_qty
-#: field:product.product,safe_qty:0
-msgid "Minimal Inventory"
-msgstr "最小库存"
-
-#. module: dmp_product
 #: selection:product.batch.query,state:0
 msgid "choose"
 msgstr "选择"
@@ -136,12 +130,6 @@ msgstr "查询完毕"
 #: field:product.batch.query,file_template:0
 msgid "Template File"
 msgstr "模板文件"
-
-#. module: dmp_product
-#: model:ir.model.fields,field_description:dmp_product.field_product_product_property_prod_loc
-#: field:product.product,property_prod_loc:0
-msgid "Location"
-msgstr "库位"
 
 #. module: dmp_product
 #: view:product.product:0
@@ -326,12 +314,6 @@ msgid "Result File"
 msgstr "结果文件"
 
 #. module: dmp_product
-#: model:ir.model.fields,field_description:dmp_product.field_product_product_max_qty
-#: field:product.product,max_qty:0
-msgid "Maximal Inventory"
-msgstr "最大库存"
-
-#. module: dmp_product
 #: model:ir.model.fields,field_description:dmp_product.field_product_product_create_uid
 #: field:product.product,create_uid:0
 msgid "Creator"
@@ -384,12 +366,6 @@ msgstr "产品属性"
 #: field:product.attribute.line,product_id:0 view:product.product:0
 msgid "Product"
 msgstr "产品"
-
-#. module: dmp_product
-#: model:ir.model.fields,field_description:dmp_product.field_product_product_safe_warn
-#: field:product.product,safe_warn:0
-msgid "Safe Warn"
-msgstr "安全报警"
 
 #. module: dmp_product
 #: model:ir.model,name:dmp_product.model_product_sequence

@@ -19,14 +19,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
-from dateutil.relativedelta import relativedelta
-import time
-import datetime
-from openerp import netsvc
 from openerp.osv import fields,osv
-from openerp.tools.translate import _
 import openerp.addons.decimal_precision as dp
-from openerp.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
 from openerp.addons.procurement.procurement import stock_warehouse_orderpoint as stock_warehouse_orderpoint_sup
 
 def stock_warehouse_orderpoint_default_get(self, cr, uid, fields, context=None):
@@ -48,6 +42,35 @@ stock_warehouse_orderpoint_sup.default_get = stock_warehouse_orderpoint_default_
 
 class stock_warehouse_orderpoint(osv.osv):
     _inherit = "stock.warehouse.orderpoint"
+    
+    def _product_available(self, cr, uid, ids, field_names=None, arg=False, context=None):
+        """ Finds the incoming and outgoing quantity of product.
+        @return: Dictionary of values
+        """
+        if not field_names:
+            field_names = []
+        if context is None:
+            context = {}
+        res = {}
+        for id in ids:
+            res[id] = {}.fromkeys(field_names, 0.0)
+        prod_obj = self.pool.get('product.product')
+        for f in field_names:
+            for op in self.browse(cr, uid, ids, context=context):
+                c = context.copy()
+                c['location'] = op.location_id.id
+                if f == 'virtual_available':
+                    c.update({ 'states': ('confirmed','waiting','assigned','done'), 'what': ('in', 'out') })
+                prod_id = op.product_id.id
+                stock = prod_obj.get_product_available(cr, uid, [prod_id], context=c)
+                res[op.id][f] = stock.get(prod_id, 0.0)
+        return res
+        
+    _columns = {
+        'virtual_available': fields.function(_product_available, multi='qty_available',
+            type='float',  digits_compute=dp.get_precision('Product Unit of Measure'),
+            string='Forecasted Quantity',)
+        }
     def create(self, cr, uid, vals, context=None):
         if not 'product_uom' in vals:
             prod = self.pool.get('product.product').browse(cr, uid, vals['product_id'], context=context)

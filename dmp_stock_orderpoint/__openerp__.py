@@ -13,10 +13,11 @@
     'website': 'www.dmems.com',
     'description': """
 Stock Order Point: safe/min/max quantity
+Add virtual quantity to order point view to show the inventory of that location
 =====================
     """,
     'depends': ["product", "stock", "procurement"],
-    'data':['product_view.xml'],
+    'data':['product_view.xml','stock_view.xml'],
     'auto_install': False,
     'installable': True,
 }
