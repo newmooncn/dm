@@ -58,16 +58,5 @@ msgstr "所属物料清单"
 
 #. module: dmp_mrp_bom_product
 #: view:product.product:0
-msgid "BOM"
-msgstr "物料清单"
-
-#. module: dmp_mrp_bom_product
-#: model:ir.model,name:dmp_mrp_bom_product.model_product_product
-#: view:product.product:0
-msgid "Product"
-msgstr "成品"
-
-#. module: dmp_mrp_bom_product
-#: view:product.product:0
 msgid "Manufacture"
 msgstr "生产"

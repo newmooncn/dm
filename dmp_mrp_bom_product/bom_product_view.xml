@@ -12,8 +12,8 @@
               		<separator string="Parent BOMs"/>
               		<field name="parent_product_ids">
               			<tree string="Parent Products">
-              				<field name="bom_id" string="BOM"/>
-              				<field name="bom_product_id" string="Product"/>
+              				<field name="bom_id"/>
+              				<field name="bom_product_id"/>
               				<field name="bom_customer_product_name" string="Customer Product Name"/>
               				<field name="product_qty" string="BOM Quantity"/>
               			</tree>
