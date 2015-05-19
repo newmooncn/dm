@@ -20,6 +20,10 @@
                 	<field name="return_qty"/>      	
             		<field name="move_dest_id" readonly="1"/>
                 </xpath>
+				<!-- show red color when now exceed plan date and do not full picking-->
+                <xpath expr="//field[@name='order_line']/tree" position="attributes">
+                    <attribute name="colors"><![CDATA[red:state not in ('cancel', 'done') and receive_qty-return_qty != product_qty and date_planned and current_date > date_planned)]]></attribute>
+                </xpath>                 
        		</field>
         </record>
     </data>
