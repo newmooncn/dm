@@ -1,0 +1,25 @@
+<openerp>
+    <data>
+		<record id="sales_orders_view_form_stock" model="ir.ui.view">
+			<field name="name">sales_orders_view_form_stock</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_form" />
+			<field name="arch" type="xml">
+	            <field name="shop_id" position="after">
+	                <field name="picked_rate"/>
+	            </field>      			
+			</field>
+		</record> 
+		
+		<record id="view_sales_order_tree_stock" model="ir.ui.view">
+			<field name="name">view_sales_order_tree_stock</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_tree" />
+			<field name="arch" type="xml">
+	            <field name="state" position="before">
+	                <field name="picked_rate" widget="progressbar"/>
+	            </field>      			
+			</field>
+		</record>  
+    </data>
+</openerp>
