@@ -47,3 +47,10 @@ msgstr "客户"
 #: view:sale.order:0
 msgid "[('customer','=',True),('is_company','=',True)]"
 msgstr "[('customer','=',True),('is_company','=',True)]"
+
+#. module: dmp_sale
+#: field:sale.order.line,date_planned:0
+msgid "Scheduled Date"
+msgstr "交付日期"
+
+

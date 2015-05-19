@@ -7,8 +7,35 @@
 			<field name="arch" type="xml">
 	            <field name="partner_id" position="attributes">
 	                <attribute name="domain">[('customer','=',True),('is_company','=',True)]</attribute>
+	            </field>   
+                <xpath expr="//page[@string='Order Lines']/field[@name='order_line']/form[@string='Sales Order Lines']/group/group/field[@name='type']" position="before">                   
+                    <field name="date_planned"/>
+                </xpath>	            
+                <xpath expr="//page[@string='Order Lines']/field[@name='order_line']/tree[@string='Sales Order Lines']/field[@name='sequence']" position="after">
+                    <field name="date_planned"/>
+                </xpath>	            
+                <xpath expr="//page[@string='Order Lines']/field[@name='order_line']/tree" position="attributes">
+                    <attribute name="colors"><![CDATA[red:state not in ('cancel', 'done', 'exception') and date_planned and current_date > date_planned)]]></attribute>
+                </xpath>               			
+			</field>
+		</record>  
+		
+		<record id="view_sales_order_tree_ext" model="ir.ui.view">
+			<field name="name">view_sales_order_tree_ext</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale.view_order_tree" />
+			<field name="arch" type="xml">
+	            <field name="name" position="after">
+	                <field name="client_order_ref"/>
 	            </field>      			
 			</field>
 		</record>  
+		
+		<!-- show all orders on 'Sales Order' menu -->
+        <record id="sale.action_orders" model="ir.actions.act_window">
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="domain"></field>
+        </record>		
     </data>
 </openerp>

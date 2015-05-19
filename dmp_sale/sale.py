@@ -27,6 +27,13 @@ import openerp.addons.decimal_precision as dp
 class sale_order(osv.osv):
     _inherit="sale.order"
     _order = 'id desc'
+#    _columns = {
+#        'minimum_planned_date':fields.function(_minimum_planned_date, fnct_inv=_set_minimum_planned_date, string='Expected Date', type='date', select=True, help="This is computed as the minimum scheduled date of all purchase order lines' products.",
+#            store = {
+#                'purchase.order.line': (_get_order, ['date_planned'], 10),
+#            }
+#        ),           
+#    }  
        
     def default_get(self, cr, uid, fields, context=None):
         vals = super(sale_order, self).default_get(cr, uid, fields, context=context)
@@ -70,8 +77,7 @@ class sale_order(osv.osv):
 class sale_order_line(osv.osv):
     _inherit = 'sale.order.line'
     _columns = {        
-        'price_unit': fields.float('Unit Price', required=True, digits_compute= dp.get_precision('Product Price Sale'), 
-                                    readonly=True, states={'draft': [('readonly', False)]}),        
+        'date_planned': fields.date('Scheduled Date', required=True, select=True),
     }        
     
     def name_get(self, cr, user, ids, context=None):
