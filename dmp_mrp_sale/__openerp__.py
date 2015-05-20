@@ -28,6 +28,7 @@
     'description': """
 Manufacture Sales Improvements
 1.Add 'Customer' and 'Customer Product Name' to MO.
+2.Add 'Customer requested date' to MO.
 =====================
     """,
     'depends': ["mrp","dmp_prod_customer"],

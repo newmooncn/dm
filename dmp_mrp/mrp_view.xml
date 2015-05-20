@@ -87,9 +87,16 @@
             <field name="model">mrp.production</field>
             <field name="inherit_id" ref="mrp.mrp_production_tree_view"/>
             <field name="arch" type="xml">
-                  <field name="product_id" position="before">
-                   		<field name="bom_id"/>
-                  </field>
+	            <field name="product_id" position="before">
+	             		<field name="bom_id"/>
+	            </field>
+	            <field name="date_planned" position="attributes">
+	            	<attribute name="widget">date</attribute>
+	            </field>
+	            <xpath expr="//tree" position="attributes">
+                	<attribute name="colors"><![CDATA[red:date_planned < current_date and state not in ('done','cancel');green:state = 'done';gray:state = 'cancel']]></attribute>
+	            	<attribute name="fonts"><![CDATA[bold:date_planned < current_date and state not in ('done','cancel')]]></attribute>
+	            </xpath>
 			</field>
         </record>      
 		<record id="mrp_production_filter_ext" model="ir.ui.view">
@@ -120,6 +127,9 @@
                     	<field name="hour_total"/>
                     	<field name="cycle_total"/>
                     </field>
+		            <field name="date_planned" position="attributes">
+		            	<attribute name="widget">date</attribute>
+		            </field>
                     <!-- adjust the location field position -->
 	                <xpath expr="//group[@groups='stock.group_locations']" position="replace">
 	                </xpath>

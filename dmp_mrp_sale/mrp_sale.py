@@ -7,7 +7,7 @@ class mrp_production(osv.osv):
         'customer_id': fields.many2one('res.partner', 'Customer', domain=[('customer','=',True),('is_company','=',True)],\
                                        readonly=True, states={'draft': [('readonly', False)]}),
         'customer_product_name': fields.char('Customer Product Name', size=128, readonly=True, states={'draft': [('readonly', False)]}), 
-        'date_customer': fields.datetime('Customer Requested Date', select=1, readonly=True, states={'draft':[('readonly',False)]}),      
+        'date_customer': fields.date('Customer Requested Date', select=1, readonly=True, states={'draft':[('readonly',False)]}),      
     }
     def onchange_customer_id(self, cr, uid, ids, customer_id, product_id, context=None):
         cust_prod_name = None
