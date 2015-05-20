@@ -24,7 +24,7 @@
                 	<field name="is_sent_supplier"/>
                     <!-- <field name="invoiced_rate" readonly="1"/> -->
                 	<field name="invoiced"/>
-                	<field name="receipt_number"/>
+                	<field name="receipt_number" invisible="1"/>
                 	<field name="create_uid"/>
                 	<!-- <field name="paid_done"/> -->
                 </xpath>          

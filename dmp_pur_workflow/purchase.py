@@ -118,16 +118,19 @@ class purchase_order(osv.osv):
                     break
             if not has_tax_amt:
                 has_tax = False
-                    
-        if  (not has_tax and order.amount_tax <= 0) or (order.receipt_number and order.receipt_number != ''):
-            #only when get the receipt, then update status to 'done'
-            #update lines to 'done'  
-            lines = self._get_lines(cr,uid,ids,['approved'],context=context)
-            self.pool.get('purchase.order.line').write(cr, uid, lines, {'state':'done'},context)
-            self.write(cr, uid, ids, {'state': 'done'})
-        else:
-            #update status to 'waiting receipt'
-            self.write(cr, uid, ids, {'state': 'wait_receipt'})       
+        #johnw, remove 'receipt_number' login in workflow, 05/20/2015    
+#        if  (not has_tax and order.amount_tax <= 0) or (order.receipt_number and order.receipt_number != ''):
+#            #only when get the receipt, then update status to 'done'
+#            #update lines to 'done'  
+#            lines = self._get_lines(cr,uid,ids,['approved'],context=context)
+#            self.pool.get('purchase.order.line').write(cr, uid, lines, {'state':'done'},context)
+#            self.write(cr, uid, ids, {'state': 'done'})
+#        else:
+#            #update status to 'waiting receipt'
+#            self.write(cr, uid, ids, {'state': 'wait_receipt'}) 
+        lines = self._get_lines(cr,uid,ids,['approved'],context=context)
+        self.pool.get('purchase.order.line').write(cr, uid, lines, {'state':'done'},context)
+        self.write(cr, uid, ids, {'state': 'done'})                  
             
     def write(self, cr, user, ids, vals, context=None):
         if vals.get('receipt_number') and vals.get('receipt_number') != '':
