@@ -115,7 +115,9 @@
                 <field name="amount_freight" position="attributes">
                 	<attribute name="attrs">{'readonly':[('state','not in',('draft','sent','rejected'))]}</attribute>
                 </field>
-                                
+                <xpath expr="//field[@name='order_line']/tree//field[@name='product_id']" position="after">
+            		<button name="open_product" string="View Product" type="object" icon="gtk-justify-fill" class="oe_view_only"/>
+            	</xpath>
        		</field>
         </record>  
           
@@ -149,7 +151,10 @@
                 </field>
             	<field name="date_planned" position="after">  
             		<field name="move_dest_id" readonly="1"/>
-            	</field>
+            	</field>	
+            	<field name="product_id" position="after">  
+            		<button name="open_product" string="View Product" type="object" icon="gtk-justify-fill" class="oe_view_only"/>
+            	</field>	
             </field>
         </record>
           

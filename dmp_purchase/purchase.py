@@ -259,6 +259,30 @@ class purchase_order_line(osv.osv):
         new_args = deal_args(self,args)
         return super(purchase_order_line,self).search(cr, user, new_args, offset, limit, order, context, count)
     
+    def open_product(self, cr, uid, ids, context=None):
+        res_id = None
+        if isinstance(ids, list):
+            res_id = ids[0]
+        else:
+            res_id = ids
+        prod_id = self.browse(cr, uid, res_id, context=context).product_id
+        if not prod_id:
+            return False
+        prod_id = prod_id.id
+        #got to accountve move form
+
+        form_view = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'product', 'product_normal_form_view')
+        form_view_id = form_view and form_view[1] or False
+        return {
+            'name': _('Product'),
+            'view_type': 'form',
+            'view_mode': 'form',
+            'view_id': [form_view_id],
+            'res_model': 'product.product',
+            'type': 'ir.actions.act_window',
+            'res_id': prod_id,
+        }
+            
 from openerp.tools.misc import DEFAULT_SERVER_DATETIME_FORMAT
 def deal_args(obj,args):  
     new_args = []
