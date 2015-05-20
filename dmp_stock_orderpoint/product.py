@@ -20,7 +20,7 @@
 ##############################################################################
 
 from openerp.osv import fields, osv
-import openerp.addons.decimal_precision as dp
+from openerp.tools.translate import _
 	
 class product_product(osv.osv):
 	_inherit = "product.product"
@@ -39,13 +39,19 @@ class product_product(osv.osv):
 			wh_obj = self.pool.get('stock.warehouse')
 			op_obj = self.pool.get('stock.warehouse.orderpoint')
 			
-			min_qty_new = 'safe_qty' in vals and vals['safe_qty'] or -1
-			max_qty_new = 'max_qty' in vals and vals['max_qty'] or 0
+			min_qty_new = -1
+			if 'safe_qty' in vals:
+				min_qty_new = vals['safe_qty']
+			max_qty_new = 0
+			if 'max_qty' in vals:
+				max_qty_new = vals['max_qty']
 			location_id_new = 'property_prod_loc' in vals and vals['property_prod_loc'] or -1
 			upt_op_ids = []
 			for prod in self.browse(cr, uid, ids, context=context):
-				min_qty = min_qty_new <= 0 and prod.safe_qty or min_qty_new
-				max_qty = max_qty_new <= 0 and prod.max_qty or max_qty_new
+				min_qty = min_qty_new < 0 and prod.safe_qty or min_qty_new
+				max_qty = max_qty_new < 0 and prod.max_qty or max_qty_new
+				if min_qty < 0 or max_qty < 0:
+					raise osv.except_osv(_('Error'), _('[%s]%s minimal or maximal quantity can not be negative!')%(prod.default_code, prod.name))
 				location_id = location_id_new
 				if location_id <= 0:
 					location_id = prod.property_prod_loc
@@ -53,7 +59,7 @@ class product_product(osv.osv):
 						location_id = location_id.id
 				if not prod.orderpoint_ids:
 					#for new order point, must have min qty and loc, otherwise then miss it.
-					if min_qty <= 0 or location_id <= 0:
+					if min_qty < 0 or location_id <= 0:
 						continue
 					wh_ids = wh_obj.search(cr, uid, [('lot_stock_id','=',location_id)],context=context)
 					op_vals = {'product_id':prod.id,
@@ -69,9 +75,9 @@ class product_product(osv.osv):
 			#update the order point
 			if upt_op_ids:
 				upt_vals = {}
-				if min_qty > 0:
+				if min_qty >= 0:
 					upt_vals.update({'product_min_qty':min_qty})
-				if max_qty > 0:
+				if max_qty >= 0:
 					upt_vals.update({'product_max_qty':max_qty})
 				if location_id > 0:
 					upt_vals.update({'location_id':location_id})
