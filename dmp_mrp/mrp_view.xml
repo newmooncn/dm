@@ -94,7 +94,7 @@
 	            	<attribute name="widget">date</attribute>
 	            </field>
 	            <xpath expr="//tree" position="attributes">
-                	<attribute name="colors"><![CDATA[red:date_planned < current_date and state not in ('done','cancel');green:state = 'done';gray:state = 'cancel']]></attribute>
+                	<attribute name="colors"><![CDATA[red:date_planned < current_date and state not in ('done','cancel');green:state in ('done');gray:state in('cancel')]]></attribute>
 	            	<attribute name="fonts"><![CDATA[bold:date_planned < current_date and state not in ('done','cancel')]]></attribute>
 	            </xpath>
 			</field>
