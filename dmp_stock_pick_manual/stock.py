@@ -63,7 +63,7 @@ class stock_picking_in(osv.osv):
     
     def write(self, cr, uid, ids, vals, context=None):
         self._update_warehouse(cr, uid, vals, context=context)
-        return super(stock_picking_in, self).create(cr, uid, ids, vals, context=context)
+        return super(stock_picking_in, self).write(cr, uid, ids, vals, context=context)
     
 class stock_picking_out(osv.osv):
     _inherit = "stock.picking.out"         
