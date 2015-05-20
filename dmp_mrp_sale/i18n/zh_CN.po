@@ -33,3 +33,8 @@ msgstr "客户品名"
 #: model:ir.model.fields,field_description:dmp_mrp_sale.field_mrp_production_customer_id
 msgid "Customer"
 msgstr "客户"
+
+#. module: dmp_mrp_sale
+#: field:mrp.production,date_customer:0
+msgid "Customer Requested Date"
+msgstr "客户交期"
