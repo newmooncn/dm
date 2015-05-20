@@ -72,6 +72,13 @@ msgstr "只投料"
 msgid "Consume & Produce"
 msgstr "投料并生产"
 
+#. module: mrp
+#: view:mrp.production:0
+#: field:mrp.production,date_planned:0
+#: report:mrp.production.order:0
+msgid "Scheduled Date"
+msgstr "计划完成"
+
 #. module: product
 #: field:product.product,incoming_qty:0
 msgid "Incoming"
