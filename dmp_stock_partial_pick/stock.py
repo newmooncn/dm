@@ -62,6 +62,7 @@ class stock_move(osv.osv):
                 if move.type == 'in':
                     total_avail = move.product_qty
                 self.write(cr, uid, [move.id], {'quantity_out_available':total_avail, 'quantity_out_missing':move.product_qty-min(total_avail,move.product_qty)})
+                pickings[move.picking_id.id] = 1
                 if qty_missing <= 0:
                     #_product_available_test depends on the next status for correct functioning
                     #the test does not work correctly if the same product occurs multiple times
@@ -69,7 +70,7 @@ class stock_move(osv.osv):
                     #the stock outgoing form
                     self.write(cr, uid, [move.id], {'state':'assigned'})
                     done.append(move.id)
-                    pickings[move.picking_id.id] = 1
+                    #pickings[move.picking_id.id] = 1
                     r = res.pop(0)
                     product_uos_qty = self.pool.get('stock.move').onchange_quantity(cr, uid, [move.id], move.product_id.id, r[0], move.product_id.uom_id.id, move.product_id.uos_id.id)['value']['product_uos_qty']
                     cr.execute('update stock_move set location_id=%s, product_qty=%s, product_uos_qty=%s where id=%s', (r[1], r[0],product_uos_qty, move.id))
@@ -79,18 +80,15 @@ class stock_move(osv.osv):
                         product_uos_qty = self.pool.get('stock.move').onchange_quantity(cr, uid, [move.id], move.product_id.id, r[0], move.product_id.uom_id.id, move.product_id.uos_id.id)['value']['product_uos_qty']
                         move_id = self.copy(cr, uid, move.id, {'product_uos_qty': product_uos_qty, 'product_qty': r[0], 'location_id': r[1]})
                         done.append(move_id)
-                else:
-                    count += 1
-                    pickings[move.picking_id.id] = 1                    
                     
         if done:
             count += len(done)
             self.write(cr, uid, done, {'state': 'assigned'})
 
-        if count:
-            for pick_id in pickings:
-                wf_service = netsvc.LocalService("workflow")
-                wf_service.trg_write(uid, 'stock.picking', pick_id, cr)
+        #if count:
+        for pick_id in pickings:
+            wf_service = netsvc.LocalService("workflow")
+            wf_service.trg_write(uid, 'stock.picking', pick_id, cr)
         return count
           
 class stock_picking(osv.osv):
