@@ -78,9 +78,13 @@ class procurement_order(osv.osv):
 #                    [produce_id], properties=[x.id for x in procurement.property_ids])
 #            wf_service.trg_validate(uid, 'mrp.production', produce_id, 'button_confirm', cr)
             
+            '''
+            johnw, remove the code, 05/23/2015, the procurement.order.move_id.location_id is the product_product.property_stock_procurement
+            see procurement.order.action_confirm() for detail
+            '''
             #johnw, add the location_id
-            if res_id:
-                move_obj.write(cr, uid, [res_id],{'location_id': procurement.location_id.id})
+#            if res_id:
+#                move_obj.write(cr, uid, [res_id],{'location_id': procurement.location_id.id})
                 
         self.production_order_create_note(cr, uid, ids, context=context)
         return res
