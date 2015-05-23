@@ -20,3 +20,16 @@ msgstr ""
 #: field:sale.order,picked_rate:0
 msgid "Picked"
 msgstr "送货(%)"
+
+#. module: sale_stock
+#: field:sale.order.line,deliver_qty:0
+msgid "Delivered Quantity"
+msgstr "已送"
+
+#. module: sale_stock
+#: field:sale.order.line,return_qty:0
+msgid "Returned Quantity"
+msgstr "退货"
+
+
+

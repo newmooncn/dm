@@ -1,2 +1,2 @@
 # -*- encoding: utf-8 -*-
-import sale
+import sale_stock
