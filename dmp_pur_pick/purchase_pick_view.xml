@@ -17,14 +17,26 @@
                 </xpath>  
                 <xpath expr="//tree/field[@name='product_qty']" position="after">
                 	<field name="receive_qty"/>
-                	<field name="return_qty"/>      	
+                	<field name="return_qty"/>   
             		<field name="move_dest_id" readonly="1"/>
-                </xpath>
-				<!-- show red color when now exceed plan date and do not full picking-->
-                <xpath expr="//field[@name='order_line']/tree" position="attributes">
-                    <attribute name="colors"><![CDATA[red:state not in ('cancel', 'done') and receive_qty-return_qty != product_qty and date_planned and current_date > date_planned)]]></attribute>
-                </xpath>                 
+                </xpath>                  
        		</field>
         </record>
+        
+<!--         <record id="purchase_order_line_form_pick" model="ir.ui.view">
+            <field name="name">purchase_order_line_form_pick</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_line_form"/>
+            <field name="arch" type="xml"> 
+                <xpath expr="//field[@name='product_qty']" position="after">
+                	<field name="receive_qty"/>
+                	<field name="return_qty"/>    
+                </xpath>               
+       		</field>
+        </record>   --> 
+        
+        
+        
+        
     </data>
 </openerp>
