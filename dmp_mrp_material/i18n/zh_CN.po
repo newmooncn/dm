@@ -1,20 +1,21 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-# 	* dmp_mrp_material
+#	* dmp_mrp_material
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 7.0-20130413-232416\n"
+"Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-08-29 09:21+0000\n"
-"PO-Revision-Date: 2014-08-29 17:38+0800\n"
+"POT-Creation-Date: 2015-05-26 07:39+0000\n"
+"PO-Revision-Date: 2015-05-26 15:42+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-"X-Generator: Poedit 1.5.7\n"
+"Language: zh_CN\n"
+"X-Generator: Poedit 1.7.6\n"
 
 #. module: dmp_mrp_material
 #: model:ir.model.fields,field_description:dmp_mrp_material.field_mrp_production_product_line_parent_bom_id
@@ -36,6 +37,17 @@ msgid "Consume Move"
 msgstr "移库单"
 
 #. module: dmp_mrp_material
+#: model:ir.model.fields,field_description:dmp_mrp_material.field_stock_move_mrp_material_bom_id
+#: field:stock.move,mrp_material_bom_id:0
+msgid "Material BOM"
+msgstr "物料清单"
+
+#. module: dmp_mrp_material
+#: model:ir.model,name:dmp_mrp_material.model_mrp_pick_replace_product
+msgid "mrp.pick.replace.product"
+msgstr "mrp.pick.replace.product"
+
+#. module: dmp_mrp_material
 #: model:ir.model.fields,field_description:dmp_mrp_material.field_wo_material_request_mr_dept_id
 #: field:wo.material.request,mr_dept_id:0
 msgid "Department"
@@ -45,6 +57,17 @@ msgstr "部门"
 #: view:wo.material.request:0
 msgid "Cancel"
 msgstr "取消"
+
+#. module: dmp_mrp_material
+#: view:wo.material.request:0
+msgid "Done"
+msgstr "完成"
+
+#. module: dmp_mrp_material
+#: code:addons\dmp_mrp_material\wizard\wo_material_request.py:63
+#, python-format
+msgid "Work Order Material Request"
+msgstr "工单的领料单"
 
 #. module: dmp_mrp_material
 #: view:mrp.production.workcenter.line:0
@@ -57,16 +80,32 @@ msgid "Manufacturing Order"
 msgstr "生产单"
 
 #. module: dmp_mrp_material
+#: field:product.product,qty_out_assigned:0
+msgid "Outgoing Assigned"
+msgstr "出库占用"
+
+#. module: dmp_mrp_material
+#: model:ir.model.fields,field_description:dmp_mrp_material.field_stock_picking_production_id
+#: model:ir.model.fields,field_description:dmp_mrp_material.field_stock_picking_production_id_6069
+msgid "Manufacture Order"
+msgstr "生产单"
+
+#. module: dmp_mrp_material
+#: view:mrp.pick.replace.product:0
+msgid "Replace"
+msgstr "替换"
+
+#. module: dmp_mrp_material
 #: model:ir.model.fields,field_description:dmp_mrp_material.field_wo_material_request_mr_lines
 #: field:wo.material.request,mr_lines:0
 msgid "Request Products"
 msgstr "领料产品"
 
 #. module: dmp_mrp_material
-#: code:addons\dmp_mrp_material\wizard\wo_material_request.py:53
+#: code:addons\dmp_mrp_material\wizard\mrp_pick_replace_product.py:67
 #, python-format
 msgid "Error!"
-msgstr "错误"
+msgstr "错误!"
 
 #. module: dmp_mrp_material
 #: model:ir.model,name:dmp_mrp_material.model_stock_move
@@ -74,6 +113,18 @@ msgid "Stock Move"
 msgstr "库存调拨"
 
 #. module: dmp_mrp_material
+#: model:ir.model.fields,field_description:dmp_mrp_material.field_mrp_pick_replace_product_line_replace_id
+#: field:mrp.pick.replace.product.line,replace_id:0
+msgid "Picking Replace"
+msgstr "出库物料替换"
+
+#. module: dmp_mrp_material
+#: view:mrp.pick.replace.product:0
+msgid "Cancel"
+msgstr "取消"
+
+#. module: dmp_mrp_material
+#: view:mrp.pick.replace.product:0
 #: view:wo.material.request:0
 msgid "or"
 msgstr "or"
@@ -85,10 +136,21 @@ msgid "Material Picking"
 msgstr "领料单"
 
 #. module: dmp_mrp_material
+#: code:addons\dmp_mrp_material\mrp_pick.py:271
+#, python-format
+msgid "You must first cancel related internal picking attached to this manufacturing order."
+msgstr "你必须取消此生产订单相关的领料单."
+
+#. module: dmp_mrp_material
 #: model:ir.model.fields,field_description:dmp_mrp_material.field_wo_material_request_mr_emp_id
 #: field:wo.material.request,mr_emp_id:0
 msgid "Employee"
 msgstr "员工"
+
+#. module: dmp_mrp_material
+#: field:mrp.pick.replace.product,picking_id:0
+msgid "Picking"
+msgstr "出入库"
 
 #. module: dmp_mrp_material
 #: model:ir.model,name:dmp_mrp_material.model_stock_picking
@@ -111,6 +173,12 @@ msgid "Product"
 msgstr "产品"
 
 #. module: dmp_mrp_material
+#: model:ir.model.fields,field_description:dmp_mrp_material.field_mrp_pick_replace_product_line_prod_old_id
+#: field:mrp.pick.replace.product.line,prod_old_id:0
+msgid "Current Product"
+msgstr "当前物料"
+
+#. module: dmp_mrp_material
 #: model:ir.model.fields,field_description:dmp_mrp_material.field_mrp_production_product_line_bom_id
 #: field:mrp.production.product.line,bom_id:0
 msgid "BOM"
@@ -122,19 +190,38 @@ msgid "Material Pickings"
 msgstr "领料单"
 
 #. module: dmp_mrp_material
+#: model:ir.model.fields,field_description:dmp_mrp_material.field_mrp_pick_replace_product_line_location_id
+#: model:ir.model.fields,field_description:dmp_mrp_material.field_mrp_pick_replace_product_line_move_id
+#: field:mrp.pick.replace.product.line,move_id:0
+msgid "Stock Move"
+msgstr "库存移动"
+
+#. module: dmp_mrp_material
+#: code:addons\dmp_mrp_material\mrp_pick.py:270
+#, python-format
+msgid "Cannot cancel manufacturing order!"
+msgstr "不能取消生产订单!"
+
+#. module: dmp_mrp_material
+#: model:ir.model.fields,field_description:dmp_mrp_material.field_mrp_pick_replace_product_picking_id
+msgid "Picking"
+msgstr "领料单"
+
+#. module: dmp_mrp_material
 #: model:ir.model,name:dmp_mrp_material.model_mrp_production_product_line
 msgid "Production Scheduled Product"
 msgstr "生产需用物料"
 
 #. module: dmp_mrp_material
+#: model:ir.model.fields,field_description:dmp_mrp_material.field_mrp_pick_replace_product_line_product_qty
+#: field:mrp.pick.replace.product.line,product_qty:0
+msgid "Product Quantity"
+msgstr "数量"
+
+#. module: dmp_mrp_material
 #: model:ir.model,name:dmp_mrp_material.model_mrp_bom
 msgid "Bill of Material"
 msgstr "物料清单"
-
-#. module: dmp_mrp_material
-#: view:wo.material.request:0
-msgid "Done"
-msgstr "完成"
 
 #. module: dmp_mrp_material
 #: model:ir.model,name:dmp_mrp_material.model_mrp_production_workcenter_line
@@ -144,10 +231,32 @@ msgid "Work Order"
 msgstr "工票"
 
 #. module: dmp_mrp_material
+#: model:ir.model.fields,field_description:dmp_mrp_material.field_mrp_bom_replace_prod_ids
+#: field:mrp.bom,replace_prod_ids:0
+msgid "Replaceable Products"
+msgstr "可替换物料"
+
+#. module: dmp_mrp_material
+#: model:ir.model,name:dmp_mrp_material.model_stock_picking_out
+msgid "Delivery Orders"
+msgstr "送货单"
+
+#. module: dmp_mrp_material
+#: model:ir.model,name:dmp_mrp_material.model_mrp_pick_replace_product_line
+msgid "mrp.pick.replace.product.line"
+msgstr "mrp.pick.replace.product.line"
+
+#. module: dmp_mrp_material
+#: model:ir.model.fields,field_description:dmp_mrp_material.field_mrp_pick_replace_product_replace_line_ids
+#: field:mrp.pick.replace.product,replace_line_ids:0
+msgid "Product Replacement"
+msgstr "物料替换"
+
+#. module: dmp_mrp_material
 #: code:addons\dmp_mrp_material\wizard\wo_material_request.py:53
 #, python-format
-msgid "Please select the produts to make material request!"
-msgstr "请选择生成领料单的物料!"
+msgid "Error!"
+msgstr "错误"
 
 #. module: dmp_mrp_material
 #: model:ir.actions.act_window,name:dmp_mrp_material.action_wo_material_request
@@ -156,27 +265,71 @@ msgid "Make Material Request"
 msgstr "创建领料单"
 
 #. module: dmp_mrp_material
-#: code:addons\dmp_mrp_material\mrp_pick.py:165
+#: code:addons\dmp_mrp_material\mrp_pick.py:137
+#: view:mrp.pick.replace.product:0
 #, python-format
-msgid "You must first cancel related internal picking attached to this manufacturing order."
-msgstr "你必须取消此生产订单相关的领料单."
+msgid "Manufacture Picking Products Replacement"
+msgstr "生产领料物料替换"
 
 #. module: dmp_mrp_material
-#: code:addons\dmp_mrp_material\wizard\wo_material_request.py:63
+#: code:addons\dmp_mrp_material\wizard\mrp_pick_replace_product.py:67
 #, python-format
-msgid "Work Order Material Request"
-msgstr "工单的领料单"
+msgid "[%s]%s available quantity is %s, less than the moving quantity %s."
+msgstr "[%s]%s 可用数量为 %s, 小于需用数量 %s."
+
+#. module: dmp_mrp_material
+#: field:stock.picking,production_id:0
+#: field:stock.picking.out,production_id:0
+msgid "Manufacture Order"
+msgstr "生产订单"
+
+#. module: dmp_mrp_material
+#: field:product.product,qty_out_available:0
+msgid "Outgoing Available"
+msgstr "出库可用"
+
+#. module: dmp_mrp_material
+#: model:ir.model.fields,field_description:dmp_mrp_material.field_product_product_qty_out_available
+msgid "Outgoing Available"
+msgstr "出库可用"
+
+#. module: dmp_mrp_material
+#: model:ir.model.fields,field_description:dmp_mrp_material.field_mrp_pick_replace_product_line_prod_new_available
+#: field:mrp.pick.replace.product.line,prod_new_available:0
+msgid "Replaced Product Available Quantity"
+msgstr "替换物料可用数量"
+
+#. module: dmp_mrp_material
+#: model:ir.model.fields,field_description:dmp_mrp_material.field_mrp_pick_replace_product_line_prod_new_id
+#: field:mrp.pick.replace.product.line,prod_new_id:0
+msgid "Replaced Product"
+msgstr "替换物料"
+
+#. module: dmp_mrp_material
+#: field:mrp.pick.replace.product.line,location_id:0
+msgid "Location"
+msgstr "库位"
+
+#. module: dmp_mrp_material
+#: code:addons\dmp_mrp_material\wizard\wo_material_request.py:53
+#, python-format
+msgid "Please select the produts to make material request!"
+msgstr "请选择生成领料单的物料!"
+
+#. module: dmp_mrp_material
+#: view:mrp.pick.replace.product:0
+msgid "Replacements"
+msgstr "替换"
+
+#. module: dmp_mrp_material
+#: model:ir.model.fields,field_description:dmp_mrp_material.field_product_product_qty_out_assigned
+msgid "Outgoing Assigned"
+msgstr "出库占用"
 
 #. module: dmp_mrp_material
 #: view:mrp.production.workcenter.line:0
 msgid "Material Request"
 msgstr "领料单"
-
-#. module: dmp_mrp_material
-#: code:addons\dmp_mrp_material\mrp_pick.py:164
-#, python-format
-msgid "Cannot cancel manufacturing order!"
-msgstr "不能取消生产订单!"
 
 ########################manual########################
 #. module: stock_no_autopicking

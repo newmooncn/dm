@@ -128,21 +128,39 @@ class stock_picking(osv.osv):
         self.write(cr, uid, ids, {'date_done': datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')})
         return resu
 
-    def action_confirm(self, cr, uid, ids, context=None):
-        """ Add the lines assignment checking
-        """
-        resu = super(stock_picking,self).action_confirm(cr, uid, ids, context=context)
-        if resu:
-            pickings = self.browse(cr, uid, ids, context=context)
-            todo = []
-            for picking in pickings:
-#                if picking.type in('mr','mrr'):
-                for r in picking.move_lines:
-                    if r.state == 'confirmed':
-                        todo.append(r.id)
-            if len(todo):
-                self.pool.get('stock.move').check_assign(cr, uid, todo, context=context)
-        return resu
+#    def action_confirm(self, cr, uid, ids, context=None):
+#        """ Add the lines assignment checking
+#        """
+#        resu = super(stock_picking,self).action_confirm(cr, uid, ids, context=context)
+#        if resu:
+#            return self.action_assign(cr, uid, ids, context)
+##            pickings = self.browse(cr, uid, ids, context=context)
+##            todo = []
+##            for picking in pickings:
+###                if picking.type in('mr','mrr'):
+##                for r in picking.move_lines:
+##                    if r.state == 'confirmed':
+##                        todo.append(r.id)
+##            if len(todo):
+##                self.pool.get('stock.move').check_assign(cr, uid, todo, context=context)
+#        return resu
+   
+from openerp.addons.stock.stock import stock_picking as picking_super    
+def draft_force_assign_dmp(self, cr, uid, ids, *args):
+    """ Confirms picking directly from draft state.
+    @return: True
+    """
+    wf_service = netsvc.LocalService("workflow")
+    for pick in self.browse(cr, uid, ids):
+        if not pick.move_lines:
+            raise osv.except_osv(_('Error!'),_('You cannot process picking without stock moves.'))
+        wf_service.trg_validate(uid, 'stock.picking', pick.id,
+            'button_confirm', cr)
+    #Do picking auto assign when do confirm, johnw, 05/26/2015
+    return self.action_assign(cr, uid, ids, args)
+    #return True
+    
+picking_super.draft_force_assign = draft_force_assign_dmp  
     
 class stock_picking_out(osv.osv):
     _inherit = "stock.picking.out"  

@@ -76,7 +76,89 @@ class stock_picking(osv.osv):
                 wf_service.trg_validate(uid, 'mrp.production', mo_ids[0], 'material_ready', cr)
                     
         return res
-        
+    
+    #MRP picking move products replacement
+    def action_assign(self, cr, uid, ids, *args):
+        assign_resu = super(stock_picking, self).action_assign(cr, uid, ids, args)
+        if isinstance(ids, list) and len(ids) > 1:
+            #only check the replace products for single picking
+            return assign_resu
+        pick_id = None
+        if isinstance(ids, list):
+            pick_id = ids[0]
+        else:
+            pick_id = ids
+        #05/25/2015, check all of the stocking moves, pop the window to let user select the alter products for the not available products
+        #store the moves found replaced products, format: move_id, prod_old_id, prod_new_id, product_qty, prod_new_available
+        replace_moves = []   
+        #the products will be replace, format. product_id: product_qty
+        replace_products = {}
+        pick = self.browse(cr, uid, pick_id)
+        if pick.type =='out':
+            prod_obj = self.pool.get('product.product')
+            field_names=['qty_onhand','qty_out_assigned','qty_out_available']
+            for move in pick.move_lines:
+                if move.state == 'confirmed' \
+                and move.mrp_material_bom_id \
+                and move.mrp_material_bom_id.replace_prod_ids\
+                and move.move_dest_id\
+                and move.product_id.id == move.move_dest_id.product_id.id \
+                and move.product_qty == move.move_dest_id.product_qty:
+                    context={'location':move.location_id.id}
+                    #loop to get all the replaceable product out available
+                    for prod in move.mrp_material_bom_id.replace_prod_ids:
+                        prod_qty = prod_obj._product_available(cr, uid, [prod.id], field_names, arg=False, context=context)
+                        replace_qty = replace_products.get(prod.id,0)
+                        prod_qty = prod_qty[prod.id]['qty_out_available'] - replace_qty
+                        if prod_qty >= move.product_qty:
+                            #the replaceable product is available
+                            replace_moves.append({'move_id':move.id, 
+                                                  'prod_old_id':move.product_id.id,
+                                                  'prod_new_id':prod.id,
+                                                  'product_qty':move.product_qty,
+                                                  'prod_new_available':prod_qty})
+                            
+                            replace_qty += move.product_qty
+                            replace_products.update({'product_id':replace_qty})
+                            break
+            
+        if replace_moves:
+            #create data
+            vals = {'picking_id':pick.id}
+            replace_lines = []
+            for replace in replace_moves:
+                replace_lines.append((0,0,replace))
+            vals['replace_line_ids'] = replace_lines
+            replace_id = self.pool.get('mrp.pick.replace.product').create(cr, uid, vals)
+            #go to wizard
+            form_view = self.pool.get('ir.model.data').get_object_reference(cr, uid, 'dmp_mrp_material', 'view_mrp_pick_replace_product_form')
+            form_view_id = form_view and form_view[1] or False
+            return {
+                'name': _('Manufacture Picking Products Replacement'),
+                'view_type': 'form',
+                'view_mode': 'form',
+                'view_id': [form_view_id],
+                'res_model': 'mrp.pick.replace.product',
+                'type': 'ir.actions.act_window',
+                'target': 'new',
+                'res_id': replace_id,
+            }    
+                    
+        else:
+            return assign_resu
+
+class mrp_bom(osv.osv):
+    _inherit = "mrp.bom" 
+    _columns = {
+        'replace_prod_ids': fields.many2many('product.product', 'bom_replace_prod', 'bom_id', 'prod_id', 'Replaceable Products',readonly=False),
+    }
+    
+class stock_move(osv.osv):
+    _inherit = "stock.move" 
+    _columns = {
+        'mrp_material_bom_id': fields.many2one('mrp.bom', string='Material BOM', readonly=True),
+    }
+            
 class mrp_production(osv.osv):
     _inherit = 'mrp.production'
     '''
@@ -111,7 +193,8 @@ class mrp_production(osv.osv):
     def _make_production_internal_shipment_line(self, cr, uid, production_line, shipment_id, parent_move_id, destination_location_id=False, context=None):
         move_id = super(mrp_production,self)._make_production_internal_shipment_line(cr, uid, production_line, shipment_id, parent_move_id, destination_location_id, context)
         #state: waiting --> draft
-        self.pool.get('stock.move').write(cr, uid, [move_id], {'state':'draft'})
+        mrp_material_bom_id = production_line.bom_id and production_line.bom_id.id or None
+        self.pool.get('stock.move').write(cr, uid, [move_id], {'state':'draft', 'mrp_material_bom_id': mrp_material_bom_id})
         return move_id
     
     def _action_confirm_material_picking_confirm_before(self, cr, uid, mo, material_pick_id, context=None):

@@ -37,6 +37,7 @@ Once all products are finisehd and receiving then the MO will be finished.
     'depends': ["mrp","dmp_mrp_hook","dmp_stock_mt","stock_no_autopicking","dmp_mrp_bom_route","dmp_stock_partial_pick"],
     'data': [
         'wizard/wo_material_request_view.xml',
+        'wizard/mrp_pick_replace_product_view.xml',
         'mrp_view.xml',
         'mrp_pick_view.xml',
         'mrp_workflow.xml'

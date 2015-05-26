@@ -30,6 +30,21 @@
 	            </data>
         	</field>
        	</record>
-        
+
+<!-- Add BOM replace products -->        
+		<record id="mrp_bom_form_view_replace_products" model="ir.ui.view">
+            <field name="name">mrp_bom_form_view_replace_products</field>
+            <field name="model">mrp.bom</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+	            <data>   
+	                <!-- the direct BOM flag -->
+	                <field name="product_id" position="after">
+	                	<field name="replace_prod_ids" widget='many2many_tags'/>
+	                </field>
+	            </data>
+        	</field>
+       	</record>        
 	</data>	  
 </openerp>

@@ -19,5 +19,6 @@
 #
 ##############################################################################
 import wo_material_request
+import mrp_pick_replace_product
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
 
