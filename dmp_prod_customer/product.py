@@ -46,7 +46,7 @@ class product_product(osv.osv):
 		result = {}
 		for product in self.browse(cr, uid, ids, context=context):
 			main_customer = self._get_main_product_customer(cr, uid, product, context=context)
-			main_customer_code = main_customer and '[%s]'%(main_customer.product_code) or ''
+			main_customer_code = main_customer and (main_customer.product_code and '[%s]'%(main_customer.product_code) or '') or ''
 			main_customer_name = main_customer and main_customer.product_name or ''
 			main_customer_name = '%s%s'%(main_customer_code, main_customer_name)
 			result[product.id] = {
