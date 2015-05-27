@@ -161,12 +161,9 @@
             	<field name="date_expected" position="attributes">
             		<attribute name="widget">date</attribute>
             	</field>
-            	<field name="partner_id" position="attributes">
+            	<!-- <field name="partner_id" position="attributes">
 					<attribute name="string">Supplier</attribute>
-				</field>
-            	<field name="partner_id" position="after">
-					<attribute name="string">Supplier</attribute>
-				</field>
+				</field> -->
             	<group string="Locations" position="after">
                      <group name="note">
                          <field name="packaging"/>
