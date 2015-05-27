@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<!-- supplier_prod_name add to stock -->
+        <record id="view_move_picking_tree_customer_prod_name" model="ir.ui.view">
+            <field name="name">view_move_picking_tree_customer_prod_name</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_tree"/>   
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="customer_prod_name" invisible="context.get('picking_type') != 'out'"/>
+                </field>
+            </field>        
+        </record>
+        <record id="view_move_picking_form_customer_prod_name" model="ir.ui.view">
+            <field name="name">view_move_picking_form_customer_prod_name</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_picking_form"/>   
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="customer_prod_name" invisible="context.get('picking_type') != 'out'"/>
+                </field>
+            </field>
+        </record>
+        <!--  for the incoming and deliver products -->
+        <record id="view_move_tree_reception_picking_customer_prod_name" model="ir.ui.view">
+            <field name="name">view_move_tree_reception_picking_customer_prod_name</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_tree_reception_picking"/> 
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="customer_prod_name"/>
+                </field>
+            </field>
+        </record>   
+        <record id="view_move_form_customer_prod_name" model="ir.ui.view">
+            <field name="name">view_move_form_customer_prod_name</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_form"/>   
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="customer_prod_name"/>
+                </field>
+            </field>
+        </record> 
+        <record id="view_move_search_customer_prod_name" model="ir.ui.view">
+            <field name="name">view_move_search_customer_prod_name</field>
+            <field name="model">stock.move</field>
+            <field name="inherit_id" ref="stock.view_move_search"/> 
+            <field name="arch" type="xml">
+                <field name="product_id" position="after">
+                    <field name="customer_prod_name"/>
+                </field>
+            </field>
+        </record>                                                           
+    </data>
+</openerp>
