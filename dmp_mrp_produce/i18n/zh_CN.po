@@ -64,3 +64,8 @@ msgstr "产出数量不能大于可用数量 %s!"
 #: model:ir.model,name:dmp_mrp_produce.model_stock_move
 msgid "Stock Move"
 msgstr "库存调拨"
+
+#. module: dmp_mrp_produce
+#: view:stock.picking.in:0
+msgid "Manufacture"
+msgstr "生产"

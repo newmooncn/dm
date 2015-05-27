@@ -1,25 +1,21 @@
 # Translation of OpenERP Server.
 # This file contains the translation of the following modules:
-#	* dmp_pur_pick
+# 	* dmp_pur_pick
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: OpenERP Server 7.0-20130413-232416\n"
+"Project-Id-Version: OpenERP Server 7.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-26 06:12+0000\n"
-"PO-Revision-Date: 2014-11-26 06:12+0000\n"
+"POT-Creation-Date: 2015-05-26 09:27+0000\n"
+"PO-Revision-Date: 2015-05-26 17:28+0800\n"
 "Last-Translator: <>\n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
-"Content-Transfer-Encoding: \n"
+"Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: \n"
-
-#. module: dmp_pur_pick
-#: model:ir.model.fields,field_description:dmp_pur_pick.field_purchase_order_line_receive_qty
-#: field:purchase.order.line,receive_qty:0
-msgid "Received Quantity"
-msgstr "已收"
+"Language: zh_CN\n"
+"X-Generator: Poedit 1.7.6\n"
 
 #. module: dmp_pur_pick
 #: model:ir.model.fields,field_description:dmp_pur_pick.field_purchase_order_line_return_qty
@@ -29,7 +25,46 @@ msgstr "退货"
 
 #. module: dmp_pur_pick
 #: view:purchase.order:0
+msgid "Incoming Shipments"
+msgstr "入库"
+
+#. module: dmp_pur_pick
+#: view:stock.picking.in:0
+msgid "Back Orders"
+msgstr "延期交货"
+
+#. module: dmp_pur_pick
+#: view:purchase.order:0
+msgid "red:state not in ('cancel', 'done') and receive_qty-return_qty != product_qty and date_planned and current_date > date_planned"
+msgstr "red:state not in ('cancel', 'done') and receive_qty-return_qty != product_qty and date_planned and current_date > date_planned"
+
+#. module: dmp_pur_pick
+#: model:ir.model,name:dmp_pur_pick.model_purchase_order_line
+msgid "Purchase Order Line"
+msgstr "采购订单明细"
+
+#. module: dmp_pur_pick
+#: model:ir.model,name:dmp_pur_pick.model_purchase_order
+msgid "Purchase Order"
+msgstr "采购订单"
+
+#. module: dmp_pur_pick
+#: view:purchase.order:0
 msgid "Receive Products"
 msgstr "收货"
 
+#. module: dmp_pur_pick
+#: model:ir.model.fields,field_description:dmp_pur_pick.field_purchase_order_line_receive_qty
+#: field:purchase.order.line,receive_qty:0
+msgid "Received Quantity"
+msgstr "已收"
 
+#. module: dmp_pur_pick
+#: view:stock.picking.in:0
+msgid "{'invisible':[('purchase_id','=',False)]}"
+msgstr "{'invisible':[('purchase_id','=',False)]}"
+
+#. module: dmp_pur_pick
+#: view:stock.picking.in:0
+msgid "Purchase"
+msgstr "采购"

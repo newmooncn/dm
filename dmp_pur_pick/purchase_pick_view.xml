@@ -39,6 +39,28 @@
                 </xpath>               
        		</field>
         </record>
-        
+<!-- only show purchase_id when there is value in it -->	        
+        <record id="view_stock_picking_in_purchase_id" model="ir.ui.view">
+            <field name="name">view_stock_picking_in_purchase_id</field>
+            <field name="model">stock.picking.in</field>
+            <field name="inherit_id" ref="purchase.stock_picking_in_inherit_purchase"/>
+            <field name="arch" type="xml">
+            	<field name="purchase_id" position="attributes">
+            		<attribute name="attrs">{'invisible':[('purchase_id','=',False)]}</attribute>
+            	</field>
+            </field>
+        </record>
+<!-- Add purchase stocking in filter -->
+        <record id="view_picking_in_search_purchase" model="ir.ui.view">
+            <field name="name">view_picking_in_search_purchase</field>
+            <field name="model">stock.picking.in</field>
+            <field name="inherit_id" ref="stock.view_picking_in_search"/>
+            <field name="arch" type="xml">
+                <filter string="Back Orders" position="after">
+                	<filter string="Purchase" domain="[('purchase_id', '!=', False)]"/>
+                </filter>
+            </field>
+        </record>
+                
     </data>
 </openerp>

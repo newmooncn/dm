@@ -331,6 +331,11 @@ msgstr "出库占用"
 msgid "Material Request"
 msgstr "领料单"
 
+#. module: dmp_mrp_material
+#: view:stock.picking.out:0
+msgid "Manufacture"
+msgstr "生产"
+
 ########################manual########################
 #. module: stock_no_autopicking
 #: field:product.product,auto_pick:0

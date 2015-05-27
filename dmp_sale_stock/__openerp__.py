@@ -27,6 +27,7 @@
     'website': 'www.dmems.com',
     'description': """
 Sale: add picking rate in sales view
+sale_id only be shown if there are data
 =====================
     * 
     """,

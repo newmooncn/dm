@@ -45,6 +45,34 @@
 	                </field>
 	            </data>
         	</field>
-       	</record>        
-	</data>	  
+       	</record>      
+
+<!-- only show production_id when there is value in it -->		
+		<record id="view_stock_picking_out_mrp" model="ir.ui.view">
+			<field name="name">view_stock_picking_out_mrp</field>
+			<field name="model">stock.picking.out</field>
+            <field name="inherit_id" ref="stock.view_picking_out_form"/>
+			<field name="arch" type="xml">
+	            <field name="date" position="before">
+	            	<field name="production_id" readonly="1" attrs="{'invisible':[('production_id','=',False)]}"/>
+	            </field>     			
+			</field>
+		</record>
+        		
+<!-- Add production_id and Manufacture stocking out filter -->
+        <record id="view_picking_out_search_mrp" model="ir.ui.view">
+            <field name="name">view_picking_out_search_mrp</field>
+            <field name="model">stock.picking.out</field>
+            <field name="inherit_id" ref="stock.view_picking_out_search"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field name="production_id"/>
+                </xpath>
+                <filter string="Back Orders" position="after">
+                	<filter string="Manufacture" domain="[('production_id', '!=', False)]"/>
+                </filter>
+            </field>
+        </record>  
+        
+	</data>	  	
 </openerp>
