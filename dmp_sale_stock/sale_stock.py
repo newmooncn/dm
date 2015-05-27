@@ -22,6 +22,38 @@
 from openerp.osv import fields, osv
 import openerp.addons.decimal_precision as dp
 
+class sale_order(osv.osv):
+    _inherit = 'sale.order'
+
+    def _picked_rate(self, cr, uid, ids, name, arg, context=None):
+        if not ids:
+            return {}
+        res = {}
+        tmp = {}
+        for order_id in ids:
+            tmp[order_id] = {'picked': 0.0, 'total': 0.0}
+        #picked quantity
+        cr.execute('''select b.sale_id, sum(case when b.type='out' then a.product_qty else -a.product_qty end) as picked_qty
+                    from stock_move a
+                    join stock_picking b on a.picking_id = b.id
+                    where b.sale_id IN %s
+                    and a.state = 'done'
+                    group by b.sale_id''', (tuple(ids),))
+        for item in cr.dictfetchall():
+            tmp[item['sale_id']]['picked'] = item['picked_qty']
+        #total quantity
+        cr.execute('''select order_id, sum(product_uom_qty) as product_qty
+                    from sale_order_line
+                    where order_id IN %s
+                    group by order_id''', (tuple(ids),))
+        for item in cr.dictfetchall():
+            tmp[item['order_id']]['total'] = item['product_qty']
+        
+        for order_id in ids:
+            res[order_id] = tmp[order_id]['total'] and (100.0 * tmp[order_id]['picked'] / tmp[order_id]['total']) or 0.0
+                
+        return res
+
 class sale_order_line(osv.osv):
     _inherit = 'sale.order.line'
     
@@ -43,10 +75,9 @@ class sale_order_line(osv.osv):
             result[line.id].update({'deliver_qty':rec_qty,
                                     'return_qty':return_qty,})
         return result
-    
+        
     _columns = { 
         'deliver_qty' : fields.function(_get_picking_info, type='float', digits_compute=dp.get_precision('Product UoS'), string='Delivered Quantity', multi="picking_info"),
         'return_qty' : fields.function(_get_picking_info, type='float', digits_compute=dp.get_precision('Product UoS'), string='Returned Quantity', multi="picking_info"),
-        
-    }
+        }
     _defaults={'deliver_qty':0, 'return_qty':0}

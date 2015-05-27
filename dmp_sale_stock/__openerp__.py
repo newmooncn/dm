@@ -26,8 +26,11 @@
     'author': 'DMEMS',
     'website': 'www.dmems.com',
     'description': """
-Sale: add picking rate in sales view
+Sale: 
+add picking rate in sales view
 sale_id only be shown if there are data
+Add deliver_qty, return_qty
+Show SO lines as red color when current date exceed date_plan
 =====================
     * 
     """,
