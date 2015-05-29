@@ -144,6 +144,7 @@ class stock_move(osv.osv):
 #                    self.write(cr, uid, move.id, {'quantity_out_available':move.product_qty}, context=context)
                 #cr.execute('update stock_move set quantity_out_available=product_qty where picking_id=%s' % (picking_done_id,))
 #                self.pool.get('stock.picking').draft_force_assign(cr, uid, [picking_done_id])
+                netsvc.LocalService("workflow").trg_validate(uid, 'stock.picking', picking_done_id,'button_confirm', cr)
                 self.pool.get('stock.picking').force_assign(cr, uid, [picking_done_id])
             
         return new_moves
