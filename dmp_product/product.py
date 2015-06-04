@@ -95,28 +95,25 @@ class product_product(osv.osv):
 		return True
 	
 	#Add cn_name search
+	def _name_search_domain(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100):
+		name_domain = [('default_code',operator,name),('name',operator,name),('ean13',operator,name),\
+					('cn_name',operator,name),('cn_name',operator,name)]
+		return name_domain
+		
 	def name_search(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100):
 		if not args:
 			args = []
 		if name:
-			ids = self.search(cr, user, [('default_code','=',name)]+ args, limit=limit, context=context)
-			if not ids:
-				ids = self.search(cr, user, [('ean13','=',name)]+ args, limit=limit, context=context)
-			if not ids:
-				ids = self.search(cr, user, [('cn_name','=',name)]+ args, limit=limit, context=context)
-			if not ids:
-				# Do not merge the 2 next lines into one single search, SQL search performance would be abysmal
-				# on a database with thousands of matching products, due to the huge merge+unique needed for the
-				# OR operator (and given the fact that the 'name' lookup results come from the ir.translation table
-				# Performing a quick memory merge of ids in Python will give much better performance
-				ids = set()
-				ids.update(self.search(cr, user, args + [('default_code',operator,name)], limit=limit, context=context))
-				if not limit or len(ids) < limit:
-					# we may underrun the limit because of dupes in the results, that's fine
-					ids.update(self.search(cr, user, args + [('name',operator,name)], limit=(limit and (limit-len(ids)) or False) , context=context))
-				if not limit or len(ids) < limit:
-					ids.update(self.search(cr, user, args + [('cn_name',operator,name)], limit=(limit and (limit-len(ids)) or False) , context=context))
-				ids = list(ids)
+			#get domain by name
+			name_domain = self._name_search_domain(cr, user, name, args, operator, context, limit)
+			#add '|' operator
+			field_cnt = len(name_domain) 
+			for i in range(1, field_cnt):
+				idx = field_cnt-i-1
+				name_domain.insert(idx, '|')
+			domain_search = name_domain + args
+			if name_domain:
+				ids = self.search(cr, user, domain_search, limit=limit, context=context)
 			if not ids:
 				ptrn = re.compile('(\[(.*?)\])')
 				res = ptrn.search(name)

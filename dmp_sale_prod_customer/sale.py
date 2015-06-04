@@ -37,6 +37,7 @@ class sale_order_line(osv.osv):
             uom, qty_uos, uos, name, partner_id,
             lang, update_tax, date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, context=context)
         #add customer product name
-        res['value']['customer_prod_name'] = self.pool.get('product.product').browse(cr, uid, product, context=context).customer_product_name
+        if product:
+            res['value']['customer_prod_name'] = self.pool.get('product.product').browse(cr, uid, product, context=context).customer_product_name
         
         return res

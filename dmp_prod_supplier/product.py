@@ -82,5 +82,11 @@ class product_product(osv.osv):
 			seller_product_name = '%s%s'%(seller_product_code, seller_product_name)
 			vals['seller_product_name'] = seller_product_name
 		return super(product_product,self).create(cr, uid, vals, context=context)
+
+	#Add customer_product_name search
+	def _name_search_domain(self, cr, user, name='', args=None, operator='ilike', context=None, limit=100):
+		name_domain = super(product_product,self)._name_search_domain(cr, user, name, args, operator, context, limit)
+		name_domain += [('seller_product_name',operator,name)]
+		return name_domain	
 				
 product_product()
