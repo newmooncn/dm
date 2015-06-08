@@ -190,6 +190,16 @@ class purchase_order_line(osv.osv):
     def write(self, cr, uid, ids, vals, context=None):
         if not ids:
             return True
+        #add the procut_uom set by product's purchase uom
+        if 'product_id' in vals and 'product_uom' not in vals:
+            prod = self.pool.get('product.product').browse(cr, uid, vals['product_id'], context=context)
+            product_uom = None
+            if prod.uom_po_id:
+                product_uom = prod.uom_po_id.id
+            else:
+                product_uom = prod.uom_id.id
+            vals.update({'product_uom':product_uom})  
+            
         id = ids[0]
         po_line = self.browse(cr,uid,id,context=context)
         resu = super(purchase_order_line,self).write(cr, uid, ids, vals, context=context)
@@ -239,7 +249,7 @@ class purchase_order_line(osv.osv):
             fpos = fiscal_position_id and account_fiscal_position.browse(cr, uid, fiscal_position_id, context=context) or False
             taxes_ids = account_fiscal_position.map_tax(cr, uid, fpos, taxes)
             res['value'].update({'taxes_id': taxes_ids})
-            
+                    
         return res
 
     def onchange_lead(self, cr, uid, ids, change_type, changes_value, date_order, context=None):
