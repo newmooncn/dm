@@ -27,13 +27,50 @@ import openerp.addons.decimal_precision as dp
 class sale_order(osv.osv):
     _inherit="sale.order"
     _order = 'id desc'
-#    _columns = {
-#        'minimum_planned_date':fields.function(_minimum_planned_date, fnct_inv=_set_minimum_planned_date, string='Expected Date', type='date', select=True, help="This is computed as the minimum scheduled date of all purchase order lines' products.",
-#            store = {
-#                'purchase.order.line': (_get_order, ['date_planned'], 10),
-#            }
-#        ),           
-#    }  
+
+    def _set_minimum_planned_date(self, cr, uid, ids, name, value, arg, context=None):
+        if not value: return False
+        if type(ids)!=type([]):
+            ids=[ids]
+        for so in self.browse(cr, uid, ids, context=context):
+            if so.order_line:
+                cr.execute("""update sale_order_line set
+                        date_planned=%s
+                    where
+                        order_id=%s and
+                        (date_planned=%s or date_planned<%s)""", (value,so.id,so.minimum_planned_date,value))
+            cr.execute("""update sale_order set
+                    minimum_planned_date=%s where id=%s""", (value, so.id))
+        return True
+
+    def _minimum_planned_date(self, cr, uid, ids, field_name, arg, context=None):
+        res={}
+        for sale in self.browse(cr, uid, ids, context=context):
+            res[sale.id] = False
+            if sale.order_line:
+                min_date=sale.order_line[0].date_planned
+                for line in sale.order_line:
+                    if line.date_planned < min_date:
+                        min_date=line.date_planned
+                res[sale.id]=min_date
+        return res
+
+    def _get_order(self, cr, uid, ids, context=None):
+        result = {}
+        for line in self.pool.get('sale.order.line').browse(cr, uid, ids, context=context):
+            result[line.order_id.id] = True
+        return result.keys()
+    
+    _columns = {
+        'minimum_planned_date':fields.function(_minimum_planned_date, fnct_inv=_set_minimum_planned_date, string='Scheduled Date', type='date', select=True, \
+                                               help="This is computed as the minimum scheduled date of all sale order lines' products.",
+            store = {
+                'sale.order.line': (_get_order, ['date_planned'], 10),
+            }
+        ),   
+        'create_uid':  fields.many2one('res.users', 'Creator', readonly=True),
+        'create_date': fields.datetime('Creation Date', readonly=True, select=True),                        
+    }  
        
     def default_get(self, cr, uid, fields, context=None):
         vals = super(sale_order, self).default_get(cr, uid, fields, context=context)

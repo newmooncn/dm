@@ -50,7 +50,25 @@ msgstr "[('customer','=',True),('is_company','=',True)]"
 
 #. module: dmp_sale
 #: field:sale.order.line,date_planned:0
+#: field:sale.order,minimum_planned_date:0
 msgid "Scheduled Date"
 msgstr "交付日期"
 
+#. module: dmp_sale
+#: model:ir.model.fields,field_description:dmp_sale.field_sale_order_create_date
+#: field:sale.order,create_date:0
+msgid "Creation Date"
+msgstr "创建日期"
 
+#. module: dmp_sale
+#: model:ir.model.fields,field_description:dmp_sale.field_sale_order_create_uid
+#: field:sale.order,create_uid:0
+msgid "Creator"
+msgstr "创建人"
+
+########################manual########################
+#. module: sale
+#: model:ir.model.fields,field_description:sale.field_sale_order_date_order
+#: field:sale.order,date_order:0
+msgid "Date"
+msgstr "订单日期"
