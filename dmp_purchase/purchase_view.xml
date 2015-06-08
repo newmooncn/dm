@@ -14,14 +14,12 @@
                 </xpath> -->   
                  <xpath expr="//field[@name='payment_term_id']" position="replace" >
                 </xpath> 
-                 <xpath expr="//field[@name='shipped']" position="replace" >
-                </xpath> 
                  <xpath expr="//field[@name='invoiced']" position="replace" >
                 </xpath>                                       
                  <xpath expr="//field[@name='pricelist_id']" position="after" >
                 	<field name="payment_term_id" widget="selection"/>
                 	<field name="taxes_id" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','!=','sale')]"/>
-                	<field name="is_sent_supplier"/>
+                	<!-- <field name="is_sent_supplier"/> -->
                     <!-- <field name="invoiced_rate" readonly="1"/> -->
                 	<field name="invoiced"/>
                 	<field name="receipt_number" invisible="1"/>
@@ -35,18 +33,11 @@
                 </xpath>       
                  <xpath expr="//tree/field[@name='price_subtotal']" position="after" >
                 	<field name="state"/>
-                </xpath>     
-                 <xpath expr="//field[@name='location_id']" position="replace" >
-                </xpath>    
-                 <xpath expr="//field[@name='warehouse_id']" position="after" >
-                	<field name="location_id" groups="stock.group_locations"/> 
-                    <!-- <field name="shipped_rate" readonly="1"/> -->
-                    <field name="shipped"/>
-                </xpath>     
+                </xpath>      
                  <xpath expr="//field[@name='minimum_planned_date']" position="replace" >
                 </xpath>     
                  <xpath expr="//field[@name='date_order']" position="after" >
-                 	<field name="minimum_planned_date" readonly="1"/>
+                 	<field name="minimum_planned_date"/>
                 </xpath>
                 <field name="order_line" position="attributes">
                 	<attribute name="context">{'po_taxes_id':taxes_id}</attribute>             	
@@ -164,10 +155,9 @@
             <field name="inherit_id" ref="purchase.purchase_order_tree"/>
             <field name="arch" type="xml">
                 <field name="state" position="before">
-                	<field name="is_sent_supplier"/>
+                	<!-- <field name="is_sent_supplier"/> -->
                 	<field name="invoiced"/>
                 	<field name="receipt_number"/>
-                	<field name="shipped"/>
                 	<field name="create_uid"/>
                 	<field name="create_date" widget="date"/>
                 </field>

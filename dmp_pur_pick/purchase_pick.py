@@ -30,7 +30,38 @@ import openerp.addons.decimal_precision as dp
 from openerp.addons.purchase import purchase
 class purchase_order(osv.osv):  
     _inherit = "purchase.order"
+    
+    #improve for field shipped_rate. johnw, 06/08/2015
+    def _shipped_rate(self, cr, uid, ids, name, arg, context=None):
+        if not ids:
+            return {}
+        res = {}
+        tmp = {}
+        for order_id in ids:
+            tmp[order_id] = {'picked': 0.0, 'total': 0.0}
+        #picked quantity
+        cr.execute('''select b.purchase_id, sum(case when b.type='in' then a.product_qty else -a.product_qty end) as picked_qty
+                    from stock_move a
+                    join stock_picking b on a.picking_id = b.id
+                    where b.purchase_id IN %s
+                    and a.state = 'done'
+                    group by b.purchase_id''', (tuple(ids),))
+        for item in cr.dictfetchall():
+            tmp[item['purchase_id']]['picked'] = item['picked_qty']
+        #total quantity
+        cr.execute('''select order_id, sum(product_uom_qty) as product_qty
+                    from purchase_order_line
+                    where order_id IN %s
+                    group by order_id''', (tuple(ids),))
+        for item in cr.dictfetchall():
+            tmp[item['order_id']]['total'] = item['product_qty']
         
+        for order_id in ids:
+            res[order_id] = tmp[order_id]['total'] and (100.0 * tmp[order_id]['picked'] / tmp[order_id]['total']) or 0.0
+                
+        return res
+    
+            
     def _create_pickings(self, cr, uid, order, order_lines, picking_id=False, context=None):
         if not picking_id:
             picking_id = self.pool.get('stock.picking').create(cr, uid, self._prepare_order_picking(cr, uid, order, context=context))

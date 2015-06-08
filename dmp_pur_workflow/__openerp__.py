@@ -30,7 +30,7 @@ Purchase Workflow
 =====================
     * 
     """,
-    'depends': ["purchase", "dmp_pur_print"],
+    'depends': ["purchase"],
     'data': [
         'wizard/confirm_msg.xml',
         'purchase_workflow.xml',

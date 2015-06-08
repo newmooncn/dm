@@ -68,3 +68,9 @@ msgstr "{'invisible':[('purchase_id','=',False)]}"
 #: view:stock.picking.in:0
 msgid "Purchase"
 msgstr "采购"
+
+########################manual########################
+#. module: purchase
+#: field:purchase.order,shipped_rate:0
+msgid "Received Ratio"
+msgstr "已接收(%)"

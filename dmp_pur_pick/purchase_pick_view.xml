@@ -24,8 +24,29 @@
                 <xpath expr="//field[@name='order_line']/tree" position="attributes">
                 	<attribute name="colors"><![CDATA[red:state not in ('cancel', 'done') and receive_qty-return_qty != product_qty and date_planned and current_date > date_planned]]></attribute>
                     <!-- <attribute name="colors"><![CDATA[red:state not in ('cancel', 'done') and receive_qty and return_qty and receive_qty-return_qty != product_qty and date_planned and current_date > date_planned]]></attribute> -->
-				</xpath>                    
+				</xpath>            
+                 <xpath expr="//field[@name='shipped']" position="replace" >
+                </xpath>    
+                 <xpath expr="//field[@name='location_id']" position="replace" >
+                </xpath>    
+                 <xpath expr="//field[@name='warehouse_id']" position="after" >
+                	<field name="location_id" groups="stock.group_locations"/> 
+                    <field name="shipped_rate" readonly="1"/>
+                    <field name="shipped" invisible="1"/>
+                </xpath>         
        		</field>
+        </record>
+        
+        <record id="dmp_purchase_order_pick" model="ir.ui.view">
+            <field name="name">dmp_purchase_order_pick</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_tree"/>
+            <field name="arch" type="xml">
+                <field name="amount_total" position="after">
+                    <field name="shipped_rate" readonly="1" widget="progressbar"/>
+                	<field name="shipped" invisible="1"/>
+                </field>
+            </field>
         </record>
         
         <record id="purchase_order_line_form_pick" model="ir.ui.view">
