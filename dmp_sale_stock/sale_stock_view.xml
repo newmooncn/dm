@@ -23,6 +23,22 @@
 			</field>
 		</record> 
 		
+<!-- show 'view picking' buttons even the order is picked or done -->
+		<record id="view_sale_order_form_view_picking" model="ir.ui.view">
+			<field name="name">view_sale_order_form_view_picking</field>
+			<field name="model">sale.order</field>
+			<field name="inherit_id" ref="sale_stock.view_order_form_inherit" />
+			<field name="arch" type="xml">
+	            <button name="action_view_delivery" position="replace">
+	            	<!-- old value
+	            	"{'invisible': ['|','|','|',('picking_ids','=',False),('picking_ids','=',[]), ('state', 'not in', ('progress','manual')),('shipped','=',True)]}"
+	            	 -->
+                       <button name="action_view_delivery" string="View Delivery Order" type="object" class="oe_highlight"
+                           attrs="{'invisible': ['|',('picking_ids','=',False),('picking_ids','=',[])]}" groups="base.group_user"/>
+	            </button>  	
+			</field>
+		</record> 
+		
 		<record id="view_sales_order_tree_stock" model="ir.ui.view">
 			<field name="name">view_sales_order_tree_stock</field>
 			<field name="model">sale.order</field>
