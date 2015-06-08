@@ -1,9 +1,6 @@
 # -*- encoding: utf-8 -*-
 from openerp.osv import fields,osv
-from openerp.tools.translate import _
-from openerp import netsvc
-from openerp import tools
-from openerp.tools import float_compare
+import datetime
 
 class mrp_bom(osv.osv):
     _inherit = 'mrp.bom'
@@ -148,6 +145,24 @@ class mrp_production(osv.osv):
         })
         return super(mrp_production, self).copy(cr, uid, id, default, context)
     
+    def _compute_planned_workcenter(self, cr, uid, ids, context=None, mini=False):
+        resu = super(mrp_production, self)._compute_planned_workcenter(cr, uid, ids, context, mini) 
+        #remove the end date setting
+        super(mrp_production, self).write(cr, uid, ids, {'date_finished': False})
+        return resu    
+
+    def action_in_production(self, cr, uid, ids, context=None):
+        resu = super(mrp_production,self).action_in_production(cr, uid, ids)
+        #fix the time issue to use utc now, by johnw
+        self.write(cr, uid, ids, {'date_start': datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')})
+        return resu
+    
+    def action_production_end(self, cr, uid, ids, context=None):
+        resu = super(mrp_production,self).action_production_end(cr, uid, ids)
+        #fix the time issue to use utc now, by johnw
+        self.write(cr, uid, ids, {'date_finished': datetime.datetime.utcnow().strftime('%Y-%m-%d %H:%M:%S')})
+        return resu
+        
 class mrp_production_workcenter_line(osv.osv):
     _inherit = 'mrp.production.workcenter.line'
             
