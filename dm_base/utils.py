@@ -169,7 +169,7 @@ def _email_send_group(cr, uid, email_from, email_to, subject, body, email_to_gro
     new_cr.close()        
     return True    
 
-def email_notify(cr, uid, obj_name, obj_ids, actions, action, subject_fields = None, email_to = None, context=None):
+def email_notify(cr, uid, obj_name, obj_ids, actions, action, subject_fields = None, email_to = None, context=None, **kwargs):
     '''
     @param param:obj_name the model name that related to email, 'hr.holiday'
     @param param:object ids list, [1,2,3...]
@@ -203,7 +203,10 @@ def email_notify(cr, uid, obj_name, obj_ids, actions, action, subject_fields = N
             else:
                 for field in subject_fields:
                     subject_sub +=  '%s,'%(resolve_attr(order, field),)
-            email_subject = '%s: %s %s'%(obj_obj._description, subject_sub, msg)
+            object_desc = obj_obj._description
+            if kwargs and kwargs.get('object_desc'):
+                object_desc = kwargs.get('object_desc')
+            email_subject = '%s: %s %s'%(object_desc, subject_sub, msg)
             email_body = email_subject
             #the current user is the from user
             email_from = pool.get("res.users").read(cr, uid, uid, ['email'],context=context)['email']
