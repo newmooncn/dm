@@ -14,7 +14,7 @@
                     	<field name="customer_product_name"/>
                     </field>
                     <field name="date_planned" position="before">
-                    	<field name="date_customer"/>
+                    	<field name="date_customer" required="1"/>
                     </field>
 	            </data>
         	</field>
