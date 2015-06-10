@@ -88,3 +88,8 @@ msgstr "将入库"
 #: field:product.product,outgoing_qty:0
 msgid "Outgoing"
 msgstr "将出库"
+
+#. module: account
+#: model:res.groups,name:account.group_account_manager
+msgid "Financial Manager"
+msgstr "财务经理"
