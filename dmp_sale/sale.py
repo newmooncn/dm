@@ -69,7 +69,9 @@ class sale_order(osv.osv):
             }
         ),   
         'create_uid':  fields.many2one('res.users', 'Creator', readonly=True),
-        'create_date': fields.datetime('Creation Date', readonly=True, select=True),                        
+        'create_date': fields.datetime('Creation Date', readonly=True, select=True),     
+        'client_order_ref': fields.char('Customer Reference', size=64, 
+                                      readonly=True, states={'draft': [('readonly', False)], 'sent': [('readonly', False)]}),                   
     }  
        
     def default_get(self, cr, uid, fields, context=None):
