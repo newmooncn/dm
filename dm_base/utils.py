@@ -190,12 +190,12 @@ def email_notify(cr, uid, obj_name, obj_ids, actions, action, subject_fields = N
     if actions.get(action,False):
         msg = actions[action].get('msg')
         group_params = actions[action].get('groups')
+        #email to groups
+        email_group_ids = []
+        for group_param in group_params:
+            grp_data = group_param.split('.')
+            email_group_ids.append(model_obj.get_object_reference(cr, uid, grp_data[0], grp_data[1])[1])
         for order in obj_obj.browse(cr, uid, obj_ids, context=context):
-            #email to groups
-            email_group_ids = []
-            for group_param in group_params:
-                grp_data = group_param.split('.')
-                email_group_ids.append(model_obj.get_object_reference(cr, uid, grp_data[0], grp_data[1])[1])
             #email messages      
             subject_sub = ""       
             if not subject_fields:
