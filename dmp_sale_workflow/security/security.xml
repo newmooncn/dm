@@ -18,6 +18,12 @@
         <field name="users" eval="[(4, ref('base.user_root'))]"/>
     </record>  
     
+    <record id="group_sale_reviewer" model="res.groups">
+        <field name="name">Sale Reviewer</field>
+        <field name="category_id" ref="base.module_category_sales_management"/>
+        <field name="implied_ids" eval="[(4, ref('base.group_user'))]"/>
+    </record>
+    
     <!-- Sale order accessing group for approvers -->
 <!--     <record id="group_sale_approver" model="res.groups">
         <field name="name">Approvers</field>

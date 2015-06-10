@@ -39,10 +39,10 @@ class sale_order(osv.osv):
         'state': fields.selection([
             ('draft', 'Draft Quotation'),
             ('sent', 'Quotation Sent'),
+            ('review', 'Review'),
             ('engineer', 'Engineering'),
             ('account', 'Accounting'),
             ('super', 'Super Approving'),
-            ('customer', 'Customer Confirming'),
             ('progress', 'Sales Order'),
             ('cancel', 'Cancelled'),
             ('waiting_date', 'Waiting Schedule'),
@@ -75,10 +75,11 @@ class sale_order(osv.osv):
         since one class instance will be init only one time and the "_()" function will run one time
         but system may be used by different languange's users         
         ''' 
-        EMAIL_ACTIONS = {'engineer':{'msg':_('sales confirmed, need engineering approval'),'groups':['dmp_engineer.group_engineer_user']},
+        EMAIL_ACTIONS = {'review':{'msg':_('sales order submitted, need your review'),'groups':['dmp_sale_workflow.group_sale_reviewer']},
+                         'engineer':{'msg':_('sales confirmed, need engineering approval'),'groups':['dmp_engineer.group_engineer_user']},
                          'account':{'msg':_('engineering approved, need accounting approval'),'groups':['account.group_account_manager']},
                          'super':{'msg':_('accounting approved, need super approval'),'groups':['dmp_sale_workflow.group_super_manager']},
-                         'customer':{'msg':_('super approved, need customer confirmation'),'groups':['base.group_sale_manager']},
+                         'review2draft':{'msg':_('reviewer rejected, please do re-checking'),'groups':['base.group_sale_salesman']},
                          'super2engineer':{'msg':_('Super rejected, please do engineering re-checking'),'groups':['dmp_engineer.group_engineer_user']},
                          'super2account':{'msg':_('Super rejected, please do accounting re-checking'),'groups':['account.group_account_manager']},}
                 
@@ -87,6 +88,8 @@ class sale_order(osv.osv):
         action = new_state
         #handle the super rejection
         old_state = self.read(cr, uid, ids[0], ['state'], context=context)['state']
+        if old_state == 'review' and new_state == 'draft':
+            action = 'review2draft'
         if old_state == 'super' and new_state == 'engineer':
             action = 'super2engineer'
         if old_state == 'super' and new_state == 'account':
@@ -96,7 +99,8 @@ class sale_order(osv.osv):
         utils.email_notify(cr, uid, self._name, ids, EMAIL_ACTIONS, action, subject_fields = ['name'], email_to = [], 
                            context=context, object_desc=_(self._description))
           
-    REJECT_SIGNALS = {'super-engineer':'super_reject_engineer',
+    REJECT_SIGNALS = {'review-draft':'review_reject_draft',
+                      'super-engineer':'super_reject_engineer',
                       'super-account':'super_reject_account',}
                                           
     def action_reject(self, cr, uid, ids, context=None):   
@@ -114,7 +118,13 @@ class sale_order(osv.osv):
         signal = '%s-%s'%(context.get('state_from'), context.get('state_to'))
         signal = self.REJECT_SIGNALS.get(signal)
         wkf_service = netsvc.LocalService("workflow")
+        state_to = context.get('state_to')
         for so_id in ids:
-            wkf_service.trg_validate(uid, 'sale.order', so_id, signal, cr)
+            if state_to == 'draft':
+                wkf_service.trg_delete(uid, 'sale.order', so_id, cr)
+                wkf_service.trg_create(uid, 'sale.order', so_id, cr)
+                self.to_state(cr, uid, ids, 'draft', context=context)
+            else:
+                wkf_service.trg_validate(uid, 'sale.order', so_id, signal, cr)
         #update message
         return self.write(cr, uid, ids, {'reject_message':message}, context=context)

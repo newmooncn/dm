@@ -2,6 +2,12 @@
 <openerp>
     <data>       
         <!-- Activity --> 
+        <record id="act_review" model="workflow.activity">
+            <field name="wkf_id" ref="sale.wkf_sale"/>
+            <field name="name">review</field>
+            <field name="kind">function</field>
+            <field name="action">to_state('review')</field>
+        </record> 
         <record id="act_engineer" model="workflow.activity">
             <field name="wkf_id" ref="sale.wkf_sale"/>
             <field name="name">engineer</field>
@@ -20,27 +26,27 @@
             <field name="kind">function</field>
             <field name="action">to_state('super')</field>
         </record>     
-        <record id="act_customer" model="workflow.activity">
-            <field name="wkf_id" ref="sale.wkf_sale"/>
-            <field name="name">customer</field>
-            <field name="kind">function</field>
-            <field name="action">to_state('customer')</field>
-        </record>     
         
 <!-- Transition -->
 		<!-- point the 'order_confirm' signal from 'act_router' to 'act_engineer' -->
         <record id="sale.trans_draft_router" model="workflow.transition">
             <field name="act_from" ref="sale.act_draft"/>
             <!-- <field name="act_to" ref="act_router"/> -->
-            <field name="act_to" ref="act_engineer"/>
+            <field name="act_to" ref="act_review"/>
             <field name="signal">order_confirm</field>
         </record>
         <record id="sale.trans_sent_router" model="workflow.transition">
             <field name="sale.act_from" ref="sale.act_sent"/>
             <!-- <field name="act_to" ref="act_router"/> -->
-            <field name="act_to" ref="act_engineer"/>
+            <field name="act_to" ref="act_review"/>
             <field name="signal">order_confirm</field>
         </record>
+        
+        <record id="trans_review_engineer" model="workflow.transition">
+            <field name="act_from" ref="act_review"/>
+            <field name="act_to" ref="act_engineer"/>
+            <field name="signal">review_approved</field>
+        </record>       
         
         <record id="trans_engineer_account" model="workflow.transition">
             <field name="act_from" ref="act_engineer"/>
@@ -53,10 +59,10 @@
             <field name="act_to" ref="act_super"/>
             <field name="signal">account_approved</field>
         </record>
-        
-        <record id="trans_super_customer" model="workflow.transition">
+        <!-- set super approve as the previous step of act_router -->
+        <record id="trans_super_router" model="workflow.transition">
             <field name="act_from" ref="act_super"/>
-            <field name="act_to" ref="act_customer"/>
+            <field name="act_to" ref="sale.act_router"/>
             <field name="signal">super_approved</field>
         </record>        
         <record id="trans_super_engineer" model="workflow.transition">
@@ -70,14 +76,12 @@
             <field name="signal">super_reject_account</field>
         </record>
         
-		<!-- set customer confirmation as the previous step of act_router -->        
-        <record id="trans_customer_router" model="workflow.transition">
-            <field name="act_from" ref="act_customer"/>
-            <field name="act_to" ref="sale.act_router"/>
-            <field name="signal">customer_confirmed</field>
-        </record>
-        
         <!-- cancel -->
+        <record id="trans_review_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_review"/>
+            <field name="act_to" ref="sale.act_cancel"/>
+            <field name="signal">cancel</field>
+        </record> 
         <record id="trans_engineer_cancel" model="workflow.transition">
             <field name="act_from" ref="act_engineer"/>
             <field name="act_to" ref="sale.act_cancel"/>
@@ -90,11 +94,6 @@
         </record>  
         <record id="trans_super_cancel" model="workflow.transition">
             <field name="act_from" ref="act_super"/>
-            <field name="act_to" ref="sale.act_cancel"/>
-            <field name="signal">cancel</field>
-        </record>  
-        <record id="trans_customer_cancel" model="workflow.transition">
-            <field name="act_from" ref="act_customer"/>
             <field name="act_to" ref="sale.act_cancel"/>
             <field name="signal">cancel</field>
         </record>      

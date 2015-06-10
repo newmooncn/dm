@@ -95,8 +95,24 @@ msgstr "工程再检查"
 #. module: dmp_sale_workflow
 #: code:addons\dmp_sale_workflow\sale.py:73
 #, python-format
-msgid "super approved, need customer confirmation"
-msgstr "超级审核通过, 需要进行客户最终确认"
+msgid "sales order submitted, need your review"
+msgstr "销售订单已提交, 请复核内容"
+
+#. module: dmp_sale_workflow
+#: code:addons\dmp_sale_workflow\sale.py:0
+#, python-format
+msgid "reviewer rejected, please do re-checking"
+msgstr "内容符合失败, 请修正订单"
+
+#. module: dmp_sale_workflow
+#: view:sale.order:0
+msgid "Review Approve"
+msgstr "复核通过"
+
+#. module: dmp_sale_workflow
+#: view:sale.order:0
+msgid "Review Reject"
+msgstr "复核失败"
 
 #. module: dmp_sale_workflow
 #: model:res.groups,name:dmp_sale_workflow.group_super_manager
@@ -128,6 +144,11 @@ msgstr "审核未通过的原因"
 ########################manual########################
 #. module: dmp_sale_workflow
 #: selection:sale.order,state:0
+msgid "Review"
+msgstr "内容复核"
+
+#. module: dmp_sale_workflow
+#: selection:sale.order,state:0
 msgid "Engineering"
 msgstr "工程待审核"
 
@@ -140,8 +161,3 @@ msgstr "财务待审核"
 #: selection:sale.order,state:0
 msgid "Super Approving"
 msgstr "超级待审核"
-
-#. module: dmp_sale_workflow
-#: selection:sale.order,state:0
-msgid "Customer Confirming"
-msgstr "客户待确认"
