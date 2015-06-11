@@ -134,7 +134,7 @@
             <field name="value"><![CDATA[
 <p/>
 <div>
-<a href="http://localhost:8069/?db=dmp_production">Metro OpenERP System</a> &nbsp;&nbsp;
+<a href="http://localhost:8069/?db=dmp_production">DMEMS OpenERP System</a> &nbsp;&nbsp;
 Contact: <a href="mailto:johnw@dmems.com">John Wang</a>
 </div>
 <div><a href="http://www.dmems.com" target="_blank">http://www.dmems.com</a></div>

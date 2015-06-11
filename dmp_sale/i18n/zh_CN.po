@@ -29,7 +29,7 @@ msgstr "销售订单明细"
 #. module: dmp_sale
 #: view:sale.order:0
 msgid "Order Date"
-msgstr "订单日期"
+msgstr "接单日期"
 
 #. module: dmp_sale
 #: field:account.invoice,sale_ids:0 field:account.invoice,sale_order_ids:0
@@ -71,4 +71,4 @@ msgstr "创建人"
 #: model:ir.model.fields,field_description:sale.field_sale_order_date_order
 #: field:sale.order,date_order:0
 msgid "Date"
-msgstr "订单日期"
+msgstr "接单日期"
