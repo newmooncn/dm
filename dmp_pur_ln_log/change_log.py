@@ -106,7 +106,6 @@ class purchase_order_line(osv.osv):
         return resu  
     
     def unlink(self, cr, uid, ids, context=None):
-        resu = super(purchase_order_line,self).unlink(cr,uid,ids,context=context)
         lines = self.browse(cr,uid,ids,context=context)
         for line in lines:
             #only when orders confirmed, then record the po lines deleting
@@ -115,7 +114,7 @@ class purchase_order_line(osv.osv):
                 log_vals = {'po_id':line.order_id.id,'po_line_id':line.id,'product_id':line.product_id.id,
                                 'field_name':'Delete Product','value_old':'price:%s, quantity:%s'%(line.product_qty, line.price_unit),'value_new':''}
                 log_obj.create(cr,uid,log_vals,context=context)
-        return resu
+        return super(purchase_order_line,self).unlink(cr,uid,ids,context=context)
     
     def copy_data(self, cr, uid, id, default=None, context=None):
         if not default:
