@@ -13,7 +13,14 @@
 	                	groups="dmp_sale_workflow.group_sale_reviewer"/>
 	                					
 	                <button name="engineer_approved" states="engineer" string="Engineering Approve" groups="dmp_engineer.group_engineer_user"/>
+	                <button name="action_reject" states="engineer" string="Engineering Reject" 
+	                	type="object" context="{'state_from':'engineer','state_to':'draft'}"
+	                	groups="dmp_engineer.group_engineer_user"/>
+	                	
 	                <button name="account_approved" states="account" string="Accounting Approve" groups="account.group_account_manager"/>
+	                <button name="action_reject" states="account" string="Accounting Reject" 
+	                	type="object" context="{'state_from':'account','state_to':'draft'}"
+	                	groups="account.group_account_manager"/>
 	                
 	                <button name="super_approved" states="super" string="Super Approve" groups="dmp_sale_workflow.group_super_manager"/>
 	                <button name="action_reject" states="super" string="Engineer Recheck" 

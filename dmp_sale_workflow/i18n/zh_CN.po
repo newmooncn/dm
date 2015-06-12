@@ -111,6 +111,16 @@ msgstr "复核通过"
 
 #. module: dmp_sale_workflow
 #: view:sale.order:0
+msgid "Engineering Reject"
+msgstr "工程拒绝"
+
+#. module: dmp_sale_workflow
+#: view:sale.order:0
+msgid "Accounting Reject"
+msgstr "财务拒绝"
+
+#. module: dmp_sale_workflow
+#: view:sale.order:0
 msgid "Review Reject"
 msgstr "复核失败"
 
