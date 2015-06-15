@@ -22,18 +22,18 @@
 	                	type="object" context="{'state_from':'account','state_to':'draft'}"
 	                	groups="account.group_account_manager"/>
 	                
-	                <button name="super_approved" states="super" string="Super Approve" groups="dmp_sale_workflow.group_super_manager"/>
+	                <button name="super_approved" states="super" string="Super Approve" groups="dmp_base.group_super_manager"/>
 	                <button name="action_reject" states="super" string="Engineer Recheck" 
 	                	type="object" context="{'state_from':'super','state_to':'engineer'}"
-	                	groups="dmp_sale_workflow.group_super_manager"/>
+	                	groups="dmp_base.group_super_manager"/>
 	                <button name="action_reject" states="super" string="Accounting Recheck" 
 	                	type="object" context="{'state_from':'super','state_to':'account'}"
-	                	groups="dmp_sale_workflow.group_super_manager"/>              
+	                	groups="dmp_base.group_super_manager"/>              
 				</xpath>
                 <!-- cancel button -->
                 <button name="cancel" position="after">
                 	<button name="cancel" states="review,engineer,account,super" string="Cancel" 
-                		groups="dmp_sale_workflow.group_super_manager"/>
+                		groups="dmp_base.group_super_manager"/>
                 </button>
 				<field name="state" position="attributes">
 				    <attribute name="statusbar_visible">draft,review,progress,done</attribute>
