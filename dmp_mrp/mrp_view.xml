@@ -172,6 +172,10 @@
                     <xpath expr="//button[@states='picking_except']" position='attributes'>
                     	<attribute name="invisible">1</attribute>
                     </xpath>
+                    <!-- Hide the update button for product_qty -->
+                    <button name="%(mrp.action_change_production_qty)d" position="attributes">
+                    	<attribute name="groups">dmp_base.group_super_manager</attribute>
+                    </button>
 	            </data>
         	</field>
        	</record>

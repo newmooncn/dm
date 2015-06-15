@@ -29,7 +29,7 @@
 Manufacture Improvements
 =====================
     """,
-    'depends': ["mrp","mrp_operations"],
+    'depends': ["mrp","mrp_operations","dmp_base"],
     'data': [
         'mrp_security.xml',
         'wizard/mo_actions_view.xml',
