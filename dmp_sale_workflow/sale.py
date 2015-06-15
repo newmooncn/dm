@@ -78,7 +78,7 @@ class sale_order(osv.osv):
         EMAIL_ACTIONS = {'review':{'msg':_('sales order submitted, need your review'),'groups':['dmp_sale_workflow.group_sale_reviewer']},
                          'engineer':{'msg':_('sales confirmed, need engineering approval'),'groups':['dmp_engineer.group_engineer_user']},
                          'account':{'msg':_('engineering approved, need accounting approval'),'groups':['account.group_account_manager']},
-                         'super':{'msg':_('accounting approved, need super approval'),'groups':['dmp_sale_workflow.group_super_manager']},
+                         'super':{'msg':_('accounting approved, need super approval'),'groups':['dmp_base.group_super_manager']},
                          'review2draft':{'msg':_('reviewer rejected, please do re-checking'),'groups':['base.group_sale_salesman']},
                          'super2engineer':{'msg':_('Super rejected, please do engineering re-checking'),'groups':['dmp_engineer.group_engineer_user']},
                          'super2account':{'msg':_('Super rejected, please do accounting re-checking'),'groups':['account.group_account_manager']},}
