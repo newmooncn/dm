@@ -151,3 +151,73 @@ msgstr "拒绝原因..."
 #: view:purchase.order:0
 msgid "Reject Changing"
 msgstr "拒绝变更"
+
+#. module: dmp_pur_workflow
+#: code:addons/dmp_pur_workflow/purchase.py:0
+#, python-format
+msgid "There are done pickings of this order, please cancel them first!"
+msgstr "请先取消此采购单已经入库的入库单!"
+
+#. module: dmp_pur_workflow
+#: code:addons/dmp_pur_workflow/purchase.py:0
+#, python-format
+msgid "There are paid or validated receptions related to this purchase order, please cancel them first!"
+msgstr "请先取消此采购单已经验证或者支付的供应商凭据!"
+
+#. module: dmp_pur_workflow
+#: code:addons/dmp_pur_workflow/purchase.py:0
+#, python-format
+msgid "There are received products related to this purchase order, please do return first."
+msgstr "此采购单存在收货数量, 请退货然后才能取消!"
+
+#. module: dmp_pur_workflow
+#: code:addons/dmp_pur_workflow/purchase.py:0
+#, python-format
+msgid "There are invoiced products related to this purchase order, please do return first."
+msgstr "此采购单存在财务凭据, 请回退相关数据然后才能取消!"
+
+#. module: dmp_pur_workflow
+#: code:addons/dmp_pur_workflow/purchase.py:0
+#, python-format
+msgid "Unable to cancel this purchase order."
+msgstr "不能取消此采购单!"
+
+#. module: dmp_pur_workflow
+#: view:purchase.order:0
+msgid "To cancel the orders, order can not have any picking or accounting orders not canceled"
+msgstr "为了取消订单, 订单不能有任何相关没有取消的出入库单和财务单据"
+
+#. module: dmp_pur_workflow
+#: view:purchase.order:0
+msgid "To cancel the orders having picking or accounting orders done but returned fully, if order have received quantity or accounting orders without return then can not do this action"
+msgstr "取消已经发生出入库或者财务付款,但是已经全部退货或者退款的订单,如果部分未退货或者退款则不能取消"
+
+#. module: dmp_pur_workflow
+#: selection:purchase.order,state:0
+msgid "Rejected"
+msgstr "已拒绝"
+        
+#. module: dmp_pur_workflow
+#: selection:purchase.order,state:0
+msgid "In Changing"
+msgstr "变更中"
+        
+#. module: dmp_pur_workflow
+#: selection:purchase.order,state:0
+msgid "Changing Waiting Approval"
+msgstr "变更等待审批"
+        
+#. module: dmp_pur_workflow
+#: selection:purchase.order,state:0
+msgid "Changing Rejected"
+msgstr "变更被拒绝"
+        
+#. module: dmp_pur_workflow
+#: selection:purchase.order,state:0
+msgid "Cancelled with Exception"
+msgstr "异常取消"
+        
+#. module: dmp_pur_workflow
+#: selection:purchase.order,state:0
+msgid "Done with Exception"
+msgstr "异常完成"

@@ -18,6 +18,7 @@
                  <xpath expr="//button[@name='action_cancel']" position="attributes" >
                  	<attribute name="states">approved,except_picking,except_invoice,rejected,changing,changing_rejected</attribute>
                  	<attribute name="groups">purchase.group_purchase_manager</attribute>
+                 	<attribute name="help">To cancel the orders, order can not have any picking or accounting orders not canceled</attribute>
                 </xpath>
                  <xpath expr="//sheet/div" position="after" >
                  	<group style="color:red">
@@ -26,7 +27,10 @@
                 </xpath>   
 <!-- purchase changing after approved -->                          
                 <xpath expr="//button[@name='action_cancel']" position="after" >
-               		<button name="button_cancel_except" states="approved" string="Cancel With Exception" type="object" groups="purchase.group_purchase_manager" confirm="Are you sure you want to cancel this purchase order with exception?"/>
+               		<button name="button_cancel_except" states="approved" string="Cancel With Exception" 
+               			type="object" groups="purchase.group_purchase_manager" 
+               			confirm="Are you sure you want to cancel this purchase order with exception?"
+               			help="To cancel the orders having picking or accounting orders done but returned fully, if order have received quantity or accounting orders without return then can not do this action"/>
                  	<button name="button_to_changing" states="approved,except_picking,except_invoice" string="Change" type="object" groups="purchase.group_purchase_manager"/>
                  	<button name="button_to_changing_confirmed" states="changing,changing_rejected" string="Confirm Chaning" type="object"/>
                  	<button name="%(act_purchase_changing_reject)d" states="changing_confirmed" string="Reject Changing" type="action" groups="purchase.group_purchase_manager"/>
