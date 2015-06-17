@@ -15,7 +15,7 @@
 Stock Returning Improvements
 =====================
     """,
-    'depends': ["stock"],
+    'depends': ["stock","product_fifo_lifo"],
     'data':['wizard/stock_return_picking_view.xml', 
         'stock_view.xml',
     ],
