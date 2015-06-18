@@ -57,19 +57,27 @@ class stock_return_picking(osv.osv_memory):
         pick_obj.write(cr, uid, [pick_id], {'note':note})
         '''
         since the parent class did the pick_obj.force_assign(cr, uid, [new_picking], context)
+        so need set the workflow to the start point
+        '''
+        '''
+        ##useless below
         So need trigger the workflow to run below transition, if no available quantity then picking will go the 'confirmed' state
         <record id="trans_confirmed_assigned_back" model="workflow.transition">
             <field name="act_from" ref="act_assigned"/>
             <field name="act_to" ref="act_confirmed"/>
             <field name="condition">not test_assigned()</field>
         </record>        
-        '''
         #update state to 'assigned' then the test_assigned() method will return false
-        move_ids = [move.id for move in pick.move_lines if move.state=='assigned']
-        self.pool.get('stock.move').write(cr, uid, move_ids, {'state':'draft'},context=context)
-        pick_obj.write(cr, uid, [pick_id], {'state':'draft'})
-        wf_service = netsvc.LocalService("workflow")
-        wf_service.trg_write(uid, 'stock.picking', pick_id, cr)
+        '''
+        if pick.type != 'in':
+            move_ids = [move.id for move in pick.move_lines]
+            self.pool.get('stock.move').write(cr, uid, move_ids, {'state':'draft'},context=context)
+            pick_obj.write(cr, uid, [pick_id], {'state':'draft'})
+            wf_service = netsvc.LocalService("workflow")
+            wf_service.trg_delete(uid, 'stock.picking', pick_id, cr)
+            wf_service.trg_create(uid, 'stock.picking', pick_id, cr)
+            #do the code of button 'Confirm'
+            pick_obj.draft_force_assign(cr, uid, [pick_id])
         return resu
     def get_return_history(self, cr, uid, pick_id, context=None):
         """ 

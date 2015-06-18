@@ -32,3 +32,11 @@ msgstr "退回分拣"
 #: field:stock.move,return_qty:0
 msgid "Return Quantity"
 msgstr "退货数量"
+
+#. module: stock
+#: code:addons/stock/wizard/stock_return_picking.py:106
+#, python-format
+msgid ""
+"No products to return (only lines in Done state and not fully returned yet "
+"can be returned)!"
+msgstr "没有产品可退货（只有完成状态和未完全退货的 行能被退货）！"
