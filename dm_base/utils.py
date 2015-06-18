@@ -190,10 +190,15 @@ def email_notify(cr, uid, obj_name, obj_ids, actions, action, subject_fields = N
     if actions.get(action,False):
         msg = actions[action].get('msg')
         group_params = actions[action].get('groups')
+        send_to_creator = False
         #email to groups
         email_group_ids = []
         for group_param in group_params:
             grp_data = group_param.split('.')
+            #if there is a group named 'creator', then it means send the email to order creator
+            if grp_data[0] == 'creator':
+                send_to_creator = True
+                continue                
             email_group_ids.append(model_obj.get_object_reference(cr, uid, grp_data[0], grp_data[1])[1])
         for order in obj_obj.browse(cr, uid, obj_ids, context=context):
             #email messages      
@@ -210,6 +215,9 @@ def email_notify(cr, uid, obj_name, obj_ids, actions, action, subject_fields = N
             email_body = email_subject
             #the current user is the from user
             email_from = pool.get("res.users").read(cr, uid, uid, ['email'],context=context)['email']
+            #the special 'creator' on email_to
+            if send_to_creator and order.create_uid.email:
+                email_to = order.create_uid.email
             #send emails
             email_send_group(cr, uid, email_from, email_to, email_subject,email_body, email_group_ids, context) 
 
