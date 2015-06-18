@@ -136,6 +136,8 @@
                     <field name="origin" position="after">
                         <field name="location_src_id" domain="[('usage','=','internal')]" on_change="location_id_change(location_src_id,location_dest_id)"/>
                         <field name="location_dest_id" domain="[('usage','=','internal')]"/>
+                        <field name="create_date"/>
+                        <field name="create_uid"/>
                     </field>
                     <!-- Only the products with 'Manufacture' supply method can be produce-->
                     <field name="product_id" position="replace">

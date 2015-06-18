@@ -125,7 +125,9 @@ class mrp_production(osv.osv):
             required=True,
             readonly=True, 
             states={'draft':[('readonly',False)]},
-            help="Location where the system will stock the finished products."),     
+            help="Location where the system will stock the finished products."),    
+        'create_uid':  fields.many2one('res.users', 'Creator', readonly=True),
+        'create_date': fields.datetime('Creation Date', readonly=True, select=True),                 
     }
     
     _defaults={'name': '/',}
