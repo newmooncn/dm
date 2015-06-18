@@ -81,16 +81,16 @@ class procurement_order(osv.osv):
             johnw, 06/10/2015, only do auto confirm MO coming from SO direc
             'sale_line_id' is from project_mrp module
             '''
-            if procurement.sale_line_id:
-                '''
-                update customer request date
-                dmp_sale.sale_order_line.date_planned
-                dmp_mrp_sale.mrp_production.date_customer
-                '''
-                production_obj.write(cr, uid, [produce_id], {'date_customer':procurement.sale_line_id.date_planned})
-                bom_result = production_obj.action_compute(cr, uid,
-                        [produce_id], properties=[x.id for x in procurement.property_ids])
-                wf_service.trg_validate(uid, 'mrp.production', produce_id, 'button_confirm', cr)
+#            if procurement.sale_line_id:
+#                '''
+#                update customer request date
+#                dmp_sale.sale_order_line.date_planned
+#                dmp_mrp_sale.mrp_production.date_customer
+#                '''
+#                production_obj.write(cr, uid, [produce_id], {'date_customer':procurement.sale_line_id.date_planned})
+#                bom_result = production_obj.action_compute(cr, uid,
+#                        [produce_id], properties=[x.id for x in procurement.property_ids])
+#                wf_service.trg_validate(uid, 'mrp.production', produce_id, 'button_confirm', cr)
             
             '''
             johnw, remove the code, 05/23/2015, the procurement.order.move_id.location_id is the product_product.property_stock_procurement
