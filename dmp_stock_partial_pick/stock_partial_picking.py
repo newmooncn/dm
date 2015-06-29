@@ -60,6 +60,8 @@ class stock_partial_picking(osv.osv_memory):
     def do_partial(self, cr, uid, ids, context=None):
         partial = self.browse(cr, uid, ids[0], context=context)
         picking_type = partial.picking_id.type
+        prod_obj = self.pool.get('product.product')
+        move_obj = self.pool.get('stock.move')
         for wizard_line in partial.move_ids:
             if wizard_line.quantity <= 0:
                 raise osv.except_osv(_('Error!'), _('[%s]%s, quantity %s must be greater than zero!') % (wizard_line.product_id.default_code, wizard_line.product_id.name, wizard_line.quantity))
@@ -67,8 +69,27 @@ class stock_partial_picking(osv.osv_memory):
             if wizard_line.quantity > wizard_line.quantity_max:
                 raise osv.except_osv(_('Error!'), _('[%s]%s, quantity %s is larger than the original quantity %s') % (wizard_line.product_id.default_code, wizard_line.product_id.name, wizard_line.quantity,  wizard_line.quantity_max))
             #for the internal/out picking, the  deliver quantity can not be larger than the available quantity
-            if picking_type in('internal', 'out') and wizard_line.quantity > wizard_line.quantity_out_available:
-                raise osv.except_osv(_('Error!'), _('[%s]%s, quantity %s is larger than the available quantity %s') % (wizard_line.product_id.default_code, wizard_line.product_id.name, wizard_line.quantity,  wizard_line.quantity_out_available))
+            #if picking_type in('internal', 'out') and wizard_line.quantity > wizard_line.quantity_out_available:
+            #    raise osv.except_osv(_('Error!'), _('[%s]%s, quantity %s is larger than the available quantity %s') % (wizard_line.product_id.default_code, wizard_line.product_id.name, wizard_line.quantity,  wizard_line.quantity_out_available))
+            #johnw, 06/29/2015, remove the reservation logic, use onhand as the out available
+            if picking_type in('internal', 'out'):
+                #get onhand quantity as out available quantity
+                c = context.copy()
+                c['location'] = wizard_line.location_id.id
+                prod_id = wizard_line.product_id.id
+                qty_onhand = prod_obj._product_available(cr,uid,[prod_id],['qty_onhand'],context=c)
+                quantity_out_available = qty_onhand[prod_id]['qty_onhand']
+                if wizard_line.quantity > quantity_out_available:
+                    #if quantity exceed available, refresh the original move's available data
+                    move_obj.write(cr, uid, [wizard_line.move_id.id],
+                                   {'quantity_out_available':quantity_out_available, 
+                                    'quantity_out_missing':wizard_line.move_id.product_qty - quantity_out_available,
+                                    'state':'confirmed'},
+                                   context=context)
+                    #must commit manually, otherwise data can not be saved because the error raised later
+                    cr.commit()
+                    #raise error
+                    raise osv.except_osv(_('Error!'), _('[%s]%s, quantity %s is larger than the available quantity %s') % (wizard_line.product_id.default_code, wizard_line.product_id.name, wizard_line.quantity,  quantity_out_available))
             
         return super(stock_partial_picking,self).do_partial(cr, uid, ids, context=context)
 

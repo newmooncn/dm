@@ -23,7 +23,9 @@ from openerp.osv import fields,osv
 from openerp.tools import float_compare
 import logging
 _logger = logging.getLogger(__name__)
-          
+'''
+johnw,06/28/2015: remove the producgt reservation logic, change 'state in ('done', 'assigned')' to 'state='done''
+'''          
 class stock_location(osv.osv):
     _inherit = "stock.location"
         
@@ -92,7 +94,7 @@ class stock_location(osv.osv):
                                             OR
                                             (location_id=%s AND
                                              location_dest_id<>%s AND
-                                             state in ('done', 'assigned'))
+                                             state='done')
                                           )
                                   FOR UPDATE of stock_move NOWAIT""", (product_id, id, id, id, id), log_exceptions=False)
                 except Exception:
@@ -120,7 +122,7 @@ class stock_location(osv.osv):
                           WHERE location_id=%s AND
                                 location_dest_id<>%s AND
                                 product_id=%s AND
-                                state in ('done', 'assigned')
+                                state='done'
                           GROUP BY product_uom
                        """,
                        (id, id, product_id))
