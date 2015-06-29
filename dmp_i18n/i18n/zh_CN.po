@@ -93,3 +93,20 @@ msgstr "将出库"
 #: model:res.groups,name:account.group_account_manager
 msgid "Financial Manager"
 msgstr "财务经理"
+
+#. module: account
+#: model:ir.ui.menu,name:account.menu_finance_periodical_processing
+msgid "Periodic Processing"
+msgstr "期间处理"
+
+#. module: stock
+#: model:ir.actions.act_window,name:stock.action_reception_picking_move
+#: model:ir.ui.menu,name:stock.menu_action_pdct_in
+msgid "Incoming  Products"
+msgstr "待入库"
+
+#. module: stock
+#: model:ir.actions.act_window,name:stock.action_out_picking_move
+#: model:ir.ui.menu,name:stock.menu_action_pdct_out
+msgid "Deliver Products"
+msgstr "待出库"
