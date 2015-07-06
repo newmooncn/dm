@@ -92,7 +92,6 @@ class product_product(osv.osv):
 			if customer_info and customer_info.name.id == customer_id:
 				customer_product_name += (customer_info.product_code and '[%s]'%(customer_info.product_code,) or '')
 				customer_product_name += customer_info.product_name
-				break
 		return customer_product_name
 	
 	def create(self, cr, uid, vals, context=None):
