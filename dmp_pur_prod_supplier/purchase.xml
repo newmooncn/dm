@@ -17,21 +17,9 @@
             <field name="model">purchase.order.line</field>
             <field name="inherit_id" ref="purchase.purchase_order_line_form"/>
             <field name="arch" type="xml">
-            	<notebook position="before">
-                     <group>
-	                     <group>
-	                         <field name="supplier_prod_id" readonly="0" invisible="1"/>
-	                         <field name="supplier_prod_name" readonly="0" />
-	                         <field name="supplier_prod_code" readonly="0" />
-	                     </group>   
-	                     <group>
-	                         <field name="supplier_delay" on_change = "onchange_lead('supplier_delay',supplier_delay,parent.date_order,context)" readonly="0" />
-	                     </group>	                              	
-                     </group>            	
-            	</notebook>
-                <field name="product_qty"  position="attributes">
-                	<attribute name="context">{'supplier_prod_id':supplier_prod_id,'supplier_prod_name':supplier_prod_name,'supplier_prod_code':supplier_prod_code,'supplier_delay':supplier_delay}</attribute>
-                </field>
+            	<field name="product_id" position="after">
+            		<field name="supplier_prod_name"/>
+            	</field>
             </field>
         </record>
                                                             

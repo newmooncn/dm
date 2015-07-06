@@ -182,7 +182,6 @@ class purchase_order_line(osv.osv):
     }  
     _order = "order_id desc, sequence, id"
     _defaults = {
-        'supplier_delay': lambda *a: 1,
         'can_change_price': True,
         'can_change_product': True,
     }        
@@ -251,19 +250,7 @@ class purchase_order_line(osv.osv):
             res['value'].update({'taxes_id': taxes_ids})
                     
         return res
-
-    def onchange_lead(self, cr, uid, ids, change_type, changes_value, date_order, context=None):
-        res = {'value':{}}
-        if change_type == 'date_planned':
-            changes_value = changes_value[:10]
-            supplier_delay = datetime.datetime.strptime(changes_value, DEFAULT_SERVER_DATE_FORMAT) - datetime.datetime.strptime(date_order, DEFAULT_SERVER_DATE_FORMAT)
-            res['value']={'supplier_delay':supplier_delay.days}
-        if change_type == 'supplier_delay':
-            date_planned = datetime.datetime.strptime(date_order, DEFAULT_SERVER_DATE_FORMAT) + relativedelta(days=changes_value)
-            date_planned = datetime.datetime.strftime(date_planned,DEFAULT_SERVER_DATE_FORMAT)
-            print res['value']
-            res['value'].update({'date_planned':date_planned})
-        return res
+    
     def search(self, cr, user, args, offset=0, limit=None, order=None, context=None, count=False):
         #deal the 'date' datetime field query
         new_args = deal_args(self,args)

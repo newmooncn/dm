@@ -644,5 +644,11 @@ msgstr "经理"
 msgid "Requisition's Purchase Order"
 msgstr "请购单相关采购单"
 
+#. module: dmp_pur_req_prod_supplier
+#: model:ir.model.fields,field_description:dmp_pur_req_prod_supplier.field_pur_req_po_line_supplier_prod_name
+#: field:pur.req.po.line,supplier_prod_name:0
+msgid "Supplier Product Name"
+msgstr "供应商产品名称"
+
 
 

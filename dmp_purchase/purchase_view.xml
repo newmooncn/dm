@@ -117,9 +117,6 @@
             <field name="model">purchase.order.line</field>
             <field name="inherit_id" ref="purchase.purchase_order_line_form"/>
             <field name="arch" type="xml">
-            	<field name="date_planned" position="attributes">            	
-            		<attribute name="on_change">onchange_lead('date_planned',date_planned,parent.date_order,context)</attribute>
-            	</field>
             	<field name="taxes_id" position="attributes">
             		<attribute name="attrs">{'readonly':[('can_change_price','=',False)]}</attribute>
             	</field>

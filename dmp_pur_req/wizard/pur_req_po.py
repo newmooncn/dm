@@ -48,7 +48,9 @@ class pur_req_po_line(osv.osv_memory):
         'uom_po_qty_remain': fields.float('PO Quantity Remain', digits_compute=dp.get_precision('Product Unit of Measure'),required=True),
         'uom_po_price': fields.float('PO Unit Price', digits_compute=dp.get_precision('Product Price')),
         'uom_po_id': fields.many2one('product.uom', 'PO Unit of Measure', required=True, ),
-        'uom_po_factor': fields.float('UOM Ratio',digits=(12,4),) 
+        'uom_po_factor': fields.float('UOM Ratio',digits=(12,4),),
+        
+        'supplier_prod_name': fields.char(string='Supplier Product Name', required=True),
     }
     def _check_product_qty(self, cursor, user, ids, context=None):
         for line in self.browse(cursor, user, ids, context=context):
@@ -171,6 +173,25 @@ class pur_req_po(osv.osv_memory):
                 raise osv.except_osv(_('Warning!'), _("No available products need to generate purchase order!"))
         return res  
         
+    def onchange_partner(self,cr,uid,ids,partner_id,lines,context):
+        resu = {'value':{}}
+        prod_supp_obj = self.pool.get('product.supplierinfo')
+        line_rets = []         
+        for line in lines:
+            if not line[2]:
+                continue
+            line_dict = line[2]
+            # update the product supplier info
+            prod_supp_ids = prod_supp_obj.search(cr,uid,[('product_id','=',line_dict['product_id']),('name','=',partner_id)])
+            if prod_supp_ids and len(prod_supp_ids) > 0:
+                prod_supp = prod_supp_obj.browse(cr,uid,prod_supp_ids[0],context=context)
+                line_dict.update({'supplier_prod_name': prod_supp.product_name})
+            else:
+                line_dict.update({'supplier_prod_name': ''})      
+            line_rets.append(line_dict)
+        resu['value']['line_ids'] = line_rets
+        return resu
+            
     def _create_po(self, cr, uid, ids, context=None):
         record_id = context and context.get('active_id', False) or False
         data =  self.browse(cr, uid, ids, context=context)[0]        
@@ -182,8 +203,7 @@ class pur_req_po(osv.osv_memory):
             po_line = {'product_id':line.product_id.id, 'product_qty':line.uom_po_qty, 'product_uom':line.uom_po_id.id,
                        'req_line_id':line.req_line_id.id,'date_planned':line.date_required,'price_unit':line.uom_po_price,
                        'name':(line.req_reason or ''),
-                       'supplier_prod_id':line.supplier_prod_id, 'supplier_prod_name':line.supplier_prod_name, 
-                       'supplier_prod_code':line.supplier_prod_code,'supplier_delay':line.supplier_delay,}
+                       'supplier_prod_name':line.supplier_prod_name, }
             #add the move_dest_id for the po_line
             procurement_id = line.req_line_id.procurement_ids and line.req_line_id.procurement_ids[0] or False
             if procurement_id:
@@ -217,8 +237,6 @@ class pur_req_po(osv.osv_memory):
         self._create_po(cr,uid,ids,context=context) 
         return {'type': 'ir.actions.act_window_close'}  
     
-    def onchange_partner(self,cr,uid,ids,partner_id,lines,context):
-        return {'value':{}}
 pur_req_po()
 
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

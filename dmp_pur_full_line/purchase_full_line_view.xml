@@ -161,18 +161,9 @@
             <field name="model">purchase.order.line</field>
             <field name="inherit_id" ref="dmp_po_line_full_form"/>
             <field name="arch" type="xml">
-            	<group name="date_qty" position="before">
-					<group name="prod_supplier">
-						<group>
-							<field name="supplier_prod_id" readonly="0" invisible="1"/>
-							<field name="supplier_prod_name" readonly="0" />
-							<field name="supplier_prod_code" readonly="0" />
-						</group>   
-						<group>
-							<field name="supplier_delay" on_change = "onchange_lead('supplier_delay',supplier_delay,date_order,context)" readonly="0" />
-						</group>
-					</group>
-            	</group>
+            	<field name="product_id" position="after">
+            		<field name="supplier_prod_name"/>
+            	</field>
             </field>
         </record>
 						
