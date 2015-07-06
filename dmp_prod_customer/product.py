@@ -69,30 +69,28 @@ class product_product(osv.osv):
         'customer_ids': fields.one2many('product.customerinfo', 'product_id', 'Customer'),		
 		'customer_info_id': fields.function(_calc_customer, type='many2one', relation="product.customerinfo", string="Customer Info", multi="customer_info"),
 		'customer_delay': fields.function(_calc_customer, type='integer', string='Customer Lead Time', multi="customer_info"),
-		'customer_id': fields.function(_calc_customer, type='many2one', relation="res.partner", multi="customer_info", string='Main Customer', help="Main customer who has highest priority in Customer List."),
+		'customer_id': fields.function(_calc_customer, type='many2one', relation="res.partner", multi="customer_info", 
+									string='Main Customer', help="Main customer who has highest priority in Customer List.",
+									store={'product.customerinfo': (_get_customer, None, 10)}),
 		'customer_product_name': fields.function(_calc_customer, type='char', size=128, string='Customer Product Name', multi="customer_info", 
 				store={
                 'product.customerinfo': (_get_customer, None, 10),
             }),        
 	}
 	
-	def get_customer_product(self, cr, uid, customer_id, product_id, context=None):
-		"""Determines the main (best) product customer for ``product``,
-		returning the corresponding ``customerinfo`` record, or False
-		if none were found. The default strategy is to select the
-		customer with the highest priority (i.e. smallest sequence).
-		
-		:param browse_record product: product to sell
-		:rtype: product.customerinfo browse_record or False
-		"""
-		customer_product_name=""
+	def _get_customer_info(self, cr, uid, customer_id, product_id, context=None):
 		if isinstance(product_id,(int,long)):
 			product_id = self.pool.get("product.product").browse(cr, uid, product_id, context=context)
 		for customer_info in product_id.customer_ids:
-			if customer_info and customer_info.name.id == customer_id:
-				customer_product_name += (customer_info.product_code and '[%s]'%(customer_info.product_code,) or '')
-				customer_product_name += customer_info.product_name
-				break
+				return customer_info
+		return False
+	
+	def get_customer_product(self, cr, uid, customer_id, product_id, context=None):
+		customer_info = self._get_customer_info(cr, uid, customer_id, product_id, context=context)
+		customer_product_name=""
+		if customer_info and customer_info.name.id == customer_id:
+			customer_product_name += (customer_info.product_code and '[%s]'%(customer_info.product_code,) or '')
+			customer_product_name += customer_info.product_name
 		return customer_product_name
 	
 	def create(self, cr, uid, vals, context=None):

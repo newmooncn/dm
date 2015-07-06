@@ -52,7 +52,9 @@ class product_product(osv.osv):
 		'seller_info_id': fields.function(_calc_seller, type='many2one', relation="product.supplierinfo", string="Supplier Info", multi="seller_info"),
 		'seller_delay': fields.function(_calc_seller, type='integer', string='Supplier Lead Time', multi="seller_info", help="This is the average delay in days between the purchase order confirmation and the reception of goods for this product and for the default supplier. It is used by the scheduler to order requests based on reordering delays."),
 		'seller_qty': fields.function(_calc_seller, type='float', string='Supplier Quantity', multi="seller_info", help="This is minimum quantity to purchase from Main Supplier."),
-		'seller_id': fields.function(_calc_seller, type='many2one', relation="res.partner", string='Main Supplier', help="Main Supplier who has highest priority in Supplier List.", multi="seller_info"),
+		'seller_id': fields.function(_calc_seller, type='many2one', relation="res.partner", string='Main Supplier', 
+									store={'product.supplierinfo': (_get_seller, None, 10)},
+									help="Main Supplier who has highest priority in Supplier List.", multi="seller_info"),
 		#johnw, 05/03/2015, add supplier product code and name
 		'seller_product_name': fields.function(_calc_seller, type='char', size=128, string='Supplier Product Name', multi="seller_info", 
 				store={
