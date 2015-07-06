@@ -26,7 +26,7 @@ class sale_order_line(osv.osv):
     _inherit = 'sale.order.line' 
     
     _columns = {
-        'customer_prod_name': fields.related('product_id', 'customer_product_name', type='char', size=64, string='Customer Product Name',readonly=True,store=True),
+        'customer_prod_name': fields.char('Customer Product Name', 64),
     }
     def product_id_change(self, cr, uid, ids, pricelist, product, qty=0,
             uom=False, qty_uos=0, uos=False, name='', partner_id=False,
@@ -37,7 +37,7 @@ class sale_order_line(osv.osv):
             uom, qty_uos, uos, name, partner_id,
             lang, update_tax, date_order, packaging=packaging, fiscal_position=fiscal_position, flag=flag, context=context)
         #add customer product name
-        if product:
-            res['value']['customer_prod_name'] = self.pool.get('product.product').browse(cr, uid, product, context=context).customer_product_name
+        if product and partner_id:
+            res['value']['customer_prod_name'] = self.pool.get('product.product').get_customer_product(cr, uid, partner_id, product, context=context)
         
         return res
