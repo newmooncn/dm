@@ -452,3 +452,19 @@ class purchase_order_line(osv.osv):
             if (line.move_ids and line.move_ids) or (line.invoice_lines and line.invoice_lines):
                 raise osv.except_osv(_('Error'), _('Can not delete the lines with picking or invoice lines!\n%s'%line.product_id.name))
         return super(purchase_order_line,self).unlink(cr,uid,ids,context=context)
+    
+def unlink_dmp_po_line(self, cr, uid, ids, context=None):
+    procurement_ids_to_cancel = []
+    for line in self.browse(cr, uid, ids, context=context):
+        '''
+        johnw, 07/07/2015, remove the status checking, since the new status checking logic is defined again in this class
+        if line.state not in ['draft', 'cancel']:
+            raise osv.except_osv(_('Invalid Action!'), _('Cannot delete a purchase order line which is in state \'%s\'.') %(line.state,))
+        '''
+        if line.move_dest_id:
+            procurement_ids_to_cancel.extend(procurement.id for procurement in line.move_dest_id.procurements)
+    if procurement_ids_to_cancel:
+        self.pool['procurement.order'].action_cancel(cr, uid, procurement_ids_to_cancel)
+    return super(purchase.purchase_order_line, self).unlink(cr, uid, ids, context=context)
+        
+purchase.purchase_order_line.unlink = unlink_dmp_po_line    
