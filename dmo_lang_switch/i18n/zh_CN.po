@@ -1,7 +1,0 @@
-#. module: dmo_lang_switch
-#. openerp-web
-#: code:addons/dmo_lang_switch/static/src/js/dmo_lang_switch.js:31
-#, python-format
-msgid "Switch to English"
-msgstr "切换到英语"
-

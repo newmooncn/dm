@@ -1,5 +1,0 @@
-#. module: dmp_hr
-#: field:hr.department,sequence:0
-#: model:ir.model.fields,field_description:dmp_hr.field_hr_department_sequence
-msgid "Sequence"
-msgstr "#"
