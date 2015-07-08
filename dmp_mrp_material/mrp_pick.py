@@ -22,7 +22,6 @@ class stock_picking(osv.osv):
     _inherit = "stock.picking" 
     _columns = {
         'production_id': fields.many2one('mrp.production', 'Manufacture Order', ondelete='set null', select=True),
-        'product_id': fields.related('order_line','product_id', type='many2one', relation='product.product', string='Product'),
     }
     _defaults = {
         'production_id': False
