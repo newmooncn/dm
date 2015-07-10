@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+<data noupdate="1"> 
+<!-- Hide elements group -->    
+    <record id="group_hide" model="res.groups">
+        <field name="name">Hide Elements</field>
+        <field name="category_id" ref="base.module_category_hidden"/>
+    </record> 
+</data>
+</openerp>
