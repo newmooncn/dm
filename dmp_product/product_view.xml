@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- Product  -->
+		<record id="product_product_tree_view_ext" model="ir.ui.view">
+            <field name="name">product_product_tree_view_ext</field>
+            <field name="model">product.product</field>
+            <field name="type">tree</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+	            <!-- <field name="name" position="after">
+	            	<field name="cn_name" string="中国名"/>
+	            </field> -->
+	            <field name="state" position="after">
+	            	<!-- <field name="sale_ok"/>
+	            	<field name="purchase_ok"/> -->
+	            	<field name="create_uid"/>
+	            	<field name="create_date"/>
+	            </field>
+
+	            <!-- <field name='standard_price' position="attributes">
+	            	<attribute name="invisible">0</attribute>
+	            </field>
+	            <field name='company_id' position="attributes">
+	            	<attribute name="invisible">0</attribute>
+	            </field> -->
+            </field>
+        </record>
+        
+
+		<record id="product_template_form_view_account_ext" model="ir.ui.view">
+            <field name="name">product_normal_form_view_ext</field>
+            <field name="model">product.template</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="account.product_template_form_view"/>
+            <field name="arch" type="xml">
+            <data>
+            	<!-- move categ_id from account page to base page -->
+            	<xpath expr="//page[@string='Accounting']/group[1]" position="replace">
+            	</xpath>
+            	<!-- account.product_template_form_view -->
+            	<field name="sale_ok" position="before">
+	                <group>
+	                    <label for="categ_id" string="Internal Category"/>
+	                    <div><field name="categ_id" colspan="3" nolabel="1"/></div>
+	                </group>            	
+            	</field>
+            </data>
+            </field>
+       </record>
+        
+		<record id="product_normal_form_view_ext" model="ir.ui.view">
+            <field name="name">product_normal_form_view_ext</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+            <data>
+            	<field name="default_code" position="replace">
+            	</field>
+                <field name="name" position="replace">
+                    <field name="default_code" default_focus="1" placeholder="Code" class="oe_inline oe_form_field_code"/>
+                    -
+                    <field name="name" placeholder="Name" class="oe_inline"/>
+                </field>
+                <xpath expr="//page[@string='Information']/group/group[2]" position="after">
+                     <group>
+                         <field name="create_uid"/>
+                         <field name="create_date"/>
+                     </group>
+                </xpath>
+		 
+				<!-- Chinese Name -->
+				<!-- <xpath expr="//h1" position="after">
+                  <label for="cn_name"/>
+                  <field name="cn_name" colspan="4" placeholder="中国名"/>
+                </xpath> -->       
+                <!-- hide product_tmpl_id -->
+            	<field name="product_tmpl_id" position="attributes">
+            		<attribute name="invisible">1</attribute>
+            	</field>
+            </data>
+            </field>
+		</record>
+		
+        <record id="product_search_form_view_ext" model="ir.ui.view">
+            <field name="name">product_search_form_view_ext</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="arch" type="xml">
+            	<field name="name" position="replace">
+            		<field name="name" string="Product" filter_domain="['|','|','|',('name','ilike',self),('default_code','ilike',self),('cn_name','ilike',self),('description','ilike',self)]"/>
+            		<field name="create_uid"/>
+            		<field name="create_date"/>
+            		<field name="default_code" filter_domain="[('default_code','in',self)]" string="Multi Part#"/>
+            	</field>
+            </field>
+        </record>
+<!-- add cn name to kanban view -->        		
+<!--         <record model="ir.ui.view" id="product_kanban_view_dmp_product">
+            <field name="name">Product Kanban</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_kanban_view"/>
+            <field name="arch" type="xml">
+            	<field name="name" position="after">
+            		<field name="cn_name"/>
+            	</field>
+            </field>		
+		</record> -->	  
+		
+		<!-- move categ_id in account module -->
+		
+        <record id="product_search_form_view_ext" model="ir.ui.view">
+            <field name="name">product_search_form_view_ext</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="arch" type="xml">
+            	<field name="name" position="replace">
+            		<field name="name" string="Product" filter_domain="['|','|','|',('name','ilike',self),('default_code','ilike',self),('cn_name','ilike',self),('description','ilike',self)]"/>
+            		<field name="create_uid"/>
+            		<field name="create_date"/>
+            		<field name="default_code" filter_domain="[('default_code','in',self)]" string="Multi Part#"/>
+            	</field>
+            </field>
+        </record>
+
+		
+	</data>  
+</openerp>	

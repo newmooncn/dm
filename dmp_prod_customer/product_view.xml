@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+	<data>
+		<!-- Product  -->
+        
+		<record id="product_normal_form_view_customer" model="ir.ui.view">
+            <field name="name">product_normal_form_view_customer</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_normal_form_view"/>
+            <field name="arch" type="xml">
+	            <!-- customer -->
+	            <group name="website_and_pos" position="after">
+		            <separator string="Customer"/>
+	            	<group name="main_customer" col="4">
+		            	<!-- <field name="customer_info_id"/> -->
+		            	<field name="customer_id"/>
+		            	<field name="customer_product_name"/>
+		            	<!-- <field name="customer_delay"/> -->        
+	            	</group>    	
+		            <field name="customer_ids"/>
+	            </group>
+            </field>
+		</record>	
+		
+<!-- product customer list -->
+        <record id="product_customerinfo_tree_view" model="ir.ui.view">
+            <field name="name">product.customerinfo.tree.view</field>
+            <field name="model">product.customerinfo</field>
+            <field name="arch" type="xml">
+                <tree string="customer Information" editable="bottom">
+                    <field name="sequence" widget="handle" invisible="context.get('show_product')"/>
+                	<field name="product_id" invisible="not context.get('show_product')"/>
+                    <field name="name" context="{'default_customer': 1, 'search_default_customer': 1, 'default_supplier': 0}"/>
+                    <field name="product_code"/>
+                    <field name="product_name"/>
+                    <field name="delay"/>
+                    <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                </tree>
+            </field>
+        </record>	
+        <record id="product_customerinfo_form_view" model="ir.ui.view">
+            <field name="name">product.customerinfo.form.view</field>
+            <field name="model">product.customerinfo</field>
+            <field name="arch" type="xml">
+                <form string="customer Information" version="7.0">
+                    <group col="4">
+                        <field name="sequence"/>
+                		<field name="product_id" invisible="not context.get('show_product')"/>
+                        <field name="name" context="{'default_customer': 1, 'search_default_customer': 1, 'default_supplier': 0}"/>
+                        <field name="product_code"/>
+                        <field name="product_name"/>
+                        <field name="delay"/>
+                        <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                    </group>
+                </form>
+            </field>
+        </record>	
+
+        <record id="product_customerinfo_search_view" model="ir.ui.view">
+            <field name="name">product.customerinfo.search.view</field>
+            <field name="model">product.customerinfo</field>
+            <field name="arch" type="xml">
+                <search string="Product Customer Info">
+                	<field name="name" string="Customer"/>
+                	<field name="product_code"/>
+                    <field name="product_name"/>
+                    <field name="product_id"/>
+                    <group  expand='1' string='Group by...'>
+                       <filter string='Product' name='product' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'product_id'}" />
+                       <filter string='Customer' name='supplier' icon="terp-stock_symbol-selection" domain="[]" context="{'group_by' : 'name'}" />
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_product_customer_info" model="ir.actions.act_window">
+            <field name="name">Product Customer Info</field>
+            <field name="res_model">product.customerinfo</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="product_customerinfo_tree_view"/>
+            <field name="search_view_id" ref="product_customerinfo_search_view"/>
+            <field name="context">{'show_product':True}</field>
+        </record>
+        
+<!-- uunder sales|Products menu -->
+	    <menuitem
+	        id="menu_product_customer_info"
+	        name="Product Customers"
+	        sequence="15"
+	        action="action_product_customer_info"
+	        parent="base.menu_product"/>
+        
+<!-- Product customer name in tree  -->
+		<record id="product_product_tree_view_customer" model="ir.ui.view">
+            <field name="name">product_product_tree_view_customer</field>
+            <field name="model">product.product</field>
+            <field name="type">form</field>
+            <field name="inherit_id" ref="product.product_product_tree_view"/>
+            <field name="arch" type="xml">
+	            <!-- supplier -->
+	            <field name="name" position="after">
+	            	<field name="customer_product_name"/>           	
+	            </field> 	            
+            </field>
+		</record>     
+<!-- Product customer name in search  -->		   
+        <record id="product_search_form_view_customer" model="ir.ui.view">
+            <field name="name">product_search_form_view_customer</field>
+            <field name="model">product.product</field>
+            <field name="inherit_id" ref="product.product_search_form_view"/>
+            <field name="arch" type="xml">
+            	<field name="name" position="after">
+            		<field name="customer_product_name"/>
+            	</field>
+            </field>
+        </record>		
+	</data>		    
+</openerp>	
