@@ -8,6 +8,7 @@
             <field name="wkf_id" ref="procurement.wkf_procurement"/>
             <field name="name">buy</field>
             <field name="kind">function</field>
+            <field name="subflow_id">False</field>
             <field name="action">action_pur_req_assign()</field>
         </record>
 

@@ -93,7 +93,7 @@ class procurement_order(osv.osv):
                 'warehouse_id': warehouse_id and warehouse_id[0] or False,
                 'user_id': uid,
                 'company_id': company.id,
-                'state': 'draft',
+                'state': 'draft'
             }
             pur_req_id = self.get_pur_req_id(cr, uid, pur_req_vals, context=context)
             pur_req_line_vals = {

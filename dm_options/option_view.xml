@@ -3,10 +3,10 @@
     <data>
         <!-- res.bank -->
         <record id="view_option_list_form" model="ir.ui.view">
-            <field name="name">option.list.form</field>
+            <field name="name">view_option_list_form</field>
             <field name="model">option.list</field>
             <field name="arch" type="xml">
-                <form string="Bank" version="7.0">
+                <form string="Options" version="7.0">
                   <sheet>
                   	<group>
                         <field name="option_name"/>
@@ -20,7 +20,7 @@
             </field>
         </record>
         <record id="view_option_list_tree" model="ir.ui.view">
-            <field name="name">option.list.tree</field>
+            <field name="name">view_option_list_tree</field>
             <field name="model">option.list</field>
             <field name="arch" type="xml">
                 <tree string="Options">
@@ -32,10 +32,10 @@
             </field>
         </record>
         <record id="view_option_list_form_o2m" model="ir.ui.view">
-            <field name="name">option.list.form</field>
+            <field name="name">view_option_list_form_o2m</field>
             <field name="model">option.list</field>
             <field name="arch" type="xml">
-                <form string="Bank" version="7.0">
+                <form string="Options" version="7.0">
                   <sheet>
                     <field name="option_name" invisible="True"/>
                     <field name="key" invisible="True"/>

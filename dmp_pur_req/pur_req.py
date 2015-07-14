@@ -128,6 +128,10 @@ class pur_req(osv.osv):
 #                wf_service.trg_validate(uid, 'purchase.order', po.id, 'purchase_cancel', cr)
     
         self.write(cr,uid,ids,{'state':'cancel'})
+        
+        #cancel related procurement orders
+        self.cancel_req_procurements(cr, uid, ids, context=context)
+        
         return True  
       
     def unlink(self, cr, uid, ids, context=None):
@@ -138,14 +142,24 @@ class pur_req(osv.osv):
                 unlink_ids.append(s['id'])
             else:
                 raise osv.except_osv(_('Invalid Action!'), _('In order to delete a purchase requisition, you must cancel it first.'))
-
+        #cancel related procurement orders     
+        self.cancel_req_procurements(cr, uid, ids, context=context)
+        
         # automatically sending subflow.delete upon deletion
         wf_service = netsvc.LocalService("workflow")
         for id in unlink_ids:
             wf_service.trg_validate(uid, 'pur.req', id, 'pur_req_cancel', cr)
-
-        return super(pur_req, self).unlink(cr, uid, unlink_ids, context=context)    
+        
+        return super(pur_req, self).unlink(cr, uid, unlink_ids, context=context)
     
+    def cancel_req_procurements(self, cr, uid, ids, context=None):
+        #get related procurement ids
+        req_line_ids = self.pool['pur.req.line'].search(cr, uid, [('req_id', 'in', ids)], context=context)
+        proc_ids = self.pool['procurement.order'].search(cr, uid, [('pur_req_line_id', 'in', req_line_ids)], context=context)
+        #do related procurement order's cancel
+        self.pool['procurement.order'].action_cancel(cr, uid, proc_ids)
+        return True
+            
     def action_cancel_draft(self, cr, uid, ids, context=None):
         if not len(ids):
             return False
@@ -269,7 +283,7 @@ class pur_req_line(osv.osv):
         'order_user_id': fields.related('req_id','user_id',type='many2one',relation='res.users',string='Requester',readonly=True),
         'order_date_request': fields.related('req_id','date_request',type='datetime',string='Requisition Date',readonly=True),
         'order_state': fields.related('req_id', 'state', type='selection',string='Status',readonly=True,
-                                      selection=[('draft','New'),('confirmed','Confirmed'),('approved','Approved'),('rejected','Rejected'),('in_purchase','In Purchasing'),('done','Purchase Done'),('cancel','Cancelled')]),        
+                                      selection=[('draft','New'),('confirmed','Confirmed'),('approved','Approved'),('rejected','Rejected'),('in_purchase','In Purchasing'),('done','Purchase Done'),('cancel','Cancelled')]),    
                 
     }
     _rec_name = 'product_id'
@@ -329,7 +343,11 @@ class pur_req_line(osv.osv):
         })
         res = super(pur_req_line, self).copy_data(cr, uid, id, default, context)
         return res    
-       
+    def unlink(self, cr, uid, ids, context=None):
+        procurement_ids = self.pool.get('procurement.order').search(cr, uid, [('pur_req_line_id', 'in', ids)], context=context)
+        self.pool.get('procurement.order').action_cancel(cr, uid, procurement_ids)
+        return super(pur_req_line, self).unlink(cr, uid, ids, context=context)
+        
 pur_req_line()
 
 class purchase_order(osv.osv):
