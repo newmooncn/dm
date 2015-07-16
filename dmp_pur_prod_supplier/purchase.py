@@ -21,6 +21,7 @@
 ##############################################################################
 from openerp.tools import DEFAULT_SERVER_DATE_FORMAT, DEFAULT_SERVER_DATETIME_FORMAT, DATETIME_FORMATS_MAP
 from openerp.osv import fields,osv
+from openerp.tools.translate import _
 
 class purchase_order_line(osv.osv):  
     _name = "purchase.order.line"
@@ -48,7 +49,13 @@ class purchase_order_line(osv.osv):
         """
         res = super(purchase_order_line,self).onchange_product_id(cr, uid, ids, pricelist_id, product_id, qty, uom_id,
                                 partner_id, date_order, fiscal_position_id, date_planned,name, price_unit, context)
-        
+        #check product's supplier setting
+        if product_id and partner_id:
+            prod = self.pool['product.product'].browse(cr, uid, product_id, context=context)
+            supplier_ids = [seller.name.id for seller in prod.seller_ids]
+            if partner_id not in supplier_ids:
+                partner_name = self.pool['res.partner'].read(cr, uid, partner_id, ['name'], context=context)['name']
+                raise osv.except_osv(_('Warn!'),_('[%s] is not defined in supplier list of [%s]')%(partner_name, prod['name']))
         #add supplier product name
         if product_id and partner_id:
             res['value']['supplier_prod_name'] = self.pool.get('product.product').get_supplier_product(cr, uid, partner_id, product_id, context=context)
