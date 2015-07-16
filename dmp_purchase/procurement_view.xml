@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+<!--     <record id="view_sale_order_form_procurement_lijin" model="ir.ui.view">
+        <field name="name">sale.order.form.procurement.lijin</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="priority" eval="101"/>
+        <field name="arch" type="xml">                      	
+            <xpath expr="//tree[@string='Sales Order Lines']" position="inside">
+                <field name="po_name"/>
+            </xpath>                     
+            <xpath expr="//form[@string='Sales Order Lines']//field[@name='name']" position="after">
+            	<label for="po_line_id"/>
+                <field name="po_line_id"/>
+            </xpath>   
+        </field>
+    </record>
+    <record id="purchase_order_form_procurement_lijin" model="ir.ui.view">
+        <field name="name">purchase.order.form.procurement.lijin</field>
+        <field name="model">purchase.order</field>
+        <field name="inherit_id" ref="purchase.purchase_order_form"/>
+        <field name="priority" eval="101"/>
+        <field name="arch" type="xml">                      
+            <xpath expr="//tree[@string='Purchase Order Lines']" position="inside">
+                <field name="so_name"/>
+            </xpath>           
+        </field>
+    </record>
+    <record id="purchase_order_line_form_procurement_lijin" model="ir.ui.view">
+        <field name="name">purchase.order.line.form.procurement.lijin</field>
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_form"/>
+        <field name="priority" eval="101"/>
+        <field name="arch" type="xml">    
+            <xpath expr="//page[@string='Invoices and Receptions']" position="after">
+                <page string="Sale Order Line">
+                    <field name="so_line_id"/>
+                </page>            	
+            </xpath>        
+        </field>
+    </record> -->    
+    <record id="purchase_order_line_form_procurement" model="ir.ui.view">
+        <field name="name">purchase_order_line_form_procurement</field>
+        <field name="model">purchase.order.line</field>
+        <field name="inherit_id" ref="purchase.purchase_order_line_form"/>
+        <field name="priority" eval="1"/>
+        <field name="arch" type="xml">    
+        	<field name="company_id" position="after">
+        		<field name="procurement_id"/>       	
+            </field>        
+        </field>
+    </record>     
+</data>
+</openerp>

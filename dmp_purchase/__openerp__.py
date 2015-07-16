@@ -31,7 +31,7 @@ Purchase
     * 
     """,
     'depends': ["dmp_base", "purchase"],
-    'data': ['purchase_view.xml'],
+    'data': ['purchase_view.xml','procurement_view.xml'],
     'installable': True,
     'auto_install': False,
     'application': True,
