@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_partner_form_code">
+            <field name="name">view_partner_form_code</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+            	<field name="ref" position="replace">
+            	</field>
+                <field name="name" position="replace">
+                    <field name="ref" default_focus="1" class="oe_inline oe_form_field_code"/>
+                    -
+                    <field name="name" placeholder="Name" class="oe_inline"/>
+                </field>
+                <xpath expr="//field[@name='child_ids']/form//field[@name='mobile']" position="after">
+                	<field name="fax"/>
+                </xpath>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="view_res_partner_filter_code">
+            <field name="name">view_res_partner_filter_ext</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                   <field name="name"
+                       filter_domain="['|','|','|',('name','ilike',self),('parent_id','ilike',self),('ref','=',self),('ref','ilike',self)]"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</openerp>

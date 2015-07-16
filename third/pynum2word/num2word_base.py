@@ -124,7 +124,8 @@ class Num2Word_Base(object):
         out = [self.to_cardinal(pre)]
         if self.precision:
             out.append(self.title(self.pointword))
-
+        
+        post = round(post,self.precision)
         for i in range(self.precision):
             post *= 10
             curr = int(post)

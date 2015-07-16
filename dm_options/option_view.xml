@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!-- res.bank -->
+        <record id="view_option_list_form" model="ir.ui.view">
+            <field name="name">option.list.form</field>
+            <field name="model">option.list</field>
+            <field name="priority" eval="2"/>            
+            <field name="arch" type="xml">
+                <form string="Bank" version="7.0">
+                  <sheet>
+                  	<group>
+                        <field name="option_name"/>
+                        <field name="key"/>
+                        <field name="seq"/>
+                        <field name="name"/>
+                        <field name="memo"/>
+                    </group>
+                  </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_option_list_tree" model="ir.ui.view">
+            <field name="name">option.list.tree</field>
+            <field name="model">option.list</field>
+            <field name="priority" eval="2"/>        
+            <field name="arch" type="xml">
+                <tree string="Options">
+                    <field name="option_name"/>
+                    <field name="key"/>
+                    <field name="seq"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="view_option_list_form_o2m" model="ir.ui.view">
+            <field name="name">option.list.form</field>
+            <field name="model">option.list</field>
+            <field name="priority" eval="1"/>        
+            <field name="arch" type="xml">
+                <form string="Bank" version="7.0">
+                  <sheet>
+                    <field name="option_name" invisible="True"/>
+                    <field name="key" invisible="True"/>
+                    <field name="seq"/>
+                    <field name="name"/>
+                    <field name="memo"/>
+                  </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="view_option_list_tree_o2m" model="ir.ui.view">
+            <field name="name">option.list.tree</field>
+            <field name="model">option.list</field>
+            <field name="priority" eval="1"/>        
+            <field name="arch" type="xml">
+                <tree string="Options" editable="bottom">
+                    <field name="option_name" invisible="True"/>
+                    <field name="key" invisible="True"/>
+                    <field name="seq"/>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="action_option_list" model="ir.actions.act_window">
+            <field name="name">Option List</field>
+            <field name="res_model">option.list</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_view_option_list_tree">
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="view_option_list_tree"/>
+            <field name="act_window_id" ref="action_option_list"/>
+        </record>
+        <record model="ir.actions.act_window.view" id="action_view_option_list_form">
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_option_list_form"/>
+            <field name="act_window_id" ref="action_option_list"/>
+        </record>
+                
+        <menuitem id="menu_set_others" name="Others" parent="base.menu_administration" sequence="60"/>
+        <menuitem
+            action="action_option_list"
+            id="menu_option_list"
+            parent="menu_set_others"
+            sequence="0"/>   
+    </data>
+</openerp>
+

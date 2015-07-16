@@ -25,6 +25,6 @@ Make the form width same as the window
 .openerp .oe_form_editable .oe_view_only {
   display: none !important;
 }
-/* .openerp .oe_form_editable .oe_form .oe_form_field_code input {
+.openerp .oe_form_editable .oe_form .oe_form_field_code input {
   width: 5em;
-} */
+}
