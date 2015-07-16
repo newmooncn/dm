@@ -27,6 +27,12 @@ msgid "Supplier Product ID"
 msgstr "供应商产品"
 
 #. module: dmp_pur_prod_supplier
+#: code:addons/dmp_pur_prod_supplier/purchase.py:0
+#, python-format
+msgid "[%s] is not defined in supplier list of [%s]"
+msgstr "[%s] 不在 [%s] 的供应商列表中!"
+
+#. module: dmp_pur_prod_supplier
 #: model:ir.model.fields,field_description:dmp_pur_prod_supplier.field_purchase_order_line_supplier_prod_code
 #: field:purchase.order.line,supplier_prod_code:0
 msgid "Supplier Product Code"

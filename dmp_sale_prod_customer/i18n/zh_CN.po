@@ -27,3 +27,9 @@ msgstr "销售订单明细"
 #: model:ir.model.fields,field_description:dmp_sale_prod_customer.field_sale_order_line_customer_prod_name
 msgid "Customer Product Name"
 msgstr "客户品名"
+
+#. module: dmp_sale_prod_customer
+#: code:addons/dmp_sale_prod_customer/sale.py:0
+#, python-format
+msgid "[%s] is not defined in customer list of [%s]"
+msgstr "[%s] 不在 [%s] 的客户列表中!"
