@@ -1,0 +1,1 @@
+copy this folder to C:\Develop\Python27\Lib\site-packages
