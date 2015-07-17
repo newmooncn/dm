@@ -1,0 +1,69 @@
+# Translation of OpenERP Server.
+# This file contains the translation of the following modules:
+# 	* dmp_account_pay_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: OpenERP Server 7.0-20130413-232416\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-11-12 06:50+0000\n"
+"PO-Revision-Date: 2014-11-12 14:53+0800\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"X-Generator: Poedit 1.5.7\n"
+
+#. module: dmp_account_pay_sale
+#: view:account.invoice:0
+msgid "Sale Advance Payments"
+msgstr "销售预付款"
+
+#. module: dmp_account_pay_sale
+#: model:ir.model.fields,field_description:dmp_account_pay_sale.field_sale_order_payment_moves
+#: view:sale.order:0 field:sale.order,payment_moves:0
+msgid "Payment Moves"
+msgstr "付款会计凭证明细"
+
+#. module: dmp_account_pay_sale
+#: view:sale.order:0
+msgid "Payments"
+msgstr "付款"
+
+#. module: dmp_account_pay_sale
+#: view:pay.sale.order:0
+msgid "date"
+msgstr "date"
+
+#. module: dmp_account_pay_sale
+#: constraint:pay.sale.order:0
+msgid "Pay amount only can be between zero and the balance."
+msgstr "付款金额必须介于零和余额之间."
+
+#. module: dmp_account_pay_sale
+#: view:pay.sale.order:0
+msgid "Pay"
+msgstr "付款"
+
+#. module: dmp_account_pay_sale
+#: view:sale.order:0
+msgid "Total Paid"
+msgstr "已付"
+
+#. module: dmp_account_pay_sale
+#: field:account.move,sale_ids:0
+#: model:ir.model.fields,field_description:dmp_account_pay_sale.field_account_move_sale_ids
+msgid "Sales Orders"
+msgstr "销售订单"
+
+#. module: dmp_account_pay_sale
+#: view:sale.order:0
+msgid "Apply Advance Payments"
+msgstr "登记预付款"
+
+#. module: dmp_account_pay_sale
+#: view:sale.order:0
+msgid "Balance Due"
+msgstr "未付"

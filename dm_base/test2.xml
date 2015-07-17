@@ -1,20 +1,20 @@
 
 <header>
 	<pageTemplate>
-		<frame id="first" x1="1.3cm" y1="3.0cm" height="21.7cm" width="19.0cm" />
+		<frame id="first" x1="1.3cm" y1="3.0cm" height="24.9cm" width="19.0cm" />
 		<stylesheet>
 			<!-- Set here the default font to use for all <para> tags -->
 			<paraStyle name='Normal' fontName="MicrosoftYaHei" />
 			<paraStyle name="main_footer" fontSize="8.0" alignment="CENTER" />
 			
 			<paraStyle name="main_header" fontSize="8.0" leading="10" alignment="CENTER" spaceBefore="0.0" spaceAfter="0.0" />
-			<paraStyle name="main_title" fontSize="16.0" alignment="CENTER"/>
+			<paraStyle name="main_title" fontSize="18.0" alignment="CENTER"/>
 		</stylesheet>
 		<pageGraphics>
 			<!-- Set here the default font to use for all <drawString> tags -->
 			<setFont name="MicrosoftYaHei" size="8" />
 			<!-- You Logo - Change X,Y,Width and Height -->
-			<image x="1.3cm" y="27.7cm" height="55.0">[[ company.logo or removeParentNode('image') ]]</image>
+			<image x="1.3cm" y="27.7cm" height="60.0">[[ company.logo or removeParentNode('image') ]]</image>
 			<fill color="black" />
 
 			<!-- page header -->

@@ -60,6 +60,6 @@ class rml_parser_ext(report_sxw.rml_parse):
         obj_names = [obj.name for obj in obj_ids]
         return ', '.join(obj_names)  
     def number2words_en(self, num):
-        return num2word_EN.to_card(num)
+        return num2word_EN.to_card(num).upper()
     
 # vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
