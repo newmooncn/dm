@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+<!-- Attachment type views -->
+        <record id="view_ir_attachment_type_form" model="ir.ui.view">
+            <field name="name">view_ir_attachment_type_form</field>
+            <field name="model">ir.attachment.type</field>
+            <field name="arch" type="xml">
+                <form string="Attachment Type" version="7.0">
+                    <field name="name"/>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_ir_attachment_type_tree" model="ir.ui.view">
+            <field name="name">view_ir_attachment_type_tree</field>
+            <field name="model">ir.attachment.type</field>
+            <field name="arch" type="xml">
+                <tree string="Attachment Type">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        
+<!-- Redefine the attachment for view
+1.Add the attachment type to attachment form view 
+2.In dmp_base.ir_attachment.fields_view_get() use this view
+-->
+        <record id="view_ir_attachment_form_ext" model="ir.ui.view">
+            <field name="name">view_ir_attachment_form_ext</field>
+            <field name="model">ir.attachment</field>
+            <field eval="50" name="priority"/>
+            <field name="arch" type="xml">
+                <form string="Attachment" version="7.0">
+                    <sheet>
+                        <label for="name" class="oe_edit_only"/>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <group>
+                            <field name="datas" filename="datas_fname"/>
+                            <field name="datas_fname" invisible="1" class="oe_inline oe_right"/>
+                        </group>
+                        <group col="4" colspan="4">
+                            <group col="2" colspan="2">
+                                <field name="attach_type_id"/>
+                            </group>
+                            <group col="2" colspan="2">
+                                <div name="creation_div">
+                                    <field name="create_uid" readonly="1" class="oe_inline"/> on 
+                                    <field name="create_date" readonly="1" class="oe_inline"/>
+                                </div>
+                            </group>
+                        </group>
+                        
+                        <group name="description_group" string="Description" colspan="4">
+                            <field name="description" nolabel="1"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+<!-- ir.attachment tree/form/search improvements, to show more useful information -->
+    <record model="ir.ui.view" id="view_attachment_tree_ext">
+        <field name="name">view_attachment_tree_ext</field>
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="base.view_attachment_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="res_model" />
+                <field name="res_name" />
+                <field name="attach_type_id"/>
+            </field>
+        </field>
+    </record>  
+    <record model="ir.ui.view" id="view_document_file_tree_ext">
+        <field name="name">view_document_file_tree_ext</field>
+        <field name="model">ir.attachment</field>
+        <field name="inherit_id" ref="document.view_document_file_tree"/>
+        <field name="arch" type="xml">
+            <field name="name" position="after">
+                <field name="res_model" />
+                <field name="res_name" />
+                <field name="attach_type_id"/>
+            </field>
+            <field name="create_date" position="attributes">
+                <attribute name="groups" />
+            </field>
+            <field name="write_date" position="attributes">
+                <attribute name="groups" />
+            </field>
+            <field name="company_id" position="attributes">
+                <attribute name="groups">base.group_multi_company"</attribute>
+            </field>
+        </field>
+    </record>          
+
+    <record model="ir.ui.view" id="view_attachment_search_ext" >
+            <field name="name">view_attachment_search_ext</field>
+            <field name="model">ir.attachment</field>
+            <field name="inherit_id" ref="base.view_attachment_search"/>
+            <field name="arch" type="xml">
+                <field name="name" position="after">
+                    <field name="res_model"/>
+                    <field name="res_name"/>
+                    <field name="attach_type_id"/>
+                </field>
+            </field>
+    </record>
+     </data>
+</openerp>

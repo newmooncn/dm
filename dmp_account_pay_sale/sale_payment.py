@@ -123,7 +123,17 @@ class sale_order(osv.osv):
             default = {}
         default['payment_moves'] = False
         return super(sale_order, self).copy(cr, uid, id, default, context=context)
-    
+
+    def _prepare_invoice(self, cr, uid, order, lines, context=None):
+        '''
+        johnw, 07/20/2015, change the invoice partner to be same as sale order, do not use partner_invoice_id, 
+        since we need make the AP and accounting data to be one partner_id
+        '''
+        invoice_vals = super(sale_order, self)._prepare_invoice(cr, uid, order, lines, context=context)
+        invoice_vals.update({'account_id': order.partner_id.property_account_receivable.id,
+                            'partner_id': order.partner_id.id,})
+        return invoice_vals
+        
 class account_move(osv.osv):
     _inherit="account.move"
     _columns = {

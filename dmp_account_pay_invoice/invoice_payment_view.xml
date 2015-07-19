@@ -45,7 +45,7 @@
             	</xpath>
             	<xpath expr="//button[@name='invoice_pay_customer'][last()]" position="after">
             		<button name="reconcile_order_payment" string="Reconcile Advance Payments" type="object"
-            		attrs="{'invisible': [('state','!=','open')]}" groups="account.group_account_invoice"/>
+            		attrs="{'invisible': ['|',('state','!=','open'),('type','!=','out_invoice')]}" groups="account.group_account_invoice"/>
             	</xpath>
             </field>
         </record>        
@@ -102,7 +102,7 @@
             	</xpath>
             	<xpath expr="//button[@name='invoice_pay_customer']" position="after">
             		<button name="reconcile_order_payment" string="Reconcile Advance Payments" type="object"
-            		attrs="{'invisible': [('state','!=','open')]}" groups="account.group_account_invoice"/>
+            		attrs="{'invisible': ['|',('state','!=','open'),('type','!=','in_invoice')]}" groups="account.group_account_invoice"/>
             	</xpath>
             </field>
         </record>

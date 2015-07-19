@@ -6,20 +6,20 @@
 #
 ##############################################################################
 {
-    'name': 'DMP Account payment on sale',
+    'name': 'DMP Account move source',
     'version': '1.0',
     'category': 'Customization',
     'author': 'DMEMS',
     'website': 'www.dmems.com',
     'description': """
-Accounting payment on sale
+Accounting move source
 =====================
-    * 07/20/2015, change the sale invoice partner to be same as sale order, do not use partner_invoice_id, 
-            since we need make the AP and accounting data to be one partner_id
+    * 
     """,
 
-    'depends': ['account','sale','sale_quick_payment','account_prepayment'],
-    'data':["sale_payment_view.xml"],
+    'depends': ['account','purchase','sale','stock'],
+    'data':['account_move_source_view.xml'],
+    'auto_install': False,
     'installable': True
 }
 

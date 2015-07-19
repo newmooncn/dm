@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <report 
+            id="report_rpt_account_cn_gl"
+            model="rpt.account.cn" 
+            report_type="pdf"
+            name="rpt.account.cn.gl"
+            file="dmp_account_rpt_account/report/rpt_account_cn_gl.rml" 
+            string="Accounting Entry GL"
+        />
+        <report 
+            id="report_rpt_account_cn_detail"
+            model="rpt.account.cn" 
+            report_type="pdf"
+            name="rpt.account.cn.detail"
+            file="dmp_account_rpt_account/report/rpt_account_cn_detail.rml" 
+            string="Accounting Entry Detail"
+        />   
+        <report 
+            id="report_rpt_account_cn_detail_money"
+            model="rpt.account.cn" 
+            report_type="pdf"
+            name="rpt.account.cn.detail.money"
+            file="dmp_account_rpt_account/report/rpt_account_cn_detail_money.rml" 
+            string="Accounting Entry Detail Money"
+        />
+    </data>
+</openerp>

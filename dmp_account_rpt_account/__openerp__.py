@@ -6,20 +6,26 @@
 #
 ##############################################################################
 {
-    'name': 'DMP Account payment on sale',
+    'name': 'DMP Account Account report',
     'version': '1.0',
     'category': 'Customization',
     'author': 'DMEMS',
     'website': 'www.dmems.com',
     'description': """
-Accounting payment on sale
+Accounting Account report
 =====================
-    * 07/20/2015, change the sale invoice partner to be same as sale order, do not use partner_invoice_id, 
-            since we need make the AP and accounting data to be one partner_id
+    * 
     """,
 
-    'depends': ['account','sale','sale_quick_payment','account_prepayment'],
-    'data':["sale_payment_view.xml"],
+    'depends': ['dmp_base','account','dmp_account_move_source','dmp_account_account'],
+    'data':["account_report.xml",
+            "rpt_account_cn_menu.xml",
+            "rpt_account_cn_gl_view.xml",
+            "rpt_account_cn_detail_view.xml",
+            "rpt_account_cn_detail_predefine_view.xml",            
+            "rpt_account_cn_detail_money_view.xml",
+    ],
+    'auto_install': False,
     'installable': True
 }
 
