@@ -17,7 +17,7 @@ Accounting Account report
     * 
     """,
 
-    'depends': ['dmp_base','account'],
+    'depends': ['dmp_base','account','dmp_account_move_source','dmp_account_account'],
     'data':["account_report.xml",
             "rpt_account_cn_menu.xml",
             "rpt_account_cn_gl_view.xml",
