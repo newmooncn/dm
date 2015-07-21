@@ -20,7 +20,7 @@ DM Base
     'author': 'DMEMS',
     'website': 'http://www.dmems.com',
     'images': [],
-    'depends': ['base'],
+    'depends': ['base','web'],
     'data': [
         'security/dm_base_security.xml',
         'views/dm_base.xml'
