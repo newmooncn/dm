@@ -23,7 +23,8 @@ DM Base
     'depends': ['base','web'],
     'data': [
         'security/dm_base_security.xml',
-        'views/dm_base.xml'
+        'views/dm_base.xml',
+        'workflow_view.xml'
         ],
     'demo': [],
     'installable': True,
