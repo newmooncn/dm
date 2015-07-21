@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>       
+    	<!-- Why add this action between rotuer and invoice, it is for manual_invoice, if there is not this activity, then 
+    	if order do not need picking, and invoice_method='manual' then the workflow will be completed, since there is not waiting activity --> 
+        <record id="act_wait_invoice" model="workflow.activity">
+            <field name="wkf_id" ref="purchase.purchase_order"/>
+            <field name="name">wait_invoice</field>
+        </record>
+                
+    <!-- improve the invoicing workflow -->
+        <record id="trans_router_wait_invoice" model="workflow.transition">
+            <field name="act_from" ref="purchase.act_router"/>
+            <field name="act_to" ref="act_wait_invoice"/>
+        </record>
+        
+        <record id="purchase.trans_router_invoice_no_order" model="workflow.transition">
+        	<!-- <field name="act_from" ref="act_router"/> -->
+            <field name="act_from" ref="act_wait_invoice"/>
+            <field name="act_to" ref="purchase.act_invoice_end"/>
+            <!-- <field name="condition">invoice_method&lt;&gt;'order'</field> -->
+            <field name="condition">invoice_method=='picking'</field>
+        </record>
+        <record id="trans_router_invoice" model="workflow.transition">
+            <!-- <field name="act_from" ref="act_router"/> -->
+            <field name="act_from" ref="act_wait_invoice"/>
+            <field name="act_to" ref="purchase.act_invoice"/>
+            <field name="condition">invoice_method=='order'</field>
+        </record>
+        <!-- add another transition to invoice: manual_invoice -->
+        <record id="trans_wait_invoice_invoice_manual" model="workflow.transition">
+            <field name="act_from" ref="act_wait_invoice"/>
+            <field name="act_to" ref="purchase.act_invoice"/>
+            <field name="signal">manual_invoice</field>
+        </record>
+                  
+    </data>
+</openerp>

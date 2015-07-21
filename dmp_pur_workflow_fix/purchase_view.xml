@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>    
+        <record id="dmp_purchase_order_form_wf" model="ir.ui.view">
+            <field name="name">dmp_purchase_order_form_wf</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+            	<!-- show 'View Invoice' button when invoice method is 'manual' -->
+            	<button name="view_invoice" position="attributes">
+            		<attribute name="attrs">{'invisible': ['|', ('invoice_method','in', ['picking']), '|', ('state','!=', 'approved'), ('invoiced','=',True) ]}</attribute>
+            	</button>
+       		</field>
+        </record>
+   
+    </data>
+</openerp>
