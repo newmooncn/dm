@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_p_order_form_pick_act_opt">
+            <field name="name">view_sale_order_form_pick_act_opt</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+            	<field name="invoiced" position="before">
+            		<field name="pick_account_opt"/>
+            	</field>    
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_purchase_order_form_pick_act_opt">
+            <field name="name">view_purchase_order_form_pick_act_opt</field>
+            <field name="model">purchase.order</field>
+            <field name="inherit_id" ref="purchase.purchase_order_form"/>
+            <field name="arch" type="xml">
+            	<field name="minimum_planned_date" position="before">
+            		<field name="pick_account_opt"/>
+            	</field>
+            	<!-- show 'View Invoice' button when invoice method is 'manual' -->
+            	<button name="view_invoice" position="attributes">
+            		<attribute name="attrs">{'invisible': ['|', ('invoice_method','in', ['picking']), '|', ('state','!=', 'approved'), ('invoiced','=',True) ]}</attribute>
+            	</button>    
+            </field>
+        </record>
+    </data>
+</openerp>
