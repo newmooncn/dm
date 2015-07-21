@@ -111,20 +111,22 @@ class res_partner(osv.Model):
                                display_name=unaccent('display_name'),
                                percent=unaccent('%s'))
             '''
-            #johnw, 01/27/2015, add column 'ref' searching
+            #johnw, 01/27/2015, add column 'ref'/'name' searching
             query = """SELECT id
                          FROM res_partner
                       {where} ({email} {operator} {percent}
                            OR {display_name} {operator} {percent}
-                           OR {ref} {operator} {percent})
+                           OR {ref} {operator} {percent}
+                           OR {name} {operator} {percent})
                      ORDER BY {display_name}
                     """.format(where=where_str, operator=operator,
                                email=unaccent('email'),
                                display_name=unaccent('display_name'),
                                ref=unaccent('ref'),
+                               name=unaccent('name'),
                                percent=unaccent('%s'))
                     
-            where_clause_params += [search_name, search_name, search_name]
+            where_clause_params += [search_name, search_name, search_name, search_name]
             if limit:
                 query += ' limit %s'
                 where_clause_params.append(limit)
