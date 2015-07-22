@@ -114,10 +114,10 @@ class res_partner(osv.Model):
             #johnw, 01/27/2015, add column 'ref'/'name' searching
             query = """SELECT id
                          FROM res_partner
-                      {where} ({email} {operator} {percent}
-                           OR {display_name} {operator} {percent}
-                           OR {ref} {operator} {percent}
-                           OR {name} {operator} {percent})
+                      {where} (trim({email}) {operator} trim({percent})
+                           OR trim({display_name}) {operator} trim({percent})
+                           OR trim({ref}) {operator} trim({percent})
+                           OR trim({name}) {operator} trim({percent}))
                      ORDER BY {display_name}
                     """.format(where=where_str, operator=operator,
                                email=unaccent('email'),
