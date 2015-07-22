@@ -1,0 +1,4 @@
+sudo mkdir  /usr/share/fonts/truetype/msyahei
+sudo cp msyh* /usr/share/fonts/truetype/msyahei/
+sudo chmod 664 /usr/share/fonts/truetype/msyahei/msyh*
+sudo fc-cache -fv
