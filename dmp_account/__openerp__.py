@@ -6,15 +6,16 @@
 #
 ##############################################################################
 {
-    'name': 'DMP Account',
+    'name': 'DMP Account base',
     'version': '1.0',
     'category': 'Customization',
     'author': 'DMEMS',
     'website': 'www.dmems.com',
     'description': """
-Accounting
+Accounting base
 =====================
-    * 
+    * allow to delete invoice with draft/cancel, but have been invalidated
+    * improve sales order invoice preparation
     """,
 
     'depends': ['account'],
