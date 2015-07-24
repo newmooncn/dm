@@ -81,7 +81,7 @@ class rpt_base(osv.osv_memory):
     def _pdf_data(self, cr, uid, ids, form_data, context=None):
         raise (_('Error!'), _('Not implemented.'))
         
-    def save_pdf(self, cr, uid, ids, context=None):
+    def pdf_save(self, cr, uid, ids, context=None):
         if context is None: 
             context = {}
         form_data = self.read(cr, uid, ids[0], context=context)
