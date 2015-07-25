@@ -2,7 +2,7 @@
 ##############################################################################
 #    
 #    OpenERP, Open Source Management Solution
-#    Copyright (C) 2004-2009 Tiny SPRL (<http://tiny.be>).
+#    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -18,3 +18,8 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.     
 #
 ##############################################################################
+import account_invoice
+import sale_order
+import account_invoice_pay
+# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+

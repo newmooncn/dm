@@ -16,6 +16,7 @@ Accounting base
 =====================
     * allow to delete invoice with draft/cancel, but have been invalidated
     * improve sales order invoice preparation
+    * Add account_voucher.invoice_id and account_move.invoice_id for the Invoice Payment
     """,
 
     'depends': ['account'],
