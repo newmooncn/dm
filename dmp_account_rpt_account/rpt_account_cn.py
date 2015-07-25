@@ -246,8 +246,8 @@ class rpt_account_cn(osv.osv_memory):
 
                 #detail lines
                 if rpt.level == 'detail':
-                    cr.execute('SELECT aml.debit, aml.credit,am.date as move_date, am.name as move_name, aml.name as move_line_name, \
-                            aml.id,aml.move_id \
+                    cr.execute('SELECT aml.debit, aml.credit,am.date as move_date, am.name as move_name, am.ref as move_ref, aml.name as move_line_name, \
+                            aml.id,aml.move_id,am.invoice_id \
                             FROM account_move_line aml \
                             JOIN account_move am ON (am.id = aml.move_id) \
                             WHERE (aml.account_id IN %s) \
@@ -258,6 +258,23 @@ class rpt_account_cn(osv.osv_memory):
                             ,(search_account_ids, tuple(move_state), period.id))
                     rows = cr.dictfetchall()
                     balance_detail = balance_sum
+                    #get counter account
+                    counter_accounts={}
+                    if rows and rpt.show_counter:
+                        aml_ids = [row['id'] for row in rows]
+                        sql_counter = '''
+                        select distinct a.id as aml_id, d.id as counter_account_id
+                        from account_move_line a
+                        join account_move b on a.move_id = b.id
+                        join account_move_line c on b.id = c.move_id and a.id != c.id and a.account_id != c.account_id
+                        join account_account d on c.account_id = d.id
+                        join account_account_type e on d.user_type = e.id
+                        where a.id in %s
+                        '''
+                        cr.execute(sql_counter,(tuple(aml_ids),))
+                        rows_counter = cr.dictfetchall()
+                        for row_counter in rows_counter:
+                            counter_accounts[row_counter['aml_id']] = row_counter['counter_account_id']                        
                     for row in rows:
                         #move detail line
                         debit = row['debit']
@@ -271,14 +288,16 @@ class rpt_account_cn(osv.osv_memory):
                                     'aml_id':row['id'], # for detail
                                     'date':row['move_date'], # for detail
                                     'am_name':row['move_name'], # for detail
+                                    'am_ref':row['move_ref'], # for detail
                                     'notes':row['move_line_name'],
                                     'debit':debit,
                                     'credit':credit,
                                     'bal_direct':labels['bal_direct_%s'%(direction,)],
                                     'balance':balance_detail,
-                                    'data_level':'detail'}
+                                    'data_level':'detail',
+                                    'invoice_id':row['invoice_id']}
                         if rpt.show_counter:
-                            rpt_ln['counter_account'] = ''
+                            rpt_ln['counter_account'] = counter_accounts.get(row['id'])
                         rpt_lns.append(rpt_ln)    
                         seq += 1
                 
@@ -363,11 +382,14 @@ class rpt_account_cn_line(osv.osv_memory):
         'aml_id': fields.many2one('account.move.line', 'Move Line', ),
         'aml_account_id': fields.related('aml_id', 'account_id', string='Account',type='many2one',relation='account.account'),
         'aml_partner_id': fields.related('aml_id', 'partner_id', string='Partner',type='many2one',relation='res.partner'),
-        'aml_source_id': fields.related('aml_id', 'source_id', string='Source',type='reference'),
+#        'aml_source_id': fields.related('aml_id', 'source_id', string='Source',type='reference'),
         
         'date': fields.date('Move Date', ),
         'am_name': fields.char('Move Name', size=64, ),
-        'counter_account': fields.char('Counter Account', size=64, ),
+        #account move's ref, added by johnw, 07/24/2015
+        'am_ref': fields.char('Reference', copy=False),
+        'counter_account': fields.many2one('account.account','Counter Account'),
+        'invoice_id': fields.many2one('account.invoice', 'Invoice'),
         
         #for both Gl and detail, move line name or static:期初,本期合计,本年合计
         'notes': fields.char('Notes', size=64, ),

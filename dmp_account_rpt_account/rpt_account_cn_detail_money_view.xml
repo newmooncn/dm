@@ -19,7 +19,7 @@
 	                    	<field name="show_search"/>
 	                    	<field name="save_pdf" invisible="1"/>
 	                    	<button name="run_report" string="Search" type="object" default_focus="1" class="oe_highlight"/>
-	                    	<button name="save_pdf" string="PDF" type="object" attrs="{'invisible':[('save_pdf','!=',True)]}"/>
+	                    	<button name="pdf_save" string="PDF" type="object" attrs="{'invisible':[('save_pdf','!=',True)]}"/>
 					</div>
                 </group>                
                 <group name="options" attrs="{'invisible':[('show_search','!=',True)]}">
@@ -68,13 +68,15 @@
 							<field name="date"/>							
 							<!-- <field name="am_name"/> -->
 							<field name="aml_account_id"/>
-							<field name="notes"/>
 		                    <field name="aml_id" invisible="1"/>
 		                    <button name="open_move" string="View Account Move" type="object" icon="gtk-justify-fill" attrs="{'invisible':[('aml_id','=',False)]}"/>
+							<field name="am_ref"/>
+							<field name="invoice_id"/>		
+							<field name="counter_account"/>					
 		                    <field name="aml_partner_id"/>
-		                    <field name="aml_source_id"/>
-		                    <button name="open_source" string="View Source Order" type="object" icon="gtk-justify-fill" attrs="{'invisible':['|',('aml_id','=',False),('aml_source_id','=',False)]}"/>
-							<field name="counter_account" invisible="1"/>
+		                    <!-- <field name="aml_source_id"/> -->
+		                    <!-- <button name="open_source" string="View Source Order" type="object" icon="gtk-justify-fill" attrs="{'invisible':['|',('aml_id','=',False),('aml_source_id','=',False)]}"/> -->
+							<field name="notes"/>
 							<field name="debit"/>
 							<field name="credit"/>
 							<!-- <field name="bal_direct"/> -->
@@ -91,7 +93,7 @@
             <field name="view_type">form</field>
             <field name="view_mode">form</field>
             <field name="view_id" ref="rpt_account_cn_detail_money_view"/>
-            <field name="context">{'default_level':'detail','default_name':'actrpt_dtl_money','default_title':'Liquidity Detail','default_target_move':'all','default_account_user_type':'cash,bank'}</field>
+            <field name="context">{'default_level':'detail','default_name':'actrpt_dtl_money','default_title':'Liquidity Detail','default_target_move':'all','default_account_user_type':'cash,bank','default_show_counter':True}</field>
             <field name="target">inline</field>
         </record>        
            
