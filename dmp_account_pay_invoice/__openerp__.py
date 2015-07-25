@@ -14,7 +14,7 @@
     'description': """
 Accounting  invoice payment
 =====================
-    * 
+    * do auto reconcile the prepayment when do invoice validation
     """,
 
     'depends': ['account','account_cancel'],
