@@ -259,8 +259,10 @@ class NewId(object):
     """ Pseudo-ids for new records. """
     def __nonzero__(self):
         return False
-
-IdType = (int, long, basestring, NewId)
+    
+#johnw, 07/26/2015, add 'float' to id type list
+#IdType = (int, long, basestring, NewId)
+IdType = (int, long, float, basestring, NewId)
 
 
 # maximum number of prefetched records
@@ -5221,9 +5223,6 @@ class BaseModel(object):
 
     @api.v7
     def browse(self, cr, uid, arg=None, context=None):
-        #johnw, fix the issue when only one id number passed in
-        if isinstance(arg,(int,long,float)):
-            arg = [arg]
         ids = _normalize_ids(arg)
         #assert all(isinstance(id, IdType) for id in ids), "Browsing invalid ids: %s" % ids
         return self._browse(Environment(cr, uid, context or {}), ids)
@@ -5237,9 +5236,6 @@ class BaseModel(object):
 
         Can take no ids, a single id or a sequence of ids.
         """
-        #johnw, fix the issue when only one id number passed in
-        if isinstance(arg,(int,long,float)):
-            arg = [arg]
         ids = _normalize_ids(arg)
         #assert all(isinstance(id, IdType) for id in ids), "Browsing invalid ids: %s" % ids
         return self._browse(self.env, ids)
@@ -6069,8 +6065,9 @@ PGERROR_TO_OE = defaultdict(
     # unique constraint error
     '23505': convert_pgerror_23505,
 })
-
-def _normalize_ids(arg, atoms={int, long, str, unicode, NewId}):
+#johnw, 07/26/2015, add 'float' to id type list
+#def _normalize_ids(arg, atoms={int, long, str, unicode, NewId}):
+def _normalize_ids(arg, atoms={int, long, str, unicode, NewId, float}):
     """ Normalizes the ids argument for ``browse`` (v7 and v8) to a tuple.
 
     Various implementations were tested on the corpus of all browse() calls
