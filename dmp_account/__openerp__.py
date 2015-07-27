@@ -19,7 +19,7 @@ Accounting base
     * Add account_voucher.invoice_id and account_move.invoice_id for the Invoice Payment
     """,
 
-    'depends': ['account'],
+    'depends': ['dmp_base','account','sale'],
     'data':[],
     'auto_install': False,
     'installable': True
