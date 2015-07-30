@@ -39,11 +39,26 @@ and Ubuntu distros, we have to override the search path, too.
 _logger = logging.getLogger(__name__)
 
 #CustomTTFonts = []
-CustomTTFonts = [["Helvetica", "MicrosoftYaHei", "c:/windows/fonts/msyh.ttf", "all"], 
-                 ["DejaVuSans", "MicrosoftYaHei", "c:/windows/fonts/msyh.ttf", "all"], 
-                 ["Times", "MicrosoftYaHei", "c:/windows/fonts/msyh.ttf", "all"], 
-                 ["Times-Roman", "MicrosoftYaHei", "c:/windows/fonts/msyh.ttf", "all"], 
-                 ["Courier", "MicrosoftYaHei", "c:/windows/fonts/msyh.ttf", "all"]]
+CustomTTFonts = [
+                 ["Helvetica", "MicrosoftYaHei", "c:/windows/fonts/msyh.ttf", "normal"], 
+                 ["Helvetica", "MicrosoftYaHei-Bold", "c:/windows/fonts/msyhbd.ttf", "bold"],
+                 #the italic font file of msyh does not exist, so bad character will be display on Italic Chinese Character
+#                 ["Helvetica-Oblique", "MicrosoftYaHei-Oblique", "c:/windows/fonts/msyh.ttf", "italic"],
+#                 ["Helvetica-BoldOblique", "MicrosoftYaHei-BoldItalic", "c:/windows/fonts/msyhbd.ttf", "bold italic"],
+                 
+                 ["DejaVuSans", "MicrosoftYaHei", "c:/windows/fonts/msyh.ttf", "normal"], 
+                 ["DejaVuSans", "MicrosoftYaHei-Bold", "c:/windows/fonts/msyhbd.ttf", "bold"],
+                 
+                 ["Times", "MicrosoftYaHei", "c:/windows/fonts/msyh.ttf", "normal"], 
+                 ["Times", "MicrosoftYaHei-Bold", "c:/windows/fonts/msyhbd.ttf", "bold"],
+                 
+                 ["Times-Roman", "MicrosoftYaHei", "c:/windows/fonts/msyh.ttf", "normal"], 
+                 ["Times-Roman", "MicrosoftYaHei-Bold", "c:/windows/fonts/msyhbd.ttf", "bold"],
+                 
+                 ["Courier", "MicrosoftYaHei", "c:/windows/fonts/msyh.ttf", "normal"], 
+                 ["Courier", "MicrosoftYaHei-Bold", "c:/windows/fonts/msyhbd.ttf", "bold"],
+                 ]
+
 from reportlab.lib.styles import ParagraphStyle
 ParagraphStyle.defaults['wordWrap'] = 'CJK'
 

@@ -39,11 +39,26 @@ and Ubuntu distros, we have to override the search path, too.
 _logger = logging.getLogger(__name__)
 
 #CustomTTFonts = []
-CustomTTFonts = [["Helvetica", "MicrosoftYaHei", "/usr/share/fonts/truetype/msyahei/msyh.ttf", "all"], 
-                 ["DejaVuSans", "MicrosoftYaHei", "/usr/share/fonts/truetype/msyahei/msyh.ttf", "all"], 
-                 ["Times", "MicrosoftYaHei", "/usr/share/fonts/truetype/msyahei/msyh.ttf", "all"], 
-                 ["Times-Roman", "MicrosoftYaHei", "/usr/share/fonts/truetype/msyahei/msyh.ttf", "all"], 
-                 ["Courier", "MicrosoftYaHei", "/usr/share/fonts/truetype/msyahei/msyh.ttf", "all"]]
+CustomTTFonts = [
+                 ["Helvetica", "MicrosoftYaHei", "/usr/share/fonts/truetype/msyahei/msyh.ttf", "normal"], 
+                 ["Helvetica", "MicrosoftYaHei-Bold", "/usr/share/fonts/truetype/msyahei/msyhbd.ttf", "bold"],
+                 #the italic font file of msyh does not exist, so bad character will be display on Italic Chinese Character
+#                 ["Helvetica-Oblique", "MicrosoftYaHei-Oblique", "/usr/share/fonts/truetype/msyahei/msyh.ttf", "italic"],
+#                 ["Helvetica-BoldOblique", "MicrosoftYaHei-BoldItalic", "/usr/share/fonts/truetype/msyahei/msyhbd.ttf", "bold italic"],
+                 
+                 ["DejaVuSans", "MicrosoftYaHei", "/usr/share/fonts/truetype/msyahei/msyh.ttf", "normal"], 
+                 ["DejaVuSans", "MicrosoftYaHei-Bold", "/usr/share/fonts/truetype/msyahei/msyhbd.ttf", "bold"],
+                 
+                 ["Times", "MicrosoftYaHei", "/usr/share/fonts/truetype/msyahei/msyh.ttf", "normal"], 
+                 ["Times", "MicrosoftYaHei-Bold", "/usr/share/fonts/truetype/msyahei/msyhbd.ttf", "bold"],
+                 
+                 ["Times-Roman", "MicrosoftYaHei", "/usr/share/fonts/truetype/msyahei/msyh.ttf", "normal"], 
+                 ["Times-Roman", "MicrosoftYaHei-Bold", "/usr/share/fonts/truetype/msyahei/msyhbd.ttf", "bold"],
+                 
+                 ["Courier", "MicrosoftYaHei", "/usr/share/fonts/truetype/msyahei/msyh.ttf", "normal"], 
+                 ["Courier", "MicrosoftYaHei-Bold", "/usr/share/fonts/truetype/msyahei/msyhbd.ttf", "bold"],
+                 ]
+
 from reportlab.lib.styles import ParagraphStyle
 ParagraphStyle.defaults['wordWrap'] = 'CJK'
 
