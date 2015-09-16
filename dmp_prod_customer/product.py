@@ -72,6 +72,8 @@ class product_product(osv.osv):
 			store={'product.customerinfo': (_get_customer, None, 10)},
 			help="Main Customer who has highest priority in Customer List."),
 		'customer_delay': fields.related('customer_ids', 'delay', type='integer', string='Customer Lead Time'),
+		'customer_product_code': fields.related('customer_ids','product_code', type='char', string='Customer Product Code',
+			store={'product.customerinfo': (_get_customer, None, 10),}),
 		'customer_product_name': fields.related('customer_ids','product_name', type='char', string='Customer Product Name',
 			store={'product.customerinfo': (_get_customer, None, 10),}),
 	}
@@ -143,6 +145,7 @@ class product_customerinfo(osv.osv):
         'product_id' : fields.many2one('product.product', 'Product', required=False, ondelete='cascade', select=True),
         'delay' : fields.integer('Delivery Lead Time', required=True),
         'company_id':fields.many2one('res.company','Company',select=1),
+        'price': fields.float('Unit Price', required=False, digits_compute=dp.get_precision('Product Price')),
     }
 	_defaults = {
         'sequence': lambda *a: 1,

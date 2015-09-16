@@ -27,3 +27,8 @@ msgstr "产品"
 msgid "Supplier Product Name"
 msgstr "供应商品名"
 
+#. module: dmp_prod_supplier
+#: field:product.product,seller_id:0
+msgid "Main Supplier"
+msgstr "主供应商"
+

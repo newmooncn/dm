@@ -10,11 +10,12 @@
             <field name="inherit_id" ref="product.product_normal_form_view"/>
             <field name="arch" type="xml">
 	            <!-- customer -->
-	            <group name="website_and_pos" position="after">
-		            <separator string="Customer"/>
+	            <group name="sale" position="before">
+		            <separator string="Customers"/>
 	            	<group name="main_customer" col="4">
 		            	<!-- <field name="customer_info_id"/> -->
 		            	<field name="customer_id"/>
+		            	<field name="customer_product_code"/>
 		            	<field name="customer_product_name"/>
 		            	<!-- <field name="customer_delay"/> -->        
 	            	</group>    	
@@ -34,6 +35,7 @@
                     <field name="name" context="{'default_customer': 1, 'search_default_customer': 1, 'default_supplier': 0}"/>
                     <field name="product_code"/>
                     <field name="product_name"/>
+                    <field name="price"/>
                     <field name="delay"/>
                     <field name="company_id" groups="base.group_multi_company" widget="selection"/>
                 </tree>
@@ -50,6 +52,7 @@
                         <field name="name" context="{'default_customer': 1, 'search_default_customer': 1, 'default_supplier': 0}"/>
                         <field name="product_code"/>
                         <field name="product_name"/>
+                        <field name="price"/>
                         <field name="delay"/>
                         <field name="company_id" groups="base.group_multi_company" widget="selection"/>
                     </group>
@@ -102,6 +105,7 @@
             <field name="arch" type="xml">
 	            <!-- supplier -->
 	            <field name="name" position="after">
+		            <field name="customer_product_code"/>
 	            	<field name="customer_product_name"/>           	
 	            </field> 	            
             </field>
@@ -113,6 +117,7 @@
             <field name="inherit_id" ref="product.product_search_form_view"/>
             <field name="arch" type="xml">
             	<field name="name" position="after">
+		            <field name="customer_product_code"/>
             		<field name="customer_product_name"/>
             	</field>
             </field>
