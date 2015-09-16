@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 OpenERP SA (<http://www.openerp.com>)
-#    Copyright (C) 2011-2013 Serpent Consulting Services Pvt. Ltd. (<http://www.serpentcs.com>).
+#    Copyright (C) 2011-2015 Serpent Consulting Services Pvt. Ltd.
+#    (<http://www.serpentcs.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -21,31 +22,20 @@
 ##############################################################################
 
 {
-    "name" : "Multi Image",
-    "version" : "1.0",
+    "name" : "Web Widget Multi Image V8",
+    "version" : "1.3",
     "author" : "Serpent Consulting Services Pvt. Ltd.",
     "category": 'Image',
     'complexity': "easy",
     'depends': ['product'],
     "description": """
-        This module provides the functionality to store multiple images for one record.
-        All images store in server directory. so database size does not increase.
     """,
-    'update_xml': [
-        'product_view.xml',
-    ],
-    'js':[
-          "static/lib/lightbox/js/jquery.lightbox.js",
-          "static/src/js/multi_image.js"
-    ],
-    'css':[
-           "static/src/css/hoverbox.css",
-           "static/lib/lightbox/css/lightbox.css",
-    ],
+    'data': [
+        'view/templates.xml',
+        'view/product_view.xml',
+        ],
     'website': 'http://www.serpentcs.com',
     'qweb': ['static/src/xml/image_multi.xml'],
     'installable': True,
     'auto_install': False,
 }
-
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:

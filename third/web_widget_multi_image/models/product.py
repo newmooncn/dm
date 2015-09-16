@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
-#    
+#
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 OpenERP SA (<http://www.openerp.com>)
-#    Copyright (C) 2011-2013 Serpent Consulting Services Pvt. Ltd. (<http://www.serpentcs.com>).
+#    Copyright (C) 2011-2015 Serpent Consulting Services Pvt. Ltd.
+#    (<http://www.serpentcs.com>).
 #
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
@@ -19,16 +20,21 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #
 ##############################################################################
+from openerp.osv import osv, fields
 
-from openerp.osv import fields, osv
-
-class product_product(osv.osv):
-    _inherit = "product.product"
-
+class multi_images(osv.osv):
+    _name = "multi.images"
+    
     _columns = {
-        'multi_images': fields.text("Multi Images"),
+        'image': fields.binary('Images'),
+        'description':fields.char('Description'),
+        'title':fields.char('title'),
+        'product_template_id' : fields.many2one('product.template','Product')
     }
 
-product_product()
+class product_template(osv.osv):
+    _inherit = "product.template"
 
-# vim:expandtab:smartindent:tabstop=4:softtabstop=4:shiftwidth=4:
+    _columns = {
+        'multi_images': fields.one2many('multi.images','product_template_id','Multi Images'),
+    }

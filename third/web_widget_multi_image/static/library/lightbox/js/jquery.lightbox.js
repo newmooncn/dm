@@ -234,8 +234,10 @@
 					newHeight = 500
 				}
 				var line_height = (newHeight / 100) * 7 + 24
-				$("#imageContainer").attr("style", "line-height:" + line_height)
-				$("#lightboxImage").attr("style", "line-height:" + line_height)
+//				$("#imageContainer").attr("style", "line-height:" + line_height)
+//				$("#lightboxImage").attr("style", "line-height:" + line_height)
+				$("#imageContainer").attr("style", "line-height:" + "")
+                $("#lightboxImage").attr("style", "line-height:" + "")
 				$('#lightboxImage').
 					attr('src', opts.imageArray[opts.activeImage][0]).
 					width(newWidth).
@@ -461,8 +463,8 @@
 		$.fn.lightbox.defaults = {
 		    triggerEvent: "click",
 			allSet: false,
-			fileLoadingImage: '/multi_image/static/lib/lightbox/images/loading.gif',
-			fileBottomNavCloseImage: '/multi_image/static/lib/lightbox/images/closelabel.gif',
+			fileLoadingImage: '/web_widget_multi_image/static/library/lightbox/images/loading.gif',
+			fileBottomNavCloseImage: '/web_widget_multi_image/static/library/lightbox/images/closelabel.gif',
 			overlayOpacity: 0.6,
 			borderSize: 10,
 			imageArray: new Array,
