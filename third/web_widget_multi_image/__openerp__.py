@@ -33,6 +33,7 @@
     'data': [
         'view/templates.xml',
         'view/product_view.xml',
+        'security/ir.model.access.csv'
         ],
     'website': 'http://www.serpentcs.com',
     'qweb': ['static/src/xml/image_multi.xml'],
