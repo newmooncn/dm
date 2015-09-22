@@ -57,18 +57,32 @@ class product_product(osv.osv):
 			store={'product.supplierinfo': (_get_seller, None, 10),}),
 	}  
 		
-#	def get_supplier_product(self, cr, uid, supplier_id, product_id, context=None):
-#		"""
-#		Get supplier product name, used by PDF
-#		"""
-#		supplier_product_name=""
-#		if isinstance(product_id,(int,long)):
-#			product_id = self.pool.get("product.product").browse(cr, uid, product_id, context=context)
-#		for supplier_info in product_id.seller_ids:
-#			if supplier_info and supplier_info.name.id == supplier_id:
-#				supplier_product_name += (supplier_info.product_code and '[%s]'%(supplier_info.product_code,) or '')
-#				supplier_product_name += supplier_info.product_name
-#		return supplier_product_name
+	def get_supplier_product(self, cr, uid, supplier_id, product_id, context=None):
+		"""
+		Get supplier product name, used by PDF
+		"""
+		supplier_product_name=""
+		if isinstance(product_id,(int,long)):
+			product_id = self.pool.get("product.product").browse(cr, uid, product_id, context=context)
+		for supplier_info in product_id.seller_ids:
+			if supplier_info and supplier_info.name.id == supplier_id:
+				supplier_product_name += (supplier_info.product_code and '[%s]'%(supplier_info.product_code,) or '')
+				supplier_product_name += supplier_info.product_name
+		return supplier_product_name
+	
+	def get_supplier_product_data(self, cr, uid, supplier_id, product_id, context=None):
+		if isinstance(product_id,(int,long)):
+			product_id = self.pool.get("product.product").browse(cr, uid, product_id, context=context)
+		supplier_product_name = ""
+		supplier_product_price = 0.0
+		for supplier_info in product_id.seller_ids:
+			if supplier_info and supplier_info.name.id == supplier_id:
+				supplier_product_name += (supplier_info.product_code and '[%s]'%(supplier_info.product_code,) or '')
+				supplier_product_name += supplier_info.product_name
+				if supplier_info.pricelist_ids:
+					for price in supplier_info.pricelist_ids:
+						supplier_product_price = price.price
+		return supplier_product_name, supplier_product_price
 	
 #	def create(self, cr, uid, vals, context=None):
 #		if vals.get('seller_ids'):

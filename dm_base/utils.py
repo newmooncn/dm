@@ -440,3 +440,16 @@ def set_seq_o2m(cr, uid, lines, m_table_name=None, o_id_name=None, o_id=None, co
     for line in lines_deal:
         seq_max += 1
         line[2]['sequence'] = seq_max
+        
+def set_resu_warn(res, message, title=None):
+    if not message: return
+    #set the return warning messages
+    warning = res.get('warning',{})
+    if warning and warning.get('message'):
+        warning['message'] = '%s\n%s'%(warning['message'], message)
+    else:
+        warning = {
+                   'title': title or 'Warning',
+                   'message' : message
+                }
+    res.update({'warning':warning})        
