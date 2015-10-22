@@ -103,6 +103,14 @@ class product_product(osv.osv):
 #			vals['customer_product_name'] = cust_product_name
 #		return super(product_product,self).create(cr, uid, vals, context=context)
 
+	def get_customer_product_info(self, cr, uid, customer_id, product_id, context=None):
+		cust_prod_obj = self.pool['product.customerinfo']
+		customer_prod_ids = cust_prod_obj.search(cr, uid, [('name','=', customer_id),('product_id','=', product_id)],context=context)
+		resu = {}
+		if customer_prod_ids:
+			resu = cust_prod_obj.read(cr, uid, customer_prod_ids[0],['product_name','product_code','price'],context=context)
+		return resu
+
 	def _create_prod_customer(self, cr, uid, prod_id, vals, context=None):
 		if not prod_id:
 			return
