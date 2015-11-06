@@ -33,6 +33,12 @@
             <field name="act_to" ref="purchase.act_invoice"/>
             <field name="signal">manual_invoice</field>
         </record>
-                  
+
+<!-- add waitting invoice to cancel transition, johnw, 11/06/2015  -->
+        <record id="trans_wait_invoice_cancel" model="workflow.transition">
+            <field name="act_from" ref="act_wait_invoice"/>
+            <field name="act_to" ref="purchase.act_cancel"/>
+            <field name="signal">purchase_cancel</field>
+        </record>                  
     </data>
 </openerp>
