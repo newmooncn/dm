@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="view_account_journal_form_active">
+            <field name="name">view_account_journal_form_active</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_form"/>
+            <field name="arch" type="xml">
+            	<field name='type' position='after'>
+            		<field name='active'/>
+            	</field>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="view_account_journal_tree_active">
+            <field name="name">view_account_journal_tree_active</field>
+            <field name="model">account.journal</field>
+            <field name="inherit_id" ref="account.view_account_journal_tree"/>
+            <field name="arch" type="xml">
+            	<field name='user_id' position='after'>
+            		<field name='active'/>
+            	</field>
+            </field>
+        </record>
+        
+        <record id="account.action_account_journal_form" model="ir.actions.act_window">
+            <field name="res_model">account.journal</field>
+            <field name="context">{'active_test': False}</field>
+        </record>
+    </data>
+</openerp>
