@@ -110,7 +110,15 @@ class product_product(osv.osv):
 		if customer_prod_ids:
 			resu = cust_prod_obj.read(cr, uid, customer_prod_ids[0],['product_name','product_code','price'],context=context)
 		return resu
-
+	
+	def get_customer_product(self, cr, uid, customer_id, product_id, context=None):
+		cust_prod_obj = self.pool['product.customerinfo']
+		customer_prod_ids = cust_prod_obj.search(cr, uid, [('name','=', customer_id),('product_id','=', product_id)],context=context)
+		cust_prod = None
+		if customer_prod_ids:
+			cust_prod = cust_prod_obj.browse(cr, uid, customer_prod_ids[0],context=context)
+		return cust_prod
+	
 	def _create_prod_customer(self, cr, uid, prod_id, vals, context=None):
 		if not prod_id:
 			return
