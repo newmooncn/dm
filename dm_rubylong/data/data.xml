@@ -1,0 +1,17 @@
+<?xml version="1.0" ?>
+<openerp>
+    <data noupdate="1">
+
+        <record id="ir_webkit_dm_rubylong_print" model="ir.header_webkit">
+            <field name="footer_html"></field>
+            <field eval="&quot;&quot;&quot;Portrait&quot;&quot;&quot;" name="orientation"/>
+            <field eval="&quot;&quot;&quot;A4&quot;&quot;&quot;" name="format"/>
+            <field name="html"><![CDATA[ ${_debug or ''|n}]]></field>
+            <field eval="55.0" name="margin_top"/>
+            <field name="css" ></field>
+            <field eval="&quot;&quot;&quot;Webkit Rubylong Print&quot;&quot;&quot;" name="name"/>
+        </record>
+
+
+    </data>
+</openerp>

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>   
+     <!--销售订单 全页-->
+     <report auto="False"
+                id="dm_rubylong_sale_order"
+                model="sale.order"
+                name="dm_rubylong_sale_order"
+                file="dm_rubylong_sale_order_T\report\dm_rubylong_sale_order.mako"
+                string="销售订单(带重量)"
+                report_type="webkit"
+                webkit_header="dm_rubylong.ir_webkit_dm_rubylong_print"
+             />
+     </data>
+</openerp>
