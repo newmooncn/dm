@@ -31,6 +31,7 @@ import pytz
 import logging
 from openerp.tools import resolve_attr 
 from openerp.osv import fields
+from pynum2word import num2word_EN
 
 _logger = logging.getLogger(__name__)
 
@@ -453,3 +454,6 @@ def set_resu_warn(res, message, title=None):
                    'message' : message
                 }
     res.update({'warning':warning})        
+    
+def number2words_en_upper(num):
+    return num2word_EN.to_card(num).upper()

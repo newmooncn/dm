@@ -1,21 +1,22 @@
 # -*- coding: utf-8 -*-
 ##############################################################################
 # OpenERP Connector
-# Copyright 2013 DMEMS <johnw@dmems.com>
+# Copyright 2015 DMEMS <johnw@dmems.com>
 ##############################################################################
 
 {
     'name': 'dm rubylong',
-    'summary': '锐浪报表JS',
+    'summary': '锐浪报表模版',
     'version': '1.0',
     'category': 'report',
     'sequence': 21,
     'author': 'DMEMS',
     'website': 'http://www.dmems.com',
     'images': [''],
-   "depends": ['base', 'report_webkit','web_pdf_preview'],
+   "depends": ['base', 'web_pdf_preview'],
     'data': [
-        'data/data.xml',
+        'rubylong_security.xml',
+        'rubylong_templates.xml',
     ],
     'installable': True,
     'application': True,
