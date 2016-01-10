@@ -58,6 +58,17 @@
 				                    
                 </head>
                 <body>	
+					<script type="text/javascript" id="report_set">   
+						//set download file name
+						window.onload=function(){
+							rpt = document.getElementById('ReportViewer').Report;
+							var title = "<t t-esc='report_title'/>";
+							<t t-if="len(doc_ids)==1">
+								title += "_<t t-esc='docs[0].name'/>";
+							</t>
+							rpt.Title = title;
+						} 
+					</script>
                 </body>
             </html>
         </template>

@@ -139,6 +139,9 @@ class ir_actions_report_xml(orm.Model):
         
         #the report file used to render report 
         'rubylong_file_path': fields.function(_rubylong_info,  type='char', size=128, string='Report template file path', multi='rubylong'),
+        
+        #user defined report downlod file name, if not defined then use report name as the download file name
+        'download_file_name': fields.char('Report file name', help='If not set then use report name as download file name'),
     }
     
 class Report(orm.Model):
@@ -148,6 +151,7 @@ class Report(orm.Model):
         report = self._get_report_from_name(cr, uid, template)
         if report.is_rubylong:
             values.update({'rubylong_file_path':report.rubylong_file_path})    
+        values.update({'report_title':report.download_file_name or report.name})
         return super(Report, self).render(cr, uid, ids, template, values=values, context=context)
         
         

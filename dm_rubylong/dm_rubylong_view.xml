@@ -11,9 +11,7 @@
             	</field>
             	<notebook position="inside">
 	                <page string="Rubylong Report" attrs="{'invisible':['|', ('is_rubylong','=',False),('report_type','!=', 'qweb-html')]}">
-	                    <group name="rubylong">
-	                    	<field name="default_rubylong_file_path" readonly="1" groups="base.group_no_one"/>
-	                    	
+	                    <group name="rubylong">	                    	
 		                    <label for="default_rubylong_file"/>
 		                    <div>
 		                    	<field name="default_rubylong_file_name" invisible="1"/>
@@ -38,7 +36,10 @@
 		                        <field name="user_rubylong_data_file" filename="user_rubylong_data_file_name" class="oe_inline"/>
 		                    </div>
 		                    
+		                    <field name="download_file_name"/>
+		                    
 	                    	<field name="rubylong_file_path" groups="base.group_no_one"/>  	
+	                    	<field name="default_rubylong_file_path" readonly="1" groups="base.group_no_one"/>
 	                    </group>
 	                </page>
             	</notebook>
