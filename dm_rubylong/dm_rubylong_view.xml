@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record model="ir.ui.view" id="act_report_xml_view_rubylong">
+            <field name="name">act_report_xml_view_rubylong</field>
+            <field name="model">ir.actions.report.xml</field>
+            <field name="inherit_id" ref="base.act_report_xml_view"/>
+            <field name="arch" type="xml">
+            	<field name="report_rml" position="after">
+            		<field name="is_rubylong" attrs="{'invisible':[('report_type','!=', 'qweb-html')]}"/>
+            	</field>
+            	<notebook position="inside">
+	                <page string="Rubylong Report" attrs="{'invisible':['|', ('is_rubylong','=',False),('report_type','!=', 'qweb-html')]}">
+	                    <group name="rubylong">
+	                    	<field name="default_rubylong_file_path" readonly="1" groups="base.group_no_one"/>
+	                    	
+		                    <label for="default_rubylong_file"/>
+		                    <div>
+		                    	<field name="default_rubylong_file_name" invisible="1"/>
+		                        <field name="default_rubylong_file" filename="default_rubylong_file_name" class="oe_inline"/>
+		                    </div>
+		                    
+		                    <label for="default_rubylong_data_file"/>
+		                    <div>
+		                    	<field name="default_rubylong_data_file_name" invisible="1"/>
+		                        <field name="default_rubylong_data_file" filename="default_rubylong_data_file_name" class="oe_inline"/>
+		                    </div>
+		                    
+		                    <label for="user_rubylong_file"/>
+		                    <div>
+		                    	<field name="user_rubylong_file_name" invisible="1"/>
+		                        <field name="user_rubylong_file" filename="user_rubylong_file_name" class="oe_inline"/>
+		                    </div>
+		                    
+		                    <label for="user_rubylong_data_file"/>
+		                    <div>
+		                    	<field name="user_rubylong_data_file_name" invisible="1"/>
+		                        <field name="user_rubylong_data_file" filename="user_rubylong_data_file_name" class="oe_inline"/>
+		                    </div>
+		                    
+	                    	<field name="rubylong_file_path" groups="base.group_no_one"/>  	
+	                    </group>
+	                </page>
+            	</notebook>
+            </field>
+        </record>
+    </data>
+</openerp>

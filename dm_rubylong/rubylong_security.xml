@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <openerp>
 <data noupdate="0">
-    
+    <!-- the group can be use in future for the desinger to change report layout in future -->
     <record id="group_rubylong_designer" model="res.groups">
         <field name="name">Rubylong Designer</field>
         <field name="category_id" ref="base.module_category_hidden"/>

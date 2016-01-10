@@ -457,3 +457,7 @@ def set_resu_warn(res, message, title=None):
     
 def number2words_en_upper(num):
     return num2word_EN.to_card(num).upper()
+
+def number2words_en_upper2(num):
+    #remove the ','
+    return number2words_en_upper(num).replace(',', '')

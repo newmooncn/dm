@@ -13,10 +13,11 @@
     'author': 'DMEMS',
     'website': 'http://www.dmems.com',
     'images': [''],
-   "depends": ['base', 'web_pdf_preview'],
+   "depends": ['base', 'web_pdf_preview', 'report'],
     'data': [
         'rubylong_security.xml',
         'rubylong_templates.xml',
+        'dm_rubylong_view.xml'
     ],
     'installable': True,
     'application': True,
