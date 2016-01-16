@@ -3,7 +3,7 @@
 -->
 <openerp>
     <data>
-        <template id="dm_rubylong.layout" name="Rubylong layout">&lt;!DOCTYPE html&gt;
+        <template id="dm_rubylong.layout_base" name="Rubylong layout base">&lt;!DOCTYPE html&gt;
             <html style="height: 100%">
                 <head>
                     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -31,7 +31,7 @@
 					    var cur_time = new Date().getTime();
 				        //var url_report_read = 'GET::<t t-esc="url_report_read"/>?dt=' + cur_time;
 				        var url_report_read = 'GET::<t t-esc="rubylong_file_path"/>?dt=' + cur_time;
-				        var url_data_load = 'GET::<t t-raw='docs[0].rubylong_xml_file'/>?dt=' + cur_time;
+				        <t t-raw="0"/>
 					    //var to_desigin = <t t-esc="to_design"/>;\
 					    var to_desigin = false;
 				        if (!to_desigin) {		
@@ -71,6 +71,12 @@
 					</script>
                 </body>
             </html>
+        </template>
+        <template id="dm_rubylong.layout" name="Rubylong layout">
+        	<!-- use the standard metod  docs[0].rubylong_xml_file to replace the <t t-raw="0"/> in dm_rubylong.layout.base-->
+		    <t t-call="dm_rubylong.layout_base">
+		    	var url_data_load = 'GET::<t t-raw='docs[0].rubylong_xml_file'/>?dt=' + cur_time;
+		    </t>
         </template>
 
     </data>

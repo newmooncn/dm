@@ -11,8 +11,8 @@ from xml.sax.saxutils import escape
 import os
 from openerp.osv import osv
 
-def get_rubylong_fields_xml(obj, tag_name, field_list):
-    data_xml = "<%s>"%(tag_name, )
+def get_rubylong_fields_xml_body(obj, field_list):
+    data_xml = ''
     for field_name in field_list:
         field_value = None
         if isinstance(field_name, tuple):
@@ -31,8 +31,13 @@ def get_rubylong_fields_xml(obj, tag_name, field_list):
         #xml escape
         if isinstance(field_value,(type(u' '),type(' '))):
             field_value = escape(field_value)        
+            field_value = field_value.strip()
         data_xml += '<%s>%s</%s>'%(xml_name, field_value, xml_name)
-            
+    return data_xml
+
+def get_rubylong_fields_xml(obj, tag_name, field_list):    
+    data_xml = "<%s>"%(tag_name, )
+    data_xml += get_rubylong_fields_xml_body(obj, field_list)            
     data_xml += "</%s>"%(tag_name, )
     return data_xml
 
