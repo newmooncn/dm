@@ -11,6 +11,9 @@ from xml.sax.saxutils import escape
 import os
 from openerp.osv import osv
 
+import logging
+_logger = logging.getLogger(__name__)
+
 def get_rubylong_fields_xml_body(obj, field_list):
     data_xml = ''
     for field_name in field_list:
@@ -51,8 +54,11 @@ def get_rublong_data_file_name(obj, data_xml, dbname='db_none'):
     file_name = '%s_%s.xml'%(obj._name.replace('.','_'),obj.id)
     file_name_full = os.path.join(file_path, file_name)
     file_obj = open(file_name_full,'w')
+    _logger.debug('@@@@@@@@@@@: %s', file_name_full)
     file_obj.write('<xml>'+data_xml+'</xml>')
+    _logger.debug('@@@@@@@@@@@: writed file')
     file_obj.close()
+    _logger.debug('@@@@@@@@@@@: closed file')
     return file_name, file_name_full
 
 def get_rublong_data_url(obj, data_xml, dbname='db_none'):
