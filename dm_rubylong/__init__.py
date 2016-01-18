@@ -11,6 +11,14 @@ from xml.sax.saxutils import escape
 import os
 from openerp.osv import osv
 
+'''
+fix below isuee in code: file_obj.write('<xml>'+data_xml+'</xml>')
+'ascii' codec can't encode characters in position 1714-1734: ordinal not in range(128)
+'''
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 import logging
 _logger = logging.getLogger(__name__)
 
