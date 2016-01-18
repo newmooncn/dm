@@ -61,12 +61,29 @@
 					<script type="text/javascript" id="report_set">   
 						//set download file name
 						window.onload=function(){
+							//set report title
 							rpt = document.getElementById('ReportViewer').Report;
 							var title = "<t t-esc='report_title'/>";
 							<t t-if="len(doc_ids)==1">
 								title += "_<t t-esc='docs[0].name'/>";
 							</t>
 							rpt.Title = title;
+							
+							//export options setting
+							ReportViewer.Report.OnExportBegin = OnExportBegin;
+							
+							//ref Grid++Report 6\WebSamples\jsp\03.Export
+							function OnExportBegin(OptionObject) 
+							{
+							    var Report = ReportViewer.Report;
+							    if (OptionObject.ExportType == 5) //gretPDF	
+							    {
+							        var E2PDFOption = OptionObject.AsE2PDFOption;
+							        E2PDFOption.AnsiTextMode = false;
+							        //下面代码不能控制是否压缩选项
+							        E2PDFOption.Compressed = false;
+							    }
+							}							
 						} 
 					</script>
                 </body>
