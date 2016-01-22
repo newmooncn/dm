@@ -37,8 +37,9 @@ def get_rubylong_fields_xml_body(obj, field_list):
         else:
             xml_name = field_name.replace('.', '_')
             field_value = resolve_attr(obj, field_name)
-        #change the false field to '', otherwise the 'false' string will be generated to xml
-        field_value = field_value or ''
+        #change the false field to '', otherwise the 'false' string will be generated to xml        #change the false field to '', otherwise the 'false' string will be generated to xml
+        if isinstance(field_value,bool) and not field_value:
+            field_value = ''
         #xml escape
         if isinstance(field_value,(type(u' '),type(' '))):
             field_value = escape(field_value)        
