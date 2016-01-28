@@ -25,7 +25,41 @@
 						        alert("保存报表成功!");
 						    else
 						        alert("保存报表失败!");
-						}						 
+						}		
+						function getFileName(report_obj){
+							var title = "<t t-esc='report_title'/>";
+							<t t-if="len(doc_ids)==1">
+								title += "_<t t-esc='docs[0].name'/>";
+							</t>
+							return title
+						}			
+						//ref Grid++Report 6\WebSamples\jsp\03.Export
+						function OnExportBegin(OptionObject) 
+						{
+						    if (OptionObject.ExportType == 5) //gretPDF	
+						    {
+						        var E2PDFOption = OptionObject.AsE2PDFOption;
+						        E2PDFOption.AnsiTextMode = false;
+						        //下面代码不能控制是否压缩选项
+						        E2PDFOption.Compressed = false;
+						    }
+						}		
+						//does not work
+						function OnExportEnd(OptionObject)
+						{
+						    window.close();
+						}										
+						function window_onload() {
+				        	var export_direct = <t t-esc="export_direct"/>;
+				        	var rpt_obj;
+				        	if (export_direct != 1) {
+				        		 rpt_obj = ReportViewer.Report;	        		 				        		
+				        	} else {
+				        		rpt_obj = Report;
+					        }
+					        rpt_obj.OnExportBegin = OnExportBegin;
+					        rpt_obj.OnExportEnd = OnExportEnd;					        						    
+						}
 					</script>
 					<script type="text/javascript" id="rubylong_run">
 					    var cur_time = new Date().getTime();
@@ -35,7 +69,19 @@
 					    //var to_desigin = <t t-esc="to_design"/>;\
 					    var to_desigin = false;
 				        if (!to_desigin) {		
-				        	CreatePrintViewerEx("100%", "100%", url_report_read , url_data_load, true, "&lt;param name=BorderStyle value=1&gt;");
+				        	var export_direct = <t t-esc="export_direct"/>
+				        	if (export_direct != 1) {
+				        		CreatePrintViewerEx("100%", "100%", url_report_read , url_data_load, true, "&lt;param name=BorderStyle value=1&gt;");
+				        		ReportViewer.report.title = getFileName(ReportViewer.Report)
+				        		
+				        	} else {
+					        	CreateReport('Report');
+					        	Report.OnExportBegin = OnExportBegin;
+					        	file_name = getFileName(Report)
+					        	Report.LoadFromURL(url_report_read);
+					        	Report.LoadDataFromURL(url_data_load);
+					        	Report.ExportDirect(<t t-esc="export_direct_type"/>,file_name,true, true);
+					        }
 				        } else {
 				        	/*
 				        	TODO Since rubylong can not get the seesion's cookie under firefox and chrome, 
@@ -57,38 +103,11 @@
 				    </style>
 				                    
                 </head>
-                <body>	
-					<script type="text/javascript" id="report_set">   
-						//set download file name
-						window.onload=function(){
-							//set report title
-							rpt = document.getElementById('ReportViewer').Report;
-							var title = "<t t-esc='report_title'/>";
-							<t t-if="len(doc_ids)==1">
-								title += "_<t t-esc='docs[0].name'/>";
-							</t>
-							rpt.Title = title;
-							
-							//export options setting
-							ReportViewer.Report.OnExportBegin = OnExportBegin;
-							
-							//ref Grid++Report 6\WebSamples\jsp\03.Export
-							function OnExportBegin(OptionObject) 
-							{
-							    var Report = ReportViewer.Report;
-							    if (OptionObject.ExportType == 5) //gretPDF	
-							    {
-							        var E2PDFOption = OptionObject.AsE2PDFOption;
-							        E2PDFOption.AnsiTextMode = false;
-							        //下面代码不能控制是否压缩选项
-							        E2PDFOption.Compressed = false;
-							    }
-							}							
-						} 
-					</script>
+                <body onload="window_onload()">	
                 </body>
             </html>
         </template>
+        
         <template id="dm_rubylong.layout" name="Rubylong layout">
         	<!-- use the standard metod  docs[0].rubylong_xml_file to replace the <t t-raw="0"/> in dm_rubylong.layout.base-->
 		    <t t-call="dm_rubylong.layout_base">

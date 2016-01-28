@@ -40,6 +40,9 @@
 		                    
 	                    	<field name="rubylong_file_path" groups="base.group_no_one"/>  	
 	                    	<field name="default_rubylong_file_path" readonly="1" groups="base.group_no_one"/>
+	                    	
+	                    	<field name="export_direct"/>
+	                    	<field name="export_direct_type"/>
 	                    </group>
 	                </page>
             	</notebook>

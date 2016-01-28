@@ -142,8 +142,15 @@ class ir_actions_report_xml(orm.Model):
         
         #user defined report downlod file name, if not defined then use report name as the download file name
         'download_file_name': fields.char('Report file name', help='If not set then use report name as download file name'),
+        'export_direct': fields.boolean('Export direct'),
+        'export_direct_type': fields.selection([('1','Excel'),('2','Txt'),('3','Html'),('4','RTF'),('5','PDF'),('6','CSV'),('7','Image')], string = 'Export Type'),
     }
     
+    def default_get(self, cr, uid, fields_list, context=None):
+        vals = super(ir_actions_report_xml,self).default_get(cr, uid, fields_list, context)
+        vals['export_direct_type'] = '5'
+        return vals
+        
 class Report(orm.Model):
     _inherit = 'report'        
     def render(self, cr, uid, ids, template, values=None, context=None):
@@ -152,6 +159,8 @@ class Report(orm.Model):
         if report.is_rubylong:
             values.update({'rubylong_file_path':report.rubylong_file_path})    
         values.update({'report_title':report.download_file_name or report.name})
+        #update export parameter
+        values.update({'export_direct':report.export_direct and 1 or 0, 'export_direct_type':report.export_direct_type})
         return super(Report, self).render(cr, uid, ids, template, values=values, context=context)
         
         
