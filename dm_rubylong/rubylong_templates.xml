@@ -53,10 +53,11 @@
 				        	var export_direct = <t t-esc="export_direct"/>;
 				        	var rpt_obj;
 				        	if (export_direct != 1) {
-				        		 rpt_obj = ReportViewer.Report;	        		 				        		
+				        		 rpt_obj = ReportViewer.Report;
+				        		 rpt_obj.Title = getFileName(rpt_obj);
 				        	} else {
 				        		rpt_obj = Report;
-					        }
+					        }					        
 					        rpt_obj.OnExportBegin = OnExportBegin;
 					        rpt_obj.OnExportEnd = OnExportEnd;					        						    
 						}
@@ -72,8 +73,6 @@
 				        	var export_direct = <t t-esc="export_direct"/>
 				        	if (export_direct != 1) {
 				        		CreatePrintViewerEx("100%", "100%", url_report_read , url_data_load, true, "&lt;param name=BorderStyle value=1&gt;");
-				        		ReportViewer.report.title = getFileName(ReportViewer.Report)
-				        		
 				        	} else {
 					        	CreateReport('Report');
 					        	Report.OnExportBegin = OnExportBegin;
