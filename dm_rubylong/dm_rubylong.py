@@ -160,7 +160,7 @@ class Report(orm.Model):
             values.update({'rubylong_file_path':report.rubylong_file_path})    
         values.update({'report_title':report.download_file_name or report.name})
         #update export parameter
-        values.update({'export_direct':report.export_direct and 1 or 0, 'export_direct_type':report.export_direct_type})
+        values.update({'export_direct':report.export_direct and 1 or 0, 'export_direct_type':report.export_direct_type or '5'})
         return super(Report, self).render(cr, uid, ids, template, values=values, context=context)
         
         
