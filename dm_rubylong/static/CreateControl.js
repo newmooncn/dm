@@ -3,7 +3,7 @@
 //2、gr_Version 等号后面的参数是插件安装包的版本号，如果有新版本插件安装包，应上传新版
 //   本插件安装文件到网站对应目录，并更新这里的版本号。
 //3、更多详细信息请参考帮助中“报表插件(WEB报表)->在服务器部署插件安装包”部分
-var gr_InstallPath = "grinstall"; //实际项目中应该写从根目录寻址的目录，如gr_InstallPath="/myapp/report/grinstall"; 
+var gr_InstallPath = "/dm_rubylong/static"; //实际项目中应该写从根目录寻址的目录，如gr_InstallPath="/myapp/report/grinstall"; 
 var gr_Version = "6,0,15,0819";
 
 //以下注册号为本机开发测试注册号，报表访问地址为localhost时可以去掉试用标志
