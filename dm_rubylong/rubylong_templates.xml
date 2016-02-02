@@ -83,6 +83,7 @@
 					        	Report.LoadFromURL(url_report_read);
 					        	Report.LoadDataFromURL(url_data_load);
 					        	Report.ExportDirect(<t t-esc="export_direct_type"/>,file_name,true, true);
+					        	window.close();
 					        }
 				        } else {
 				        	/*
