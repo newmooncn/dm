@@ -3,7 +3,7 @@
 -->
 <openerp>
     <data>
-        <template id="dm_rubylong.layout_base" name="Rubylong layout base">&lt;!DOCTYPE html&gt;
+        <template id="dm_rubylong.layout_core" name="Rubylong layout base">&lt;!DOCTYPE html&gt;
             <html style="height: 100%">
                 <head>
                     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
@@ -32,7 +32,7 @@
 						function getFileName(report_obj){
 							var title = "<t t-esc='report_title'/>";
 							<t t-if="len(doc_ids)==1">
-								title += "_<t t-esc='docs[0].name'/>";
+								title += "_<t t-esc='object_title'/>";
 							</t>
 							return title
 						}			
@@ -114,6 +114,31 @@
             </html>
         </template>
         
+        <!-- the template that set the default object title to object.name
+        if user want to use other fields then need use code like below:
+		<template id="account.debit_note">
+        	<t t-set="object_title" t-value="docs[0].number"></t>
+		    <t t-call="dm_rubylong.layout_core">
+		    	var url_data_load = 'GET::<t t-raw='docs[0].rubylong_xml_file_dn'/>?dt=' + cur_time;
+		    </t>
+		</template>	        
+        
+         -->
+        <template id="dm_rubylong.layout_base" name="Rubylong layout">
+        	<t t-set="object_title" t-value="docs[0].name"></t>
+		    <t t-call="dm_rubylong.layout_core">
+		    	<t t-raw="0"/>
+		    </t>
+        </template>
+        
+        <!-- default template use object name as object title and rubylong_xml_file as report data field
+        if user want to use name as object title, but use other data field:
+		<template id="account.debit_note">
+		    <t t-call="dm_rubylong.layout_base">
+		    	var url_data_load = 'GET::<t t-raw='docs[0].rubylong_xml_file_dn'/>?dt=' + cur_time;
+		    </t>
+		</template>	        
+        -->
         <template id="dm_rubylong.layout" name="Rubylong layout">
         	<!-- use the standard metod  docs[0].rubylong_xml_file to replace the <t t-raw="0"/> in dm_rubylong.layout.base-->
 		    <t t-call="dm_rubylong.layout_base">
