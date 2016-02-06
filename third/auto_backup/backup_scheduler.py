@@ -145,7 +145,7 @@ password=passwordLogin)
                 except:
                     raise
                 #Create name for dumpfile.
-                bkp_file='%s_%s.dump' % (time.strftime('%d_%m_%Y_%H_%M_%S'),rec.name)
+                bkp_file='%s_%s.zip' % (rec.name, time.strftime('%Y%m%d_%H_%M_%S'))
                 file_path = os.path.join(rec.bkp_dir,bkp_file)
                 uri = 'http://' + rec.host + ':' + rec.port
                 conn = xmlrpclib.ServerProxy(uri + '/xmlrpc/db')
@@ -253,8 +253,8 @@ password=passwordLogin)
                     now = datetime.datetime.now()
                     delta  = now - createtime
                     if delta.days >= rec.daystokeep:
-                        #Only delete files (which are .dump), no directories.
-                        if os.path.isfile(fullpath) and ".dump" in f:
+                        #Only delete files (which are .zip and same db:rec.name), no directories.
+                        if os.path.isfile(fullpath) and ".zip" in f and rec.name in f:
                             print("Delete: " + fullpath)
                             os.remove(fullpath)
 
