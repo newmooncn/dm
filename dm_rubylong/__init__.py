@@ -34,10 +34,15 @@ def get_rubylong_fields_xml_body(obj, field_list):
             if field_value and len(field_name) == 3 and callable(field_name[2]):
                 #need transfer field value
                 field_value = field_name[2](field_value)
+        elif isinstance(field_name, dict):
+            #直接将字段值传入方式: {锐浪报表字段名(xml元素名字):字段值}
+            field_info = field_name.items()[0]
+            xml_name = field_info[0]
+            field_value = field_info[1]                
         else:
             xml_name = field_name.replace('.', '_')
             field_value = resolve_attr(obj, field_name)
-        #change the false field to '', otherwise the 'false' string will be generated to xml        #change the false field to '', otherwise the 'false' string will be generated to xml
+        #change the false field to '', otherwise the 'false' string will be generated to xml
         if isinstance(field_value,bool) and not field_value:
             field_value = ''
         #xml escape
